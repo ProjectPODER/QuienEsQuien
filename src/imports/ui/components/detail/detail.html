@@ -1,0 +1,50 @@
+<template name="DetailWrapper">
+  {{#dynamicTabs name="sim" tabs=tabs activeTab=activeTab}}
+      {{#tabContent slug="view"}}
+        {{> cytoscapeVisualization origin=documentData }}
+      {{/tabContent}}
+
+      {{#tabContent slug="read"}}
+        {{#if isOrganization }}
+          {{> orgView document=documentData }}
+        {{/if}}
+        {{#if isPerson }}
+          {{> personView person=documentData }}
+        {{/if}}
+      {{/tabContent}}
+
+      {{#if documentData.contract_count }}
+        {{#tabContent slug="contracts"}}
+          {{> ContractsOfOrgWrapper document=documentData }}
+        {{/tabContent}}
+      {{/if}}
+
+      {{#if currentUser }}
+        {{#tabContent slug="edit"}}
+          {{#if isOrganization }}
+            {{> upsertOrganisationForm
+              selectedOrganizationDoc=documentData
+              formType='method-update'
+              meteormethod="Orgs.methods.update"
+            }}
+          {{/if}}
+          {{#if isPerson }}
+            {{> person_update_form
+              selectedPersonDoc=documentData
+              formType='method-update'
+              meteormethod="Persons.methods.update"
+            }}
+          {{/if}}
+        {{/tabContent}}
+
+        {{#tabContent slug="history"}}
+          {{> History document=documentData }}
+        {{/tabContent}}
+
+        {{#tabContent slug="similar"}}
+          {{> Similar document=documentData }}
+        {{/tabContent}}
+
+      {{/if}}
+  {{/dynamicTabs}}
+</template>

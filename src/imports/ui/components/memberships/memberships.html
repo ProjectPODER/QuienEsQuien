@@ -1,0 +1,113 @@
+<template name="Memberships">
+  {{#unless ready }}
+    {{> loading }}
+  {{else}}
+    {{#unless isEmpty board}}
+      {{> boardMembers board=board isOrganization=isOrganization isPerson=isPerson }}
+    {{/unless}}
+
+    {{#if isOrganization }}
+      {{#unless isEmpty shareholders }}
+        {{> shareHolders shareholders=shareholders isOrganization=isOrganization isPerson=isPerson }}
+      {{/unless}}
+    {{/if}}
+
+    {{#unless isEmpty shares}}
+      {{> hasShares shares=shares isOrganization=isOrganization   isPerson=isPerson }}
+    {{/unless}}
+  {{/unless}}
+</template>
+
+<template name="boardMembers">
+  <div class="memberships clearfix">
+    <h3 class="detail_header">{{__ "board memberships" }}</h3>
+    <table class="table">
+      <thead class="detail_table_header">
+        <tr>
+          <th>{{__ "name" }}</th>
+          <th>{{__ "role" }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each member in board }}
+          <tr>
+            <td>
+              {{#if isOrganization }}
+                <a href="/persons/{{ member.person_id }}#vista" class="link-to-person">{{member.person}}</a>
+              {{/if}}
+              {{#if isPerson }}
+                <a href="/orgs/{{ member.sob_org }}#vista" class="link-to-org">{{member.sob_org}}</a>
+              {{/if}}
+            </td>
+            <td>{{member.role}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="shareHolders">
+  <div class="suborganization_of clearfix">
+    <h3 class="detail_header">{{__ "shareholders" }}</h3>
+    <table class="table">
+      <thead class="detail_table_header">
+        <tr>
+          <th>{{__ "name" }}</th>
+          <th>{{__ "shares" }}</th>
+          <th>{{__ "ultimate parent"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each shareholder in shareholders }}
+          <tr>
+            <td>
+              {{#if shareholder.org_id}}
+                <a href="/orgs/{{shareholder.org_id}}#vista" class="link-to-org">{{shareholder.org}}</a>
+              {{/if}}
+              {{#if shareholder.person_id}}
+                <a href="/persons/{{shareholder.person_id}}#vista" class="link-to-org">{{shareholder.person}}</a>
+              {{/if}}
+            </td>
+            <td>
+              {{#if notZero shareholder.shares}}{{shareholder.shares}}%{{/if}}
+            </td>
+            <td class="text-center text-success">
+              {{#if shareholder.parent}}
+                <i class="fa fa-check" aria-hidden="true"></i>
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="hasShares">
+  <div class="has_suborganizations clearfix">
+    <h3 class="detail_header">{{__ "shares" }}</h3>
+    <table class="table">
+      <thead class="detail_table_header">
+        <tr>
+          <th>{{__ "name" }}</th>
+          <th>{{__ "shares" }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each share in shares}}
+          <tr>
+            <td>
+              {{#if share.sob_org}}
+                <a href="/orgs/{{share.sob_org}}#vista" class="link-to-org">{{share.sob_org}}</a>
+              {{/if}}
+            </td>
+            <td>
+              {{#if notZero share.shares}}{{share.shares}}%{{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>

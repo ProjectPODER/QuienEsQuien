@@ -1,0 +1,1249 @@
+<template name="esquema">
+  <h1 class='page-title'>{{__ 'Schema'}}</h1>
+<nav id="table-of-contents">
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgheadline3">1. Persona</a>
+<ul>
+<li><a href="#orgheadline1">1.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline2">1.2. Esquema JSON</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline7">2. Organización</a>
+<ul>
+<li><a href="#orgheadline4">2.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline5">2.2. Esquema JSON</a></li>
+<li><a href="#orgheadline6">2.3. Implementación</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline10">3. Compañía</a>
+<ul>
+<li><a href="#orgheadline8">3.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline9">3.2. JSON</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline14">4. Membresía</a>
+<ul>
+<li><a href="#orgheadline11">4.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline12">4.2. JSON</a></li>
+<li><a href="#orgheadline13">4.3. Implementación</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline18">5. Referencia</a>
+<ul>
+<li><a href="#orgheadline15">5.1. Casos de uso y Requisitos</a></li>
+<li><a href="#orgheadline16">5.2. JSON</a></li>
+<li><a href="#orgheadline17">5.3. Implementación</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline21">6. Referencia</a>
+<ul>
+<li><a href="#orgheadline19">6.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline20">6.2. JSON</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline24">7. Dirección</a>
+<ul>
+<li><a href="#orgheadline22">7.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline23">7.2. JSON</a></li>
+</ul>
+</li>
+<li><a href="#orgheadline28">8. Competidores</a>
+<ul>
+<li><a href="#orgheadline25">8.1. Casos de uso y requisitos</a></li>
+<li><a href="#orgheadline26">8.2. JSON</a></li>
+<li><a href="#orgheadline27">8.3. Implementación</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<div id="outline-container-orgheadline3" class="outline-2">
+<h2 id="orgheadline3"><span class="section-number-2">1</span> Persona</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-orgheadline1" class="outline-3">
+<h3 id="orgheadline1"><span class="section-number-3">1.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>id (user_id)
+<ul class="org-ul">
+<li>formato_ string</li>
+</ul></li>
+
+<li>nombre (name)
+<ul class="org-ul">
+<li>nombre de una persona real, viva o muerta.</li>
+<li>formato: string</li>
+<li>autocomplete: colección de personas.</li>
+</ul></li>
+
+<li>prefijo (prefix)
+<ul class="org-ul">
+<li>posible título académico, militar, médico, e.g. "Ph.d, MD, Marine"</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>sufijo (suffix)
+<ul class="org-ul">
+<li>sufijo que agrega información al nombre, e.g. C.A., Jr., J.D., Bsc</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>género (gender)
+<ul class="org-ul">
+<li>sexo de la persona</li>
+<li>formato: string</li>
+<li>valores esperados:
+<ul class="org-ul">
+<li>Femenino</li>
+<li>Masculino</li>
+<li>Otro</li>
+</ul></li>
+</ul></li>
+
+<li>nacionalidad (nationality)
+<ul class="org-ul">
+<li>nacionalidad de la persona</li>
+<li>formato: string</li>
+<li>valores esperados: drop down menu con los valores de una o varias nacionalidades.</li>
+</ul></li>
+
+<li>dirección (address)
+<ul class="org-ul">
+<li>expresa donde viven las personas que son miembros de la organización.</li>
+<li>formato: esquema de dirección</li>
+<li>valores esperados:
+<ul class="org-ul">
+<li>"país"(country): drop down con lista de países
+<ul class="org-ul">
+<li>formato: string</li>
+<li>autocomplete: sí. lista de países</li>
+</ul></li>
+<li>"estado o provincia"(state): drop down con estados
+<ul class="org-ul">
+<li>formato: string</li>
+<li>autocomplete: sí. lista de estados o provincias dependientes del valor "país".</li>
+</ul></li>
+<li>"ciudad"(city): drop down de ciudades
+<ul class="org-ul">
+<li>formato: string</li>
+<li>autocomplete: sí. Lista de ciudades circunscritas en la división geográfica descrita en "país" y "estado o provincia"</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li>fecha de nacimiento (date_birth)
+<ul class="org-ul">
+<li>expresa datos biográficos de la persona</li>
+<li>formato: date (dd - mm - yyyy)</li>
+</ul></li>
+
+<li>fecha de muerte (date_death)
+<ul class="org-ul">
+<li>expresa a una persona que ha fallecido y que sus vínculos no son actuales.</li>
+<li>formato: (dd - mm - yyyy)</li>
+</ul></li>
+
+<li>membresías (memberships)
+<ul class="org-ul">
+<li>Relación binaria entre una persona y/o organización con otra persona y/o organización.</li>
+<li>formato: Esquema de membresía</li>
+</ul></li>
+
+<li>imagen (image)
+<ul class="org-ul">
+<li>foto de la persona</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>propiedad (owns)
+<ul class="org-ul">
+<li>empresas que la persona posee</li>
+<li>formato: Esquema de propiedad</li>
+</ul></li>
+
+<li>referencias (references)
+<ul class="org-ul">
+<li>fuente de los datos</li>
+<li>formato: Esquema de plantilla</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline2" class="outline-3">
+<h3 id="orgheadline2"><span class="section-number-3">1.2</span> Esquema JSON</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-js">{
+  "user_id": "",
+  "name": "Alejandro Ramírez Magaña",
+  "prefix": "",
+  "suffix": "",
+  "gender": "Masculino",
+  "nationality": "Mexicano"
+  "address": {
+      "city": "Morelia",
+      "state_or_province": "Michoacán",
+      "country": "México"
+    },
+  "date_birth": 14-05-1989,
+  "date_death": ,
+  "memberships": [
+    {
+      "name": "Cinépolis, S.A.",
+      "role": "Presidente",
+      "department": "Junta directiva",
+      "id_organización": 753159
+      "start_date":
+      "end_date":
+    },
+    {
+      "name": "IGNIA, S.A."
+      "role": "Consejero Independiente",
+      "department": "Junta directiva",
+      "id_organización": 456123
+      "start_date":
+      "end_date":
+    }
+  ],
+  "owns": [
+    {
+      "company_id": "",
+      "name": "Cinépolis, S.A."
+      "%_shares": 89.9%
+    },
+  ]
+  "image": "http://www.estoesunaprueba.cool",
+  "references": [
+    {
+      "name": "Perfil de Alejandro Ramírez"
+      "url": "https://www.quienesquien.wiki"
+      "author": "",
+      "publication_date": "13-09-2009",
+      "publication_place": "Quién es quién wiki",
+    },
+    {
+      "text_name": "Biografía de Alejandro Ramírez",
+      "publication_date": "15-98-2007",
+      "publication_place": "Editorial Chompiritas"
+    }
+  ],
+  "created_at": 13-09-15,
+  "updated_at": 21-12-15
+
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline7" class="outline-2">
+<h2 id="orgheadline7"><span class="section-number-2">2</span> Organización</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-orgheadline4" class="outline-3">
+<h3 id="orgheadline4"><span class="section-number-3">2.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>id (user_id)
+<ul class="org-ul">
+<li>id único de la organización</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>nombre (name)
+<ul class="org-ul">
+<li>Nombre de la organización, puede ser la razón social de una empresa, el nombre oficial de algún instituto paraestatal, el gobierno de un país , etc.</li>
+<li>valores esperados:
+<ul class="org-ul">
+<li>organizaciones que pueden o no pertenecer a la db</li>
+<li>autocomplete: colección de organizaciones de distintas fuentes</li>
+</ul></li>
+</ul></li>
+
+<li>tipo (type)
+<ul class="org-ul">
+<li>si es una empresa pública, privada, instituto gubernamental, asociación civil, etc.</li>
+<li>valores esperados:
+<ul class="org-ul">
+<li>"Pública"</li>
+<li>"Privada"</li>
+<li>"Instituto paraestatal"</li>
+<li>"Organismo gubernamental"</li>
+<li>"Asociación civil"</li>
+</ul></li>
+</ul></li>
+
+<li>descripción (description)
+<ul class="org-ul">
+<li>breve descripción de lo que hace la organización</li>
+<li>formato: strings</li>
+<li>autocomplete: no</li>
+</ul></li>
+
+<li>dirección (address)
+<ul class="org-ul">
+<li>expresa donde se ubican las organizaciones con "ciudad", "estado o provincia" y "país".</li>
+<li>formato: Esquema dirección</li>
+<li><p>
+valores esperados:
+</p>
+<ul class="org-ul">
+<li>"país":
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>"estado o provincia":
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>"ciudad":
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+</ul>
+<ul class="org-ul">
+<li>"postal_code": código postal delimitado por las propiedades pasadas
+<ul class="org-ul">
+<li>formato: string</li>
+<li>autocomplete: sí</li>
+</ul></li>
+<li>"telephone": número de la organización
+<ul class="org-ul">
+<li>formato: string</li>
+<li>autocomplete: no</li>
+<li><a href="https://developers.whatwg.org/the-input-element.html#attr-input-type">https://developers.whatwg.org/the-input-element.html#attr-input-type</a></li>
+</ul></li>
+<li>"website": sitio oficial de la organización
+<ul class="org-ul">
+<li>formato: url</li>
+<li>autocomplete: no</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li>foundation_date
+<ul class="org-ul">
+<li>fecha en que la empresa fue fundada</li>
+<li>formato: date</li>
+</ul></li>
+
+<li>memberships
+<ul class="org-ul">
+<li>personas que tienen relación con la empresa del perfil
+<ul class="org-ul">
+<li>formato: Esquema membresía</li>
+<li>valores esperados:
+<ul class="org-ul">
+<li>"name": Organizaciones que pueden o no estar en la db</li>
+</ul></li>
+</ul></li>
+</ul></li>
+
+<li>owned_by
+<ul class="org-ul">
+<li>para expresar si existe una relación con otra empresa en un nivel superior.</li>
+<li>formato: esquema de propiedad</li>
+<li>valor esperado: organizaciones y personas que pueden o no estar en la db</li>
+<li>autocomplete: org. y personas <span class="underline">(por implementar)</span></li>
+</ul></li>
+
+<li>owns
+<ul class="org-ul">
+<li>para expresar la relación jerárquica a un nivel inferior.</li>
+<li>formato: esquema de propiedad</li>
+<li>autocomplete: org. y personas</li>
+<li>valor esperado: organizaciones que pueden o no estar en la db</li>
+</ul></li>
+
+<li>image
+<ul class="org-ul">
+<li>foto del logo de la empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>references
+<ul class="org-ul">
+<li>fuente de la información</li>
+<li>formato: Esquema de referencias</li>
+</ul></li>
+
+<li>Datos corporativos (company_data)
+
+<ul class="org-ul">
+<li>Sector primario (sector)
+<ul class="org-ul">
+<li>primera actividad económica</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>clasificación SCIAN (classification)
+<ul class="org-ul">
+<li>sistema de clasificación industrial de américa del norte</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Tickers (tickers)
+<ul class="org-ul">
+<li>símbolo de cotización</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Número de empleados (employees)
+<ul class="org-ul">
+<li>número de empleados formales en una empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Competidores (competitors)
+<ul class="org-ul">
+<li>conjunto de competidores de la empresa</li>
+<li>formato: Esquema de competidores</li>
+</ul></li>
+
+<li>Total de activos corrientes (current_assets)
+<ul class="org-ul">
+<li>activos que pueden ser convertidos en dinero en un lapso de un año de operaciones</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Activos totales (assets)
+<ul class="org-ul">
+<li>total de bienes que la empresa posee y son capaces de convertirse en dinero</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Total pasivos corrientes (current_liabilities)
+<ul class="org-ul">
+<li>Deuda a corto plazo, regularmente menor que un año.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Pasivos totales (liabilities)
+<ul class="org-ul">
+<li>Deuda de la empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Coeficiente actual (current)
+<ul class="org-ul">
+<li>Indica la capacidad que tiene una empresa para pagar deudas a corto plazo. Mientras más grande el número mejor.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Coeficiente de líquidez (quick)
+<ul class="org-ul">
+<li>Es la división del total de los activos corrientes ( - inventarios) entre total pasivos corrientes</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Ingresos totales (revenue)
+<ul class="org-ul">
+<li>Flujo de dinero que entra por las ventas sin descontar costos o impuestos</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Costos de ventas (c_o_g_s)
+<ul class="org-ul">
+<li>Costo directo de producción</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Utilidad Bruta (gross_profit)
+<ul class="org-ul">
+<li>Ganancia de una empresa sin descontar costos e impuestos</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Capitalización del mercado (market_cap)
+<ul class="org-ul">
+<li>Valor total en dólares de las acciones circulantes de una empresa.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Deuda (total_debt)
+<ul class="org-ul">
+<li>Suma de dinero que la empresa debe</li>
+<li>formato: string</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline5" class="outline-3">
+<h3 id="orgheadline5"><span class="section-number-3">2.2</span> Esquema JSON</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+
+<pre class="src src-js">{
+  "user_id": "EsT0-es-uN4-PrUebA",
+  "name": "Grupo Bal, S.A.B. de C.V."
+  "type": "empresa pública"
+  "description": "",
+  "address":
+      {
+  "street": "Calzada Legaria",
+  "city": "Ciudad de México",
+  "state": "Distrito Federal",
+  "postal_code": "11250",
+  "country": "México",
+  "telephone": "52555283",
+  "website": "www.bal.com.mx",
+      },
+  "foundation_date": "1901",
+  "memberships": [
+  {
+    "name": "Alejandro Baillères Gual",
+    "role": "Presidente",
+    "department": "Junta directiva",
+    "person_id": "4lb3rT0_bAiLl2res",
+    "start_date": "",
+    "final_date": "",
+    "references": [
+      {
+        "name": "",
+        "url": "",
+        "author": "",
+        "publication_date": "",
+        "publication_place": ""
+      }
+    ]
+       }
+       {
+   "name": "Luis Péres Prado",
+   "role": "Consejero independiente"
+   "department": "Junta directiva",
+   "person_id": "4lAnDr0-Baill3rEs",
+   "references": [
+     {
+       "name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+     }
+   ]
+      },
+      {
+  "name": "Cecilia Fernández",
+  "role": "Directora del Departamento de Exploración"
+  "department": "Departamento de Exploración",
+  "start_date": 15-09-2015,
+  "final_date": 08-04-2020,
+  "references": [
+    {
+      "name": "",
+      "url": "",
+      "author": "",
+      "publication_date": "",
+      "publication_place": ""
+    }
+  ]
+     }
+  ],
+  "owned_by":
+      [
+  {
+    name: 'The Vanguard Group, Inc.',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+      {
+        name: ,
+        url: ,
+        author: ,
+        publication_date: ,
+        publication_place
+      }
+       ],
+    },
+  {
+    name: 'Coatue Management, L.L.C.',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+      {
+        name: ,
+        url: ,
+        author: ,
+        publication_date: ,
+        publication_place
+          ]
+      }
+    },
+  {
+    name: 'Morgan Stanley Investment Management Inc.',
+    ultimate_parent: true,
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+     {
+       "name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+
+     }
+       ],
+    }
+  "owns":
+      [
+  {
+    name: '3D Capital Corporation',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+     {
+       "text_name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+
+     }
+       ],
+    },
+  {
+    company_name: '3D European Holdings Ltd',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    ultimate_parent = true,
+    references: [
+     {
+       "name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+
+     }
+       ],
+    },
+  {
+    name: 'Alibre, Inc.',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+     {
+       "text_name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+
+     }
+       ],
+    },
+  {
+    name: 'American Precision Machining, LLC',
+    %_shares: ,
+    start date: ,
+    end date: ,
+    references: [
+     {
+       "name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+
+     }
+       ],
+    },
+  "image": "",
+  "references": [
+    {
+      "name": "",
+      "url": "",
+      "author": "",
+      "publication_date": "",
+      "publication_place": ""
+  "company_data":
+ {
+   "sector": "",
+   "classification": "",
+   "tickers": ""
+   "employees": 45648
+   "competitors": [
+    {
+      "id_company": "7928f",
+      "references": [
+  {
+    "text_name": "",
+    "url": "",
+    "author": "",
+    "publication_date": "",
+    "publication_place": ""
+  }
+      ]
+    }
+  ],
+  "parent": "",
+  "parent_address": "",
+  "current_assets": ,
+  "assets": ,
+  "current_liabilities": ,
+  "liabilities": ,
+  "current": ,
+  "acid_taste": ,
+  "revenue": ,
+  "c.o.g.s.": ,
+  "gross_profit": ,
+  "total_debt": ""
+  "references": [
+  {
+    "text_name": "",
+    "url": "",
+    "author": "",
+    "publication_date": "",
+    "publication_place": ""
+  }
+      ]
+
+  "created_at": "",
+  "updated_at": "",
+}
+```
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline6" class="outline-3">
+<h3 id="orgheadline6"><span class="section-number-3">2.3</span> Implementación</h3>
+</div>
+</div>
+
+<div id="outline-container-orgheadline10" class="outline-2">
+<h2 id="orgheadline10"><span class="section-number-2">3</span> Compañía</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-orgheadline8" class="outline-3">
+<h3 id="orgheadline8"><span class="section-number-3">3.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>La clase Compañía es un conjunto de propiedades que se complementan con la clase <i>Organización</i> que permiten definir características específicas de una empresa.</li>
+
+<li><p>
+Sector primario (sector)
+</p>
+<ul class="org-ul">
+<li>primera actividad económica</li>
+<li>formato: string</li>
+</ul>
+<ul class="org-ul">
+<li>clasificación SCIAN (classification)
+<ul class="org-ul">
+<li>sistema de clasificación industrial de américa del norte</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Tickers (tickers)
+<ul class="org-ul">
+<li>símbolo de cotización</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Número de empleados (employees)
+<ul class="org-ul">
+<li>número de empleados formales en una empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Competidores (competitors)
+<ul class="org-ul">
+<li>conjunto de competidores de la empresa</li>
+<li>formato: Esquema de competidores</li>
+</ul></li>
+
+<li>Total de activos corrientes (current_assets)
+<ul class="org-ul">
+<li>activos que pueden ser convertidos en dinero en un lapso de un año de operaciones</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Activos totales (assets)
+<ul class="org-ul">
+<li>total de bienes que la empresa posee y son capaces de convertirse en dinero</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Total pasivos corrientes (current_liabilities)
+<ul class="org-ul">
+<li>Deuda a corto plazo, regularmente menor que un año.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Pasivos totales (liabilities)
+<ul class="org-ul">
+<li>Deuda de la empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Coeficiente actual (current)
+<ul class="org-ul">
+<li>Indica la capacidad que tiene una empresa para pagar deudas a corto plazo. Mientras más grande el número mejor.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Coeficiente de líquidez (quick)
+<ul class="org-ul">
+<li>Es la división del total de los activos corrientes ( - inventarios) entre total pasivos corrientes</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Ingresos totales (revenue)
+<ul class="org-ul">
+<li>Flujo de dinero que entra por las ventas sin descontar costos o impuestos</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Costos de ventas (c_o_g_s)
+<ul class="org-ul">
+<li>Costo directo de producción</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Utilidad Bruta (gross_profit)
+<ul class="org-ul">
+<li>Ganancia de una empresa sin descontar costos e impuestos</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Capitalización del mercado (market_cap)
+<ul class="org-ul">
+<li>Valor total en dólares de las acciones circulantes de una empresa.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>Deuda (total_debt)
+<ul class="org-ul">
+<li>Suma de dinero que la empresa debe</li>
+<li>formato: string</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline9" class="outline-3">
+<h3 id="orgheadline9"><span class="section-number-3">3.2</span> JSON</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+
+<pre class="src src-js">"company_data":
+{
+  "sector": "",
+  "classification": "",
+  "tickers": ""
+  "employees": 45648
+  "competitors": [
+   {
+     "id_company": "7928f",
+     "references": [
+       {
+   "text_name": "",
+   "url": "",
+   "author": "",
+   "publication_date": "",
+   "publication_place": ""
+       }
+     ]
+   }
+ ],
+ "parent": "",
+ "parent_address": "",
+ "current_assets": ,
+ "assets": ,
+ "current_liabilities": ,
+ "liabilities": ,
+ "current": ,
+ "acid_taste": ,
+ "revenue": ,
+ "c.o.g.s.": ,
+ "gross_profit": ,
+ "total_debt": ""
+ "references": [
+       {
+   "text_name": "",
+   "url": "",
+   "author": "",
+   "publication_date": "",
+   "publication_place": ""
+       }
+     ]
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline14" class="outline-2">
+<h2 id="orgheadline14"><span class="section-number-2">4</span> Membresía</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-orgheadline11" class="outline-3">
+<h3 id="orgheadline11"><span class="section-number-3">4.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<b>La propiedad de "Membresía" existe de dos formas. Una cuando existe dentro del perfil de una Persona y otra cuando existe dentro del perfil de una Organización</b> Las características de dicha propiedad funcionan de acuerdo a la entidad en la que se está usando.
+</p>
+
+<ul class="org-ul">
+<li>id
+<ul class="org-ul">
+<li>id único de la membresía</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>nombre (name)
+<ul class="org-ul">
+<li>nombre de la persona/organización que tiene una relación de membresía con una persona/organización</li>
+<li>formato: string</li>
+<li>autoform: true (sólo colección de personas/organización)</li>
+</ul></li>
+
+<li>etiqueta (label)
+<ul class="org-ul">
+<li>nombre único de la membresía que representa el cargo de una organización independientemente de la persona que lo ocupa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>rol (role)
+<ul class="org-ul">
+<li>el cargo que desempeña la persona que tiene la membresía dentro de la organización.</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>departamento (department)
+<ul class="org-ul">
+<li>la sub-organización dentro la cual se encuentra el cargo que relaciona la persona con la organización</li>
+</ul></li>
+
+<li>fecha de inicio (start_date)
+<ul class="org-ul">
+<li>fecha en la que la relación comenzó</li>
+<li>formato:</li>
+</ul></li>
+
+<li>fecha de fin (end_date)
+<ul class="org-ul">
+<li>fecha en que la relación finalizó</li>
+<li>formato:</li>
+</ul></li>
+
+<li>referencias (references)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline12" class="outline-3">
+<h3 id="orgheadline12"><span class="section-number-3">4.2</span> JSON</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+
+<pre class="src src-js">memberships: [
+       {
+   "name": "",
+   "id": "",
+   "role": "",
+   "department": "",
+   "person_id": "".
+   "start_date": "",
+   "final_date": "",
+   "references": [
+     {
+       "name": "",
+       "url": "",
+       "author": "",
+       "publication_date": "",
+       "publication_place": ""
+     }
+   ]
+      }
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline13" class="outline-3">
+<h3 id="orgheadline13"><span class="section-number-3">4.3</span> Implementación</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+
+<pre class="src src-js">{
+       "name" : "Peter H. Diamandis M.D.",
+       "department" : "Junta directiva",
+       "references" : [
+     {
+         "url" : "sec.gov",
+         "author" : "Security and Exchange Commission",
+         "publication_date" : "Thu Jan 21 2016 17:38:31 GMT-0600 (CST)",
+         "publication_place" : "Sitio oficial de la Security and Exchange Comission"
+     }
+       ],
+       "role" : "Director and Member of Sustainability Committee"
+   }
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline18" class="outline-2">
+<h2 id="orgheadline18"><span class="section-number-2">5</span> Referencia</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-orgheadline15" class="outline-3">
+<h3 id="orgheadline15"><span class="section-number-3">5.1</span> Casos de uso y Requisitos</h3>
+<div class="outline-text-3" id="text-5-1">
+<ul class="org-ul">
+<li>id
+<ul class="org-ul">
+<li>id único de la relación de propiedad</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>company_name
+<ul class="org-ul">
+<li>nombre de la empresa que es dueña de la empresa</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>ultimate_parent
+<ul class="org-ul">
+<li>indica si la empresa es matriz</li>
+<li>formato: booleano</li>
+</ul></li>
+
+<li>shares
+<ul class="org-ul">
+<li>porcentaje de acciones de la que es dueña la persona y/o organización</li>
+<li>formato: string</li>
+</ul></li>
+
+<li>fecha de inicio (start_date)
+<ul class="org-ul">
+<li>fecha en la que se efectuó la compra de acciones</li>
+<li>formato:</li>
+</ul></li>
+
+<li>fecha de fin (end_date)
+<ul class="org-ul">
+<li>fecha en la que se vendieron las acciones</li>
+<li>formato:</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline16" class="outline-3">
+<h3 id="orgheadline16"><span class="section-number-3">5.2</span> JSON</h3>
+<div class="outline-text-3" id="text-5-2">
+<div class="org-src-container">
+
+<pre class="src src-js">{
+   company_name: "",
+   %_shares: "",
+   start date: "",
+   end date: "",
+   ultimate_parent = "",
+   references: [
+    {
+      "name": "",
+      "url": "",
+      "author": "",
+      "publication_date": "",
+      "publication_place": ""
+
+    }
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline17" class="outline-3">
+<h3 id="orgheadline17"><span class="section-number-3">5.3</span> Implementación</h3>
+</div>
+</div>
+
+<div id="outline-container-orgheadline21" class="outline-2">
+<h2 id="orgheadline21"><span class="section-number-2">6</span> Referencia</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-orgheadline19" class="outline-3">
+<h3 id="orgheadline19"><span class="section-number-3">6.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-6-1">
+<ul class="org-ul">
+<li>nombre (name)
+<ul class="org-ul">
+<li>nombre de la fuente de la información</li>
+<li>formato: string</li>
+</ul></li>
+<li>url (url)
+<ul class="org-ul">
+<li>url, si existe, de la fuente de la información</li>
+<li>formato: URL</li>
+</ul></li>
+<li>autor (author)
+<ul class="org-ul">
+<li>persona a la que se le relaciona con la fuente</li>
+<li>formato: string</li>
+</ul></li>
+<li>fecha de publicación (publication_date)
+<ul class="org-ul">
+<li>fecha de origen de la fuente</li>
+<li>formato: string</li>
+</ul></li>
+<li>lugar de públicación (publication_place)
+<ul class="org-ul">
+<li>lugar de origen de la fuente</li>
+<li>formato: string</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline20" class="outline-3">
+<h3 id="orgheadline20"><span class="section-number-3">6.2</span> JSON</h3>
+<div class="outline-text-3" id="text-6-2">
+<div class="org-src-container">
+
+<pre class="src src-js">"references": [
+   {
+     "name": "",
+     "url": "",
+     "author": "",
+     "publication_date": "",
+     "publication_place": ""
+   }
+       ]
+    }
+ ]
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline24" class="outline-2">
+<h2 id="orgheadline24"><span class="section-number-2">7</span> Dirección</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-orgheadline22" class="outline-3">
+<h3 id="orgheadline22"><span class="section-number-3">7.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>calle (street)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>ciudad (city)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>Estado o provincia (state)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>Código postal (postal_code)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>País (country)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>Teléfono (telephone)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+<li>Sitio web (website)
+<ul class="org-ul">
+<li>formato: string</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline23" class="outline-3">
+<h3 id="orgheadline23"><span class="section-number-3">7.2</span> JSON</h3>
+<div class="outline-text-3" id="text-7-2">
+<div class="org-src-container">
+
+<pre class="src src-js">"address":
+      {
+  "street": "Calzada Legaria",
+  "city": "Ciudad de México",
+  "state": "Distrito Federal",
+  "postal_code": "11250",
+  "country": "México",
+  "telephone": "52555283",
+  "website": "www.bal.com.mx",
+      }
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline28" class="outline-2">
+<h2 id="orgheadline28"><span class="section-number-2">8</span> Competidores</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-orgheadline25" class="outline-3">
+<h3 id="orgheadline25"><span class="section-number-3">8.1</span> Casos de uso y requisitos</h3>
+<div class="outline-text-3" id="text-8-1">
+<ul class="org-ul">
+<li>id
+<ul class="org-ul">
+<li>id de organización</li>
+<li>formato: string</li>
+</ul></li>
+<li>name
+<ul class="org-ul">
+<li>nombre de la organización</li>
+<li>formato: string</li>
+</ul></li>
+<li>references
+<ul class="org-ul">
+<li>fuente</li>
+<li>formato: Esquema de referencia</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgheadline26" class="outline-3">
+<h3 id="orgheadline26"><span class="section-number-3">8.2</span> JSON</h3>
+<div class="outline-text-3" id="text-8-2">
+<div class="org-src-container">
+
+<pre class="src src-js">"competitors": [
+    {
+      "id_company": "7928f",
+      "references": [
+  {
+    "text_name": "",
+    "url": "",
+    "author": "",
+    "publication_date": "",
+    "publication_place": ""
+  }
+      ]
+    }
+  ],
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgheadline27" class="outline-3">
+<h3 id="orgheadline27"><span class="section-number-3">8.3</span> Implementación</h3>
+</div>
+</div>
+</template>

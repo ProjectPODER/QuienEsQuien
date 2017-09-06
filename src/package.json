@@ -1,0 +1,88 @@
+{
+  "name": "quienesquien.wiki",
+  "version": "0.6.6",
+  "private": true,
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Kevin Brown",
+    "email": "kevin@rindecuentas.org"
+  },
+  "bugs": {
+    "url" : "https://github.com/ProjectPODER/QuienEsQuien/issues",
+    "email" : "info@quienesquien.wiki"
+  },
+  "scripts": {
+    "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
+    "test": "MONGO_URL=mongodb://localhost:27017/testing meteor test --driver-package meteortesting:mocha --port 3100",
+    "testci": "./node_modules/.bin/xvfb-maybe meteor test --once --driver-package meteortesting:mocha",
+    "testappci": "meteor test --full-app --once --driver-package meteortesting:mocha",
+    "lint": "eslint ."
+  },
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Kevin Brown",
+    "email": "kevin@rindecuentas.org"
+  },
+  "eslintConfig": {
+    "extends": "@meteorjs/eslint-config-meteor"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.18.0",
+    "bcrypt": "^1.0.2",
+    "bootstrap-datepicker": "^1.6.4",
+    "cheerio": "^1.0.0-rc.2",
+    "clj-fuzzy": "^0.4.0",
+    "currency-codes": "^1.1.2",
+    "cytoscape": "^2.7.19",
+    "cytoscape-cola": "^1.5.0",
+    "d3": "^3.4.4",
+    "datatables.net-bs": "^1.10.12",
+    "diacritics": "^1.2.3",
+    "faker": "^4.1.0",
+    "fast-json-patch": "^1.0.0",
+    "imagemagick-stream": "^3.0.0",
+    "jquery": "^3.2.1",
+    "jsonpatch-to-mongodb": "^0.3.0",
+    "jsonpath-to-dot": "^0.2.0",
+    "lodash": "^4.13.1",
+    "merge": "^1.2.0",
+    "meteor-node-stubs": "^0.2.11",
+    "moment": "^2.13.0",
+    "money-math": "^2.4.3",
+    "numbro": "^1.9.3",
+    "nvd3": "^1.8.5",
+    "papaparse": "^4.2.0",
+    "phantomjs-prebuilt": "^2.1.14",
+    "pikaday": "^1.5.1",
+    "rangeslider.js": "^2.3.0",
+    "read-file": "^0.2.0",
+    "rus-diff": "^1.1.0",
+    "simpl-schema": "^0.3.2",
+    "urlencode": "^1.1.0",
+    "world-countries": "^1.8.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "browsers": [
+          "last 2 versions"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "@meteorjs/eslint-config-meteor": "^1.0.5",
+    "autoprefixer": "^7.1.2",
+    "babel-eslint": "^7.2.3",
+    "chai": "^4.1.1",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-meteor": "^4.1.6",
+    "eslint-plugin-react": "^7.1.0",
+    "nightmare": "^2.10.0",
+    "xvfb-maybe": "^0.2.1"
+  }
+}

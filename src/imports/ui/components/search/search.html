@@ -1,0 +1,32 @@
+<template name="searchForm">
+  <div class="autosuggest">
+    {{> EasySearch.Input indexes=indexes attributes=inputAttributes }}
+
+      {{#EasySearch.IfNoResults indexes=indexes logic="AND" }}
+      {{/EasySearch.IfNoResults}}
+
+      {{#EasySearch.IfSearching indexes=indexes logic="OR" }}
+        <span class="search-input-spinner">
+          <i class="fa fa-spinner fa-pulse"></i>
+        </span>
+      {{/EasySearch.IfSearching}}
+
+      {{#EasySearch.IfInputEmpty indexes=indexes}}
+       {{else}}
+       <ul class="suggestions list-unstyled text-left">
+       {{#EasySearch.Each index=orgs }}
+          <li>
+            <i class="fa fa-building" aria-hidden="true"></i>
+            <a href="/orgs/{{simple}}#vista" class="js-org-link">{{name}}</a>
+          </li>
+       {{/EasySearch.Each}}
+       {{#EasySearch.Each index=persons }}
+          <li>
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <a href="/persons/{{simple}}#vista" class="js-person-link">{{name}}</a>
+          </li>
+       {{/EasySearch.Each}}
+       </ul>
+     {{/EasySearch.IfInputEmpty}}
+  </div>
+</template>

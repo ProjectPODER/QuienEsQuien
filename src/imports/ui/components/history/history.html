@@ -1,0 +1,86 @@
+<template name="DocumentName">
+  <h3 class='page-title'>
+    <a class='js-toogle-all-patches'
+       data-toggle="tooltip" data-placement="right"
+       title="{{__ 'toggle' }} {{__ 'all'}}">
+      <i class="fa fa-plus"></i>
+      {{ title }}
+    </a>
+  </h3>
+</template>
+
+<template name="History">
+<div id="history">
+  {{> DocumentName title=document.name}}
+  <div class='array-length pull-right'>
+    <span>{{ revisions.length }}</span> {{__ 'Updates'}}
+  </div>
+  <ul class="fa-ul clear history-list">
+    {{#each revision in revisions }}
+      <li>{{> Patch document=revision pIndex=@index showUserName=true}}</li>
+    {{/each}}
+  </ul>
+</div>
+</template>
+
+<template name="Patch">
+      {{> PatchHeader p=document index=pIndex showUserName=showUserName }}
+      <ul class="fa-ul changeset patch-{{pIndex}} hide">
+      {{#each hunk in document.patch}}
+        <li class="history-patch">
+          {{> Hunk hunk=hunk}}
+        </li>
+      {{/each}}
+      </ul>
+</template>
+
+<template name="PatchHeader">
+  <div>
+    {{#let d=patch}}
+    <span class="js-toggle-patch cursor-pointer"
+          data-toggle="tooltip" data-placement="right"
+          title="{{__ 'toggle' }} {{__ 'visibility'}}"
+          data-patch-index={{index}}>
+    {{d.length}}<span> {{__ "Modifications" }}</span>
+    (
+     {{#if d.updates}}
+       <span class="replace">{{ d.updates }}</span> {{__ 'Updates'}}
+     {{/if}}
+     {{#if d.adds}}
+       <span class="add">{{ d.adds }}</span> {{__ 'Additions'}}
+     {{/if}}
+     {{#if d.dels}}
+       <span class="remove">{{ d.dels }}</span> {{__ 'Deletions'}}
+     {{/if}}
+     )
+     {{#if showUserName }}
+       {{__ "by" }} <i>{{ updatedBy p.user_id }}</i>
+     {{/if}}
+       <span>{{ fromNow p.date }}</span>.
+   </span>
+   {{/let}}
+   {{> PatchActions }}
+
+ </div>
+</template>
+
+<template name="Hunk">
+    <i class="fa-li fa fa-{{icon hunk.op}} {{hunk.op}}"></i>
+    <span>{{hunk.path}}</span>
+    {{#if hunk.value}}<pre>{{formatValue hunk.value}}</pre>{{/if}}
+</template>
+
+<template name="PatchActions">
+  <span class="patch-actions">
+    <a class="js-undo-patch text-danger"
+       data-toggle="tooltip" data-placement="right"
+       title="{{__ 'undo' }} {{__ 'patch'}}">
+       <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+    <a class="js-reapply-patch"
+       data-toggle="tooltip" data-placement="right"
+       title="{{__ 'reapply' }} {{__ 'patch'}}">
+       <i class="fa fa-undo" aria-hidden="true"></i>
+    </a>
+  </span>
+</template>

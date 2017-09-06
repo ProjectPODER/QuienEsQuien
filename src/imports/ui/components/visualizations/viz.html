@@ -1,0 +1,49 @@
+<template name="popupImage">
+  <!-- Modal -->
+  <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <img class='popup-image'/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end modal-->
+</template>
+
+<template name="cytoscapeVisualization">
+  <div class='viz page-title'>{{ name }}</div>
+  {{> vizControls }}
+  <ul class="viz-legend list-unstyled list-inline pull-right">
+    <li class="origin">
+      <span class="block"></span>{{__ 'origin'}}
+    </li>
+    {{#if ready}}
+      {{#each relation in relations }}
+        <li class="{{relation}}">
+          <span class="block"></span>{{__ relation}}
+        </li>
+      {{/each}}
+    {{/if}}
+  </ul>
+  <div id='visualization-cytoscape'></div>
+  {{> popupImage }}
+</template>
+
+<template name="vizControls">
+  <ul class="viz-controls list-unstyled list-inline pull-right">
+    <li class="image" data-toggle="modal" data-target="#imageModal">
+      <i class="fa fa-camera" aria-hidden="true"></i>
+    </li>
+    <li class="toggle-labels">
+      <i class="fa fa-tags" aria-hidden="true"></i>
+    </li>
+    <li class="viz-refresh">
+      <i class="fa fa-refresh" aria-hidden="true"></i>
+    </li>
+  </ul>
+</template>

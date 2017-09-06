@@ -1,0 +1,230 @@
+<template name="showContractWrapper">
+  {{#dynamicTabs name="sim" tabs=tabs activeTab=activeTab}}
+
+    {{#if ready}}
+
+      {{#tabContent slug="read"}}
+        {{> contractView contract=selectedContractDoc }}
+      {{/tabContent}}
+
+    {{else}}
+
+      {{>spinner}}
+
+    {{/if}}
+
+  {{/dynamicTabs}}
+</template>
+
+<template name="contractProfileImage">
+  <div class="perfil-image text-center">
+    {{#unless image orgId }}
+      <i class="fa fa-file-text fa-5x pull-right" aria-hidden="true"></i>
+      {{#if currentUser }}
+        {{> upload }}
+      {{/if}}
+    {{/unless}}
+    {{#with image orgId}}
+      {{#if uploading}}
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+        <span>{{completed}}%</span>
+      {{else}}
+        {{#if thumb }}
+          <img class="img-rounded" src="{{thumb.url}}" title="{{name}}">
+        {{else}}
+          <img class="img-rounded" src="{{url}}" title="{{name}}">
+        {{/if}}
+      {{/if}}
+    {{/with}}
+  </div>
+</template>
+
+<template name="contractView">
+  {{#with contract }}
+    <div class='viewWrapper'>
+      <div class='datos-generales clearfix'>
+        <div class="gd-col-left-wrapper col-md-6">
+          {{#if title }}
+            <div class="description-data-title">
+              <h3>{{title}}</h3>
+            </div>
+          {{/if}}
+        </div>
+        <div class="document-icon col-md-6 pull-right">
+          {{> contractProfileImage orgId=_id}}
+        </div>
+      </div>
+      <div class="contract_detail clearfix">
+        <table class="table">
+          <tbody>
+            {{#if dependency }}
+              <tr class="description-data-dependency">
+                <td>
+                  <strong>{{__ "Dependency" }}</strong>
+                </td>
+                <td>
+                  <a href="/orgs/{{dependency}}">{{dependency}}</a>
+                </td>
+              </tr>
+            {{/if}}
+            {{#if department }}
+              <tr class="description-data-department">
+                <td>
+                  <strong>{{__ "Department" }}</strong>
+                </td>
+                <td>{{department}}</td>
+              </tr>
+            {{/if}}
+            {{#if procedure_number }}
+              <tr class="description-data-procedure_number">
+                <td>
+                  <strong>{{__ "Procedure number" }}</strong>
+                </td>
+                <td>{{procedure_number}}</td>
+              </tr>
+            {{/if}}
+            {{#if procedure_type }}
+              <tr class="description-data-procedure_type">
+                <td>
+                  <strong>{{__ "Procedure type" }}</strong>
+                </td>
+                <td>{{procedure_type}}</td>
+              </tr>
+            {{/if}}
+            {{#if type }}
+              <tr class="description-data-type">
+                <td>
+                  <strong>{{__ "Type" }}</strong>
+                </td>
+                <td>{{type}}</td>
+              </tr>
+            {{/if}}
+            {{#if ocid }}
+              <tr class="description-data-ocid">
+                <td>
+                  <strong>{{__ "OCID"}}</strong>
+                </td>
+                <td>{{ocid}}</td>
+              </tr>
+            {{/if}}
+            {{#if status }}
+              <tr class="description-data-status">
+                <td>
+                  <strong>{{__ "Status"}}</strong>
+                </td>
+                <td>{{status}}</td>
+              </tr>
+            {{/if}}
+            {{#if clave_uc }}
+              <tr class="description-data-clave_uc">
+                <td>
+                  <strong>{{__ "Clave UC"}}</strong>
+                </td>
+                <td>{{clave_uc}}</td>
+              </tr>
+            {{/if}}
+            {{#if start_date }}
+              <tr class="description-data-start_date">
+                <td>
+                  <strong>{{__ "Start date"}}</strong>
+                </td>
+                <td>{{moment_ll start_date}}</td>
+              </tr>
+            {{/if}}
+            {{#if end_date }}
+              <tr class="description-data-end_date">
+                <td>
+                  <strong>{{__ "End date"}}</strong>
+                </td>
+                <td>{{moment_ll end_date}}</td>
+              </tr>
+            {{/if}}
+            {{#if amount }}
+              <tr class="description-data-amount">
+                <td>
+                  <strong>{{__ "Amount"}}</strong>
+                </td>
+                <td class="contract_amount">{{right_pad amount}}</td>
+              </tr>
+            {{/if}}
+            {{#if currency }}
+              <tr class="description-data-currency">
+                <td>
+                  <strong>{{__ "Currency"}}</strong>
+                </td>
+                <td>{{currency}}</td>
+              </tr>
+            {{/if}}
+            <tr class="description-data-proveedor">
+              <td>
+                <strong>{{__ "Supplier"}}</strong>
+              </td>
+              <td>
+                <ul>
+                  {{#if suppliers_org }}
+                    {{#each supplier in suppliers_org}}
+                      <li>
+                        <a href="/orgs/{{supplier}}">{{supplier}}</a>
+                      </li>
+                    {{/each}}
+                  {{/if}}
+                  {{#if suppliers_person }}
+                    {{#each supplier in suppliers_person}}
+                      <li>
+                        <a href="/persons/{{supplier}}">{{supplier}}</a>
+                      </li>
+                    {{/each}}
+                  {{/if}}
+                </ul>
+              </td>
+            </tr>
+            {{#if country }}
+              <tr class="description-data-country">
+                <td>
+                  <strong>{{__ "Country"}}</strong>
+                </td>
+                <td>{{__ "Mexico" }}</td>
+              </tr>
+            {{/if}}
+            {{#if company_status }}
+              <tr class="description-data-company_status">
+                <td>
+                  <strong>{{__ "Company status"}}</strong>
+                </td>
+                <td>{{company_status}}</td>
+              </tr>
+            {{/if}}
+            {{#if account_admin }}
+              <tr class="description-data-account_admin">
+                <td>
+                  <strong>{{__ "Account admin"}}</strong>
+                </td>
+                <td>{{account_admin}}</td>
+              </tr>
+            {{/if}}
+            {{#if references }}
+              <tr class="contract-references">
+                <td>
+                  <strong>{{__ "References"}}</strong>
+                </td>
+                <td>
+                  <ul class='contract-references'>
+                    {{#each reference in references}}
+                      <li>
+                        <a href="//{{reference.url}}" target="_blank">{{reference.url}}</a>
+                      </li>
+                    {{/each}}
+                  </ul>
+                </td>
+              </tr>
+            {{/if}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  {{/with}}
+</template>
+
+<template name="amount_column">
+  {{right_pad amount}}
+</template>

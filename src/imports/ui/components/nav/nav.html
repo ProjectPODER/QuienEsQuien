@@ -1,0 +1,47 @@
+<template name="manualAdd">
+    <button class="btn btn-default" id="add_one">
+      <i class="fa fa-plus" aria-hidden="true"></i>
+    </button>
+</template>
+
+<template name="nav">
+  <nav id="sidebar" class="nav nav-pills nav-stacked">
+    <div class="sidebar-item">
+      <a class="toggleLang" href="#">
+        <i class="fa fa-language"></i>
+        {{ language }}
+      </a>
+    </div>
+    {{#if currentUser }}
+    <div class="sidebar-item">
+      <a class="{{isActiveRoute regex='stats' className='selected'}}" href="/stats">
+        <i class="fa fa-line-chart"></i> {{__ "Stats"}}
+      </a>
+    </div>
+    <div class="sidebar-item">
+      <a class="{{isActiveRoute regex='lost' className='selected'}}" href="/lost">
+        <i class="fa fa-puzzle-piece"></i> {{__ "Lost & Found"}}
+      </a>
+    </div>
+    <div class="sidebar-item">
+      {{> manualAdd }}
+    </div>
+    {{/if }}
+  </nav>
+</template>
+
+<template name="headNav">
+
+    <ul class="list-inline pull-left">
+      <li>
+        <a href="/"></a>
+      </li>
+    </ul>
+
+</template>
+
+<template name="Aside">
+  {{#if showSideBarContent }}
+    {{> nav }}
+  {{/if}}
+</template>

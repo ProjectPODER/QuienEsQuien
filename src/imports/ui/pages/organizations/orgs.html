@@ -1,0 +1,349 @@
+<template name="showOrgWrapper">
+  {{#if ready }}
+    {{> DetailWrapper document=selectedOrganizationDoc ready=ready }}
+  {{/if}}
+</template>
+
+<template name="orgView">
+{{#with document }}
+  <div class='viewWrapper'>
+    <div class='datos-generales clearfix'>
+      <div class="gd-col-left-wrapper col-md-6">
+      {{#if name }}
+        <div class="description-data-name">
+          <h3>{{ name }}</h3>
+        </div>
+      {{/if}}
+      <table class="table">
+        <tbody>
+          {{#if foundation_date }}
+          <tr class="description-data-year-founded">
+            <td>{{__ "year founded" }}</td>
+            <td>{{foundation_date}}</td>
+          </tr>
+          {{/if}} {{#if description}}
+          <tr class="description-data-description">
+            <td>{{__ "description" }}</td>
+            <td>{{description}}</td>
+          </tr>
+          {{/if}}
+          {{#if parent}}
+          <tr class="description-data-parent">
+            <td>{{__ "parent" }}</td>
+            <td>{{parent}}</td>
+          </tr>
+          {{/if}}
+        </tbody>
+      </table>
+      </div>
+     <div class="document-icon col-md-6 pull-right">
+       {{> ProfileImage docId=_id}}
+     </div>
+    </div>
+    {{#if address }}
+    <div class="address clearfix">
+      <h3 class="detail_header">{{__ "address" }}</h3>
+      <table class="table">
+        <tbody>
+      {{#each arrayify address }}
+      {{#if isWebsite name }}
+        <tr><td>{{__ name}}</td><td><a href="//{{value}}" target="_blank">{{value}}</a></td></tr>
+      {{else}}
+        <tr><td>{{__ name}}</td><td>{{value}}</td></tr>
+      {{/if}}
+      {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{/if}}
+    {{#unless isEmpty company }}
+    <div class="financial clearfix">
+      <h3 class="detail_header">{{__ "corporate data" }}</h3>
+      <table class="table">
+      <tbody>
+          {{#if company.tickers }}
+          <tr class="description-data-tickers">
+            <td>{{__ "tickers" }}</td>
+            <td class="dato_financiero_no_monospace">{{company.tickers}}</td>
+          </tr>
+          {{/if}}
+          {{#if company.employees }}
+          <tr class="description-data-total-employees">
+            <td>{{__ "total employees" }}</td>
+            <td class="dato_financiero_no_monospace">{{company.employees}}</td>
+          </tr>
+          {{/if}}
+          {{#if company.current_ratio }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Indica la capacidad de una empresa para pagar deudas a corto plazo. Mientras más grande el número mejor.">
+                {{__ "current ratio" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero_no_monospace">{{right_pad company.current_ratio}}<small>      </small></td>
+          </tr>
+          {{/if}}
+          {{#if company.quick_ratio }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="(Total Activos corrientes - inventarios) / Total Pasivos Corrientes">
+                {{__ "quick ratio" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero_no_monospace">{{right_pad company.quick_ratio}}<small>      </small></td>
+          </tr>
+          {{/if}}
+          {{#if company.classification }}
+          <tr class="description-data-primary-industry">
+            <td>{{__ "primary industry classification" }}</td>
+            <td class="dato_financiero_no_monospace">{{company.classification}}</td>
+          </tr>
+          {{/if}}
+          {{#if company.sector}}
+          <tr class="description-data-primary-sector">
+            <td>{{__ "primary sector" }}</td>
+            <td class="dato_financiero_no_monospace">{{company.sector}}</td>
+          </tr>
+          {{/if}}
+          {{#if company.current_assets }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Activo que pueden ser convertidos en dinero en un lapso de un año de operaciones.">
+                {{__ "total current assets" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.current_assets}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.assets }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Total de bienes que la empresa posee y son capaces de conventirse en dinero.">
+                {{__ "total assets" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.assets}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.current_liabilities }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Deuda a corto plazo, regularmente menor que un año.">
+                {{__ "total current liabilities" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.current_liabilities}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.liabilities }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right" title="Deuda de la empresa">
+                {{__ "total liabilities" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.liabilities}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.revenue }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Flujo de dinero que entra por las ventas sin descontar costos o impuestos">
+                {{__ "total revenue" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.revenue}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.c_o_g_s }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right" title="Costo directo de producción">
+                {{__ "cogs" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.c_o_g_s}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.gross_profit }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right" title="Ganancia de una empresa sin descontar costos e impuestos">
+                {{__ "gross profit" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.gross_profit}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.gross_profit_margin }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right" title="Gross profit margin">
+                {{__ "gross profit margin" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.gross_profit_margin}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.market_cap }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right"
+                title="Valor total en dólares de las acciones circulantes de una empresa">
+                {{__ "market capitalization" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.market_cap}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+          {{#if company.total_debt }}
+          <tr>
+            <td>
+              <span data-toggle="tooltip" data-placement="right" title="Suma de dinero que la empresa debe">
+                {{__ "total debt" }} <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </span>
+            </td>
+            <td class="dato_financiero">{{right_pad company.total_debt}}<small> USDMM</small></td>
+          </tr>
+          {{/if}}
+      </tbody>
+  </table>
+    </div>
+    {{/unless}}
+      {{> Memberships }}
+    {{#if competitors }}
+      {{> competitors }}
+    {{/if}}
+  </div>
+{{/with}}
+</template>
+
+<template name="competitors">
+  <div class="competitors clearfix">
+    <h3 class="detail_header">{{__ "competitors" }}</h3>
+    <table class="table">
+      <tbody>
+  {{#each competitor in competitors }}
+    <tr>
+      <td>
+      {{#if competitor.name }}
+        <a href="/orgs/{{simpleName competitor.name}}#vista" class="link-to-org">{{competitor.name}}</a>
+      {{else}}
+        {{competitor.name}}
+      {{/if}}
+        </td>
+    </tr>
+  {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="OrgSubmit">
+  {{#if authInProcess}}
+    <p>&nbsp;</p>
+  {{else}}
+    {{#if isPrivladged }}
+      {{> upsertOrganisationForm
+        formType='method'
+        meteormethod="Orgs.methods.insert"
+      }}
+    {{else}}
+      <p id="unauthorized">
+        No tienes permiso de ver esta página. Escribe a
+         <a href="info@quienesquien.wiki">info@quienesquien.wiki</a>
+        para obtener acceso.
+      </p>
+    {{/if}}
+  {{/if}}
+</template>
+
+<template name="upsertOrganisationForm">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+{{#autoForm collection=orgsCollection
+  doc=selectedOrganizationDoc
+  id="updateOrgForm"
+  type=formType
+  meteormethod=meteormethod
+  singleMethodArgument=true
+}}
+<!-- general data -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="general_data_heading">
+      <h4 class="panel-title text-capitalize">
+        <a role="button" data-toggle="collapse" data-parent="#accordion"
+          href="#general_data_collapse" aria-expanded="true"
+          aria-controls="general_data_collapse">
+         {{__ 'general data'}}
+        </a>
+      </h4>
+    </div>
+    <div id="general_data_collapse" class="panel-collapse collapse in"
+    role="tabpanel" aria-labelledby="general_data_heading">
+      <div class="panel-body">
+        {{> afQuickField name='name'}}
+        {{> afQuickField name='foundation_date'}}
+        {{> afQuickField name='description'}}
+        {{> afQuickField name='type'}}
+        {{> afQuickField name='source'}}
+      </div>
+    </div>
+  </div>
+<!-- general data -->
+<!-- address -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="address_heading">
+      <h4 class="panel-title text-capitalize">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#address_collapse" aria-expanded="true" aria-controls="address_collapse">
+          {{__ "address"}}
+        </a>
+      </h4>
+    </div>
+    <div id="address_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="address_heading">
+      <div class="panel-body">
+{{> afQuickField name='address'}}
+      </div>
+    </div>
+  </div>
+<!-- address -->
+<!-- corporate data -->
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="corporate_data_heading">
+      <h4 class="panel-title text-capitalize">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#corporate_data_collapse" aria-expanded="false" aria-controls="corporate_data_collapse">
+{{__ "corporate data"}}
+        </a>
+      </h4>
+    </div>
+    <div id="corporate_data_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="corporate_data_heading">
+      <div class="panel-body">
+
+
+        {{> afQuickField name='company'}}
+     </div>
+    </div>
+  </div>
+<!-- corporate data -->
+<button type="submit" class="btn btn-primary">{{__ "Submit"}}</button>
+{{/autoForm}}
+</div>
+
+</template>
+
+<template name="amount_table_column">
+{{right_pad amount}}
+</template>
+
+<template name="end_date_table_column">
+{{moment_L end_date}}
+</template>
+
+<template name="start_date_table_column">
+{{moment_L start_date}}
+</template>

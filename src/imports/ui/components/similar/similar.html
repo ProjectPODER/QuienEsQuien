@@ -1,0 +1,212 @@
+<template name="Similar">
+  <span class='page-title'>{{ document.name }}</span>
+
+  <a class="text-danger js-match-negate-all" data-toggle="tooltip" data-placement="right" title="Negate All">
+    <i class="fa fa-bolt fa-2x" aria-hidden="true"></i>
+  </a>
+
+  {{#if ready }}
+    {{> reactiveTable collection=matches settings=settings id="similarities" class="table table-striped table-bordered"}}
+  {{else}}
+    {{> loading }}
+  {{/if}}
+  {{#if showSpinner}}
+    {{> loading }}
+  {{/if}}
+</template>
+
+<template name="StringMatchCell">
+  {{> SimilarMatchPatchModal }}
+  <a class="js-match-negate text-danger"
+    data-toggle="tooltip" data-placement="right"
+    title="Negate">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </a>
+
+  <a class="js-match-approve text-success"
+    data-toggle="tooltip" data-placement="right"
+    title="Confirm">
+    <i class="fa fa-exchange" aria-hidden="true"></i>
+  </a>
+
+  {{#unless parent}}
+    <a class="js-match-parent"
+      data-toggle="tooltip" data-placement="right"
+      title="Parent">
+      <i class="fa fa-level-up" aria-hidden="true"></i>
+    </a>
+  {{/unless}}
+
+  {{#unless child}}
+    <a class="js-match-child"
+      data-toggle="tooltip" data-placement="right"
+      title="Property">
+      <i class="fa fa-level-down" aria-hidden="true"></i>
+    </a>
+  {{/unless}}
+
+  <a href="orgs/{{_id}}" class="edit text-muted org-select"
+    data-toggle="tooltip" data-placement="right"
+    title="Edit">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+  </a>
+</template>
+
+<template name="SimilarMatchPatch">
+  <ul id="document-merge-patch" class="fa-ul">
+  {{#each hunk in patch }}
+    <li class="hunk">
+      {{> SimilarMatchPatchActions index=@index}}
+      {{> Hunk hunk=hunk}}
+    </li>
+  {{/each}}
+  </ul>
+  {{#if arrays.names }}
+    {{> SimilarMatchPatchNames names=arrays.names }}
+  {{/if}}
+  {{#if arrays.memberships }}
+    {{> SimilarMatchPatchMemberships memberships=arrays.memberships }}
+  {{/if}}
+  {{#if arrays.competitors }}
+    {{> SimilarMatchPatchCompetitors competitors=arrays.competitors }}
+  {{/if}}
+  {{#if arrays.owned_by }}
+    {{> SimilarMatchPatchOwnership ownership=arrays.owned_by title='Owned By' }}
+  {{/if}}
+  {{#if arrays.owns }}
+    {{> SimilarMatchPatchOwnership ownership=arrays.owns title='Owns' }}
+  {{/if}}
+</template>
+
+<template name="SimilarMatchPatchNames">
+  <h3>Names</h3>
+  <ul class="fa-ul merge-names">
+    {{#each name in names }}
+      <li>
+        {{> SimilarMatchPatchActions index=@index}}
+        {{name}}
+      </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="SimilarMatchPatchCompetitors">
+  <h3>Competitors</h3>
+  <ul class="fa-ul merge-competitors">
+    {{#each competitor in competitors }}
+      <li>
+        {{> SimilarMatchPatchActions index=@index rel='competitors' }}
+        {{name}}
+      </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="SimilarMatchPatchOwnership">
+  <div class="ownedBy clearfix">
+    <h3 class="detail_header">{{ title }} {{> SimilarMatchPatchActions }}</h3>
+    <table class="table">
+      <thead class="detail_table_header">
+        <tr>
+          <th>{{__ "name" }}</th>
+          <th>{{__ "parent" }}</th>
+         </tr>
+      </thead>
+      <tbody>
+      {{#each entity in ownership}}
+        <tr>
+          <td>{{entity.name}}</td>
+          <td>{{entity.parent}}</td>
+          <td>{{> SimilarMatchPatchActions index=@index rel=title}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="SimilarMatchPatchMemberships">
+  <div class="memberships clearfix">
+    <h3 class="detail_header">{{__ "Memberships" }} {{> SimilarMatchPatchActions }}</h3>
+    <table class="table">
+      <thead class="detail_table_header">
+        <tr>
+          <th>{{__ "name" }}</th>
+          <th>{{__ "role" }}</th>
+          <th>{{_"department"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each member in memberships}}
+        <tr>
+          <td>{{member.name}}</td>
+          <td>{{member.role}}</td>
+          <td>{{member.department}}</td>
+          <td>{{> SimilarMatchPatchActions index=@index rel='memberships' }}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="SimilarMatchPatchActions">
+  <div class="pull-right hunk-approve-actions">
+    <a class="text-success js-hunk-approve"
+      data-hunk-index={{index}} data-rel={{rel}}
+      data-toggle="tooltip"
+      data-placement="bottom" title="Approve hunk">
+      <i class="fa fa-check" aria-hidden="true"></i>
+    </a>
+    <a class="text-danger js-hunk-discard"
+      data-hunk-index={{index}} data-rel={{rel}}
+      data-toggle="tooltip"
+      data-placement="bottom" title="Discard hunk">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+  </div>
+</template>
+
+<template name="SimilarMatchPatchModal">
+<!-- Modal -->
+<div class="modal fade" id="SimilarMatchPatchModal-{{_id}}" tabindex="-1" role="dialog"
+  aria-labelledby="SimilarMatchPatchModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="pull-right text-muted" data-dismiss="modal">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+        <h4 class="modal-title" data-toggle="tooltip" data-placement="bottom"
+          title="Merge '{{simple}}' into '{{title}}'">
+          {{ title }}
+          <i class="fa fa-exchange text-success" aria-hidden="true"></i>
+          {{simple}}
+        </h4>
+      </div>
+      <div class="modal-body">
+        {{> SimilarMatchPatch patch=patch arrays=arrays }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary js-confirm-merge">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end modal-->
+</template>
+
+<template name="SimilarSimpleCell">
+  {{#if parent}}
+      <i class="fa fa-level-up" aria-hidden="true"></i>
+  {{/if}}
+  {{#if child}}
+      <i class="fa fa-level-down" aria-hidden="true"></i>
+  {{/if}}
+  {{simple}}
+</template>

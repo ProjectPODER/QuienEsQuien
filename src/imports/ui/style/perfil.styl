@@ -1,0 +1,46 @@
+/* estilo para detalle */
+
+/* vertical align content */
+.gd-col-left-wrapper:before, .perfil-image:before
+  content ''
+  display inline-block
+  height 100%
+  vertical-align middle
+  margin-right -0.25em /* Adjusts for spacing */
+
+.perfil-image img
+  width 192px
+  height 192px
+
+.viewWrapper
+  max-height 100%
+
+.financial table tr:nth-child(-n+6) td:nth-child(2)
+  padding-right 3.5em
+
+.persons table tr td:nth-child(2)
+  font-size 90%
+
+.orgShow .competitors dl
+  padding 0 .5em 1em
+  margin-right 3em
+  dt, dd
+    text-align left
+
+.description-data-address, .description-data-references, .financial-data-references, .financial-data-ultimate_parent
+  display none
+
+.dato_financiero { font-family: monospace; text-align: right; white-space: pre; }
+
+.contract_amount { font-family: monospace; }
+
+.dato_financiero_no_monospace { text-align: right; }
+
+/* tabs */
+
+ul.tabs-list li
+  text-transform capitalize
+
+.has_suborganizations, .memberships
+  .link-to-org, .link-to-person
+    text-transform capitalize

@@ -1,0 +1,45 @@
+<template name="HistoryWrapper">
+{{#if is_admin}}
+<h1>History</h1>
+  {{#dynamicTabs name="" tabs=tabs activeTab=activeTab}}
+    {{#tabContent slug="all"}}
+      {{> History revisions=revisions}}
+    {{/tabContent}}
+
+    {{#tabContent slug="orgs"}}
+      {{> OrgsHistory revisions=orgsRevisions}}
+    {{/tabContent}}
+
+    {{#tabContent slug="persons"}}
+      {{> PersonsHistory revisions=personsRevisions}}
+    {{/tabContent}}
+
+  {{/dynamicTabs}}
+{{else}}
+<p>No tienes permiso de ver esta página. Escribe a <a href="info@quienesquien.wiki">info@quienesquien.wiki</a> para obtener acceso.</p>
+{{/if}}
+</template>
+
+<template name="History">
+  <ul>
+  {{#each revisions}}
+  <li> <a href="{{collection}}s/{{_id}}">{{name}}</a> ({{collection}}) actualizado {{ fromNow updated_at }}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="OrgsHistory">
+  <ul>
+  {{#each revisions}}
+  <li> <a href="orgs/{{_id}}">{{name}}</a> actualizado {{ fromNow updated_at }}</li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="PersonsHistory">
+  <ul>
+  {{#each revisions}}
+  <li> <a href="orgs/{{_id}}">{{name}}</a> actualizado {{ fromNow updated_at }}</li>
+  {{/each}}
+  </ul>
+</template>

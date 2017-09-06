@@ -1,0 +1,117 @@
+<template name="Stats">
+  {{#if authInProcess}}
+    <p>&nbsp;</p>
+  {{else}}
+    {{#if isPrivladged}}
+      {{#if Template.subscriptionsReady}}
+
+      <div id="stat-count-table" class="tableContainer">
+        <div class="trow row theader">
+          <div class="tcell">
+          </div>
+          <div class="tcell">
+            TMP
+          </div>
+          <div class="tcell">
+            BMV
+          </div>
+          <div class="tcell orgTitle">
+            <i class="fa fa-trophy"></i>
+          </div>
+        </div>
+
+        <div class="trow row">
+          <div class="tcell">
+            <i class="fa fa-cubes"></i>
+          </div>
+          <div class="tcell">
+            {{tmp_docs_count }}
+          </div>
+          <div class="tcell">
+            {{bmv_orgs_count }}
+          </div>
+
+          <div class="tcell orgTitle">
+            total uniq
+          </div>
+        </div>
+
+        <div class="trow row">
+          <div class="tcell">
+            <i class="fa fa-users"></i>
+          </div>
+          <div class="tcell">
+            {{qqw_persons_count}}
+          </div>
+          <div class="tcell">
+            {{bmv_persons_count}}
+          </div>
+          <div class="tcell orgTitle">
+            total uniq
+          </div>
+        </div>
+
+      </div>
+      <h3><i class="fa fa-upload"></i> {{__ "Imported"}}</h3>
+      <div id="stat-import-table" class="tableContainer">
+        <div class="trow row theader">
+          <div class="tcell">
+          </div>
+          <div class="tcell">
+            TMP
+          </div>
+          <div class="tcell">
+            BMV
+          </div>
+          <div class="tcell">
+          </div>
+          <div class="tcell">
+          </div>
+          <div class="tcell orgTitle">
+          </div>
+        </div>
+        <div class="trow row theader">
+          <div class="tcell">
+            <i class="fa fa-calendar"></i>
+          </div>
+          <div class="tcell">
+            <i class="fa fa-file-o"></i>
+          </div>
+          <div class="tcell">
+            <i class="fa fa-cubes"></i>
+          </div>
+          <div class="tcell">
+            <i class="fa fa-users"></i>
+          </div>
+          <div class="tcell orgTitle">
+          </div>
+        </div>
+
+        {{#each stats }}
+
+        <div class="trow row">
+          <div class="tcell">
+            {{date created_at}}
+          </div>
+          <div class="tcell">
+            {{tmp_doc_inserts}}
+          </div>
+          <div class="tcell">
+            {{bmv_org_inserts}}
+          </div>
+          <div class="tcell">
+            {{bmv_person_inserts}}
+          </div>
+          <div class="tcell orgTitle">
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{else}}
+        <div class="loading">{{>spinner}}</div>
+      {{/if}}
+    {{else}}
+      <p id="unauthorized">No tienes permiso de ver esta página. Escribe a <a href="info@quienesquien.wiki">info@quienesquien.wiki</a> para obtener acceso.</p>
+    {{/if}}
+  {{/if}}
+</template>

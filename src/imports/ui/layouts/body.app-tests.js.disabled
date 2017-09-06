@@ -1,0 +1,35 @@
+import { $ } from 'meteor/jquery';
+import chai from 'chai';
+
+// FIXME for some reason the css we are testing agains does not exist
+// in the testing context
+
+if (Meteor.isClient) {
+
+  describe('Home Page Style', function () {
+    it('top nav has the correct background color', function () {
+      const body = $('body')// .css('background-color');
+        chai.assert.equal($('header .navbar').css('background-color'), 'rgb(10, 49, 78)');
+    });
+    it('footer has the correct background color', function () {
+      const footer = $('#footer');
+      chai.assert.equal($('#footer').css('background-color'), 'rgb(10, 49, 78)');
+    });
+    it('header displays beta text', function () {
+      const ribbon = $('.ribbon-green');
+      chai.assert.strictEqual($('.ribbon-green').text(), 'BETA');
+    });
+    it('header displays a green beta banner', function () {
+        chai.assert.equal($('.ribbon-green').css('background-color'), '#bfdc7a');
+    });
+    it('Should not have a side bar', function () {
+        chai.assert.strictEqual($('.sidebar-item').length, 0)
+    });
+    // this one fails even if it is correct
+    // probably test mode is overriding the font-family
+    //it('font is correct', function () {
+    //    chai.assert.strictEqual($('body').css('font-family'), "Arial, Helvetica, sans-serif");
+    //});
+  });
+
+}

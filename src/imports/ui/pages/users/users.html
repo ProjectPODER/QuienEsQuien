@@ -1,0 +1,237 @@
+<template name="userDash">
+  {{#if ready }}
+    <h3 id="user-name" class="page-title pull-right">{{userInfo.username}}</h3>
+    {{> userDetails userInfo=userInfo }}
+    {{#if isInRole 'editor' }}
+      {{> Import }}
+      {{> userLog userInfo=userInfo userLog=userLog }}
+    {{/if}}
+  {{else}}
+    {{> UnAuthorized }}
+  {{/if}}
+</template>
+
+<template name="import">
+  <div id="user-import" class="clear">
+    <h3>Import flow</h3>
+    <div id="user-import-options" class="row">
+      <div class="import-flow-options col-md-8 col-lg-8">
+        <select class="form-control input-sm js-import-flow-control">
+          {{#each option in importOptions}}
+            <option value="{{option}}">{{option}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="upload-csv-input">
+        {{> uploadCSV importFlow=importFlow}}
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="uploadCSV">
+  <label class="btn btn-default btn-file">
+    <input class="pull-left" type="file" name="uploadCSV">
+    {{#if importing }}
+      <span class="pull-right">
+        <i class="fa fa-spin fa-refresh"></i>
+      </span>
+    {{/if}}
+  </label>
+</template>
+
+<template name="userLog">
+  {{#if ready }}
+    <h3 class="pull-right">{{__ "Activity" }}
+      {{__ "Log"}}</h3>
+    <ul id="user-log" class="clear fa-ul history-list">
+      {{#each logEntry in userLog }}
+        <li class="user-log-entry clear">
+          {{> logEntry entry=logEntry index=@index }}
+        </li>
+      {{/each}}
+    </ul>
+  {{/if}}
+</template>
+
+<template name="logEntry">
+  <i class="fa-li fa fa-{{ icon entry }}"></i>
+  <h3>
+    <span class="js-entry-title">{{__ entry.dName }}</span>
+
+    {{#if isFile entry.collection }}
+      <a href="/ufs/files/{{ entry.dId }}/{{ entry.dName }}" target="_blank" class="js-entry-link pull-right" data-toggle="tooltip" data-placement="right" title="View Detail">
+        <i class="fa fa-download" aria-hidden="true"></i>
+      </a>
+    {{/if}}
+    {{#if isOrg entry.collection }}
+      <a href="/orgs/{{ entry.dName }}" class="js-entry-link pull-right" data-toggle="tooltip" data-placement="right" title="View Detail">
+        <i class="fa fa-link" aria-hidden="true"></i>
+      </a>
+    {{/if}}
+    {{#if isPerson entry.collection }}
+      <a href="/persons/{{ entry.dName }}" class="js-entry-link pull-right" data-toggle="tooltip" data-placement="right" title="View Detail">
+        <i class="fa fa-link" aria-hidden="true"></i>
+      </a>
+    {{/if}}
+  </h3>
+  {{#if revision._id }}
+    {{> Patch document=revision pIndex=index }}
+    {{ else }}
+    <div>{{ fromNow entry.date }}</div>
+  {{/if}}
+</template>
+
+<template name="userDetails">
+  <div id="user-details" class="pull-left">
+    {{# with userInfo}}
+      <ul id="user-emails" class="list-inline pull-left">
+        <span>
+          <i class="fa fa-envelope-o" aria-hidden="true"></i>
+          Emails:
+        </span>
+        {{#each emails}}
+          <li class="user-role">{{address}}
+            {{#unless verified}}
+              <a class="text-danger" data-toggle="tooltip" data-placement="right" title="unverified (resend verification link)">
+                <i class="fa fa-repeat" aria-hidden="true"></i>
+              </a>
+            {{/unless}}
+          </li>
+
+        {{/each}}
+      </ul>
+      <ul id="user-roles" class="list-inline pull-left">
+        <span>
+          <i class="fa fa-id-card-o" aria-hidden="true"></i>
+          Roles:
+        </span>
+        {{#each roles}}
+          <li class="user-role">{{this}}</li>
+        {{/each}}
+      </ul>
+      {{#if isInRole 'admin' }}
+        <span>
+          <i class="fa fa-users" aria-hidden="true"></i>
+          <a class="js-open-user-admin-modal">
+            Users
+          </a>
+        </span>
+      {{/if}}
+    {{/with}}
+    {{#if isInRole 'admin' }}
+      {{> userAdminModal }}
+    {{/if}}
+  </div>
+</template>
+
+<template name="newUserForm">
+  <div id="new-user">
+    <form class="new-user-form">
+      <div class="form-group">
+        <label class="sr-only" for="userEmailInput">Email</label>
+        <div class="input-group">
+          <div class="input-group-addon">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+          </div>
+          <input type="text" name="newUserEmail" class="form-control" id="userEmailInput" placeholder="Email">
+        </div>
+      </div>
+      <button class="btn btn-primary pull-right js-register-user">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Register
+      </button>
+    </form>
+  </div>
+</template>
+
+<template name="userAdminModal">
+  <!-- Modal -->
+  <div class="modal fade" id="userAdminModal" tabindex="-1" role="dialog" aria-labelledby="userAdminModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="pull-right text-muted" data-dismiss="modal">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </a>
+          <h4 class="modal-title" data-toggle="tooltip" data-placement="bottom" title="User Administration">
+            User Administration
+          </h4>
+        </div>
+        <div class="modal-body">
+          {{> newUserForm }}
+          {{> userAdminModalBody }}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end modal-->
+</template>
+
+<template name="userAdminModalBody">
+
+  <table class="table table-striped admin-user-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Roles</th>
+        <th>Assign Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each user in users }}
+        <tr data-user-index={{@index}} data-user-id="{{user._id}}">
+          {{#if user.emails.[0].verified }}
+            <td class="user-email">{{ user.emails.[0].address }}</td>
+          {{else}}
+            <td class='user-email text-danger'>{{ user.emails.[0].address }}</td>
+          {{/if}}
+          <td class="user-roles">
+            {{#if user.roles }}
+              <form class="form-inline js-user-unassign-role">
+                <div class="form-group">
+                  <select name="role" class="form-control">
+                    {{#each role in user.roles }}
+                      <option value="{{role}}">{{role}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-danger">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+              </form>
+            {{/if}}
+          </td>
+          <td>
+            <form class="form-inline js-user-assign-role">
+              <div class="form-group">
+                <select name="roles" class="form-control js-select-role" style="width: 100%" multiple="multiple">
+                  {{#each role in roles }}
+                    <option value="{{role}}">{{role}}</option>
+                  {{/each}}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </form>
+          </td>
+          <td>
+            <a class="text-danger js-user-remove" title="Remove User From System">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </a>
+            <a class="text-success js-user-reset-pass" title="Send reset password Email">
+              <i class="fa fa-repeat" aria-hidden="true"></i>
+            </a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>

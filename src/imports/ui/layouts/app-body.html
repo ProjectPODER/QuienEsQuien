@@ -1,0 +1,33 @@
+<template name="ApplicationLayout">
+
+  <div id="content" class="container-fluid">
+    <div class="ribbon-wrapper-green">
+      <div class="ribbon-green">BETA</div>
+    </div>
+
+    <header>
+      {{> header }}
+    </header>
+
+    {{> notifications }}
+
+    <div id="main" class="row">
+
+      <aside class="col-md-2">
+        {{> Aside }}
+      </aside>
+
+      <article class="col-md-8">
+        {{> yield }}
+      </article>
+
+    </div>
+
+  </div>
+  <div class="clear"></div>
+  {{> footer }}
+</template>
+
+<template name="Archivos">
+  {{#each files }}{{this.url}}{{/each}}
+</template>

@@ -1,0 +1,60 @@
+<template name="header">
+  <nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex1-collapse">
+          <span class="sr-only">Desplegar navegación</span>
+          <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+        </button>
+
+        <div class="navbar-logo">
+          <a href="/"><img src="/images/retina1.png" height="40" alt="Quién es quién WIKI"></a>
+          <a href="/"><img src="/images/retina2b.png" height="40" alt="Quién es quién WIKI"></a>
+        </div>
+
+      </div>
+
+      <div id="navbar-ex1-collapse" class="collapse navbar-collapse">
+        {{#if isNotActiveRoute regex='home|persons|orgs'}}
+          <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+              {{> searchForm }}
+            </div>
+          </form>
+        {{/if}}
+        <ul class="nav navbar-nav navbar-right">
+          <li class="{{isActiveRoute regex='contracts|contractShow|contractsubmit' className='active'}}"
+          data-toggle="collapse" data-target=".navbar-collapse.in">
+            <a href="/contracts" class="nav-link">
+              <div class="contenedor_item_menu_top">
+                <i class="fa fa-file-text" aria-hidden="true"></i>
+                <span class="contracts_header_menu">{{__ "Contracts" }}</span>
+              </div>
+            </a>
+          </li>
+          <li class="{{isActiveRoute regex='persons|personShow|personsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <a href="/persons" class="nav-link">
+              <div class="contenedor_item_menu_top">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <span class="empresarios_header_menu">{{__ "Persons" }}</span>
+              </div>
+            </a>
+          </li>
+          <li class="{{isActiveRoute regex='orgs|orgShow|orgsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
+            <a href="/orgs" class="nav-link">
+              <div class="contenedor_item_menu_top">
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <span class="empresas_header_menu">{{__ "Organizations" }}</span>
+              </div>
+            </a>
+          </li>
+          {{ > loginButtons }}
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+</template>

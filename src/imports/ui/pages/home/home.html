@@ -1,0 +1,40 @@
+<template name="Home">
+<div class="text-center">
+  <h1 class="page-title">Quién es Quién Wiki</h1>
+  <div class="page-description">Base de datos sobre las élites y las estructuras de poder</div>
+  <div id="granbuscador" class="custom_search_form_home">
+    {{> searchForm }}
+  </div>
+  {{>counters}}
+</div>
+</template>
+
+<template name="counters">
+  <div id="counter">
+    {{#if counter }}
+    {{#with counter }}
+      {{#if persons }}
+        <span class="bold">{{persons}}</span>
+      {{else}}
+        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+      {{/if}}
+       <span>{{__ 'persons'}}</span>,
+      {{#if orgs }}
+        <span class="bold">{{orgs}}</span>
+      {{else}}
+        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+      {{/if}}
+        <span>{{__ 'organizations'}}</span>,
+      {{#if contracts }}
+        <span class="bold">{{contracts}}</span>
+      {{else}}
+        <i class="fa fa-spinner fa-pulse fa-fw"></i>
+      {{/if}}
+      <span>{{__ 'contracts'}}</span>
+    {{/with}}
+    {{else}}
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      <span class="sr-only">{{__ "Loading" }}...</span>
+    {{/if}}
+  </div>
+</template>

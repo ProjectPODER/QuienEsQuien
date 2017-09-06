@@ -1,0 +1,11 @@
+{
+  "_locale": "es",
+  "success": "exito",
+  "person": "persona",
+  "organization": "organización",
+  "successfully created": "generado exitosamente",
+  "organization successfully updated": "organización actualizado exitosamente",
+  "organization successfully created": "organización generado exitosamente",
+  "person successfully updated": "persona actualizado exitosamente",
+  "person successfully created": "persona generado exitosamente"
+}

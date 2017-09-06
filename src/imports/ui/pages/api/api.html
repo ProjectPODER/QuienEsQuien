@@ -1,0 +1,429 @@
+<template name="api_docs">
+{{#markdown}}
+
+# Quién es Quién Wiki API
+
+Currently Quién es Quién Wiki API is Read Only.
+
+You may query or filter by any fields available on the <a href="//docs.quienesquien.wiki">schema</a>.
+
+## Url Parameters
+
+    curl -X GET {{host}}api/v1/organizations?simple=aeroports de paris societe anonyme&fields=address
+
+  * query by any field name available on the schema (i.e. names=Accel%20SAB%20de%20CV)
+  * To refer to a subdocument use *dot notation* (memberships.name)
+  * **fields**: limit returned fields to this comma separated list (i.e. &fields=name,description).
+  * **text**: use text search (true|false).
+  * **phrase**: search for complete phrase (true|false)
+  * **sort**: sort by field (add **sortd** to determine sort direction)
+  * **sortd**: determine direction of sort (1: ascending, -1: decending)
+  * **limit**: limit numer of results (default: 100)
+  * **skip**: skip ahead by this many documents
+  * **gt**: greater than some dates (combine with *lt* for a range, requires a numeric field, *start_date* or *end_date*)
+  * **lt**: less than some date (combine with *gt* for a range, requires a numeric field, *start_date* or *end_date*)
+  * **exists**: limit results to those contained in this comma seperated list
+
+## Body Parameters
+
+    curl -X POST {{host}}api/v1/organizations -d \
+
+    data: {
+      query: {
+        simple: "aeroports de paris societe anonyme"
+      },
+      projection: {
+        fields: {
+          address: 1
+        }
+      }
+    }
+
+  * query:any field name available on the schema (i.e. names: Accel SAB de CV)
+  * To refer to a subdocument use *dot notation* (memberships.name)
+  * **projection.fields**: limit returned fields to this comma separated list (i.e. {fields: {name:1,description:1}}).
+  * **text**: use text search (true|false).
+  * **projection.sort**: sort by field (1, -1 to determine direction)
+  * **projection.limit**: limit numer of results (default: 100)
+  * **projection.skip**: skip ahead by this many documents
+
+## Authentication
+
+Write operations (PUT, POST, PATCH, DELETE) require credentials in the form of a valid user and formal approval from QuienEsQuien.Wiki administration. You can get these [here](https://www.quienesquien.wiki/). Read operations (GET) is openly available to third parties.
+
+## Fields
+
+Please not that some fields are interdependent, so the remove of some field from the results may have unexpected results. When in doubt try the query without limiting the results with the `field` get param or projection operator.
+
+## Text and Phrase
+
+`text` and `phrase` parameters will add the `score` field to each returned object. Results are sorted by score.
+
+## Examples
+
+We recommend the use of [node-qqw](https://github.com/ProjectPODER/node-qqw) for querying or updating QuienEsQuien.Wiki data. But here are a few exampls of querying data with curl.
+
+### Persons
+
+#### GET
+    curl -q '{{host}}api/v1/persons?name=Carlos%20A.%20Motta'
+
+#### POST
+
+    curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/persons -d \
+    '{"query":{"simple":"carlos a motta"}}'
+
+#### result
+
+    {
+      "status": "success",
+      "data": [
+        {
+          "_id": "Knk2AoEw4hXe7Fx2F",
+          "simple": "carlos a motta",
+          "name": "Carlos A. Motta",
+          "source": "Manual",
+          "names": [
+            "Carlos A. Motta"
+          ],
+          "board": [
+            {
+              "role": "Director and Member of Nominating & Corporate Governance Committee",
+              "org_id": "copa holdings sa"
+            }
+          ]
+        }
+      ]
+    }
+
+### Organizations
+
+#### GET
+    curl -q '{{host}}api/v1/organizations?names=Accel%20SAB%20de%20CV'
+
+#### POST
+    curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/organizations -d \
+    '{"query":{"names": "Accel SAB de CV"}}'
+
+#### response
+
+    {
+      "status": "success",
+      "data": [
+        {
+          "_id": "9P7cqArwaCF4iu6rJ",
+          "description": "Accel, S.A.B. de C.V. provides logistics and manufacturing services.",
+          "company": {
+            "sector": "Consumer Staples",
+            "classification": "Food Products",
+            "tickers": "BMV:ACCELSA",
+            "employees": 3823,
+            "assets": 234.34,
+            "current_assets": 102.19,
+            "current_liabilities": 62.94,
+            "liabilities": 78.91,
+            "current_ratio": 1.54,
+            "quick_ratio": 0.8,
+            "revenue": 95.19,
+            "c_o_g_s": 71.42,
+            "gross_profit": 23.77,
+            "market_cap": 92.98,
+            "total_debt": 26.31,
+            "parent": {
+              "name": "Accel SAB de CV",
+              "address": "Virginia Fabregas No. 80, Col. San Rafael, Mexico City, Distrito Federal, 06470, Mexico"
+            }
+          },
+          "names": [
+            "Accel SAB de CV"
+          ]
+        }
+      ]
+    }
+
+
+### Contracts
+
+#### GET
+    curl -q '{{host}}api/v1/contracts?title=Red%20Local&text=true&limit=3'
+
+#### POST
+
+    curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/contracts -d \
+    '{"query": {"$text": {"$search": "\"Red Local\""}}, "projection":{"limit":3}}'
+
+#### result
+
+    {
+      "status": "success",
+      "data": [
+        {
+          "_id": "Hs3ErwKGF3qv8hjkY",
+          "clave_uc": "801001996",
+          "procedure_type": "Licitación Pública",
+          "dependency": {
+            "_id": "raxy9j5ue9m3wA3pd",
+            "contract_count": 1044,
+            "simple": "gobierno municipal del estado de aguascalientes",
+            "public": {
+              "initials": "AGS",
+              "government": "GM"
+            },
+            "address": {
+              "country": "MX"
+            }
+          },
+          "type": "Obra Pública",
+          "status": "Expirado",
+          "references": [
+            {
+              "url":     "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=303584"
+            }
+          ],
+          "currency": "MXN",
+          "account_admin": "PoC",
+          "ocid": "OCDS-0UD2Q6-LO-801001996-N43-2013",
+          "title": "Sustitución de Red Local de A.P. en calle Alfonso Rodriguez Franco entre calle Francisco M. Revilla y Blvd. Guadalupano Fracc. Benito Palomino Dena",
+          "amount": 889692.5,
+          "country": "MX",
+          "character": "Nacional",
+          "suppliers_person": [
+            {
+              "_id": "Jd8rbJZKWvwrfrX5t",
+              "simple": "jose de jesus aguilar gomez",
+              "contract_count": 5
+            }
+          ]
+        },
+        {
+          "_id": "7vDkq8bDQ3Rx3ovBh",
+          "dependency": {
+            "_id": "xAktnosAsB7KphBXG",
+            "simple": "instituto federal de telecomunicaciones",
+            "public": {
+              "initials": "IFT",
+              "government": "APF"
+            },
+            "address": {
+              "country": "MX"
+            },
+            "contract_count": 499
+          },
+          "status": "Expirado",
+          "ocid": "OCDS-0UD2Q6-IA-043D00001-I62-2014",
+          "references": [
+            {
+              "url":     "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=424958"
+            }
+          ],
+          "clave_uc": "043D00001",
+          "procedure_type": "Invitación a Cuando Menos 3 Personas",
+          "title": "SERVICIOS DE ASESORÍA ESPECIALIZADA PARA I LA REVISIÓN Y ANÁLISIS DE OFERTAS DE REFERENCIA DE LOS SERVICIOS MAYORISTAS II LA DESAGREGACIÓN EFECTIVA DE LA RED LOCAL III LA ADAPTACIÓN DE LOS MODELOS DE COSTOS A UNA METODOLOGÍA DE COSTOS INCREMENTALES",
+          "account_admin": "PoC",
+          "type": "Servicios",
+          "amount": 7942517,
+          "currency": "MXN",
+          "country": "MX",
+          "character": "Internacional",
+          "suppliers_org": [
+            {
+              "_id": "moEfHy68c3iRaLNm5",
+              "simple": "axon partners group consulting sl",
+              "address": {
+                "country": "ES"
+              },
+              "company": {},
+              "contract_count": 3
+            }
+          ]
+        },
+        {
+          "_id": "5b6goLXbTcQm2gdRM",
+          "ocid": "OCDS-0UD2Q6-LA-019GYR002-N227-2014",
+          "title": "LA-019GYR002-N227-2014 PARA EL SERVICIO DE MANTENIMIENTO DE RED LOCAL",
+          "dependency": {
+            "_id": "vdzeEmW47WYAKg6E4",
+            "contract_count": 58905,
+            "public": {
+              "initials": "IMSS",
+              "government": "APF"
+            },
+            "simple": "instituto mexicano del seguro social",
+            "address": {
+              "country": "MX"
+            }
+          },
+          "clave_uc": "019GYR002",
+          "procedure_type": "Licitación Pública",
+          "status": "Expirado",
+          "amount": 5001169.91,
+          "character": "Nacional",
+          "currency": "MXN",
+          "country": "MX",
+          "account_admin": "PoC",
+          "type": "Servicios",
+          "references": [
+            {
+              "url":     "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=445827"
+            }
+          ],
+          "suppliers_org": [
+            {
+              "_id": "ohazy8ADMw9jKrkzo",
+              "simple": "ddr mexico sa de cv",
+              "address": {
+                "country": "MX"
+              },
+              "company": {},
+              "contract_count": 9
+            }
+          ]
+        }
+      ]
+    }
+
+#### range of dates
+
+#### GET
+    curl -q '{{host}}api/v1/contracts?start_date&gt=2014-04-20&lt=2014-4-30&sort=end_date&limit=3'
+
+#### POST
+    curl -H "Content-Type: application/json" -X POST http://localhost:3000/api/v1/contracts -d \
+    '{"query": {"start_date":{"$gt":"2014-04-20", "$lt":"2014-4-30"}}, "projection":{"limit":3}}'
+
+#### response
+    {
+      "status": "success",
+      "data": [
+      {
+        "_id": "22ZqrSCyWmXYaAGnP",
+        "dependency": {
+          "_id": "ZcSHiPktoWvchGfyg",
+          "simple": "comision nacional forestal",
+          "address": {
+            "country": "MX"
+          },
+          "contract_count": 2833,
+          "public": {
+            "initials": "CONAFOR",
+            "government": "APF"
+          }
+        },
+        "procedure_type": "Adjudicación Directa Federal",
+        "currency": "MXN",
+        "title": "REPARACION BOMBA MARK III GEBCS2014",
+        "amount": 23966.53,
+        "account_admin": "UC",
+        "ocid": "OCDS-0UD2Q6-SA-016RHQ001-N252-2014",
+        "start_date": "2014-04-21T00:00:00.000Z",
+        "country": "MX",
+        "character": "Nacional",
+        "type": "Servicios",
+        "status": "Expirado",
+        "end_date": "2014-05-03T00:00:00.000Z",
+        "references": [
+          {
+            "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=389962"
+          }
+        ],
+        "clave_uc": "016RHQ001",
+        "suppliers_person": [
+          {
+            "_id": "kdHfc3bs4e9PoC98k",
+            "simple": "carlos valdez sandoval",
+            "contract_count": 9
+          }
+        ]
+      },
+      {
+        "_id": "2BE6oubSXk6hD9AzS",
+        "start_date": "2014-04-21T00:00:00.000Z",
+        "character": "Nacional",
+        "account_admin": "PoC",
+        "clave_uc": "012NBD001",
+        "procedure_type": "Adjudicación Directa Federal",
+        "end_date": "2014-12-31T00:00:00.000Z",
+        "celebration": "2014-04-21T00:00:00.000Z",
+        "type": "Servicios",
+        "ocid": "OCDS-0UD2Q6-SA-012NBD001-N77-2014",
+        "amount": 364320,
+        "dependency": {
+          "_id": "eQMdRkHHWBanC5cLX",
+          "simple": "hospital general de mexico dr eduardo liceaga",
+          "public": {
+            "initials": "HGM",
+            "government": "APF"
+          },
+          "address": {
+            "country": "MX"
+          },
+          "contract_count": 2602
+        },
+        "status": "Terminado",
+        "title": "MANTENIMIENTO PREVENTIVO Y CORRECTIVO A DOS ESTERILIZADORES DE PEROXIDO DE HIDROGENO UBICADOS EN LA UNIDAD DE ONCOLOGIA DEL HOSPITAL GENERAL DE MEXICO DR. EDUARDO LICEAGA O.D",
+        "currency": "MXN",
+        "country": "MX",
+        "references": [
+          {
+            "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=648879"
+          }
+        ],
+        "suppliers_org": [
+          {
+            "_id": "5SDfa8ZSQdgQjzvLN",
+            "contract_count": 96,
+            "simple": "instrumentacion medica sa de cv",
+            "address": {
+              "country": "MX"
+            },
+            "company": {}
+          }
+        ]
+      },
+      {
+        "_id": "2SN2uSnzzqkCnnLdp",
+        "status": "Expirado",
+        "character": "Nacional",
+        "account_admin": "PoC",
+        "ocid": "OCDS-0UD2Q6-SO-820405964-N1-2014",
+        "clave_uc": "820405964",
+        "start_date": "2014-04-21T00:00:00.000Z",
+        "amount": 292237.02,
+        "country": "MX",
+        "dependency": {
+          "_id": "ewgMnhjP3B428Q9nP",
+          "simple": "gobierno municipal del estado de oaxaca",
+          "public": {
+            "initials": "OAX",
+            "government": "GM"
+          },
+          "address": {
+            "country": "MX"
+          },
+          "contract_count": 372
+        },
+        "end_date": "2014-06-05T00:00:00.000Z",
+        "title": "CAMINO TAMAZULAPAN -CHILAPA DE DÍAZ SEÑALAMIENTO",
+        "celebration": "2014-04-21T00:00:00.000Z",
+        "references": [
+          {
+            "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=395989"
+          }
+        ],
+        "procedure_type": "Adjudicación Directa Federal",
+        "type": "Obra Pública",
+        "currency": "MXN",
+        "suppliers_person": [
+          {
+            "_id": "BnMaDNeNtgBcSPvBC",
+            "simple": "norma gisela lopez nunez",
+            "contract_count": 5
+          }
+        ]
+      }
+
+      ]
+    }
+
+{{/markdown}}
+</template>

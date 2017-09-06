@@ -1,0 +1,45 @@
+<template name="Lost">
+  {{#if authInProcess}}
+    <p>&nbsp;</p>
+  {{else}}
+    {{#if is_admin}}
+      {{#if ready }}
+        {{> Similar document=lost }}
+        {{> lostNavigation nav=nav}}
+      {{/if}}
+    {{else}}
+      <p id="unauthorized">No tienes permiso de ver esta página. Escribe a <a href="info@quienesquien.wiki">info@quienesquien.wiki</a> para obtener acceso.</p>
+    {{/if}}
+  {{/if}}
+</template>
+
+<template name="lostNavigation">
+  <div id=lost-navigation>
+  {{#if nav.prev}}
+    <a class="js-lost-nav-prev"
+      data-toggle="tooltip" data-placement="right"
+      title="Previous">
+      <i class="fa fa-caret-left fa-2x" aria-hidden="true"></i>
+    </a>
+  {{/if}}
+  {{#if nav.next}}
+    <a class="js-lost-nav-next"
+      data-toggle="tooltip" data-placement="right"
+      title="Next">
+      <i class="fa fa-caret-right fa-2x" aria-hidden="true"></i>
+    </a>
+  {{/if}}
+  </div>
+</template>
+
+<template name="lostActionTmpl">
+  <a class="text-danger js-remove">
+    <span class="fa fa-remove"></span>
+  </a>
+  <a class="text-info js-to-person" >
+    <span class="fa fa-user"></span>
+  </a>
+  <a class="text-warning js-to-org">
+    <span class="fa fa-building"></span>
+  </a>
+</template>

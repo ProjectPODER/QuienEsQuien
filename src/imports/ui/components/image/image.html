@@ -1,0 +1,22 @@
+<template name="ProfileImage">
+  <div class="perfil-image text-center">
+    {{#unless image orgId }}
+      <i class="fa fa-building fa-5x pull-right" aria-hidden="true"></i>
+      {{#if currentUser }}
+        {{> upload store='images' docId=docId }}
+      {{/if}}
+    {{/unless}}
+      {{#with image orgId}}
+        {{#if uploading}}
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+          <span>{{completed}}%</span>
+        {{else}}
+          {{#unless thumb }}
+            <img class="img-rounded" src="{{url}}" title="{{name}}">
+          {{else}}
+            <img class="img-rounded" src="{{thumb.url}}" title="{{name}}">
+          {{/unless}}
+        {{/if}}
+      {{/with}}
+    </div>
+</template>
