@@ -24,7 +24,7 @@ export function importScheme(file, flow, templateInstance) {
           }, (error, result) => {
           if (error) {
             templateInstance.importing.set(false);
-            Notifications.error(error);
+            Notifications.error(error.message);
             templateInstance.$('[name="uploadCSV"]').val('');
             parser.abort();
           }

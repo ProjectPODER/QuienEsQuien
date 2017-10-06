@@ -1,12 +1,9 @@
-import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
-import { Orgs } from './organizations.js';
-import { Persons } from '../persons/persons.js';
-import { AddressSchema } from '../addresses/addresses.js';
+import AddressSchema from '../addresses/addresses.js';
 import { ReferenceSchema } from '../references/references.js';
-import { OwnershipSchema } from '../ownership/ownership.js';
 import { PublicSchema } from '../public/public.js';
 import { CompanySchema } from '../company/company.js';
+import { imageUrlRegExp } from '../lib';
 
 const CompetitorsSchemaObject = {
   name: {
@@ -26,11 +23,11 @@ const CompetitorsSchemaObject = {
   'references.$': ReferenceSchema,
 };
 
-export const CompetitorsSchema = new SimpleSchema(CompetitorsSchemaObject);
+const CompetitorsSchema = new SimpleSchema(CompetitorsSchemaObject);
 
 const OrganizationSchemaObject = {
   source: {
-    max: 20,
+    max: 25,
     type: String,
     optional: true,
   },
@@ -42,7 +39,6 @@ const OrganizationSchemaObject = {
   simple: {
     type: String,
     index: true,
-    unique: true,
     max: 200
   },
   name: {
@@ -71,12 +67,23 @@ const OrganizationSchemaObject = {
   },
   category: {
     type: String,
-    allowedValues: [ 'public', 'company', 'non-profit' ],
+    allowedValues: [
+      'public',
+      'company',
+      'non-profit',
+      'party'
+    ],
     optional: true,
   },
   description: {
     type: String,
     max: 700,
+    optional: true,
+  },
+  imageUrl: {
+    type: String,
+    max: 200,
+    regEx: imageUrlRegExp,
     optional: true,
   },
   address: {
@@ -143,6 +150,10 @@ const OrganizationSchemaObject = {
     type: Date,
     optional: true,
   },
+  lastModified: {
+    type: Date,
+    optional: true,
+  },
 };
 
-export const OrganizationSchema = new SimpleSchema(OrganizationSchemaObject)
+export default new SimpleSchema(OrganizationSchemaObject)

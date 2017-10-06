@@ -1,11 +1,13 @@
-import { Mongo } from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
 import { ReferenceSchema } from '../references/references.js';
-import { AddressSchema } from '../addresses/addresses.js';
+import AddressSchema from '../addresses/addresses.js';
+import { imageUrlRegExp } from '../lib';
+
+SimpleSchema.extendOptions(['autoform']);
 
 const PersonSchemaObject = {
   source: {
-    max: 50,
+    max: 25,
     type: String,
     optional: true,
   },
@@ -17,7 +19,6 @@ const PersonSchemaObject = {
   simple: {
     type: String,
     index: true,
-    unique: true,
     max: 100
   },
   names: {
@@ -33,6 +34,12 @@ const PersonSchemaObject = {
     type: String,
     max: 100,
     index: true
+  },
+  imageUrl: {
+    type: String,
+    max: 200,
+    regEx: imageUrlRegExp,
+    optional: true,
   },
   prefix: {
     type: String,
@@ -70,6 +77,26 @@ const PersonSchemaObject = {
     type: Number,
     optional: true
   },
+  party: {
+    type: String,
+    max: 200,
+    optional: true
+  },
+  party_general: {
+    type: String,
+    max: 200,
+    optional: true
+  },
+  first_name: {
+    type: String,
+    max: 75,
+    optional: true,
+  },
+  family_name: {
+    type: String,
+    max: 75,
+    optional: true,
+  },
   references: {
     type: Array,
     optional: true,
@@ -82,6 +109,10 @@ const PersonSchemaObject = {
     type: Date,
     optional: true,
   },
+  lastModified: {
+    type: Date,
+    optional: true,
+  },
 };
 
-export const PersonSchema = new SimpleSchema(PersonSchemaObject);
+export default new SimpleSchema(PersonSchemaObject);

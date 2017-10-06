@@ -23,12 +23,7 @@ import {
 import {
   Contracts,
 } from '../../../contracts/contracts';
-import {
-  Memberships,
-} from '../../../memberships/memberships';
-import {
-  AddressSchema,
-} from '../../../addresses/addresses';
+import AddressSchema from '../../../addresses/addresses';
 import {
   genericDataFormat,
   NAICMImportRow,

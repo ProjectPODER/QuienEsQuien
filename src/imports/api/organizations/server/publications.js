@@ -1,7 +1,7 @@
 import { map, find, extend, omit, sortBy } from 'lodash';
 import { Orgs } from '../organizations';
 import { Persons } from '../../persons/persons';
-import { Memberships } from '../../memberships/memberships';
+import Memberships from '../../memberships/memberships';
 import { rankedOrgId, rankedSobOrg, rankedPersonId } from '../../memberships/server/lib';
 import { Contracts } from '../../contracts/contracts';
 

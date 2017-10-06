@@ -1,6 +1,6 @@
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import SimpleSchema from 'simpl-schema';
-import { PersonSchema } from './schema';
+import PersonSchema from './schema';
 import { Persons } from './persons';
 
 export const personInsert = new ValidatedMethod({

@@ -2,11 +2,6 @@ export const person = {
   "name": "Juan Maximiliano Benavides Feliú",
   "simple": "juan maximiliano benavides feliu",
   "source": "Manual",
-  "memberships": [{
-    "name": "Administradora de Fondos de Pensiones Habitat S.A.",
-    "role": "Chairman of the Board",
-    "department": "Junta directiva",
-  }],
 };
 
 export const newMember = {
@@ -16,13 +11,13 @@ export const newMember = {
 };
 
 export const testDoc = {
-	"simple" : "agustin de aliaga fernandini",
-	"name" : "Agustín De Aliaga Fernandini",
-	"names": [
-		"Agustín De Aliaga Fernandini",
-		"Agustín de Aliaga Fernandini",
-		"Agustin de Aliaga Fernandini"
-	],
+  "simple" : "agustin de aliaga fernandini",
+  "name" : "Agustín De Aliaga Fernandini",
+  "names": [
+    "Agustín De Aliaga Fernandini",
+    "Agustín de Aliaga Fernandini",
+    "Agustin de Aliaga Fernandini"
+  ],
   "contract_count": 5,
 }
 
@@ -48,7 +43,7 @@ export const testMemberships = [{
   "role": "shareholder",
   "user_id": "tbLRBLEcosuzvC9ZK",
   "sob_org": "consorcio ara s a b de c v",
-	"person": "Agustín De Aliaga Fernandini",
+  "person": "Agustín De Aliaga Fernandini",
   "person_id": "agustin de aliaga fernandini",
 },
 {
@@ -86,7 +81,7 @@ export const testMemberships = [{
 ];
 
 export const testContracts = [
-	{
+  {
   "dependency": "Comisión Federal De Electricidad",
   "department": "Zona Piedras Negras Ddgn",
   "clave_uc": "018TOQ976",
@@ -102,9 +97,9 @@ export const testContracts = [
   "character": "Nacional",
   "account_admin": "PoC",
   "references": [
-		{
-			"url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
-		},
+    {
+      "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
+    },
   ],
 }, {
   "dependency": "Comisión Federal De Electricidad",
@@ -123,9 +118,9 @@ export const testContracts = [
   "character": "Nacional",
   "account_admin": "PoC",
   "references": [
-		{
-			"url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
-		},
+    {
+      "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
+    },
   ],
 }, {
   "dependency": "Comisión Federal De Electricidad",
@@ -144,9 +139,9 @@ export const testContracts = [
   "character": "Nacional",
   "account_admin": "PoC",
   "references": [
-		{
-			"url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
-		},
+    {
+      "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
+    },
   ],
 }, {
   "dependency": "Comisión Federal De Electricidad",
@@ -165,8 +160,8 @@ export const testContracts = [
   "character": "Nacional",
   "account_admin": "PoC",
   "references": [
-		{
-			"url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
-		},
+    {
+      "url": "compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=328962",
+    },
   ],
 }];

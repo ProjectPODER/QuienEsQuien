@@ -76,4 +76,4 @@ const AddressSchemaObject = {
   },
 };
 
-export const AddressSchema = new SimpleSchema(AddressSchemaObject)
+export default new SimpleSchema(AddressSchemaObject)

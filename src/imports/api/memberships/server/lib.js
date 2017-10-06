@@ -1,5 +1,5 @@
 import { union, find } from 'lodash';
-import { Memberships } from '../memberships';
+import Memberships from '../memberships';
 
 const rawMemberships = Memberships.rawCollection();
 rawMemberships.aggregateSync = Meteor.wrapAsync(rawMemberships.aggregate);

@@ -6,7 +6,8 @@
     "meteor": true
   },
   "plugins": [
-    "meteor"
+    "meteor",
+    "chai-friendly",
   ],
   "extends": [
     "airbnb/base",

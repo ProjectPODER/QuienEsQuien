@@ -14,9 +14,7 @@ import {
   dbOperators,
   updateMembers,
 } from '../index';
-import {
-  AddressSchema,
-} from '../../../addresses/addresses';
+import AddressSchema from '../../../addresses/addresses';
 import {
   simpleName,
   omitEmpty,

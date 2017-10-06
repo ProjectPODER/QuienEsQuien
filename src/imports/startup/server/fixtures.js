@@ -4,8 +4,6 @@ import { Persons } from '../../api/persons/persons.js';
 import { Contracts } from '../../api/contracts/contracts.js';
 
 Meteor.startup(() => {
-  // hack PATH so spiderable works
-  process.env.PATH += `:${process.cwd()}/npm/node_modules/.bin`;
   // we can use the name for text index as that should cover most cases in the names array
   Orgs._ensureIndex({
     name: 'text',

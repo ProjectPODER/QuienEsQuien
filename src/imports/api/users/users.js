@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 
 const LIMIT = 1000;
 
-export const UserLog = new Mongo.Collection("userlog");
+export const userLog = new Mongo.Collection("userlog");
 
 export function logUserAction(object) {
   const date = new Date();
@@ -17,19 +17,19 @@ export function logUserAction(object) {
         date: date,
         collection: object.collection
   };
-  const result = UserLog.insert(doc)
+  const result = userLog.insert(doc)
   return result;
 }
 
-UserLog.after.insert((userId, doc) => {
-  const count = UserLog.find().count();
+userLog.after.insert((userId, doc) => {
+  const count = userLog.find().count();
   if (count > LIMIT) {
-    UserLog.find({}, { sort: { date: 1 }, limit: (count - LIMIT) })
-    .forEach(entry => (UserLog.remove({ _id: entry._id })));
+    userLog.find({}, { sort: { date: 1 }, limit: (count - LIMIT) })
+    .forEach(entry => (userLog.remove({ _id: entry._id })));
   }
 });
 
-UserLog.deny({
+userLog.deny({
   insert() { return true; },
   update() { return true; },
   remove() { return true; },

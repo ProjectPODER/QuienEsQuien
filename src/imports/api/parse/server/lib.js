@@ -1,14 +1,19 @@
 import moment from 'moment';
 import {
-dropRight,
-mapValues,
-isString,
-isArray,
-snakeCase,
-values,
-uniq,
+  dropRight,
+  mapValues,
+  isString,
+  isArray,
+  snakeCase,
+  values,
+  uniq,
+  mapKeys,
+  camelCase,
 } from 'lodash';
-import { invalidValues, date_regex } from './variables';
+import {
+  invalidValues,
+  date_regex,
+} from './variables';
 
 const countriesArray = require('world-countries');
 
@@ -118,4 +123,27 @@ export function genOCDID(data) {
     return string;
   }
   return string;
+}
+
+export function joinNames(data) {
+  return [
+    data.nombre.trim(),
+    data.apellido.trim(),
+  ].join(' ');
+}
+
+export function getInitials(string) {
+  return string.match(/\b(\w)/g).join('');
+}
+
+export function isInitials(string, initials) {
+  return (initials === getInitials(string));
+}
+
+export function stripProtocol(string) {
+  return string.replace(/.*?:\/\//g, '');
+}
+
+export function camelizeKeys(data) {
+  return mapKeys(data, (value, key) => (camelCase(key)));
 }

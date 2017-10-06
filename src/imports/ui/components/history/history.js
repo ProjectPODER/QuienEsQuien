@@ -1,6 +1,10 @@
+import { isObject } from 'lodash';
+import {
+  SubsManager,
+} from 'meteor/thelohoadmin:subs-manager';
 import { Revisions } from '../../../api/revisions/revisions.js';
-import { filter, orderBy, isObject } from 'lodash';
-import './history.html'
+import './history.html';
+import '../../helpers.js';
 
 const historySub = new SubsManager({
   cacheLimit: 50

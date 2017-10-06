@@ -1,16 +1,7 @@
 {
   "name": "quienesquien.wiki",
-  "version": "0.6.6",
+  "version": "0.6.8",
   "private": true,
-  "license": "GPL-3.0",
-  "author": {
-    "name": "Kevin Brown",
-    "email": "kevin@rindecuentas.org"
-  },
-  "bugs": {
-    "url" : "https://github.com/ProjectPODER/QuienEsQuien/issues",
-    "email" : "info@quienesquien.wiki"
-  },
   "scripts": {
     "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
     "test": "MONGO_URL=mongodb://localhost:27017/testing meteor test --driver-package meteortesting:mocha --port 3100",
@@ -28,10 +19,11 @@
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
-    "bcrypt": "^1.0.2",
+    "bcrypt": "^1.0.3",
     "bootstrap-datepicker": "^1.6.4",
     "cheerio": "^1.0.0-rc.2",
     "clj-fuzzy": "^0.4.0",
+    "core-js": "^2.5.1",
     "currency-codes": "^1.1.2",
     "cytoscape": "^2.7.19",
     "cytoscape-cola": "^1.5.0",
@@ -52,7 +44,6 @@
     "numbro": "^1.9.3",
     "nvd3": "^1.8.5",
     "papaparse": "^4.2.0",
-    "phantomjs-prebuilt": "^2.1.14",
     "pikaday": "^1.5.1",
     "rangeslider.js": "^2.3.0",
     "read-file": "^0.2.0",
@@ -78,6 +69,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-chai-friendly": "^0.4.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-meteor": "^4.1.6",

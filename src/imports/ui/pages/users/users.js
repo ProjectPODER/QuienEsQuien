@@ -286,7 +286,7 @@ Template.newUserForm.events({
   },
 });
 
-Template.userLog.onCreated(function(){
+Template.userLogTmpl.onCreated(function(){
   let self = this;
   self.ready = new ReactiveVar(false);
   self.userLog = new ReactiveVar(false);
@@ -307,7 +307,7 @@ Template.userLog.onCreated(function(){
 
 })
 
-Template.userLog.helpers({
+Template.userLogTmpl.helpers({
   userLog: () => Template.instance().userLog.get(),
 
   ready() {

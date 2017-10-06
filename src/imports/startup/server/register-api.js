@@ -16,3 +16,6 @@ import '../../api/matches/methods.js';
 import '../../api/revisions/server/publications.js';
 import '../../api/users/server/publications.js';
 import '../../api/users/methods.js';
+import '../../api/collectionHooks.js';
+// FIXME enable following further testing of membership updates 
+// import '../../api/memberships/methods.js';

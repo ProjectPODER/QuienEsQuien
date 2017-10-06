@@ -5,80 +5,80 @@
 </template>
 
 <template name="personView">
-{{#with person }}
-  <div class='viewWrapper'>
-    <div class='datos-generales clearfix'>
-      <div class="gd-col-left-wrapper col-md-6">
-        {{#if name }}
-        <div class="description-data-name">
-        <h3>{{name}}</h3>
-        </div>
-        {{/if}}
-      <table class="table">
-        <tbody>
+  {{#with person }}
+    <div class='viewWrapper'>
+      <div class='datos-generales clearfix'>
+        <div class="gd-col-left-wrapper col-md-6">
+          {{#if name }}
+            <div class="description-data-name">
+              <h3>{{name}}</h3>
+            </div>
+          {{/if}}
+          <table class="table">
+            <tbody>
 
-      {{#if prefix }}
-      <tr class="description-data-prefix">
-      <td>{{__ "prefix" }}</td>
-      <td>{{prefix}}</td>
-      </tr>
-      {{/if}}
-      {{#if suffix }}
-      <tr class="description-data-suffix">
-      <td>{{__ "suffix" }}</td>
-      <td>{{suffix}}</td>
-      </tr>
-      {{/if}}
-      {{#if gender }}
-      <tr class="description-data-gender">
-      <td>{{__ "gender" }}</td>
-      <td>{{gender}}</td>
-      </tr>
-      {{/if}}
-      {{#if nationality }}
-      <tr class="description-data-nationality">
-      <td>{{__ "nationality" }}</td>
-      <td>{{nationality}}</td>
-      </tr>
-      {{/if}}
-      {{#if date_of_birth }}
-      <tr class="description-data-dateofbirth">
-      <td>{{__ "date of birth" }}</td>
-      <td>{{date_of_birth}}</td>
-      </tr>
-      {{/if}}
-      {{#if date_of_death }}
-      <tr class="description-data-dateofdeath">
-      <td>{{__ "date of death"}}</td>
-      <td>{{date_of_death}}</td>
-      </tr>
-      {{/if}}
-        </tbody>
-    </table>
-  </div>
-    <div class="document-icon col-md-6 pull-right">
-      {{> ProfileImage docId=_id}}
-    </div>
+              {{#if prefix }}
+                <tr class="description-data-prefix">
+                  <td>{{__ "prefix" }}</td>
+                  <td>{{prefix}}</td>
+                </tr>
+              {{/if}}
+              {{#if suffix }}
+                <tr class="description-data-suffix">
+                  <td>{{__ "suffix" }}</td>
+                  <td>{{suffix}}</td>
+                </tr>
+              {{/if}}
+              {{#if gender }}
+                <tr class="description-data-gender">
+                  <td>{{__ "gender" }}</td>
+                  <td>{{gender}}</td>
+                </tr>
+              {{/if}}
+              {{#if nationality }}
+                <tr class="description-data-nationality">
+                  <td>{{__ "nationality" }}</td>
+                  <td>{{nationality}}</td>
+                </tr>
+              {{/if}}
+              {{#if date_of_birth }}
+                <tr class="description-data-dateofbirth">
+                  <td>{{__ "date of birth" }}</td>
+                  <td>{{date_of_birth}}</td>
+                </tr>
+              {{/if}}
+              {{#if date_of_death }}
+                <tr class="description-data-dateofdeath">
+                  <td>{{__ "date of death"}}</td>
+                  <td>{{date_of_death}}</td>
+                </tr>
+              {{/if}}
+            </tbody>
+          </table>
+        </div>
+        <div class="document-icon col-md-6 pull-right">
+          {{> ProfileImage docId=_id imageUrl=imageUrl}}
+        </div>
       </div>
 
-    {{#if address }}
-    <div class="address clearfix">
-      <h3 class="detail_header">{{__ "address" }}</h3>
-      <table class="table">
-        <tbody>
-      {{#each arrayify address }}
-      <tr>
-        <td>{{__ name }}</td>
-        <td>{{value}}</td>
-      </tr>
-      {{/each}}
-        </tbody>
-    </table>
+      {{#if address }}
+        <div class="address clearfix">
+          <h3 class="detail_header">{{__ "address" }}</h3>
+          <table class="table">
+            <tbody>
+              {{#each arrayify address }}
+                <tr>
+                  <td>{{__ name }}</td>
+                  <td>{{value}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{/if}}
+      {{> Memberships }}
     </div>
-    {{/if}}
-    {{> Memberships }}
-  </div>
-{{/with}}
+  {{/with}}
 </template>
 
 <template name="PersonSubmit">
@@ -91,7 +91,9 @@
         formType='method'
       }}
     {{else}}
-      <p id="unauthorized">No tienes permiso de ver esta página. Escribe a <a href="info@quienesquien.wiki">info@quienesquien.wiki</a> para obtener acceso.</p>
+      <p id="unauthorized">No tienes permiso de ver esta página. Escribe a
+        <a href="info@quienesquien.wiki">info@quienesquien.wiki</a>
+        para obtener acceso.</p>
     {{/if}}
   {{/if}}
 </template>
@@ -101,81 +103,88 @@
     <li>
       <a class="rev-link" href="/persons/{{person._id}}#draft">ultimo versión</a>.
       {{#if person.user_id }}
-        actualizado por <i>{{ updatedBy person.user_id }}</i>.
+        actualizado por
+        <i>{{ updatedBy person.user_id }}</i>.
       {{/if}}
     </li>
-  {{#each revisions}}
-  <li> actualizado por <i>{{ updatedBy user_id }}</i>
-    <a class="rev-link" href="/persons/{{personId}}/revisions/{{revisionId}}#draft">{{ fromNow lastModified }}</a>.
-  </li>
-  {{/each}}
+    {{#each revisions}}
+      <li>
+        actualizado por
+        <i>{{ updatedBy user_id }}</i>
+        <a class="rev-link" href="/persons/{{personId}}/revisions/{{revisionId}}#draft">{{ fromNow lastModified }}</a>.
+      </li>
+    {{/each}}
   </ul>
 </template>
 
 <template name="person_update_form">
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-{{#autoForm collection=personsCollection
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    {{#autoForm collection=personsCollection
   doc=selectedPersonDoc
   id="updatePersonForm"
   type=formType
   meteormethod=meteormethod
   singleMethodArgument=true
 }}
-<!-- datos generales -->
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="general_data_heading">
-      <h4 class="panel-title text-capitalize">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#general_data_collapse" aria-expanded="true" aria-controls="general_data_collapse">
-{{__ 'general data'}}
-        </a>
-      </h4>
-    </div>
-    <div id="general_data_collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="general_data_heading">
-      <div class="panel-body">
-{{> afQuickField name='name'}}
-{{> afQuickField name='prefix'}}
-{{> afQuickField name='suffix'}}
-{{> afQuickField name='gender' options="allowed"}}
-{{> afQuickField name='nationality'}}
-{{> afQuickField name='date_birth'}}
-{{> afQuickField name='date_death'}}
+      <!-- datos generales -->
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="general_data_heading">
+          <h4 class="panel-title text-capitalize">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#general_data_collapse" aria-expanded="true" aria-controls="general_data_collapse">
+              {{__ 'general data'}}
+            </a>
+          </h4>
+        </div>
+        <div id="general_data_collapse" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="general_data_heading">
+          <div class="panel-body">
+            {{> afQuickField name='name'}}
+            {{> afQuickField name='prefix'}}
+            {{> afQuickField name='suffix'}}
+            {{> afQuickField name='gender' options="allowed"}}
+            {{> afQuickField name='nationality'}}
+            {{> afQuickField name='date_birth'}}
+            {{> afQuickField name='date_death'}}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<!-- datos generales -->
-<!-- address -->
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="address_heading">
-      <h4 class="panel-title text-capitalize">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#address_collapse" aria-expanded="true" aria-controls="address_collapse">
-          {{__ "address"}}
-        </a>
-      </h4>
-    </div>
-    <div id="address_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="address_heading">
-      <div class="panel-body">
-{{> afQuickField name='address'}}
+      <!-- datos generales -->
+      <!-- address -->
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="address_heading">
+          <h4 class="panel-title text-capitalize">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#address_collapse" aria-expanded="true" aria-controls="address_collapse">
+              {{__ "address"}}
+            </a>
+          </h4>
+        </div>
+        <div id="address_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="address_heading">
+          <div class="panel-body">
+            {{> afQuickField name='address'}}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-<!-- address -->
-<!-- references -->
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="references_heading">
-      <h4 class="panel-title text-capitalize">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#references_collapse" aria-expanded="true" aria-controls="references_collapse">
-{{__ "references"}}
-        </a>
-      </h4>
-    </div>
-    <div id="references_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="references_heading">
-      <div class="panel-body">
-{{> afQuickField name='references' minCount=1}}
+      <!-- address -->
+      <!-- references -->
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="references_heading">
+          <h4 class="panel-title text-capitalize">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#references_collapse" aria-expanded="true" aria-controls="references_collapse">
+              {{__ "references"}}
+            </a>
+          </h4>
+        </div>
+        <div id="references_collapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="references_heading">
+          <div class="panel-body">
+            {{> afQuickField name='references' minCount=1}}
+          </div>
+        </div>
       </div>
-    </div>
+      <!-- references -->
+      <button type="submit" class="btn btn-primary">{{__ "Submit"}}</button>
+    {{/autoForm}}
+    <!-- FIXME enable following further testing and improvements
+    {{> editMemberships doc=selectedPersonDoc}}
+    -->
   </div>
-<!-- references -->
-<button type="submit" class="btn btn-primary">{{__ "Submit"}}</button>
-{{/autoForm}}
-</div><!-- id="accordion" -->
+  <!-- id="accordion" -->
 </template>

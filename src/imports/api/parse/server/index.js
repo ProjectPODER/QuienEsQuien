@@ -34,9 +34,7 @@ import {
 import {
   Persons,
 } from '../../persons/persons';
-import {
-  Memberships,
-} from '../../memberships/memberships';
+import Memberships from '../../memberships/memberships';
 
 export const tmpContracts = new Mongo.Collection('tmpContracts');
 export const tmpPersons = new Mongo.Collection('tmpPersons');
@@ -83,9 +81,6 @@ export function baseMod(string, userId) {
     $setOnInsert: {
       simple: simpleName(string),
       name: string,
-      names: [],
-      user_id: userId,
-      source: 'NAICM',
     },
     $addToSet: {
       names: string,
@@ -101,10 +96,9 @@ export function resetTemporaryCollections() {
 }
 
 export function dbOperators(doc, userId) {
-  const setter = baseMod(doc.simple, userId);
+  const setter = baseMod(doc.name, userId);
   const addToSet = {};
-  doc.source = 'NAICM';
-  doc.user_id = userId;
+
   if (doc.contract_count) {
     setter.$inc = { contract_count: doc.contract_count };
   }
@@ -147,6 +141,7 @@ export function dbOperators(doc, userId) {
     'suborgs',
     'parent',
     'contract_count',
+    '_id',
   ]);
   return setter;
 }
@@ -154,7 +149,6 @@ export function dbOperators(doc, userId) {
 function dbOperatorsContracts(doc, userId) {
   const setter = {};
   const addToSet = {};
-  doc.source = 'NAICM';
   doc.user_id = userId;
   if (doc.suppliers_org) {
     extend(addToSet, {
@@ -257,18 +251,24 @@ export function referenceData(data) {
 
 export function updateMembers(o) {
   const object = o;
+  const set = {};
   object._id = Random.id();
   const setter = { $setOnInsert: omitEmpty(object) };
   if (object.shares) {
-    extend(setter, { $set: object.shares });
+    extend(set, {
+        shares: object.shares,
+    });
+  }
+  if (!isEmpty(set)) {
+    extend(setter, { $set: set })
   }
   Memberships.rawCollection().findAndModify(
-    omitEmpty(omit(object, 'shares')),
+    omitEmpty(omit(object, ['shares', '_id'])),
     [],
     setter,
     {
       upsert: true,
-      new: true,
+      new: false,
     },
   );
 }

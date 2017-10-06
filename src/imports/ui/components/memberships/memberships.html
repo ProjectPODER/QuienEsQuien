@@ -18,6 +18,48 @@
   {{/unless}}
 </template>
 
+<template name="editMemberships">
+  <h3>Memberships</h3>
+  <div class="panel-group"
+    id="memberships-accordion"
+    role="tablist"
+    aria-multiselectable="true">
+    {{#each member in memberships}}
+      <div class="panel panel-default clear">
+        <div class="panel-heading" role="tab" id="edit-memberships-{{@index}}">
+          <h4 class="panel-title text-capitalize">
+            <a role="button" data-toggle="collapse"
+              data-parent="#memberships-accordion"
+              href="#memberships_{{@index}}_collapse"
+              aria-expanded="true"
+              aria-controls="membership_{{@index}}_collapse">
+              {{member.sob_org}}
+            </a>
+            <a>
+              <i class="fa fa-times pull-right" aria-hidden="true"></i>
+            </a>
+          </h4>
+        </div>
+        <div id="memberships_{{@index}}_collapse"
+          class="panel-collapse collapse"
+          role="tabpanel"
+          aria-labelledby="memberships_heading">
+          <div class="panel-body">
+            {{> quickForm
+              collection=membershipsCollection
+              schema=personMembershipsSchema
+              doc=member
+              id="updateMembershipForm"
+              type="method-update"
+              meteormethod="Memberships.methods.update"
+              singleMethodArgument=true }}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</template>
+
 <template name="boardMembers">
   <div class="memberships clearfix">
     <h3 class="detail_header">{{__ "board memberships" }}</h3>

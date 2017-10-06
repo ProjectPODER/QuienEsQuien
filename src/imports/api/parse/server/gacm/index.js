@@ -41,9 +41,7 @@ import {
 import {
   Persons,
 } from '../../../persons/persons';
-import {
-  Memberships,
-} from '../../../memberships/memberships';
+import Memberships from '../../../memberships/memberships';
 import {
   tmpContracts,
   tmpPersons,
