@@ -73,22 +73,19 @@ AutoForm.hooks({
     after: {
       'method-update': function(error, result) {
         if (error){
-          Notifications.error('Error', error);
+          Notifications.error('Error', error.message);
         }
-        if (result > 0){
+        if (result){
           Notifications.success(i18n.__("success"), i18n.__("organization successfully updated"));
         }
       },
       'method': function(error, result) {
         if (error){
-          Notifications.error('Error', error);
+          Notifications.error('Error', error.message);
         }
         if (result){
           Notifications.success(i18n.__("success"), i18n.__("organization successfully created"));
         }
-        Session.set('activeTab', 'read');
-        FlowRouter.go('/orgs/' + result + '#read');
-
       }
     }
   }

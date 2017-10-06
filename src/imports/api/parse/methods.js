@@ -1,11 +1,12 @@
 import SimpleSchema from 'simpl-schema';
 import { check } from 'meteor/check';
+import { CollectionHooks } from 'meteor/matb33:collection-hooks';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { flushTmp } from '../tmp/lib';
 import { cargografiasSchema, NAICMSchema } from './schema';
 
 if (Meteor.isServer) {
-  import { resetTemporaryCollections, flushTemporaryCollections } from './server';
+//  import { resetTemporaryCollections, flushTemporaryCollections } from './server';
 }
 
 export const resetTemporary = new ValidatedMethod({
@@ -39,6 +40,7 @@ export const flushCollections = new ValidatedMethod({
 
       Meteor.setTimeout(() => {
         console.log('flush temporary collections');
+        CollectionHooks.defaultUserId = userId;
         flushTemporaryCollections(userId);
       }, 500);
     }
@@ -46,7 +48,7 @@ export const flushCollections = new ValidatedMethod({
 });
 
 export const importCargografias = new ValidatedMethod({
-  name: 'Parse.methods.Cargografias',
+  name: 'Parse.methods.importCargografias',
   validate: new SimpleSchema({
     csvData: {
       type: cargografiasSchema,

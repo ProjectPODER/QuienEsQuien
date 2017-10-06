@@ -1,7 +1,7 @@
 import { find, extend, omit, sortBy } from 'lodash';
 import { Persons } from '../persons';
 import { Orgs } from '../../organizations/organizations';
-import { Memberships } from '../../memberships/memberships';
+import Memberships from '../../memberships/memberships';
 import { rankedSobOrg } from '../../memberships/server/lib';
 
 Meteor.publish("person", function(id) {

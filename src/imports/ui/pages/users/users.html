@@ -3,8 +3,8 @@
     <h3 id="user-name" class="page-title pull-right">{{userInfo.username}}</h3>
     {{> userDetails userInfo=userInfo }}
     {{#if isInRole 'editor' }}
-      {{> Import }}
-      {{> userLog userInfo=userInfo userLog=userLog }}
+      {{> import }}
+      {{> userLogTmpl userInfo=userInfo userLog=userLog }}
     {{/if}}
   {{else}}
     {{> UnAuthorized }}
@@ -40,14 +40,14 @@
   </label>
 </template>
 
-<template name="userLog">
+<template name="userLogTmpl">
   {{#if ready }}
     <h3 class="pull-right">{{__ "Activity" }}
       {{__ "Log"}}</h3>
     <ul id="user-log" class="clear fa-ul history-list">
-      {{#each logEntry in userLog }}
+      {{#each entry in userLog }}
         <li class="user-log-entry clear">
-          {{> logEntry entry=logEntry index=@index }}
+          {{> logEntry entry=entry index=@index }}
         </li>
       {{/each}}
     </ul>

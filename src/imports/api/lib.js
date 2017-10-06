@@ -6,12 +6,46 @@ import {
   values,
   compact,
   isEmpty,
+  isString,
   omitBy,
   isNil,
   isArray,
   isObject,
   isDate,
+  mapValues,
 } from 'lodash/fp';
+
+export const compOmissions = [
+    'revisionId',
+    'created_at',
+    'lastModified',
+    'suppliesContracts',
+    'contracts',
+    'board',
+    'shares',
+    'collectionName',
+    'editableBy',
+    'revisions',
+    'isPublic',
+    'shareholders',
+    'dependencyDocument',
+    'departmentDocument',
+    'suppliersOrg',
+    'suppliersPerson',
+    'names',
+    'name',
+    'simple',
+    '_id',
+];
+
+export const imageUrlRegExp = /^((https?|ftp):)?\/\/.*(jpeg|jpg|png|gif|bmp)$/i;
+
+export function squash(mod) {
+  const addToSet = mapValues(mod.$addToSet, (v) => {
+    return [v];
+  });
+  return Object.assign({}, mod.$set, addToSet);
+}
 
 const removeDiacritics = require('diacritics').remove;
 
@@ -29,6 +63,7 @@ export function isEmptyObject(object) {
 export function omitEmpty(object) {
   return flow(
     omitBy(isNil),
+    omitBy(v => (isString(v) && isEmpty(v))),
     omitBy(v => (isArray(v) && isEmpty(v))),
     omitBy(v => (!isDate(v) && isObject(v) && isEmpty(v))),
   )(object);
@@ -39,13 +74,12 @@ export function upsertFunction(collection, doc) {
     { 'simple': doc.simple },
     {
       $setOnInsert: {
-        created_at: new Date(),
         simple: doc.simple,
         name: doc.name,
-        names: [],
+//        names: [],
       },
       $addToSet: { names: doc.name },
-      $set: omit(doc)(['simple', 'name', 'names']),
+      $set: omit(['simple', 'name', 'names'], doc),
     });
 }
 

@@ -1,7 +1,7 @@
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import SimpleSchema from 'simpl-schema';
 import { Persons } from '../persons.js'
-import { Memberships } from '../../memberships/memberships';
+import Memberships from '../../memberships/memberships';
 import { Contracts } from '../../contracts/contracts';
 import { person, newMember, testDoc, testMemberships, testContracts } from './persons.test-data.js';
 import { upsertFunction } from '../../lib.js';
@@ -71,48 +71,4 @@ describe('Person upsert integrity', function () {
     assert.strictEqual(after.length, 1); // make sure we didn't create a new doc
     assert.deepEqual(before[0], after[0]);
   });
-
-//	it('Modifies document when top level attribute changes', function () {
-//		let before = Persons.find({name: person.name}).fetch();
-//		person.gender = 'Male';
-//
-//		let result = upsertFunction(Persons, person);
-//
-//		let after = Persons.find({name: person.name}).fetch();
-//		chai.assert.strictEqual(after.length, 1);
-//		chai.assert.notDeepEqual(before[0], after[0]);
-//		chai.assert.strictEqual(after[0].gender, 'Male');
-//		// we should get a new revision
-//
-//	});
-//
-//	it('Modifies document when membships array changes', function () {
-//		let before = Persons.find({name: person.name}).fetch();
-//		let doc = merge({}, before[0]);
-//		doc.memberships.push(newMember);
-//
-//		let result = upsertFunction(Persons, doc);
-//
-//		let after = Persons.find({name: doc.name}).fetch();
-//		chai.assert.strictEqual(after.length, 1);
-//		chai.assert.notDeepEqual(before[0], after[0]);
-//    chai.assert.strictEqual(after[0].memberships[after[0].memberships.length -1 //].name, newMember.name);
-//	});
-
-//  it('Modifies document when sub document is removed from membships array', //function () {
-//		let before = Persons.find({name: person.name}).fetch();
-//    let doc = merge({}, before[0]);
-//    doc.memberships.splice(1, 1);
-//
-//		let result = upsertFunction(Persons, doc);
-//
-//		let after = Persons.find({name: doc.name}).fetch();
-//
-//    chai.assert.strictEqual(after.length, 1);
-//		chai.assert.notDeepEqual(before[0], after[0]);
-//    // we should now have a simgle member
-//    chai.assert.strictEqual(after[0].memberships.length, 1);
-//
-//	});
-
 });

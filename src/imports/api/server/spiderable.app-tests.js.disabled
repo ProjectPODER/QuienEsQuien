@@ -1,0 +1,22 @@
+import { HTTP } from 'meteor/http';
+import { chai } from 'meteor/practicalmeteor:chai';
+
+const Nightmare = require('nightmare');
+const cheerio = require('cheerio');
+
+Meteor.startup(function() {
+  // hack PATH so spiderable works
+  process.env.PATH += `:${process.cwd()}/npm/node_modules/.bin`;
+});
+
+describe('Spiderable', () => {
+  // Test if the test app html is available.
+  it('web app should be crawlable by robots', () => {
+    const path = '?_escaped_fragment_=';
+    const url = Meteor.absoluteUrl(path);
+    const results = HTTP.get(url);
+    const $ = cheerio.load(results.content);
+    const text = $('h1').eq(0).text();
+    chai.assert.strictEqual(text, 'Quién es Quién Wiki');
+  }).timeout(15000);
+});

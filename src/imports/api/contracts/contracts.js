@@ -3,15 +3,9 @@ eslint no-param-reassign: ["error",
   { "props": true, "ignorePropertyModificationsFor": ["doc", "modifier"] }
 ]*/
 import {
-  extend,
-  isEqual,
-  omit,
-  intersection,
-  keys,
-} from 'lodash';
-import {
   Mongo,
 } from 'meteor/mongo';
+import { Roles } from 'meteor/alanning:roles';
 import SimpleSchema from 'simpl-schema';
 import {
   Orgs,
@@ -20,27 +14,27 @@ import {
   Persons,
 } from '../persons/persons';
 import {
+  Revisions,
+} from '../revisions/revisions';
+import {
   ReferenceSchema,
 } from '../references/references';
 import {
-  insertRevision,
-} from '../revisions/revisions';
-import {
-  logUserAction,
-} from '../users/users';
-import {
   simpleName,
 } from '../lib';
-import {
-  statContractUpdate,
-  statContractRemove,
-} from '../stats/lib';
 
 const cc = require('currency-codes');
 
 export const Contracts = new Mongo.Collection('contracts');
 
 Contracts.helpers({
+  editableBy(userId) {
+    const isAdmin = Roles.userIsInRole(userId, 'admin');
+    return isAdmin || this.user_id === userId;
+  },
+  revisions() {
+    return Revisions.find({documentId: this._id})
+  },
   dependencyDocument() {
     return Orgs.findOne({
       simple: simpleName(this.dependency),
@@ -103,59 +97,6 @@ Contracts.helpers({
       },
     });
   },
-});
-
-Contracts.before.insert((userId, doc) => {
-  doc.user_id = doc.user_id || userId;
-  if (!doc.user_id) {
-    throw new Error(doc);
-  }
-  extend(doc, { created_at: new Date() });
-});
-
-Contracts.before.upsert((userId, selector, modifier) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.user_id = modifier.$set.user_id || userId;
-  extend(modifier.$set, { modified_at: new Date() });
-  // modifier.$set.modified_at = Date.now();
-  // modifier.$set.user_id = userId;
-});
-
-Contracts.before.update((userId, doc, fieldNames, modifier) => {
-  // if documents has not changed, do not update
-
-  if (intersection(keys(modifier), ['$inc', '$addToSet'] === 0)) {
-    const cleanDoc = omit(doc, ['revisionId', 'created_at']);
-    const cleanMod = omit(modifier.$set, 'lastModified');
-
-    if (isEqual(cleanDoc, cleanMod)) {
-      return false;
-    }
-  }
-  return true;
-});
-
-Contracts.after.update((userId, doc) => {
-  if (!isEqual(this.previous, doc)) {
-    doc.user_id = doc.user_id || userId;
-    doc.simple = doc.ocid;
-    const revId = insertRevision(doc.user_id, this.previous, doc, 'contracts');
-    doc._id = revId;
-    logUserAction(extend(doc, { action: 'update', collection: 'contracts' }));
-    statContractUpdate();
-  }
-});
-
-Contracts.after.insert((userId, doc) => {
-  doc.simple = doc.ocid;
-  logUserAction(extend(doc, { action: 'insert', collection: 'contracts' }));
-  statContractUpdate(doc._id);
-});
-
-Contracts.after.remove((userId, doc) => {
-  doc.simple = doc.ocid;
-  logUserAction(extend(doc, { action: 'insert', collection: 'contracts' }));
-  statContractRemove(doc._id);
 });
 
 const ContractSchemaObject = {

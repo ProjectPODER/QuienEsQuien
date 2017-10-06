@@ -242,10 +242,6 @@ export const test_doc = {
     "gross_profit": 42.21,
     "market_cap": 1314.03,
     "total_debt": 0.34,
-    "parent": {
-      "name": "Habitat Andina S.A.",
-      "address": "Chile",
-    },
   },
   "owned_by": [
     {

@@ -1,4 +1,4 @@
-export const person = {
+export default {
   // name: name,
   apellido: 'De la Sota',
   nombre: 'José Manuel',
@@ -14,6 +14,7 @@ export const person = {
   fuenteDeDatosInicio: 'Justicia Electoral de Córdoba',
   urlFuenteInicio: 'http://www.justiciacordoba.gob.ar/jel/pdf/procesos/1998.12.20%20-%20Acta%20Escrutinio%20y%20Proclamaci%C3%B3n.pdf , http://www.historiapolitica.com/datos/biblioteca/pyd_closa.pdf',
   calidadDelDatoInicio: 'oficial [chequeado]',
+  fechaFin: '9/12/2005',
   fuenteDeDatosFin: 'Sitio oficial de Córdoba',
   urlFuenteFin: 'http://www.cba.gov.ar/institucional/gobernadores-anteriores/',
   calidadDelDatoFin: 'oficial [chequeado]',

@@ -1,10 +1,10 @@
 import { Revisions } from '../../revisions/revisions.js';
-import { UserLog } from '../../users/users.js';
+import { userLog } from '../../users/users.js';
 import { map, filter, isString } from 'lodash';
 
 Meteor.publish("userLog", function (userId) {
   check(userId, String);
-  let entries = UserLog.find({
+  let entries = userLog.find({
     user_id: userId,
   }, {
     limit: 100,

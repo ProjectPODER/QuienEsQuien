@@ -25,6 +25,11 @@ const ReferenceSchemaObject = {
     type: String,
     optional: true,
   },
+  field: {
+    type: String,
+    max: 200,
+    optional: true,
+  },
 };
 
 export const ReferenceSchema = new SimpleSchema(ReferenceSchemaObject);

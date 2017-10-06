@@ -1,16 +1,11 @@
-/*
-eslint no-param-reassign: ["error",
-  { "props": true, "ignorePropertyModificationsFor": ["doc", "modifier"] }
-]*/
-import { isEqual, omit, extend, intersection, keys, has } from 'lodash';
+import { has } from 'lodash';
 import { Mongo } from 'meteor/mongo';
+import { Roles } from 'meteor/alanning:roles';
 import { Index, MongoDBEngine } from 'meteor/easy:search';
-import { Memberships } from '../memberships/memberships';
+import Memberships from '../memberships/memberships';
 import { Contracts } from '../contracts/contracts';
-import { OrganizationSchema } from './schema';
-import { insertRevision } from '../revisions/revisions';
-import { logUserAction } from '../users/users';
-import { statOrgUpdate, statOrgRemove } from '../stats/lib';
+import { Revisions } from '../revisions/revisions';
+import OrganizationSchema from './schema';
 
 export const Orgs = new Mongo.Collection('organizations');
 
@@ -24,8 +19,18 @@ Orgs.helpers({
   collectionName() {
     return 'organizations';
   },
+  editableBy(userId) {
+    const isAdmin = Roles.userIsInRole(userId, 'admin');
+    return isAdmin || this.user_id === userId;
+  },
   isPublic() {
     return (has(this, 'public') || this.category === 'public');
+  },
+  editableby(userId) {
+    return this.user_id === userId;
+  },
+  revisions() {
+    return Revisions.find({documentId: this._id})
   },
   shareholders() {
     return Memberships.find({
@@ -55,6 +60,11 @@ Orgs.helpers({
       sort: {
         sob_org: 1,
       },
+    });
+  },
+  allMemberships() {
+    return Memberships.find({
+      person_id: this.simple,
     });
   },
   board() {
@@ -110,61 +120,6 @@ Orgs.helpers({
       },
     });
   },
-});
-
-Orgs.before.insert((userId, doc) => {
-  doc.user_id = doc.user_id || userId;
-  if (!doc.user_id) {
-    throw new Error(doc);
-  }
-  extend(doc, { created_at: new Date() });
-});
-
-Orgs.before.upsert((userId, selector, modifier) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.user_id = modifier.$set.user_id ||
-    userId; extend(modifier.$set, { modified_at: new Date() });
-  // modifier.$set.modified_at = Date.now();
-  // modifier.$set.user_id = userId;
-});
-
-Orgs.before.update((userId, doc, fieldNames, modifier) => {
-  // if documents has not changed, do not update
-  if (intersection(keys(modifier), ['$inc', '$addToSet'] === 0)) {
-    const cleanDoc = omit(doc, ['revisionId', 'created_at']);
-    const cleanMod = omit(modifier.$set, 'lastModified');
-
-    if (isEqual(cleanDoc, cleanMod)) {
-      return false;
-    }
-  }
-  return true;
-});
-
-Orgs.after.update((userId, doc) => {
-  if (!isEqual(this.previous, doc)) {
-    doc.user_id = doc.user_id || userId;
-    const revId = insertRevision(doc.user_id, this.previous, doc, 'organizations');
-    doc._id = revId;
-    logUserAction(extend(doc,
-      { action: 'update', collection: 'organizations' },
-    ));
-
-    statOrgUpdate();
-  }
-});
-
-Orgs.after.insert((userId, doc) => {
-  doc.user_id = doc.user_id || userId;
-  logUserAction(extend(doc, { action: 'insert', collection: 'organizations' }));
-  statOrgUpdate(doc._id);
-});
-
-Orgs.after.remove((userId, doc) => {
-  doc.user_id = doc.user_id || userId;
-  logUserAction(extend(doc, { action: 'insert', collection: 'organizations' }));
-
-  statOrgRemove(doc._id);
 });
 
 Orgs.attachSchema(OrganizationSchema);

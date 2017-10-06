@@ -174,16 +174,6 @@ FlowRouter.route('/privacy/', {
   name: 'avisoDePrivacidad',
 });
 
-FlowRouter.route('/schema/', {
-  waitOn() {
-    return import('../../ui/pages/schema.html');
-  },
-  action: function () {
-    this.render('ApplicationLayout', 'esquema');
-  },
-  name: 'esquema',
-});
-
 FlowRouter.route('/about/', {
   waitOn() {
     return import('../../ui/pages/about.html');
@@ -192,14 +182,4 @@ FlowRouter.route('/about/', {
     this.render('ApplicationLayout', 'acerca_de');
   },
   name: 'acerca_de',
-});
-
-FlowRouter.route('/api/v1/', {
-  waitOn() {
-    return import('../../ui/pages/api/api.js');
-  },
-  action: function () {
-    this.render('ApplicationLayout', 'api_docs');
-  },
-  name: 'api_docs',
 });

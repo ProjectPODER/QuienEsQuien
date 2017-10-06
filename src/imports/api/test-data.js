@@ -1,8 +1,13 @@
+import faker from 'faker';
 import { Random } from 'meteor/random';
 import { ContractSchema } from './contracts/contracts.js';
-import { AddressSchema } from './addresses/addresses';
+import AddressSchema from './addresses/addresses';
 import { simpleName } from './lib';
-import faker from 'faker';
+
+const validCountries = AddressSchema.getAllowedValuesForKey('country');
+const validContractTypes = ContractSchema.getAllowedValuesForKey('type');
+const validProcedureTypes = ContractSchema.getAllowedValuesForKey('procedure_type');
+const validCurrencies = ContractSchema.getAllowedValuesForKey('currency');
 faker.locale = 'es_MX';
 
 const companies = [...Array(3).keys()].map(() =>
@@ -85,7 +90,8 @@ export const testOrgs = [...Array(3).keys()].map((c, i) => {
       street: faker.address.streetAddress(),
       city: faker.address.city(),
       postal_code: faker.address.zipCode(),
-      country: Random.choice(AddressSchema._schema.country.allowedValues),
+
+      country: Random.choice(validCountries),
       telephone: faker.phone.phoneNumber(),
       website: faker.internet.url(),
     },
@@ -119,7 +125,7 @@ export const testPersons = [...Array(3).keys()].map((c, i) => {
       street: faker.address.streetAddress(),
       city: faker.address.city(),
       postal_code: faker.address.zipCode(),
-      country: Random.choice(AddressSchema._schema.country.allowedValues),
+      country: Random.choice(validCountries),
       telephone: faker.phone.phoneNumber(),
       website: faker.internet.url(),
     },
@@ -152,15 +158,15 @@ export const testContracts = [...Array(3).keys()].map((c, i) => ({
   dependency: companies[i],
   department: companies[i],
   ocid: OCIDS[i],
-  procedure_type: Random.choice(ContractSchema._schema.procedure_type.allowedValues),
-  type: Random.choice(ContractSchema._schema.type.allowedValues),
+  procedure_type: Random.choice(validProcedureTypes),
+  type: Random.choice(validContractTypes),
   status: faker.lorem.word(),
   clave_uc: faker.lorem.word(),
   start_date: dates[i][0],
   end_date: dates[i][1],
   title: faker.lorem.sentence(),
   amount: faker.finance.amount(),
-  currency: Random.choice(ContractSchema._schema.currency.allowedValues),
+  currency: Random.choice(validCurrencies),
   suppliers: [simpleName(companies[i])],
   suppliers_org: [
     ...Array(2).keys(),
@@ -198,3 +204,9 @@ export const test_contract = {
     'https://compranet.funcionpublica.gob.mx/esop/guest/go/opportunity/detail?opportunityId=319831',
   ],
 };
+
+export const testSample = {
+  organizations: testOrgs,
+  persons: testPersons,
+  contracts: testContracts,
+}

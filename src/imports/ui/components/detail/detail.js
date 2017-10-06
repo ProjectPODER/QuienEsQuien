@@ -1,13 +1,11 @@
-import { union, find, reject } from 'lodash';
-import { Session } from 'meteor/session'
+import { Meteor } from 'meteor/meteor'
+import { Session } from 'meteor/session';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import i18n from 'meteor/universe:i18n';
-import { Revisions } from '../../../api/revisions/revisions';
-import { profile_tabs } from '../../components/tabs';
+import isAdmin from '../../helpers.js';
 import './detail.html';
-import isAdmin from '../../helpers';
 
-let tabs = profile_tabs;
+const tabs = new Set(['read', 'view']);
 
 Template.DetailWrapper.onCreated(function(){
   const self = this;
@@ -33,45 +31,23 @@ Template.DetailWrapper.helpers({
   },
 
   tabs: function () {
-    let org = Template.instance().data.document;
-    let rev = Revisions.findOne({documentId: org._id});
-    if (org && org.contract_count) {
-      let f = find(tabs.public, (x)=>{
-        return (x.slug === 'contracts')
-      })
-
-      if (!f) {
-       tabs.public.push({
-        name: i18n.__('contracts'),
-        slug: 'contracts'
-       });
-      }
-
+    let doc = Template.instance().data.document;
+    const hasRevisions = (doc.revisions().count() > 0);
+    const canEdit = (isAdmin() || doc.editableBy(Meteor.userId()));
+    if (doc && doc.contract_count) {
+      // add contract tab
+       tabs.add('contracts');
     }
-
-    let f = find(tabs.admin, (x)=>{
-      return (x.slug === 'history')
-    })
-
-    if ( rev && !f ) {
-       tabs.admin.push({
-        name: i18n.__('history'),
-        slug: 'history'
-       });
+    // add history tab
+    if (hasRevisions) {
+       tabs.add('history');
     }
-
-    if (!rev && f ) {
-      tabs.admin = reject(tabs.admin, (x)=>{
-        return (x.slug === 'history')
-      })
+    // add edit tabs
+    if (canEdit) {
+      tabs.add('edit');
     }
-
-    if (isAdmin()) {
-      return union(tabs.public, tabs.admin)
-    } else {
-      return tabs.public
-    }
-
+    const array = Array.from(tabs);
+    return array.map(s => ({ name: i18n.__(s), slug: s }))
   },
 
   activeTab: function() {

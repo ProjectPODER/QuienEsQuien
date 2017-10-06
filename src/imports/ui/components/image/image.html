@@ -1,12 +1,14 @@
 <template name="ProfileImage">
   <div class="perfil-image text-center">
-    {{#unless image orgId }}
-      <i class="fa fa-building fa-5x pull-right" aria-hidden="true"></i>
-      {{#if currentUser }}
-        {{> upload store='images' docId=docId }}
-      {{/if}}
-    {{/unless}}
-      {{#with image orgId}}
+    {{#if ready}}
+    {{#unless imageUrlExists}}
+      {{#unless image docId }}
+        <i class="fa fa-building fa-5x pull-right" aria-hidden="true"></i>
+        {{#if currentUser }}
+          {{> upload store='images' docId=docId }}
+        {{/if}}
+      {{/unless}}
+      {{#with image docId}}
         {{#if uploading}}
           <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
           <span>{{completed}}%</span>
@@ -18,5 +20,9 @@
           {{/unless}}
         {{/if}}
       {{/with}}
-    </div>
+    {{else}}
+      <img class="img-rounded" src="{{imageUrl}}" title={{imageUrl}}/>
+    {{/unless}}
+    {{/if}}
+  </div>
 </template>

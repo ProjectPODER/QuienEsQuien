@@ -1,11 +1,40 @@
 import { isEmpty, isArray } from 'lodash';
+import { AutoForm } from 'meteor/aldeed:autoform';
 import { Template } from 'meteor/templating';
-import { Orgs } from '../../../api/organizations/organizations';
-import { Persons } from '../../../api/persons/persons';
+import { Notifications } from 'meteor/gfk:notifications';
+import i18n from 'meteor/universe:i18n';
+import Memberships from '../../../api/memberships/memberships';
 import '../../components/spin/spinner.html';
 import './memberships.html';
 
 const LIMIT = 1000;
+
+AutoForm.hooks({
+  updateMembershipForm: {
+    after: {
+      'method-update': function(error, result) {
+        if (error){
+          Notifications.error('Error', error.message);
+        }
+        if (result){
+          Notifications.success(i18n.__('success'), i18n.__("membership successfully updated"));
+        }
+      },
+      'method': function(error, result) {
+        if (error){
+          Notifications.error('Error', error.message);
+        }
+        if (result){
+          Notifications.success(i18n.__("success"), i18n.__("membership successfully created"));
+        }
+      }
+    }
+  }
+});
+
+function getPubForCollection(collectionName) {
+  return (collectionName === 'persons') ? 'membersOfPerson' : 'membersOfOrganization';
+}
 
 Template.Memberships.onCreated(function() {
   const self = this;
@@ -17,36 +46,41 @@ Template.Memberships.onCreated(function() {
   self.limit = new ReactiveVar(10);
   self.autorun(() => {
     const data = Template.currentData();
-    const id = data._id;
-    const collection = self.data.collection;
-    let sub;
-    if (collection === 'orgs') {
-      sub = self.subscribe('membersOfOrganization', self.data.simple,
+    const pub = getPubForCollection(data.collectionName());
+    const sub = self.subscribe(pub, data.simple,
       self.limit.get(), {
         onReady() {
-          const doc = Orgs.findOne(id);
-          self.board.set(doc.board());
-          self.shares.set(doc.shares());
-          self.shareholders.set(doc.shareholders());
+          self.board.set(data.board());
+          self.shares.set(data.shares());
+          if (data.collectionName() === 'organizations') {
+            self.shareholders.set(data.shareholders());
+          }
           if (self.limit.get() < LIMIT) {
             self.limit.set(LIMIT);
           }
         },
       });
-    }
-    if (collection === 'persons') {
-      sub = self.subscribe('membersOfPerson', self.data.simple,
-      self.limit.get(), {
-        onReady() {
-          const doc = Persons.findOne(id);
-          self.board.set(doc.board());
-          self.shares.set(doc.shares());
-          if (self.limit.get() < LIMIT) {
-            self.limit.set(LIMIT);
-          }
-        },
-      });
-    }
+    self.ready.set(sub.ready());
+  });
+});
+
+Template.editMemberships.onCreated(function() {
+  const self = this;
+  self.ready = new ReactiveVar(false);
+  self.memberships = new ReactiveVar(false);
+  self.limit = new ReactiveVar(10);
+  self.autorun(() => {
+    const data = Template.currentData().doc;
+    const pub = getPubForCollection(data.collectionName());
+    const sub = self.subscribe(pub, data.simple,
+    self.limit.get(), {
+      onReady() {
+        self.memberships.set(data.allMemberships());
+        if (self.limit.get() < LIMIT) {
+          self.limit.set(LIMIT);
+        }
+      },
+    });
     self.ready.set(sub.ready());
   });
 });
@@ -65,10 +99,32 @@ Template.Memberships.helpers({
     return Template.instance().shareholders.get();
   },
   isOrganization() {
-    return (Template.instance().data.collection === 'orgs');
+    return (Template.instance().data.collectionName() === 'organizations');
   },
   isPerson() {
-    return (Template.instance().data.collection === 'persons');
+    return (Template.instance().data.collectionName() === 'persons');
+  },
+  isEmpty(array) {
+    if (isArray(array)) {
+      return isEmpty(array);
+    }
+    return isEmpty(array.fetch());
+  },
+});
+
+Template.editMemberships.helpers({
+  ready() {
+    return Template.instance().ready.get();
+  },
+  memberships() {
+    return Template.instance().memberships.get()
+  },
+  membershipsCollection() {
+    return Memberships;
+  },
+  personMembershipsSchema() {
+    return Memberships.simpleSchema()
+  .omit('source', 'person', 'person_id', 'org', 'org_id', 'user_id', 'sob_org')
   },
   isEmpty(array) {
     if (isArray(array)) {

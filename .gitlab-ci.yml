@@ -14,6 +14,10 @@ test:
       alias: mongo
   tags:
    - docker
+  only:
+    - dev
+  except:
+    - tags
   variables:
     MONGO_URL: 'mongodb://mongo/runner'
     NODE_ENV: 'development'
@@ -30,6 +34,8 @@ staging:
     - heroku
   only:
     - dev
+  except:
+    - tags
   environment:
     name: stageing
     url: https://qqwext.herokuapp.com
@@ -43,6 +49,8 @@ build:
     - docker
   only:
     - master
+  except:
+    - tags
   artifacts:
     paths:
     - dist/
@@ -62,6 +70,8 @@ production:
     - docker
   only:
     - master
+  except:
+    - tags
   dependencies:
   - build
   environment:

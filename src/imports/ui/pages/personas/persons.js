@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { AutoForm } from 'meteor/aldeed:autoform';
 import { DocHead } from 'meteor/kadira:dochead';
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
@@ -6,8 +5,6 @@ import { Session } from 'meteor/session';
 import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { Persons } from '../../../api/persons/persons.js';
-import { Orgs } from '../../../api/organizations/organizations.js';
-import '../../helpers.js';
 import '../../components/memberships/memberships.js';
 import '../../components/visualizations/viz.js';
 import '../../components/similar/similar.js';
@@ -15,39 +12,33 @@ import '../../components/history/history.js';
 import '../../components/contracts/contracts.js';
 import '../../components/detail/detail.js';
 import '../../components/image/image.js';
-import { prepareSubArray } from '../../components/visualizations/relations.js';
 import '../../components/upload/upload.js'
 import './persons.html';
-
-const LIMIT = 1000;
 
 AutoForm.hooks({
   updatePersonForm: {
     after: {
       'method-update': function(error, result) {
         if (error){
-          Notifications.error('Error', error);
+          Notifications.error('Error', error.message);
         }
-        if (result>0){
+        if (result){
           Notifications.success(i18n.__('success'), i18n.__("person successfully updated"));
         }
       },
       'method': function(error, result) {
         if (error){
-          Notifications.error('Error', error);
+          Notifications.error('Error', error.message);
         }
         if (result){
           Notifications.success(i18n.__("success"), i18n.__("person successfully created"));
         }
-        Session.set('activeTab', 'read');
-        FlowRouter.go(`/persons/${result}#read`);
-
       }
     }
   }
 });
 
-Template.showPersonWrapper.onCreated(function showPersonWrapperCallback() {
+Template.showPersonWrapper.onCreated(function () {
   const self = this;
 
   self.person = new ReactiveVar(false);
@@ -78,8 +69,7 @@ Template.showPersonWrapper.helpers({
     person.collection = 'persons';
     return person;
   }
-
-})
+});
 
 Template.person_update_form.helpers({
   personsCollection: function() {
