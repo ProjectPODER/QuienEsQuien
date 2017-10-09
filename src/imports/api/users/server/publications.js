@@ -1,6 +1,6 @@
+import { map, filter, isString } from 'lodash';
 import { Revisions } from '../../revisions/revisions.js';
 import { userLog } from '../../users/users.js';
-import { map, filter, isString } from 'lodash';
 
 Meteor.publish("userLog", function (userId) {
   check(userId, String);

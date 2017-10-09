@@ -3,7 +3,6 @@ import { Orgs } from '../organizations';
 import { Persons } from '../../persons/persons';
 import Memberships from '../../memberships/memberships';
 import { rankedOrgId, rankedSobOrg, rankedPersonId } from '../../memberships/server/lib';
-import { Contracts } from '../../contracts/contracts';
 
 Meteor.publish('org', function(_id) {
   check(_id, String);
@@ -108,8 +107,4 @@ Meteor.publish("orgWithMembers", function(OrgId) {
     org
   ];
 
-});
-
-Meteor.publish("files", function() {
-  return Files.find();
 });

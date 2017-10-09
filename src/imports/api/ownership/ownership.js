@@ -41,4 +41,4 @@ const OwnershipSchemaObject = {
 @property {date} end-date When the company stop being the owner of the company
 */
 
-export const OwnershipSchema = new SimpleSchema(OwnershipSchemaObject);
+export default new SimpleSchema(OwnershipSchemaObject);

@@ -1,7 +1,7 @@
+/* eslint-env mocha */
+import { assert } from 'chai';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-import { assert } from 'chai';
-import { forEach, indexOf } from 'lodash';
 import { Contracts } from '../contracts.js';
 import './publications.js';
 

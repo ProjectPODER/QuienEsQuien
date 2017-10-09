@@ -40,7 +40,7 @@ import {
 import '../../components/history/history';
 import '../../components/unauthorized/unauthorized';
 import './users.html';
-import { importScheme } from './import';
+import importScheme from './import';
 import {
   resetTemporary,
 } from '../../../api/parse/methods';

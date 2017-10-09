@@ -8,7 +8,7 @@ export default function visualizationEvents(cy) {
     }
   });
 
-  cy.on('tapdragover', 'node', function(event) {
+  cy.on('tapdragover', 'node', function() {
     $('html,body').css('cursor', 'default');
   });
 

@@ -1,9 +1,13 @@
+/* eslint-env mocha */
 import { assert } from 'chai';
+import { Roles } from 'meteor/alanning:roles';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-
-import { Stats } from '../stats.js';
+import Stats from '../stats.js';
 import './publications.js';
+
+let admin_user_id;
+let normal_user_id;
 
 describe('Publications of "Stats" collection', () => {
 

@@ -1,5 +1,4 @@
 import { mapValues } from 'lodash';
-import SimpleSchema from 'simpl-schema';
 import { Mongo } from 'meteor/mongo';
 import { compare } from 'fast-json-patch';
 
@@ -28,51 +27,6 @@ export function insertRevision(userId, left, right, collection ){
   return  Revisions.insert( patch )
 }
 
-const patchDefinition = {
-  created_at: {
-    type: Date
-  },
-  patch: {
-    type: Array,
-    blackbox: true
-  },
-  'patch.$': {
-    type: Object,
-    blackbox: true,
-  },
-  //op: {
-  //  type: String,
-  //  max: 200,
-  //  allowedValues: ['add', 'remove', 'replace', 'move', 'copy', 'test']
-  //},
-  //path: {
-  //  type: String,
-  //  max: 200,
-  //}
-}
-
-const RevisionSchema = new SimpleSchema({
-  documentId: {
-    type: String,
-    regEx: SimpleSchema.RegEx.Id
-  },
-  created_at: {
-    type: Date
-  },
-  updated_at: {
-    type: Date,
-  },
-  collection: {
-    type: String,
-    allowedValues: ['organizations', 'persons', 'contracts'],
-  },
-  patches: {
-    type: Array,
-  },
-  'patches.$': new SimpleSchema(patchDefinition),
-
-});
-
 /**
 @type {Object}
 @property {string} canon chosen canonical best choice
@@ -81,8 +35,6 @@ const RevisionSchema = new SimpleSchema({
 @property {string} string variations which do not refer to the same entity
 @property {string} collection where this entity is stored (Person or Organization)
 */
-
-//Revisions.attachSchema(RevisionSchema);
 
 Revisions.deny({
   insert() { return true; },

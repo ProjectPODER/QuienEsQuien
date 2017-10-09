@@ -32,4 +32,4 @@ const ReferenceSchemaObject = {
   },
 };
 
-export const ReferenceSchema = new SimpleSchema(ReferenceSchemaObject);
+export default new SimpleSchema(ReferenceSchemaObject);

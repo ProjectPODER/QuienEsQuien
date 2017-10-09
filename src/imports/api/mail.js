@@ -1,15 +1,15 @@
-import { contactFormSchema } from './contact.js';
 import { isNil } from 'lodash';
+import contactFormSchema from './contact.js';
 
 Meteor.startup(function () {
   Accounts.config({
     sendVerificationEmail: true
   })
   Accounts.emailTemplates.from = "Quién es Quién Wiki <qqw@rindecuentas.org>"
-  Accounts.emailTemplates.verifyEmail.subject = function (user) {
+  Accounts.emailTemplates.verifyEmail.subject = function () {
     return "Verify email address"
   }
-  Accounts.emailTemplates.resetPassword.subject = function (user) {
+  Accounts.emailTemplates.resetPassword.subject = function () {
     return "Reset your password"
   }
 });

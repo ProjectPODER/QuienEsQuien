@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { map, sum } from 'lodash';
 import { DocHead } from 'meteor/kadira:dochead';
-import { Stats } from '../../../api/stats/stats';
+import Stats from '../../../api/stats/stats';
 import './stats.html';
 import '../../helpers';
 

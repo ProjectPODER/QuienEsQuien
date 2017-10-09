@@ -1,11 +1,7 @@
-import { Tmp } from './tmp.js';
+import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { orgFromTmp, personFromTmp } from './lib.js';
 import { OrganizationSchema } from '../organizations/schema.js';
-import { Orgs } from '../organizations/organizations.js';
 import { PersonSchema } from '../persons/schema.js';
-import { Persons } from '../persons/persons.js';
-import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { omit, extend } from 'lodash';
 
 export const org_from_tmp = new ValidatedMethod({
   name: 'Tmp.methods.org_from_tmp',

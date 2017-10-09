@@ -1,12 +1,12 @@
-import { resetDatabase } from 'meteor/xolvio:cleaner';
+import { map, add } from 'lodash';
+import { assert } from 'chai';
 import SimpleSchema from 'simpl-schema';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { Persons } from '../persons.js'
 import Memberships from '../../memberships/memberships';
 import { Contracts } from '../../contracts/contracts';
-import { person, newMember, testDoc, testMemberships, testContracts } from './persons.test-data.js';
+import { person, testDoc, testMemberships, testContracts } from './persons.test-data.js';
 import { upsertFunction } from '../../lib.js';
-import { map, merge, add } from 'lodash';
-import { assert } from 'chai';  // Using Assert style
 
 const userId = Random.id();
 person.user_id = userId;
@@ -64,7 +64,7 @@ describe('Person upsert integrity', function () {
 
     let before = Persons.find({name: person.name}).fetch();
 
-    let result = upsertFunction(Persons, person);
+    upsertFunction(Persons, person);
 
     let after = Persons.find({name: person.name}).fetch();
 

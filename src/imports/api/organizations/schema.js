@@ -1,8 +1,8 @@
 import SimpleSchema from 'simpl-schema';
 import AddressSchema from '../addresses/addresses.js';
-import { ReferenceSchema } from '../references/references.js';
-import { PublicSchema } from '../public/public.js';
-import { CompanySchema } from '../company/company.js';
+import ReferenceSchema from '../references/references.js';
+import PublicSchema from '../public/public.js';
+import CompanySchema from '../company/company.js';
 import { imageUrlRegExp } from '../lib';
 
 const CompetitorsSchemaObject = {

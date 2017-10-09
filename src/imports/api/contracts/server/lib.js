@@ -1,7 +1,5 @@
 import { Contracts } from '../contracts';
-import {
-  exchangeRates,
-} from '../lib';
+import exchangeRates from '../lib';
 
 const rawContracts = Contracts.rawCollection();
 rawContracts.aggregateSync = Meteor.wrapAsync(rawContracts.aggregate);

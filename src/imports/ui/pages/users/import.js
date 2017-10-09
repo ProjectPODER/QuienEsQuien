@@ -8,7 +8,7 @@ import {
   flushCollections,
 } from '../../../api/parse/methods';
 
-export function importScheme(file, flow, templateInstance) {
+export default function importScheme(file, flow, templateInstance) {
   let inCount = 0;
   let outCount = 0;
 
@@ -52,9 +52,8 @@ export function importScheme(file, flow, templateInstance) {
     complete() {
       const handle = Meteor.setInterval(() => {
         if (inCount === outCount) {
-          console.log('upload complete!');
           Meteor.clearInterval(handle);
-          flushCollections.call({ flush: true }, (error, result) => {
+          flushCollections.call({ flush: true }, (error) => {
             if (error) {
               Notifications.error(error);
               templateInstance.importing.set(false);

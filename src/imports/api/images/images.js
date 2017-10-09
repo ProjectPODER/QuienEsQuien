@@ -1,9 +1,9 @@
-import { Meteor } from 'meteor/meteor';
-import { HTTP } from 'meteor/http';
-import { UploadFS } from 'meteor/jalik:ufs';
-import { logUserAction } from '../users/users.js';
 import im from 'imagemagick-stream';
+import { UploadFS } from 'meteor/jalik:ufs';
+import { Logger } from 'meteor/ostrio:logger';
+import { logUserAction } from '../users/users.js';
 
+const log = new Logger();
 UploadFS.config.https = true;
 
 export const Images = new Mongo.Collection('images');
@@ -11,7 +11,7 @@ export const Thumbnails = new Mongo.Collection('thumbnails');
 export const Files = new Mongo.Collection('files');
 
 const perms = new UploadFS.StorePermissions({
-    insert: function (userId, doc) {
+    insert: function (userId) {
         return userId;
     },
     update: function (userId, doc) {
@@ -38,7 +38,7 @@ export const ImagesStore = new UploadFS.store.GridFS({
           collection: Thumbnails,
           name: 'thumbnails',
           permissions: perms,
-          transformWrite: function(readStream, writeStream, fileId, file) {
+          transformWrite: function(readStream, writeStream) {
             var resize = im().resize('192x192').quality(80);
             readStream.pipe(resize).pipe(writeStream);
           }
@@ -60,12 +60,12 @@ export const FilesStore = new UploadFS.store.GridFS({
 
     // Called when a write error happened
     onWriteError: function (err, fileId, file) {
-      console.error('Cannot write ' + file.name);
+      log.error(`Cannot write ${file.name}`);
     }
 });
 
 
-Images.after.update(function (userId, doc, fieldNames, modifier, options) {
+Images.after.update(function (userId, doc) {
   // save revision
 
   logUserAction( userId, 'update', doc._id, doc.name, 'images' );
@@ -84,7 +84,7 @@ Images.after.remove(function (userId, doc) {
 
 });
 
-Files.after.update(function (userId, doc, fieldNames, modifier, options) {
+Files.after.update(function (userId, doc) {
   // save revision
 
   logUserAction( userId, 'update', doc._id, doc.name, 'files' );

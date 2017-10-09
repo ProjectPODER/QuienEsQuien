@@ -1,7 +1,7 @@
 import { $ } from 'meteor/jquery';
 import { assert } from 'chai';  // Using Assert style
 import withRenderedTemplate from '../../test-helpers.js';
-import { counter } from '../../../api/stats/methods.js';
+import counter from '../../../api/stats/methods.js';
 
 if (Meteor.isClient) {
   import './home.js';

@@ -1,4 +1,4 @@
-export const cytoStyle = [ // the stylesheet for the graph
+export default [ // the stylesheet for the graph
   {
     selector: 'node',
     style: {

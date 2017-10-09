@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import { ReferenceSchema } from '../references/references.js';
+import ReferenceSchema from '../references/references.js';
 
 const CompanySchemaObject = {
   sector: {
@@ -91,4 +91,4 @@ const CompanySchemaObject = {
   'references.$': ReferenceSchema,
 };
 
-export const CompanySchema = new SimpleSchema(CompanySchemaObject);
+export default new SimpleSchema(CompanySchemaObject);

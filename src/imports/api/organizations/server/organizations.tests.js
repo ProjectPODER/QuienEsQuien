@@ -1,12 +1,12 @@
-import { resetDatabase } from 'meteor/xolvio:cleaner';
+import { add, map } from 'lodash';
 import SimpleSchema from 'simpl-schema';
+import { resetDatabase } from 'meteor/xolvio:cleaner';
 import { assert } from 'chai';
 import { Orgs } from '../organizations.js';
 import Memberships from '../../memberships/memberships';
 import { Contracts } from '../../contracts/contracts';
-import { test_doc, testDoc, testMemberships, testContracts, newMember } from './organizations.test-data.js';
+import { test_doc, testDoc, testMemberships, testContracts } from './organizations.test-data.js';
 import { upsertFunction } from '../../lib.js';
-import { add, merge, map, uniq } from 'lodash';
 
 const userId = Random.id();
 test_doc.user_id = userId;

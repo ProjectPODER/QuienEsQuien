@@ -1,10 +1,8 @@
 import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
-import { Matches } from './matches.js';
+import Matches from './matches.js';
 import { Orgs } from '../organizations/organizations.js';
-import { take, extend, words, mean, filter, sortBy } from 'lodash';
-import { compare } from 'fast-json-patch';
-var merge = require('merge'), original, cloned;
+import { Persons } from '../persons/persons.js';
 import { matcher } from './lib.js';
 
 export const negateMatch = new ValidatedMethod({
@@ -98,18 +96,6 @@ export const approveMatch = new ValidatedMethod({
 
   run({ origin, match, collection, type }) {
     this.unblock();
-    let match_result = Matches.upsert(
-      { simple: origin },
-      {
-        $setOnInsert: {
-          simple: origin,
-          collection: collection,
-          match_count: 0
-        },
-        $addToSet: { synonyms: match },
-        $inc: { match_count: 1 }
-      }
-    )
     if (Meteor.isServer){
       let col = Orgs;
 
@@ -121,26 +107,23 @@ export const approveMatch = new ValidatedMethod({
       }
       if ( type === 'child' ) {
         let doc = col.findOne({ simple: match });
-        console.log(doc.name);
         let child = {
           name: doc.name,
         }
-        let result = col.update(
+        col.update(
           { simple: origin },
           { $addToSet: { owns: child } }
         )
-        console.log(result);
       }
       if ( type === 'parent' ) {
         let doc = col.findOne({ simple: match });
         let parent = {
           name: doc.name,
         }
-        let result = col.update(
+        col.update(
           { simple: origin },
           { $addToSet: { owned_by: parent } }
         )
-        console.log(result);
       }
     }
 

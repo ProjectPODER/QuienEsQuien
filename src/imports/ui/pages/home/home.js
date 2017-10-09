@@ -1,6 +1,6 @@
 import '../../components/search/search.js';
 import './home.html';
-import { counter } from '../../../api/stats/methods.js';
+import counter from '../../../api/stats/methods.js';
 
 Template.counters.onCreated(function() {
   var self = this;

@@ -16,9 +16,7 @@ import {
 import {
   Revisions,
 } from '../revisions/revisions';
-import {
-  ReferenceSchema,
-} from '../references/references';
+import ReferenceSchema from '../references/references';
 import {
   simpleName,
 } from '../lib';

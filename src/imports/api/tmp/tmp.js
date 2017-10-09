@@ -1,6 +1,7 @@
 import { Mongo } from 'meteor/mongo';
+import { Roles } from 'meteor/alanning:roles';
 
-export const Tmp = new Mongo.Collection("tmp");
+const Tmp = new Mongo.Collection("tmp");
 
 Tmp.deny({
   insert() { return true; },
@@ -9,7 +10,9 @@ Tmp.deny({
 });
 
 Tmp.allow({
-  remove: function(userId, doc) {
+  remove: function(userId) {
     return Roles.userIsInRole(userId, 'admin')
   }
 });
+
+export default Tmp;

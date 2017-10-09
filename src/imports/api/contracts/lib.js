@@ -1,4 +1,4 @@
-export const exchangeRates = {
+export default {
   'USD': {
     '2002':9.68249,
     '2003':10.80599,

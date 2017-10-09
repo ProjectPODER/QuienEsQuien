@@ -1,6 +1,6 @@
 import SimpleSchema from 'simpl-schema';
 
-export const contactFormSchema = new SimpleSchema({
+export default new SimpleSchema({
   name: {
     type: String,
     label: "Your name",

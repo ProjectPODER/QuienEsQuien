@@ -1,14 +1,12 @@
-import { Orgs } from '../organizations/organizations.js';
-import { Persons } from '../persons/persons.js';
-import { Matches } from './matches.js';
-import { take, extend, words, mean, filter, find } from 'lodash';
+import { extend, words, mean, filter } from 'lodash';
 import fuzzy from 'clj-fuzzy';
+import { Orgs } from '../organizations/organizations.js';
+import Matches from './matches.js';
 
 export function matcher( string ){
   let s = stem(string);
   const results = textSearch(s);
-  x = filterMatches(string, results);
-  return x
+  return filterMatches(string, results);
 }
 
 export function textSearch( string ) {

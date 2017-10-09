@@ -1,6 +1,6 @@
-import { DATA_ARRAYS } from './similar.js';
-import { flatten, drop, last, mapValues, extend } from 'lodash';
+import { flatten, drop, mapValues, extend } from 'lodash';
 import { orgUpdate, orgRemove } from '../../../api/organizations/methods.js';
+
 const toMongodb = require('jsonpatch-to-mongodb');
 
 export function addRelationship(data, originId, relationship) {
@@ -9,7 +9,7 @@ export function addRelationship(data, originId, relationship) {
 
   let mod = { $addToSet : set };
 
-  orgUpdate.call({ _id: originId, modifier: mod }, (error, result) => {
+  orgUpdate.call({ _id: originId, modifier: mod }, (error) => {
     if (error) throw error;
 
   });
@@ -18,7 +18,7 @@ export function addRelationship(data, originId, relationship) {
 export function applyPatch( patch, arrays, originId, simple ) {
 
   let pmod = toMongodb(patch);
-  let fields = mapValues(arrays, (value, key, object) => {
+  let fields = mapValues(arrays, (value, key) => {
     let set = {};
     return set[key] = { $each: value };
   })
@@ -26,31 +26,29 @@ export function applyPatch( patch, arrays, originId, simple ) {
   let push = { $addToSet : fields };
   let mod = extend({}, pmod, push );
 
-  orgUpdate.call({ _id: originId, modifier: mod }, (error, result) => {
+  orgUpdate.call({ _id: originId, modifier: mod }, (error) => {
     if (error) throw error;
 
-    orgRemove.call({ simple: simple }, (error, result) => {
+    orgRemove.call({ simple: simple }, (error) => {
       if (error) throw error;
     });
   });
 
 }
 
-export function addHunk(hunk, originId, simple ) {
+export function addHunk(hunk, originId) {
   let path = hunk.path.split('/');
   let path_base = path[1];
-  let path_last = last(path);
-  let mod, mod2;
+  let mod;
 
   if ( path_base === 'contract_count' ){
     mod = { $inc: { contract_count: hunk.value }};
-    mod2 = { $unset: { contract_count }};
   }
   else {
     mod = { $set : { path_base : hunk.value }}
   }
 
-  orgUpdate.call({ _id: originId, modifier: mod }, (error, result) => {
+  orgUpdate.call({ _id: originId, modifier: mod }, (error) => {
     if (error) throw error;
 
   });
@@ -61,13 +59,13 @@ export function addHunk(hunk, originId, simple ) {
   //})
 }
 
-export function replaceHunk(hunk, originId, simple) {
+export function replaceHunk(hunk, originId) {
   let path = drop(hunk.path.split('/'));
-  let mod, mod2;
+  let mod;
   let set = {};
   set[path.join('.')] = hunk.value;
   mod = { $set: set }
-  orgUpdate.call({ _id: originId, modifier: mod }, (error, result) => {
+  orgUpdate.call({ _id: originId, modifier: mod }, (error) => {
     if (error) throw error;
 
   });

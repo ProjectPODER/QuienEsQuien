@@ -1,10 +1,25 @@
-import { Tmp } from './tmp.js';
-import { Persons } from '../persons/persons.js';
-import { Orgs } from '../organizations/organizations.js';
-import { upsertFunction, arrays_for_upsert, omited, simpleName } from '../lib.js';
-import { comma_split_and_reverse } from '../lib.js';// <-- error
-import { update_org_stats, update_person_stats, dec_tmp_stats } from '../stats/lib.js';
-import { has, filter, omit, extend } from 'lodash';
+import {
+  has,
+  filter,
+  omit
+} from 'lodash';
+import { Logger } from 'meteor/ostrio:logger';
+import Tmp from './tmp.js';
+import {
+  Persons
+} from '../persons/persons.js';
+import {
+  Orgs
+} from '../organizations/organizations.js';
+import {
+  upsertFunction,
+  arrays_for_upsert,
+  omited,
+  simpleName,
+  comma_split_and_reverse,
+} from '../lib.js';
+
+const log = new Logger();
 
 export const flushTmp = function(userId, callback){
   // flushed everything it can from Tmp collection
@@ -13,14 +28,14 @@ export const flushTmp = function(userId, callback){
   var collection = Tmp.rawCollection(); // use raw mongodb col to avoid reactivity
 
   collection.find({}).toArray(Meteor.bindEnvironment(function(err, docs) {
-    console.log(docs.length, 'temporary records');
-
-    var unknowns = filter(docs, function(doc) {
+    let docsFlushed = 0;
+    let unknowns = filter(docs, function(doc) {
       return (!has(doc, 'data_type'));
     });
-    console.log(unknowns.length, "unknowns");
-    docsFlushed = 0;
-    docs.forEach(function(object, index, array) {
+
+    log.info(`${docs.length} temporary records`);
+    log.info(`${unknowns.length} unknowns`);
+    docs.forEach(function(object) {
 
       // first get everything wich is not yet identied as person or org
       // and try to match it against those already identifed
@@ -50,7 +65,7 @@ export const flushTmp = function(userId, callback){
 
         if (result1 > 0){
           Tmp.remove({ _id: object._id }, function(err){
-            if (err) return console.log(err)
+            if (err) return log.error(err.message, err)
 
             // FIXME return dec_tmp_stats( object._id )
             return
@@ -66,7 +81,7 @@ export const flushTmp = function(userId, callback){
 
         if (result2 > 0){
           Tmp.remove({ _id: object._id }, function(err){
-            if (err) return console.log(err)
+            if (err) return log.error(err.message, err)
 
             // FIXME return dec_tmp_stats( object._id )
             return
@@ -78,7 +93,7 @@ export const flushTmp = function(userId, callback){
       docsFlushed++;
 
       if(docsFlushed === docs.length) {
-        console.log('Temporary docs Flushed');
+        log.info('Temporary docs Flushed');
         let remaining_temporary_documents = Tmp.find().count();
         return callback && callback( remaining_temporary_documents );
       }
@@ -97,7 +112,7 @@ export const orgFromTmp = function(args) {
 
   // FIXME update_org_stats( results.insertedId );
   Tmp.remove({ _id: id }, function(err){
-    if (err) return console.log(err)
+    if (err) return log.err(err.message, err)
 
     // FIXME return dec_tmp_stats( id )
     return
@@ -114,7 +129,7 @@ export const personFromTmp = function(args) {
 
   // FIXME update_org_stats( results.insertedId );
   Tmp.remove({ _id: id }, function(err){
-    if (err) return console.log(err)
+    if (err) return log.error(err.message, err)
 
     // FIXME return dec_tmp_stats( id )
     return

@@ -1,7 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import {
-  ReferenceSchema
-} from '../references/references.js';
+import ReferenceSchema from '../references/references.js';
 
 SimpleSchema.extendOptions(['autoform']);
 

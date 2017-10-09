@@ -1,4 +1,4 @@
-import { cytoStyle } from './style';
+import cytoStyle from './style';
 import visualizationEvents from './events';
 import updateVizualization from './lib';
 import './viz.html';
@@ -137,81 +137,81 @@ function toggleNodes(cy, selector, opacity) {
 }
 
 Template.cytoscapeVisualization.events({
-  'click .viz-controls li.image': function (event, template) {
+  'click .viz-controls li.image': function (event, templateInstance) {
 
     event.preventDefault();
     event.stopPropagation();
 
-    const png64 = template.cy.png({ bg: '#fff' });
+    const png64 = templateInstance.cy.png({ bg: '#fff' });
     self.$('#imageModal').modal();
     self.$('#imageModal .popup-image').attr('src', png64);
   },
 
-  'click .viz-controls li.toggle-labels': function (event, template) {
+  'click .viz-controls li.toggle-labels': function (event, templateInstance) {
 
     event.preventDefault();
     event.stopPropagation();
 
-    const state = template.labels.get();
+    const state = templateInstance.labels.get();
 
     if (state) {
-      template.cy.nodes().style({
+      templateInstance.cy.nodes().style({
           'text-opacity': 0,
           'text-background-opacity': 0,
       });
 
-      template.labels.set(false);
-      template.$(event.currentTarget).removeClass('inset-shadow');
+      templateInstance.labels.set(false);
+      templateInstance.$(event.currentTarget).removeClass('inset-shadow');
     } else {
-      template.cy.nodes().style({
+      templateInstance.cy.nodes().style({
           'text-opacity': 0.8,
           'text-background-opacity': 0.7,
       });
 
-      template.labels.set(true);
-      template.$(event.currentTarget).addClass('inset-shadow');
+      templateInstance.labels.set(true);
+      templateInstance.$(event.currentTarget).addClass('inset-shadow');
     }
   },
 
-  'click .viz-controls li.viz-refresh': function (event, template) {
+  'click .viz-controls li.viz-refresh': function (event, templateInstance) {
     event.preventDefault();
     event.stopPropagation();
-    template.cy.nodes().remove();
-    template.$('.viz-legend li').removeClass('inset-shadow');
+    templateInstance.cy.nodes().remove();
+    templateInstance.$('.viz-legend li').removeClass('inset-shadow');
     ['origin', 'board', 'parent', 'suborg', 'shares', 'shareholder'].forEach((element) => {
-      if (template[element]) {
-        template[element].set('state', false);
+      if (templateInstance[element]) {
+        templateInstance[element].set('state', false);
       }
     });
 
-    template.labels.set(false);
-    template.$('.toggle-labels').removeClass('inset-shadow');
+    templateInstance.labels.set(false);
+    templateInstance.$('.toggle-labels').removeClass('inset-shadow');
 
-    updateVizualization(template);
+    updateVizualization(templateInstance);
 
     //template.cy.resize();
     //template.cy.forceRender();
 
   },
 
-  'click .viz-legend li': function (event, template) {
+  'click .viz-legend li': function (event, templateInstance) {
 
     event.preventDefault();
     event.stopPropagation();
 
     const target = event.currentTarget;
-    const string = template.$(target).text().trim();
-    const state = template[string].get('state');
+    const string = templateInstance.$(target).text().trim();
+    const state = templateInstance[string].get('state');
     const selector = getSelector(string);
 
     if (state) {
-      toggleNodes(template.cy, selector, 0);
-      template[string].set('state', false);
-      template.$(target).addClass('inset-shadow');
+      toggleNodes(templateInstance.cy, selector, 0);
+      templateInstance[string].set('state', false);
+      templateInstance.$(target).addClass('inset-shadow');
     } else {
-      toggleNodes(template.cy, selector, 1);
-      template[string].set('state', true);
-      template.$(target).removeClass('inset-shadow');
+      toggleNodes(templateInstance.cy, selector, 1);
+      templateInstance[string].set('state', true);
+      templateInstance.$(target).removeClass('inset-shadow');
     }
   },
 
@@ -231,7 +231,7 @@ Template.cytoscapeVisualization.onRendered(function() {
       container: self.$('#visualization-cytoscape'), // container to render in
       style: cytoStyle,
     });
-    
+
     updateVizualization(self);
     visualizationEvents(self.cy);
   });

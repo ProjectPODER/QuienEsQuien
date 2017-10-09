@@ -15,4 +15,4 @@ const PublicSchemaObject = {
 */
 
 
-export const PublicSchema = new SimpleSchema(PublicSchemaObject);
+export default new SimpleSchema(PublicSchemaObject);

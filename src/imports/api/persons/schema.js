@@ -1,5 +1,5 @@
 import SimpleSchema from 'simpl-schema';
-import { ReferenceSchema } from '../references/references.js';
+import ReferenceSchema from '../references/references.js';
 import AddressSchema from '../addresses/addresses.js';
 import { imageUrlRegExp } from '../lib';
 

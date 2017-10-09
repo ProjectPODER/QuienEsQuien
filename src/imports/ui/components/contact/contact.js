@@ -1,6 +1,7 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { AutoForm } from 'meteor/aldeed:autoform';
 import './contact.html';
-import { contactFormSchema } from '../../../api/contact.js';
+import contactFormSchema from '../../../api/contact.js';
 
 Template.contactForm.helpers({
   contactFormSchema: function() {
@@ -10,8 +11,8 @@ Template.contactForm.helpers({
 
 AutoForm.hooks({
   contactForm: {
-    onSuccess: function(formType, result) {
-        FlowRouter.go('/contact/success');
+    onSuccess: function() {
+      FlowRouter.go('/contact/success');
     }
   }
 });

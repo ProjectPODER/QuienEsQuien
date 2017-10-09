@@ -21,7 +21,7 @@ export function logUserAction(object) {
   return result;
 }
 
-userLog.after.insert((userId, doc) => {
+userLog.after.insert(() => {
   const count = userLog.find().count();
   if (count > LIMIT) {
     userLog.find({}, { sort: { date: 1 }, limit: (count - LIMIT) })

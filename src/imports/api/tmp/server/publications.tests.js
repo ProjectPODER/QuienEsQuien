@@ -1,8 +1,12 @@
+/* eslint-env mocha */
 import { assert } from 'chai';
+import { Roles } from 'meteor/alanning:roles';
 import { PublicationCollector } from 'meteor/johanbrook:publication-collector';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
-import { Tmp } from '../tmp.js';
+import Tmp from '../tmp.js';
 import './publications.js';
+
+let admin_user_id, normal_user_id;
 
 describe('Publications of "Tmp" collection', () => {
 
@@ -10,13 +14,13 @@ describe('Publications of "Tmp" collection', () => {
     resetDatabase();
     Tmp.insert({name:'Name'});
 
-    var admin_user = {
+    const admin_user = {
       username: 'Admin User',
       password: '123456',
       email: 'admin@example.com'
     };
 
-    var normal_user = {
+    const normal_user = {
       username: 'Normal User',
       password: '123456',
       email: 'normal@example.com'

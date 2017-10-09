@@ -1,7 +1,8 @@
 import SimpleSchema from 'simpl-schema';
-export const Matches = new Mongo.Collection("matches");
 
-EquivalenceSchemaObject = {
+const Matches = new Mongo.Collection("matches");
+
+const EquivalenceSchemaObject = {
   canon: {
     type: String,
     max: 200,
@@ -39,7 +40,7 @@ EquivalenceSchemaObject = {
 @property {string} collection where this entity is stored (Person or Organization)
 */
 
-EquivalenceSchema = new SimpleSchema(EquivalenceSchemaObject);
+const EquivalenceSchema = new SimpleSchema(EquivalenceSchemaObject);
 
 Matches.attachSchema(EquivalenceSchema);
 
@@ -48,3 +49,5 @@ Matches.deny({
   update() { return true; },
   remove() { return true; },
 });
+
+export default Matches;

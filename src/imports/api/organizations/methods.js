@@ -1,10 +1,10 @@
+import { extend, words, mean, filter } from 'lodash';
+import SimpleSchema from 'simpl-schema';
 import { ValidatedMethod } from 'meteor/mdg:validated-method';
 import { OrganizationSchema } from './schema.js';
 import { Orgs } from './organizations.js';
-import { Matches } from '../matches/matches.js';
-import SimpleSchema from 'simpl-schema';
-import { take, extend, words, mean, filter, find } from 'lodash';
-import { simpleName } from '../lib.js';
+import Matches from '../matches/matches.js';
+
 const fuzzy = require('clj-fuzzy');
 
 export const orgInsert = new ValidatedMethod({
@@ -152,20 +152,6 @@ function filterMatches(string, results) {
   return top;
 }
 
-function owns(doc, string) {
-  return find(doc.owns, (child)=>{
-    let simple = simpleName(child.name);
-
-    return ( simple === string )
-  })
-}
-function owned_by(doc, string) {
-  return find(doc.owned_by, (child)=>{
-    let simple = simpleName(child.name);
-
-    return ( simple === string )
-  })
-}
 function toper(origin, results) {
   return filter(results, function(o){
       let dice = fuzzy.metrics.dice(stem(origin), stem(o.simple));

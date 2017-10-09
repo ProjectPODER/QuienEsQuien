@@ -1,5 +1,5 @@
 import { extend } from 'lodash';
-import { Stats } from './stats';
+import Stats from './stats';
 
 function statsSelector(date) {
   return {
