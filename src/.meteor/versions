@@ -103,6 +103,7 @@ npm-mongo@2.2.30
 observe-sequence@1.0.16
 ordered-dict@1.0.9
 ostrio:flow-router-extra@3.3.3
+ostrio:logger@2.0.3
 ovcharik:jsdiff@2.0.1
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.16.0

@@ -72,3 +72,4 @@ aldeed:collection2-core@2.0.0
 aldeed:schema-index
 aldeed:schema-deny
 aldeed:autoform
+ostrio:logger
