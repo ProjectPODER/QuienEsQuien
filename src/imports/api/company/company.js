@@ -1,6 +1,8 @@
 import SimpleSchema from 'simpl-schema';
 import ReferenceSchema from '../references/references.js';
 
+SimpleSchema.extendOptions(['autoform']);
+
 const CompanySchemaObject = {
   sector: {
     type: String,
