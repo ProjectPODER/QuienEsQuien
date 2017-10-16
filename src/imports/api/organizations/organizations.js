@@ -1,11 +1,38 @@
-import { has } from 'lodash';
-import { Mongo } from 'meteor/mongo';
-import { Roles } from 'meteor/alanning:roles';
-import { Index, MongoDBEngine } from 'meteor/easy:search';
-import Memberships from '../memberships/memberships';
-import { Contracts } from '../contracts/contracts';
-import { Revisions } from '../revisions/revisions';
+import {
+  has,
+  countBy,
+  identity,
+  flatten,
+} from 'lodash';
+import hash from 'string-hash';
+import {
+  Mongo
+} from 'meteor/mongo';
+import {
+  Roles
+} from 'meteor/alanning:roles';
+import {
+  Index,
+  MongoDBEngine
+} from 'meteor/easy:search';
+import {
+  Revisions
+} from '../revisions/revisions';
 import OrganizationSchema from './schema';
+import {
+  getShareHolders,
+  getShares,
+  getBoard,
+  getContractsSupplied,
+  getContractsSolicited,
+  getPosts,
+  getAllMemberships,
+} from './relations';
+import {
+  doc2CytoNode,
+  doc2CytoEdge,
+  contractTypeNodes,
+} from '../transformers';
 
 export const Orgs = new Mongo.Collection('organizations');
 
@@ -21,104 +48,188 @@ Orgs.helpers({
   },
   editableBy(userId) {
     const isAdmin = Roles.userIsInRole(userId, 'admin');
-    return isAdmin || this.user_id === userId;
+    return (this.user_id) && (isAdmin || this.user_id === userId);
   },
   isPublic() {
     return (has(this, 'public') || this.category === 'public');
   },
-  editableby(userId) {
-    return this.user_id === userId;
-  },
   revisions() {
     return Revisions.find({documentId: this._id})
   },
-  shareholders() {
-    return Memberships.find({
-      role: 'shareholder',
-      sob_org: this.simple,
-    }, {
-      fields: {
-        user_id: 0,
-        sob_org: 0,
-      },
-      sort: {
-        person_id: 1,
-        org_id: 1,
-      },
+  shareholders(graph = false) {
+    if (!graph) {
+      return getShareHolders(this);
+    }
+    return getShareHolders(this).map(doc => {
+      const  isPerson = (doc.hasOwnProperty('person_id'));
+      const name = (isPerson) ? doc.person_id : doc.org_id;
+      const collection = (isPerson) ? 'persons' : 'organizations';
+      return [
+        doc2CytoNode(doc, {
+          id: doc._id,
+          name: name,
+          role: 'shareholder',
+          collection: collection,
+        }),
+        doc2CytoEdge({
+          targetId: 'o0',
+          sourceId: doc._id,
+          label: 'shareholder',
+        }),
+      ];
     });
   },
-  shares() {
-    return Memberships.find({
-      role: 'shareholder',
-      org_id: this.simple,
-    }, {
-      fields: {
-        user_id: 0,
-        org: 0,
-        org_id: 0,
-      },
-      sort: {
-        sob_org: 1,
-      },
+  shares(graph = false) {
+    if (!graph) {
+      return getShares(this);
+    }
+    return getShares(this).map(doc => {
+      return [
+        doc2CytoNode(doc, {
+          id: doc._id,
+          name: doc.sob_org,
+          role: 'shares',
+          collection: 'organizations',
+        }),
+        doc2CytoEdge({
+          sourceId: 'o0',
+          targetId: doc._id,
+          label: 'shares',
+        }),
+      ];
     });
   },
   allMemberships() {
-    return Memberships.find({
-      person_id: this.simple,
+    return getAllMemberships(this)
+  },
+  posts(graph = false) {
+    if (!graph) {
+      return getPosts(this);
+    }
+    return getPosts(this).map(doc => {
+      return [
+        doc2CytoNode(doc, {
+          id: doc._id,
+          name: doc.person_id,
+          role: doc.role,
+          collection: 'persons',
+        }),
+        doc2CytoEdge({
+          sourceId: 'o0',
+          targetId: doc._id,
+          label: doc.role,
+        }),
+      ];
     });
   },
-  board() {
-    return Memberships.find({
-      department: 'board',
-      sob_org: this.simple,
-    }, {
-      fields: {
-        user_id: 0,
-        sob_org: 0,
-      },
-      sort: {
-        person_id: 1,
-      },
+  board(graph = false) {
+    if (!graph) {
+      return getBoard(this);
+    }
+    return getBoard(this).map(doc => {
+      return [
+        doc2CytoNode(doc, {
+          id: doc._id,
+          name: doc.person,
+          role: 'board member',
+          collection: 'persons',
+        }),
+        doc2CytoEdge({
+          sourceId: 'o0',
+          targetId: doc._id,
+          label: doc.role,
+        }),
+      ];
     });
   },
-  suppliesContracts() {
-    return Contracts.find({
-      $or: [
-        { suppliers: this.simple },
-        { suppliers_org: this.simple },
-        { proveedor: this.simple },
-      ],
-    }, {
-      fields: {
-        user_id: 0,
-      },
-      sort: {
-        amount: -1,
-      },
+  contractsSupplied(graph = false) {
+    if (!graph) {
+      return getContractsSupplied(this);
+    }
+    const genericData = getContractsSupplied(this);
+    const count = genericData.count();
+    const types = countBy(genericData.map(o => (o.procedure_type)), identity);
+    const typeNodes = contractTypeNodes(types, count);
+    const solicitors = getContractsSupplied(this).map(doc => {
+      return [
+        doc2CytoNode(doc, {
+          id: hash(doc.dependency),
+          name: doc.dependency,
+          role: 'solicitor',
+          collection: 'organizations',
+        }),
+        doc2CytoEdge({
+          sourceId: hash(doc.procedure_type),
+          targetId: hash(doc.dependency),
+          label: doc.title,
+        }),
+      ];
     });
+    return flatten([
+      Object.values(typeNodes),
+      solicitors,
+    ])
   },
-  contracts() { // solicits contracts (contracts organization x...)
-    return Contracts.find({
-      $or: [ // should we use simple?
-        {
-          dependency: {
-            $in: this.names,
-          },
-        },
-        {
-          department: {
-            $in: this.names,
-          },
-        },
-      ],
-    }, {
-      fields: {
-        user_id: 0,
-      },
-      sort: {
-        created_at: -1,
-      },
+  contractsSolicited(graph = false) {
+    if (!graph) {
+      return getContractsSolicited(this);
+    }
+    const genericData = getContractsSolicited(this);
+    const count = genericData.count();
+    const types = countBy(genericData.map(o => (o.procedure_type)), identity);
+    const typeNodes = contractTypeNodes(types, count);
+    const suppliers = genericData.map((doc) => {
+      const output = [];
+      ['person', 'org'].forEach((string) => {
+        const collection = (string === 'person') ? 'persons' : 'organizations';
+        const attrString = `suppliers_${string}`;
+        if (doc.hasOwnProperty(attrString)) {
+          doc[attrString].forEach((supplier) => {
+            output.push(doc2CytoNode(doc, {
+              id: hash(supplier),
+              name: supplier,
+              role: 'supplier',
+              collection,
+              type: doc.procedure_type,
+            }));
+            output.push(doc2CytoEdge({
+                sourceId: hash(doc.procedure_type),
+                targetId: hash(supplier),
+                label: doc.title,
+              }));
+          });
+        }
+
+      });
+      return output;
     });
+    return flatten([
+      Object.values(typeNodes),
+      suppliers,
+    ]);
+  },
+  getSubOrgs() {
+
+  },
+  getParents() {
+    // role: parent
+  },
+  getChildren() {
+
+  },
+  originNode() {
+    // return a node for cytoscape
+    return {
+      data: {
+        group: "nodes",
+        id: 'o0',
+        name: this.name,
+        //size: Math.sqrt(sum.sum / sum.count) || 15,
+        // data: { weight: 75 },
+        // position: { x: 110, y: 110 },
+      },
+      classes: 'origin',
+    }
   },
 });
 
