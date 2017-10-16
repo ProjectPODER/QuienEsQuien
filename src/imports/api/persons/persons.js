@@ -55,6 +55,12 @@ Persons.helpers({
       },
     });
   },
+  posts() {
+    return Memberships.find({
+      source: /cargografias/,
+      person_id: this.simple,
+    });
+  },
   allMemberships() {
     return Memberships.find({
       person_id: this.simple,
