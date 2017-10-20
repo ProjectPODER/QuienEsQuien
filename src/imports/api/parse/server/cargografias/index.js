@@ -171,10 +171,12 @@ export function orgMembershipData(data) {
     references: referenceData(data),
   }
   if (data.fechaInicio) {
-    extend(extendedAttributes, { start_date: new Date(data.fechaInicio) });
+    const [day, month, year] = data.fechaInicio.split('/');
+    extend(extendedAttributes, { start_date: new Date(year, month, day) });
   }
   if (data.fechaFin) {
-    extend(extendedAttributes, { end_date: new Date(data.fechaFin) });
+    const [day, month, year] = data.fechaFin.split('/');
+    extend(extendedAttributes, { end_date: new Date(year, month, day) });
   }
   return extend(omitEmpty(obj), extendedAttributes);
 }
