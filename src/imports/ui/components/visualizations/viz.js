@@ -1,10 +1,7 @@
 import cytoStyle from './style';
 import visualizationEvents from './events';
-import updateVizualization from './lib';
+import { colaOptions, updateVizualization } from './lib';
 import './viz.html';
-
-
-const LIMIT = 1000;
 
 Template.cytoscapeVisualization.onCreated(function() {
 
@@ -13,8 +10,6 @@ Template.cytoscapeVisualization.onCreated(function() {
 
   self.labels = new ReactiveVar(false);
   self.ready = new ReactiveVar(false);
-  self.origin = new ReactiveDict();
-  self.origin.setDefault(default_states);
   self.board = new ReactiveDict();
   self.board.setDefault(default_states);
   self.shareholder = new ReactiveDict();
@@ -23,40 +18,58 @@ Template.cytoscapeVisualization.onCreated(function() {
   self.shareholder.setDefault(default_states);
   self.competitor = new ReactiveDict();
   self.competitor.setDefault(default_states);
-
+  self.posts = new ReactiveDict();
+  self.posts.setDefault(default_states);
+  self.suppliesContracts = new ReactiveDict();
+  self.suppliesContracts.setDefault(default_states);
+  self.contracts = new ReactiveDict();
+  self.contracts.setDefault(default_states);
+  self.cyto = new ReactiveDict();
+  self.cyto.setDefault(default_states);
+  self.stories = new ReactiveDict();
+  self.stories.setDefault(default_states);
   self.autorun(() => {
     const data = Template.currentData();
     const origin = data.origin;
-    const id = origin._id;
-    if (origin.collection === 'persons') {
-      const handle = self.subscribe('membersOfPerson', origin.simple, LIMIT, {
-        onReady() {
-          // FIXME really wired shit
-          // we have to put this empty callback here
-          // but then use the if below
-        },
-      });
-      if (handle.ready()) {
-        self.board.set('count', origin.board().count());
-        self.shares.set('count', origin.shares().count());
-      }
-      self.ready.set(handle.ready());
-    }
+    // make sure we rerun when memberships change
+    // origin.allMemberships();
+    const sharesHandle = Meteor.subscribe('sharesOfEntity', origin._id, origin.collectionName());
+    self.shares.set('ready', sharesHandle.ready());
+    self.shares.set('count', origin.shares().count());
+    if (origin.collectionName() === 'organizations') {
+      const boardHandle = Meteor.subscribe('boardMembersOfOrganization', origin._id);
+      self.board.set('ready', boardHandle.ready());
+      self.board.set('count', origin.board().count());
+      const shareHoldersHandle = Meteor.subscribe('shareHoldersOfOrganization', origin._id);
+      self.shareholder.set('ready', shareHoldersHandle.ready());
+      self.shareholder.set('count', origin.shareholders().count());
+      const suppliesContracts = Meteor.subscribe('contractsSuppliedByOrganization', origin._id);
+      self.suppliesContracts.set('ready', suppliesContracts.ready());
+      self.suppliesContracts.set('count', origin.contractsSupplied().count());
+      const contracts = Meteor.subscribe('contractsSolicitedByOrganization', origin._id);
+      self.contracts.set('ready', contracts.ready());
+      self.contracts.set('count', origin.contractsSolicited().count());
+      const postsHandle = Meteor.subscribe('postsOfOrganization', origin._id);
+      self.posts.set('ready', postsHandle.ready());
+      self.posts.set('count', origin.posts().count());
 
-    if (origin.collection === 'orgs') {
-      const handle = self.subscribe('membersOfOrganization', id, LIMIT, {
-        onReady() {
-          // FIXME really wired shit
-          // we have to put this empty callback here
-          // but then use the if below
-        },
-      });
-      if (handle.ready()) {
-        self.board.set('count', origin.board().count());
-        self.shares.set('count', origin.shares().count());
-        self.shareholder.set('count', origin.shareholders().count());
-      }
-      self.ready.set(handle.ready());
+      // FIXME implemnt stories post rindecuentas tag
+      // const stories = Meteor.subscribe('storiesRelatedToOrganization', origin._id);
+      // self.stories.set('ready', stories.ready());
+    }
+    if (origin.collectionName() === 'persons') {
+      const boardHandle = Meteor.subscribe('boardMembershipsOfPerson', origin._id);
+      self.board.set('ready', boardHandle.ready());
+      self.board.set('count', origin.board().count());
+      const suppliesContracts = Meteor.subscribe('contractsSuppliedByPerson', origin._id);
+      self.suppliesContracts.set('ready', suppliesContracts.ready());
+      self.suppliesContracts.set('count', origin.contractsSupplied().count());
+      const postsHandle = Meteor.subscribe('postsOfPerson', origin._id);
+      self.posts.set('ready', postsHandle.ready());
+      self.posts.set('count', origin.posts().count());
+      // FIXME implemnt stories post rindecuentas tag
+      // const stories = Meteor.subscribe('storiesRelatedToOrganization', origin._id);
+      // self.stories.set('ready', stories.ready());
     }
   });
 });
@@ -72,30 +85,38 @@ Template.cytoscapeVisualization.helpers({
   },
 
   relations() {
-    const a = [];
-    const doc = Template.instance().data.origin;
-    const boardCount = Template.instance().board.get('count');
-    const sharesCount = Template.instance().shares.get('count');
-    const shareholderCount = Template.instance().shareholder.get('count');
-    if (doc.immediate_parent) {
-      a.push('parent');
+    const a = new Set();
+    const instance = Template.instance();
+    const doc = Template.currentData().origin;
+    if (instance.shares.get('count') > 0) {
+      a.add('shares');
     }
-    // if (doc.competitors && doc.competitors.length > 0) {
-    //   a.push('competitor');
-    // }
-    if (doc.suborgs && doc.suborgs.length > 0) {
-      a.push('suborg');
+    if (instance.shareholder.get('count') > 0) {
+      a.add('shareholder');
     }
-    if (boardCount > 0) {
-      a.push('board');
+    if (instance.board.get('count') > 0) {
+      a.add('board');
     }
-    if (sharesCount > 0) {
-      a.push('shares');
+    if (instance.suppliesContracts.get('count') > 0) {
+      a.add('solicitor');
     }
-    if (shareholderCount > 0) {
-      a.push('shareholder');
+    if (instance.contracts.get('count') > 0) {
+      a.add('supplier');
     }
-    return a;
+    if (instance.posts.get('count') > 0) {
+      a.add('post');
+    }
+    if (doc.hasOwnProperty('immediate_parent')) {
+     a.add('parent');
+    }
+    if (doc.hasOwnProperty('competitors')) {
+     a.add('competitor');
+    }
+    if (doc.hasOwnProperty('suborgs') && doc.suborgs.length > 0) {
+     a.add('suborg');
+    }
+
+    return Array.from(a);
   },
 });
 
@@ -214,25 +235,55 @@ Template.cytoscapeVisualization.events({
       templateInstance.$(target).removeClass('inset-shadow');
     }
   },
-
 });
 
 Template.cytoscapeVisualization.onRendered(function() {
   const self = this;
+  const origin = self.data.origin;
 
   Promise.all([import('cytoscape'), import('cytoscape-cola')])
   .then((array) => {
     const cytoscape = array[0].default;
     const cycola = array[1].default;
-
-    cycola(cytoscape);
-
-    self.cy = cytoscape({
+    const o = origin.originNode();
+    cytoscape.use(cycola);
+    const cy = cytoscape({
       container: self.$('#visualization-cytoscape'), // container to render in
       style: cytoStyle,
+      elements: [o],
+      // layout: colaOptions,
+    });
+    self.cy = cy;
+    self.autorun(() => {
+      origin.board(true).forEach(doc => (cy.add(doc)));
+      origin.shares(true).forEach(doc => (cy.add(doc)));
+      origin.posts(true).forEach(doc => (cy.add(doc)));
+      origin.contractsSupplied(true).forEach(doc => (cy.add(doc)));
+      if (origin.collectionName() === 'organizations') {
+        origin.shareholders(true).forEach(doc => (cy.add(doc)));
+        origin.contractsSolicited(true).forEach(doc => (cy.add(doc)));
+      }
+
+      self.cy.ready((event) => {
+        const cy = event.cy;
+        self.cyto.set('ready', true);
+        // FIXME SEE ONCREATED
+        // origin.stories(true).forEach(doc => (cy.add(doc)));
+
+        // FIXME once we have mongo 3.4 use graphLookup
+        // to get relations of nodes w/ highest count
+        // const eles = cy.elements('node');
+
+        cy.layout(Object.assign(colaOptions, {
+          ready() {
+            return cy.fit();
+          }
+        })).run();
+        // cy.center('.origin');
+      });
     });
 
-    updateVizualization(self);
+    // updateVizualization(self);
     visualizationEvents(self.cy);
   });
 });

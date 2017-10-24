@@ -1,25 +1,24 @@
 import { extend } from 'lodash';
 import {
 originNode,
-getRelations,
 addGeneologyNodes,
 addNode,
 } from './relations';
 
-const coseOptions = {
+export const colaOptions = {
   name: 'cola',
-  animate: true,
-  refresh: 1,
-  maxSimulationTime: 4000,
-  ungrabifyWhileSimulating: true,
-  fit: true,
+  // animate: false,
+  refresh: 10,
+  maxSimulationTime: 6000,
+  ungrabifyWhileSimulating: false,
+  fit: false,
   // padding: 10,
   // boundingBox: undefined,
   // positioning options
   randomize: false,
-  avoidOverlap: false,
+  avoidOverlap: true,
   handleDisconnected: true,
-  flow: undefined,
+  // flow: { axis: 'y', minSeparation: 30 },
   alignment: undefined,
   edgeLength: undefined,
   edgeSymDiffLength: undefined,
@@ -27,7 +26,7 @@ const coseOptions = {
   unconstrIter: undefined,
   userConstIter: undefined,
   allConstIter: undefined,
-  infinite: false,
+  infinite: true,
 };
 
 export default function updateVizualization(self) {
