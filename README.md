@@ -2,6 +2,10 @@
 
 QuienEsQuien.Wiki es una aplicación para acumular datos sobre personas organizaciones y contratos en América y sus alrededores.
 
+### instala meteor
+
+    https://www.meteor.com/install
+
 ### obtén el código
 
     git clone https://github.com/ProjectPODER/QuienEsQuien.git
