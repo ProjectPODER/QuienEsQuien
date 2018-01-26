@@ -1,0 +1,107 @@
+# QuienEsQuienWiki CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:4.8.4-browsers
+      - image: circleci/mongo:3.4.4
+        command: [mongod, --smallfiles]
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "src/package.json" }}
+          - v1-dependencies-
+
+      - run: curl https://install.meteor.com | /bin/sh
+      - run: echo 'export PATH=$HOME/.meteor:$PATH' >> $BASH_ENV
+      - run: echo 'export TEST_BROWSER_DRIVER=nightmare' >> $BASH_ENV
+
+      - run:
+          command: meteor npm install
+          name: install
+          working_directory: src
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "src/package.json" }}
+
+      - run:
+          command: MONGO_URL=mongodb://localhost:27017/runner meteor npm run testci
+          name: test
+          working_directory: src
+
+      - run:
+          command: meteor build --directory ../dist --architecture=os.linux.x86_64 --server-only
+          name: build
+          working_directory: src
+
+      - persist_to_workspace:
+          root: dist
+          paths:
+            - ./*
+
+  deploy-dev:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: dist
+
+      - run: |
+          docker build -t poder/quienesquienwiki:$CIRCLE_BRANCH .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push poder/quienesquienwiki:$CIRCLE_BRANCH
+
+  deploy-pro:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: dist
+
+      - run: apk --no-cache add jq
+      - run: |
+          export VERSION=$(cat src/package.json | jq -r .version)
+          echo $VERSION
+          docker build -t poder/quienesquienwiki:$VERSION .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push poder/quienesquienwiki:$VERSION
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /v.*/
+      - deploy-dev:
+          requires:
+            - build
+      - deploy-pro:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /v.*/
+            branches:
+              ignore: /.*/
