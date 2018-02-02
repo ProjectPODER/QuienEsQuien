@@ -6,7 +6,6 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
       - image: circleci/node:4.8.4-browsers
       - image: circleci/mongo:3.4.4
         command: [mongod, --smallfiles]
@@ -16,7 +15,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "src/package.json" }}
@@ -91,13 +89,11 @@ jobs:
       - setup_remote_docker
 
       - attach_workspace:
-          # Must be absolute path or relative path from working_directory
           at: dist
 
       - run: apk --no-cache add jq
       - run: |
           export VERSION=$(cat src/package.json | jq -r .version)
-          echo $VERSION
           docker build -t poder/quienesquienwiki:$VERSION .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push poder/quienesquienwiki:$VERSION
