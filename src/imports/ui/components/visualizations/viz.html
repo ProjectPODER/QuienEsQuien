@@ -22,13 +22,11 @@
     <li class="origin">
       <span class="block"></span>{{__ 'origin'}}
     </li>
-    {{#if ready}}
       {{#each relation in relations }}
         <li class="{{relation}}">
           <span class="block"></span>{{__ relation}}
         </li>
       {{/each}}
-    {{/if}}
   </ul>
   <div id='visualization-cytoscape'></div>
   {{> popupImage }}
