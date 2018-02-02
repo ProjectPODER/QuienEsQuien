@@ -67,7 +67,7 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push poder/quienesquienwiki:$CIRCLE_BRANCH
 
-  deploy-dev:
+  deploy-staging:
     docker:
       - image: docker:stable-git
     steps:
@@ -78,9 +78,9 @@ jobs:
           at: dist
 
       - run: |
-          docker build -t poder/quienesquienwiki:dev .
+          docker build -t poder/quienesquienwiki:staging .
           docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
-          docker tag poder/quienesquienwiki:dev registry.heroku.com/qqwext/web
+          docker tag poder/quienesquienwiki:staging registry.heroku.com/qqwext/web
           docker push registry.heroku.com/qqwext/web
 
   deploy-pro:
@@ -109,21 +109,23 @@ workflows:
       - build:
           filters:
             tags:
-              only: /v.*/
+              only: /^v\d+\.\d+\.\d+.*/
       - deploy-branch:
           requires:
             - build
-      - deploy-dev:
+      - deploy-staging:
           requires:
             - build
           filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+-staging$/
             branches:
-              only: dev
+              ignore: /.*/
       - deploy-pro:
           requires:
             - build
           filters:
             tags:
-              only: /v.*/
+              only: /^v\d+\.\d+\.\d+$/
             branches:
               ignore: /.*/
