@@ -81,7 +81,7 @@ jobs:
           docker build -t poder/quienesquienwiki:dev .
           docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
           docker tag poder/quienesquienwiki:dev registry.heroku.com/qqwext/web
-          docker push registry.heroku.com/quienesquienapi/web
+          docker push registry.heroku.com/qqwext/web
 
   deploy-pro:
     docker:
