@@ -66,6 +66,8 @@ jobs:
           docker build -t poder/quienesquienwiki:$CIRCLE_BRANCH .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push poder/quienesquienwiki:$CIRCLE_BRANCH
+          docker login --username=_ --password=$HEROKU_TOKEN registry.heroku.com
+          docker tag poder/quienesquienwiki:$CIRCLE_BRANCH registry.heroku.com/$CIRCLE_BRANCH.qqw/web
 
   deploy-pro:
     docker:
