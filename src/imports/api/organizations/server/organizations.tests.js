@@ -58,7 +58,7 @@ describe('Organization Relationships', () => {
       doc.user_id = userId;
       Contracts.insert(doc);
     });
-    const contracts = Orgs.findOne({ simple: testDoc.simple }).contracts().fetch();
+    const contracts = Orgs.findOne({ simple: testDoc.simple }).contractsSolicited().fetch();
     const total = [1365334.53, 597990.45].reduce(add);
     assert.strictEqual(contracts.length, 2, 'Wrong number of documents');
     assert.deepEqual(map(contracts, 'amount').reduce(add), total, 'Amount results in correct sum');

@@ -39,7 +39,7 @@ describe('Person Relationships', () => {
       doc.user_id = userId;
       Contracts.insert(doc);
     });
-    const contracts = Persons.findOne({ simple: testDoc.simple }).suppliesContracts().fetch();
+    const contracts = Persons.findOne({ simple: testDoc.simple }).contractsSupplied().fetch();
     assert.strictEqual(contracts.length, 2, 'Wrong number of documents');
   });
 });
