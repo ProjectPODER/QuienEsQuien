@@ -1,0 +1,24 @@
+language: node_js
+node_js:
+  - 4.8.4 
+
+env:
+  - MONGO_URL=mongodb://localhost:27017/runner
+
+services:
+  - mongodb
+
+before_install:
+  - curl https://install.meteor.com | /bin/sh
+  - export PATH="$HOME/.meteor:$PATH"
+  - export TEST_BROWSER_DRIVER=nightmare
+
+cache:
+  directories:
+    - node_modules
+
+before_script:
+  - (cd $TRAVIS_BUILD_DIR/src/ && meteor npm install)
+
+script:
+  - (cd $TRAVIS_BUILD_DIR/src/ && meteor npm run testci)
