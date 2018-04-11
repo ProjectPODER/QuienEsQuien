@@ -1,17 +1,12 @@
 <template name="ApplicationLayout">
-
-  <div id="content" class="container-fluid">
-    <div class="ribbon-wrapper-green">
-      <div class="ribbon-green">BETA</div>
-    </div>
-
     <header>
       {{> header }}
     </header>
 
     {{> notifications }}
 
-    <div id="main" class="row">
+    <main>
+      <div class="body-content">
 
       <aside class="col-md-2">
         {{> Aside }}
@@ -23,9 +18,12 @@
 
     </div>
 
-  </div>
-  <div class="clear"></div>
+    </main>
   {{> footer }}
+  <script type="text/javascript">
+    document.getElementById('navbar').classList.add('shrink');
+  </script>
+
 </template>
 
 <template name="Archivos">

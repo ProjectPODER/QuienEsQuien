@@ -2,7 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Blaze } from 'meteor/blaze';
 import { Template } from 'meteor/templating';
 import i18n from 'meteor/universe:i18n';
-import Tabular from 'meteor/aldeed:tabular';
+import Tabular from 'meteor/poder:cardular';
 import { SubsManager } from 'meteor/thelohoadmin:subs-manager';
 import { extend, union } from 'lodash';
 import moment from 'moment';
@@ -48,57 +48,64 @@ const tableDefaults = {
 
 const contractFields = [
   {
-    data: 'ocid',
-    title: 'OCID',
-    class: 'js-ocid',
-  },
-  {
     data: 'title',
     titleFn() { return i18n.__('Title'); },
-    class: 'js-title',
-  },
-  {
-    data: 'type',
-    class: 'js-contract-type',
-    titleFn() { return i18n.__('Type'); },
-  },
-  {
-    data: 'start_date',
-    class: 'js-start-date',
-    titleFn() { return i18n.__('Start date'); },
-    render: formatDate,
-  },
-  {
-    data: 'end_date',
-    class: 'js-end-date',
-    titleFn() { return i18n.__('End date'); },
-    render: formatDate,
+    class: 'js-title no-title search-result-title col-m-9 col-9',
   },
   {
     data: 'amount',
-    class: 'js-amount',
+    class: 'js-amount no-title search-result-emph col-m-2 col-2',
     titleFn() { return i18n.__('Amount'); },
     render: formatAmount,
   },
   {
     data: 'currency',
-    class: 'js-currency',
+    class: 'js-currency no-title search-result-emph col-m-1 col-1',
     titleFn() { return i18n.__('Currency'); },
+  },
+  // {
+  //   data: 'type',
+  //   class: 'js-contract-type',
+  //   titleFn() { return i18n.__('Type'); },
+  // },
+  {
+    data: 'start_date',
+    class: 'js-start-date inline-title search-result-mono-gray col-m-2 col-2',
+    titleFn() { return i18n.__('Start date'); },
+    render: formatDate,
+  },
+  {
+    data: 'end_date',
+    class: 'js-end-date inline-title search-result-mono-gray col-m-2 col-2',
+    titleFn() { return i18n.__('End date'); },
+    render: formatDate,
+  },
+  {
+    data: 'ocid',
+    title: 'OCID',
+    class: 'js-ocid no-title col-2 col-m-2',
+    tmpl: Meteor.isClient && Template.view_contract,
+    tmplContext(rowData) {
+      return {
+        item: rowData,
+        column: 'title'
+      };
+    }
   },
 ];
 
 if (Meteor.isClient) {
   import { $ } from 'meteor/jquery';
   import './imports/ui/components/spin/spinner.html';
-  import dataTablesBootstrap from 'datatables.net-bs';
-  import 'datatables.net-bs/css/dataTables.bootstrap.css';
-
-  dataTablesBootstrap(window, $);
-  $.extend(true, $.fn.dataTable.defaults, {
-    language: {
-      processing: Blaze.toHTML(Template.loading),
-    },
-  });
+  // import dataTablesBootstrap from 'datatables.net-bs';
+  // import 'datatables.net-bs/css/dataTables.bootstrap.css';
+  //
+  // dataTablesBootstrap(window, $);
+  // $.extend(true, $.fn.dataTable.defaults, {
+  //   language: {
+  //     processing: Blaze.toHTML(Template.loading),
+  //   },
+  // });
 }
 
 TabularTables.Orgs = new Tabular.Table(extend({},
@@ -116,40 +123,44 @@ TabularTables.Orgs = new Tabular.Table(extend({},
       },
       cellClass: 'name',
     },
-    {
-      data: 'description',
-      titleFn() {
-        return i18n.__('Description');
-      },
-      searchable: false,
-    },
-    {
-      data: 'foundation_date',
-      titleFn() {
-        return i18n.__('Year Founded');
-      },
-      searchable: false,
-    },
-    {
-      data: 'contract_count',
-      titleFn() {
-        return i18n.__('Contracts');
-      },
-      searchable: false,
-    },
-    {
-      data: 'company.classification',
-      titleFn() {
-        return i18n.__('Primary Industry Classification');
-      },
-    },
-    {
-      data: 'source',
-      titleFn() {
-        return i18n.__('Source');
-      },
-      searchable: false,
-    }],
+        {
+          data: 'description',
+          titleFn() {
+            return i18n.__('Description');
+          },
+          searchable: false,
+        },
+        {
+          data: 'foundation_date',
+          titleFn() {
+            return i18n.__('Year Founded');
+          },
+          searchable: false,
+        },
+        {
+          data: 'contract_count',
+          titleFn() {
+            return i18n.__('Contracts');
+          },
+          searchable: false,
+        },
+        {
+          data: 'company.classification',
+          titleFn() {
+            return i18n.__('Primary Industry Classification');
+          },
+        },
+        {
+          data: 'source',
+          titleFn() {
+            return i18n.__('Source');
+          },
+          searchable: false,
+        },
+        {
+          tmpl: Meteor.isClient && Template.orgsCell
+        }
+    ],
   }),
 );
 
@@ -197,14 +208,14 @@ TabularTables.Contracts = new Tabular.Table(extend({},
         titleFn() {
           return i18n.__('Dependency');
         },
-        class: 'js-dependency',
+        class: 'js-dependency col-2 col-m-2',
       },
       {
         data: 'suppliers_org',
         titleFn() {
           return i18n.__('Suppliers');
         },
-        class: 'js-suppliers',
+        class: 'js-suppliers col-4 col-m-4',
         tmpl: Meteor.isClient && Template.suppliers_cell,
       },
       ]),

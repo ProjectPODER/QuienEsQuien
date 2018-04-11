@@ -55,7 +55,6 @@ kadira:dochead
 markdown@1.0.12
 mizzao:bootboxjs
 blaze-html-templates
-aldeed:tabular
 force-ssl@1.0.15
 natestrauser:select2
 ksrv:select2-bootstrap3
@@ -73,3 +72,4 @@ aldeed:schema-index
 aldeed:schema-deny
 aldeed:autoform
 ostrio:logger
+poder:cardular

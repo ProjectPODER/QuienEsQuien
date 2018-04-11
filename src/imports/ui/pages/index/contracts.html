@@ -1,108 +1,156 @@
 <template name="Contracts">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <label for="select_type_contracts_index">{{__ "Type" }}</label>
-        <select class="form-control" name="select_type_contracts_index" required="required" id="select_type_contracts_index">
-          <option value="all">
-            All
-          </option>
-          <option value="adquisiciones">
-            Adquisiciones
-          </option>
-          <option value="arrendamientos">
-            Arrendamientos
-          </option>
-          <option value="obra pública">
-            Obra Pública
-          </option>
-          <option value="servicios">
-            Servicios
-          </option>
-          <option value="servicios_relacionados_con_la_op">
-            Servicios Relacionados con la OP
-          </option>
-        </select>
+    <div class="row document-header">
+      <div class="col-3 col-m-3">
+        <h2 class="document-title">Contratos</h2>
+      </div>
+      <div class="col-9 col-m-9">
+        <p class="document-description">Explora los importes, años, dependencias, empresas proveedoras y otras características de más de un millón de contratos de México.</p>
       </div>
     </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="min_amount_contracts_index">{{__ "Min amount" }}</label>
-        <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{min_amount}}" class="form-control" id="min_amount_contracts_index">
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-group slider-output">
-        <output for="min_amount_contracts_index" id="min-amount-output-contracts-index" style="font-size:small">{{min_amount_search}}</output>
-      </div>
-    </div>
-    <div class="col-md-3">
-      <div class="form-group">
-        <label for="max_amount_contracts_index">{{__ "Max amount" }}</label>
-        <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{max_amount}}" class="form-control" id="max_amount_contracts_index">
-      </div>
-    </div>
-    <div class="col-md-1">
-      <div class="form-group slider-output">
-        <output for="max_amount_contracts_index" id="max-amount-output" style="font-size:small">{{max_amount_search}}</output>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="from_date_contracts_index">{{__ "Min start date" }}</label>
-        <input class="form-control" id="from_date_contracts_index" placeholder="{{__ 'Min start date' }}" readonly>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="form-group">
-        <label for="to_date_contracts_index">{{__ "Max start date" }}</label>
-        <input class="form-control" id="to_date_contracts_index" placeholder="{{__ 'Max start date' }}" readonly>
-      </div>
-    </div>
-  </div>
+    <div class="row document-body">
+        <div class="col-3 col-m-3">
+            <div class="filter-bar">
+                <p class="search-title">Filtrar</p>
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="input-group" id="contract-multi-search">
-        <div class="input-group-btn">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Filter
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a>Title</a></li>
-            <li><a>Dependency</a></li>
-            <li><a>Supplier</a></li>
-            <li><a>OCID</a></li>
-          </ul>
-        </div><!-- /btn-group -->
-        <input type="text" class="form-control" aria-label="input-type-text" disabled>
-      </div><!-- /input-group -->
-    </div>
-    <div class="col-md-6 pull-right">
-      <form class="js-table-filter-controller">
-        <div class="form-group col-md-10">
-          <select name="filters" class="form-control">
-            {{#each filter in filters }}
-              <option value="{{filter.string}}">
-                {{filter.field}}: {{filter.string}}
-              </option>
-            {{/each}}
-          </select>
+                <fieldset name="proveedores">
+                  <p class="search-title">FILTRAR PROVEEDORES</p>
+                  <input type="text" name="proveedor" placeholder="Nombre de proveedor"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                </fieldset>
+
+                <fieldset name="dependencias">
+                  <p class="search-title">FILTRAR DEPENDENCIAS</p>
+                  <div class="selected-block">
+                    <div class="selected-form-text">
+                      <p>Comisión federal de electricidad</p>
+                    </div>
+                    <img src="images/button-no.png" alt="quitar" class="form-control">
+
+                  </div>
+                  <input type="text" name="dependencia" placeholder="Nombre de dependencia"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+
+                </fieldset>
+
+                <fieldset name="vigencia">
+                  <p class="search-title">Vigencia de contrato</p>
+                  <p class="search-label">Fecha de Inicio (a partir de 2002)</p>
+                  <input type="date" id="myDate" value="00/00/0000" min="2002-01-01">
+                  <p class="search-label">Fecha de fin</p>
+                  <input type="date" id="myDate" value="00/00/0000" min="2002-01-01">
+                </fieldset>
+
+                <fieldset name="importe">
+                  <p class="search-title">Importe del contrato</p>
+                  <p class="search-label">Menor a 1 millón de pesos</p>
+                  <p class="search-label">Entre 1 millón y 500 millones</p>
+                  <p class="search-label">Entre 500 millones a 1,000 millones</p>
+                  <p class="search-label">Más de mil millones</p>
+                  <input type="text" name="importe-minimo" placeholder="Mínimo" class="search-amount">
+                  <input type="text" name="importe-máximo" placeholder="Máximo" class="search-amount">
+                </fieldset>
+
+                <fieldset name="tipo-adquisicion">
+                  <p class="search-title">Procedimiento de contratación</p>
+                  <select name="tipo-adquisicion" class="search-select">
+                    <option value="licitacion">Licitación</option>
+                    <option value="adjudicacion">Adjudicación directa</option>
+                    <option value="invitacion">Invitación a 3</option>
+                  </select>
+                </fieldset>
+                <input type="submit" class="search-submit" value="FILTRAR">
+
+                <fieldset name="proveedores">
+
+                    <label for="select_type_contracts_index">{{__ "Type" }}</label>
+                    <select class="form-control" name="select_type_contracts_index" required="required" id="select_type_contracts_index">
+                      <option value="all">
+                        All
+                      </option>
+                      <option value="adquisiciones">
+                        Adquisiciones
+                      </option>
+                      <option value="arrendamientos">
+                        Arrendamientos
+                      </option>
+                      <option value="obra pública">
+                        Obra Pública
+                      </option>
+                      <option value="servicios">
+                        Servicios
+                      </option>
+                      <option value="servicios_relacionados_con_la_op">
+                        Servicios Relacionados con la OP
+                      </option>
+                    </select>
+                </fieldset>
+
+                <div class="form-group">
+                <label for="min_amount_contracts_index">{{__ "Min amount" }}</label>
+                <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{min_amount}}" class="form-control" id="min_amount_contracts_index">
+                </div>
+
+                <div class="form-group slider-output">
+                <output for="min_amount_contracts_index" id="min-amount-output-contracts-index" style="font-size:small">{{min_amount_search}}</output>
+                </div>
+
+                <div class="form-group">
+                <label for="max_amount_contracts_index">{{__ "Max amount" }}</label>
+                <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{max_amount}}" class="form-control" id="max_amount_contracts_index">
+                </div>
+                <div class="form-group slider-output">
+                <output for="max_amount_contracts_index" id="max-amount-output" style="font-size:small">{{max_amount_search}}</output>
+                </div>
+
+                <div class="form-group">
+                <label for="from_date_contracts_index">{{__ "Min start date" }}</label>
+                <input class="form-control" id="from_date_contracts_index" placeholder="{{__ 'Min start date' }}" readonly>
+                </div>
+
+                <div class="form-group">
+                <label for="to_date_contracts_index">{{__ "Max start date" }}</label>
+                <input class="form-control" id="to_date_contracts_index" placeholder="{{__ 'Max start date' }}" readonly>
+                </div>
+
+                <div class="input-group" id="contract-multi-search">
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a>Title</a></li>
+                    <li><a>Dependency</a></li>
+                    <li><a>Supplier</a></li>
+                    <li><a>OCID</a></li>
+                  </ul>
+                </div><!-- /btn-group -->
+                <input type="text" class="form-control" aria-label="input-type-text" disabled>
+                </div><!-- /input-group -->
+
+                <form class="js-table-filter-controller">
+                <div class="form-group col-md-10">
+                  <select name="filters" class="form-control">
+                    {{#each filter in filters }}
+                      <option value="{{filter.string}}">
+                        {{filter.field}}: {{filter.string}}
+                      </option>
+                    {{/each}}
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-danger js-remove-filter">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+                </form>
+
+          </div>
         </div>
-        <button type="submit" class="btn btn-danger js-remove-filter">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </button>
-      </form>
+        <div class="col-9 col-m-9">
+            <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span> 5,908 resultados</p>
+
+          {{> tabular table=TabularTables.Contracts
+            id="contract-index" selector=selector
+            class="" }}
+        </div>
     </div>
-  </div>
-
-  {{> tabular table=TabularTables.Contracts
-    id="contract-index" selector=selector
-    class="reactive-table table-striped table-bordered table-condensed index-table" }}
-
 </template>
 
 <template name="suppliers_cell">
@@ -114,4 +162,8 @@
       <li><a href="/persons/{{supplier}}">{{supplier}}</a></li>
     {{/each}}
   </ul>
+</template>
+
+<template name="view_contract">
+  <a href="/contracts/{{item._id}}#{{item.ocid}}" class="button-link">Ver contrato{{ver_contrato}}</a>
 </template>

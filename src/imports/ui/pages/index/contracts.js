@@ -1,9 +1,9 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
-import Pikaday from 'pikaday';
+// import Pikaday from 'pikaday';
 import rangeslider from 'rangeslider.js';
 import moment from 'moment';
 import numbro from 'numbro';
-import 'pikaday/css/pikaday.css';
+// import 'pikaday/css/pikaday.css';
 import 'rangeslider.js/dist/rangeslider.css';
 import {
   debounce,
@@ -25,10 +25,13 @@ import {
   simpleName,
 } from '../../../api/lib';
 import './contracts.html';
+import TabularTables from '../../../../tabular.js';
 
 Template.Contracts.onCreated(function() {
   const self = this;
   DocHead.setTitle('QuiénEsQuién.Wiki - Contracts');
+
+  self.TabularTables = TabularTables;
 
   self.ready = new ReactiveVar(false);
   self.filters = new ReactiveVar([]);
@@ -82,9 +85,9 @@ function catchEnter(event, template) {
 }
 
 Template.Contracts.events({
-  'click .dataTable tbody tr td.js-title': function (event) {
+  'click .dataTable div.js-title': function (event) {
    event.preventDefault();
-   const dataTable = $(event.target).closest('table').DataTable();
+   const dataTable = $(event.target).closest('.dataTable').DataTable();
    const rowData = dataTable.row(event.currentTarget).data();
    FlowRouter.go('/contracts/'+rowData._id+"#read");
   },
@@ -235,18 +238,18 @@ Template.Contracts.onRendered(function () {
     computation.stop();
     const minDate = Template.instance().defaults.get('min_start_date');
     const maxDate = Template.instance().defaults.get('max_start_date');
-
-    const minPicker = new Pikaday({
-      field: $('#from_date_contracts_index')[0],
-      defaultDate: minDate,
-      setDefaultDate: true,
-    });
-
-    const maxPicker = new Pikaday({
-      field: $('#to_date_contracts_index')[0],
-      defaultDate: maxDate,
-      setDefaultDate: true,
-    });
+    //
+    // const minPicker = new Pikaday({
+    //   field: $('#from_date_contracts_index')[0],
+    //   defaultDate: minDate,
+    //   setDefaultDate: true,
+    // });
+    //
+    // const maxPicker = new Pikaday({
+    //   field: $('#to_date_contracts_index')[0],
+    //   defaultDate: maxDate,
+    //   setDefaultDate: true,
+    // });
 
     $('input[type="range"]').rangeslider({ polyfill: false });
   });

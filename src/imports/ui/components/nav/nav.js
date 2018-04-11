@@ -41,7 +41,7 @@ Template.nav.events({
   'click .toggleLang': function(event, template) {
     event.preventDefault();
     const lang = i18n.getLocale();
-    
+
     if (/^en/.test(lang)) {
       i18n.setLocale('es');
     }

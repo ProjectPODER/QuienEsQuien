@@ -1,3 +1,23 @@
 <template name="Orgs">
-  {{> tabular table=TabularTables.Orgs id="organization-index" class="reactive-table table-striped table-bordered table-condensed index-table"}}
+    <div class="col-3">
+
+        <h1>{{__ "Organizations" }}</h1>
+    </div>
+    <div class="col-9">
+
+        {{__ "Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones." }}
+    </div>
+    <div class="col-3">
+
+        <div class="filters">
+            
+
+        </div>
+    </div>
+    <div class="col-9">
+
+        {{> tabular table=TabularTables.Orgs id="organization-index" class="reactive-table table-striped table-bordered table-condensed index-table"}}
+    </div>
+
+
 </template>
