@@ -38,14 +38,21 @@ img
   &.sources-icons
     width 10rem
 
-form
-  &.nav-form
+.navbar-right
+    margin: -10px 0 0 0;
+    a,a:link
+        color: white;
+    a:visited
+        color: #ccd
+
+.nav-form
     text-align right
     display none
     margin 0
     float right
     width 0
-  &.filter-form
+
+.filter-bar
     input[type="text"]
       padding 5px
       width 85%
@@ -91,9 +98,9 @@ div
     background-color white
     overflow hidden
     z-index 50
-    height 100vh
+    height 120vh
   &.landing-jumbotron
-    background url(../images/fondo-home.png) no-repeat center center #102026
+    background url(../images/fondo-home.png) no-repeat center center #def
     height auto
     width 100%
     -webkit-background-size cover
@@ -395,6 +402,15 @@ h2
   margin 0 1rem 1rem 0
   font-size .8rem
   padding 1rem
+
+
+  img.form-control
+      width: auto;
+      padding: 0;
+      border: none;
+      background: transparent;
+      display: inline;
+      box-shadow: none;
 
 .search-title
   font-weight bold
