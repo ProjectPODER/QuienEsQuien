@@ -1,0 +1,728 @@
+.bar
+  position fixed
+  z-index 1999
+  top 0
+  height 5rem
+  width 100%
+  background-color transparent
+  padding 1rem
+  transition all 0.3s ease
+  transition-delay initial
+  height 4rem
+
+.shrink
+  display block
+  height 4rem !important
+  background-color #110046
+  img
+    &.logo-horizontal
+      width 10rem
+  form
+    &.nav-form
+      width auto
+      display inline-block
+
+img
+  &.logo-horizontal
+    width 0
+    transition all .5s ease
+    background-color transparent
+  &.logo
+    height 8rem
+    width auto
+    vertical-align middle
+  &.name
+    width 25rem
+    vertical-align middle
+    margin-left 1rem
+  &.sources-icons
+    width 10rem
+
+form
+  &.nav-form
+    text-align right
+    display none
+    margin 0
+    float right
+    width 0
+  &.filter-form
+    input[type="text"]
+      padding 5px
+      width 85%
+      margin-right 5px
+      border-color #D3D3D3
+      border-style solid
+      border-width 1px
+    input[type="date"]
+      padding 5px 5px 5px 25px
+      width 85%
+      background-image url('../images/calendar.png')
+      background-repeat no-repeat
+      background-position 6px
+      border-width 1px
+      border-color #D3D3D3
+      border-style solid
+    input[type="text"].search-amount
+      width 30%
+      display inline-block
+      margin-top 1rem
+
+input[type=text].nav-search-inputtext
+  width 11rem
+  padding 10px 20px
+  border-color #2b00f7
+  box-sizing border-box
+  display inline-block
+  transition all .5s ease
+
+input[type=submit].nav-search-inputtext
+  width 7rem
+  padding 12px 20px
+  box-sizing border-box
+  display inline-block
+  background-color #2b00f7
+  border none
+  font-weight bold
+  color #fff
+  cursor pointer
+
+div
+  &.jumbotron-container
+    background-color white
+    overflow hidden
+    z-index 50
+    height 100vh
+  &.landing-jumbotron
+    background url(../images/fondo-home.png) no-repeat center center #102026
+    height auto
+    width 100%
+    -webkit-background-size cover
+    -moz-background-size cover
+    -o-background-size cover
+    background-size cover
+    background-blend-mode lighten
+  &.landing-header-content
+    padding 4rem
+    width 75%
+    text-align center
+    margin auto
+    h1
+      display inline-block
+      margin-left 1rem
+      font-size 4rem
+    p
+      display inline-block
+      margin 7% auto 7% auto
+      font-size 1.5rem
+      color #5c5c5c
+      text-align justify
+  &.landing-search
+    text-align left
+    p
+      font-size .8rem
+      color #2d1c9d
+      margin 1rem auto 1rem auto
+      &:first-child
+        font-size 1.2rem
+        color #2d1c9d
+        margin .5rem auto 1rem auto
+  &.explore-card
+    height 24rem
+    width 20rem
+  &.card-pad
+    h3
+      font-size 2rem
+      margin-bottom .2rem
+    h4
+      font-size 1.5rem
+      margin-bottom .7rem
+  &.proyecto
+    background-color #fff
+    padding 1rem
+    width 100%
+    margin-bottom 2rem
+    position relative
+    img
+      width 90%
+    p
+      margin-right 1rem
+      margin-bottom 1rem
+      padding 1rem 1.5rem 0 0
+      top 15%
+      font-size 1.3rem
+  &.investigaciones-card
+    width 100%
+    height 17rem
+    img
+      height auto
+  &.tab
+    overflow hidden
+    border 2px dotted #3a32f9
+    background-color #f1f1f1
+    button
+      background-color inherit
+      float left
+      border none
+      outline none
+      cursor pointer
+      padding 14px 16px
+      transition 0.3s
+      font-size 17px
+      &:hover
+        background-color #ddd
+      &.active
+        background-color #ccc
+  &.body-content
+    margin-top 3rem
+    padding 2rem
+  &.document-header
+    display flex
+    align-items flex-end
+    margin-bottom 1rem
+  &.search-card
+    border-bottom 1px dashed #4d29ff
+    padding 1.5rem 0
+  &.content
+    display block
+    margin auto
+    width 85%
+
+input[type=text].landing-search-inputtext
+  width 80%
+  padding 12px 20px
+  box-sizing border-box
+  display inline-block
+  border-color #2b00f7
+
+input[type=submit].landing-search-inputtext
+  width 15%
+  padding 14px 20px
+  box-sizing border-box
+  display inline-block
+  background-color #2b00f7
+  border none
+  font-weight bold
+  color #fff
+  cursor pointer
+
+div.card-pad h3, div.card-pad h4
+  color #2b00f7
+  font-family monospace
+
+.serif-gray
+  font-family serif
+  color #5c5c5c
+
+section
+  padding-top 5rem
+  padding-bottom 5rem
+  &.data-sources
+    background-color #f7f7f7
+  &.proyectos
+    background-color #110046
+  &.investigaciones
+    background-color #f7f7f7
+    border-top 2px dotted #3a32f9
+    border-bottom 2px dotted #3a32f9
+  &.tabs
+    margin-top 2rem
+    min-height 100vh
+    h3
+      font-size 1.5rem
+      color #3a32f9
+      margin-bottom 2rem
+    h1
+      font-size 2rem
+      margin-bottom 2rem
+
+.data-sources
+  h2
+    color #150b58
+
+.triplet-wrapper
+  position relative
+  height 24rem
+  padding 2rem
+
+.triplet
+  font-size 1.5rem
+  font-weight bold
+  text-align left
+  margin 1.5rem auto
+  color #150b58
+
+.triplet-text
+  text-align justify
+  color #686868
+
+.triplet-last-update
+  font-size .7rem
+  color #808080
+  text-align left
+  position absolute
+  bottom 0
+
+.proyectos
+  h2
+    color #fff
+
+.proyecto-info
+  position absolute
+
+.proyecto
+  button
+    bottom 30px
+    right 30px
+
+.contacto-text
+  width 80%
+  margin 2rem auto 3rem auto
+  text-align center
+  p
+    display inline-block
+    color #3a32f9
+    font-family monospace
+    font-size 2rem
+  button
+    vertical-align super
+    margin-top 1.5rem
+    margin-left 2rem
+    background-color #21018b
+
+.investigaciones
+  h2
+    color #150b58
+  p
+    font-size 1rem
+
+.investigaciones-p
+  color #2d1c9d
+
+footer
+  background-color #21018b
+  padding 3rem 0 3rem 5rem
+  p
+    color #fff
+    line-height 1.5rem
+    &:first-child
+      margin-top 2rem
+  a
+    text-decoration none
+    color #fff
+  img
+    margin-top 1rem
+    margin-right 1rem
+
+.card
+  border-width 2px
+  border-style dotted
+  border-color #3a32f9
+  position relative
+
+.card-pad
+  padding 1rem
+  button
+    position absolute
+    bottom 15px
+    right 15px
+
+.card-pad-ext
+  padding 1rem 1rem 1rem 0
+
+.card-image
+  display inline-block
+  width 100%
+  height 11rem
+  overflow-y hidden
+  overflow-x hidden
+
+p
+  &.capitalize-style
+    text-transform uppercase
+    color #21018b
+    letter-spacing 2px
+    margin-bottom 5px
+  &.document-description
+    padding 1rem 0
+    font-size .8rem
+    color #585858
+  &.search-terms-text
+    font-size .9rem
+    font-weight bold
+    color #21018b
+    line-height 1.8rem
+    span
+      color #fff
+      background-color #21018b
+      border-radius 7px
+      font-weight 300
+      padding .2rem .5rem .2rem .7rem
+      margin-right .2rem
+
+.box
+  margin-bottom 1rem
+
+.tabcontent
+  display none
+  padding 2rem 1rem
+  border 2px dotted #3a32f9
+  border-top none
+
+*
+  box-sizing border-box
+
+body
+  font-family 'Montserrat', sans-serif
+
+button
+  cursor pointer
+
+h2
+  font-size 2.5rem
+  font-weight bold
+  padding 1rem 0
+  margin-bottom 3rem
+  &.document-title
+    color #21018b
+    font-size 2rem
+    margin 0
+
+.filter-bar
+  background-color #F7F7F7
+  border-color #9C9C9C
+  border-width 1px
+  border-style solid
+  margin 0 1rem 1rem 0
+  font-size .8rem
+  padding 1rem
+
+.search-title
+  font-weight bold
+  text-transform uppercase
+  color #21018b
+  margin-top 1rem
+  margin-bottom .5rem
+  line-height 1.1rem
+
+input[type="date"]::placeholder
+  text-transform uppercase
+  color red
+
+::placeholder
+  text-transform uppercase
+
+select
+  &.search-select
+    height 34px
+    font-size .8rem
+    text-transform uppercase
+    color #808080
+    border-radius 0
+    border-style solid
+    border-width 1px
+
+.form-control
+  height 25px
+  vertical-align middle
+
+.selected-block
+  margin-bottom .8rem
+
+.selected-form-text
+  color #9C9C9C
+  width 85%
+  display inline-block
+  margin-right 5px
+  p
+    display inline-block
+    word-wrap break-word
+    vertical-align middle
+
+.search-label
+  color #9C9C9C
+  text-transform uppercase
+  margin-bottom .3rem
+  margin-top .8rem
+  line-height 1.2rem
+
+fieldset
+  margin-bottom 1rem
+
+input[type="submit"].search-submit
+  background-color #21018b
+  border none
+  color white
+  padding 16px 32px
+  text-decoration none
+  margin 4px 2px
+  cursor pointer
+  box-shadow 2px 2px 7px grey
+
+.search-card
+    overflow hidden
+
+.search-results-header
+  display flex
+  align-items center
+
+.search-result-title
+  font-weight bold
+  color #444
+  min-height 2.35em
+
+.search-result-emph
+  color #2900f5
+  font-family monospace
+  font-size 2.5rem
+
+.search-result-emph-complementary
+  color #2900f5
+  font-family monospace
+  font-size 1.3rem
+
+.search-result-mono-gray
+  font-family monospace
+  color #669
+  font-size 1rem
+  display inline-block
+
+.no-title .cardItemTitle
+    visibility hidden
+    height 0
+
+.inline-title .cardItemData,
+.inline-title .cardItemTitle
+    display inline
+
+.js-amount
+    text-align right
+    padding-right 0.5em
+
+.js-start-date
+    clear left
+
+.js-start-date
+.js-end-date
+    padding-left 20px
+    padding-bottom 2px
+    background url(images/calendar.png) no-repeat;
+
+    .cardItemData
+        font-weight bold
+        padding-left 5px
+
+.js-dependency
+    clear left
+
+.js-dependency
+.js-suppliers
+    margin-top: 5px
+
+.js-ocid
+    float right!important
+    text-align right
+    margin 1em 1em 0 0
+
+a
+  &.see-contract
+    padding .5rem 1rem
+    background-color #2900f5
+    color white
+    font-weight bold
+    text-decoration none
+
+.search-results-last-row
+  margin-top 1.5rem
+
+.block
+  display block
+  margin auto
+  content ""
+  width auto
+
+.button-link
+  background-color #2b00f7
+  color #fff
+  font-weight bold
+  border none
+  padding 14px 14px
+
+.centered
+  text-align center
+
+.left-align
+  text-align left
+
+.right-align
+  text-align right
+
+hr
+  background-color #999
+  height 1px
+  border 0
+  margin-bottom 2rem
+
+.row
+  &::after
+    content ""
+    clear both
+    display table
+
+[class*="col-"]
+  width 100%
+  float left
+
+@media only screen and (min-width: 768px)
+  .col-m-1
+    width 8.33%
+  .col-m-2
+    width 16.66%
+  .col-m-3
+    width 25%
+  .col-m-4
+    width 33.33%
+  .col-m-5
+    width 41.66%
+  .col-m-6
+    width 50%
+  .col-m-7
+    width 58.33%
+  .col-m-8
+    width 66.66%
+  .col-m-9
+    width 75%
+  .col-m-10
+    width 83.33%
+  .col-m-11
+    width 91.66%
+  .col-m-12
+    width 100%
+
+@media only screen and (min-width: 1300px)
+  .col-1
+    width 8.33%
+  .col-2
+    width 16.66%
+  .col-3
+    width 25%
+  .col-4
+    width 33.33%
+  .col-5
+    width 41.66%
+  .col-6
+    width 50%
+  .col-7
+    width 58.33%
+  .col-8
+    width 66.66%
+  .col-9
+    width 75%
+  .col-10
+    width 83.33%
+  .col-11
+    width 91.66%
+  .col-12
+    width 100%
+
+@media only screen and (max-width: 1160px)
+  div
+    &.explore-card
+      width 100%
+  .proyecto-info
+    position relative
+  .proyecto
+    button
+      width 100%
+      bottom 0
+      right 0
+
+@media only screen and (max-width: 1042px)
+  input[type=text].landing-search-inputtext
+    width 70%
+  input[type=submit].landing-search-inputtext
+    width auto
+  div
+    &.explore-card
+      height 14rem
+  .card-image
+    display none
+  .contacto
+    button
+      margin-left auto
+  .explore-card
+    button
+      width 85%
+  .investigaciones
+    .card
+      p
+        font-size 1.2rem
+
+@media only screen and (max-width: 870px)
+  .explore-card
+    &.button-link
+      padding 9px
+      font-size .7rem
+  div
+    &.landing-header-content
+      width 90%
+
+@media only screen and (max-width: 800px)
+  .explore-card
+    &.button-link
+      color #2b00f7
+      background-color #fff
+  div
+    &.investigaciones-card
+      height 14rem
+
+@media only screen and (max-width: 768px)
+  .explore-card
+    height 10rem
+    &.button-link
+      color #fff
+      background-color #2b00f7
+      padding 14px 14px
+      font-size .9rem
+    button
+      width auto
+  div
+    &.proyecto
+      img
+        width 15rem
+        display block
+        margin auto
+  .card-pad
+    padding 1rem
+
+@media only screen and (max-width: 700px)
+  div
+    &.landing-header-content
+      padding 0
+      p
+        font-size 1.2rem
+        text-align left
+    &.content
+      width 95%
+    &.card-pad
+      h3
+        font-size 2rem
+        -webkit-margin-before .2rem
+        -webkit-margin-after .2rem
+    &.investigaciones-card
+      height 10rem
+  img
+    &.name
+      width 100%
+      margin-left 0
+  .shrink
+    img
+      &.logo-horizontal
+        width 7rem
+        margin-top 1.7rem
+  input[type=text].nav-search-inputtext
+    width 7rem
+    padding 10px 10px
+    border-color #2b00f7
+  input[type=submit].nav-search-inputtext
+    width 5rem
+    padding 11px 6px
