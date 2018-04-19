@@ -134,13 +134,14 @@ div
         color #2d1c9d
         margin .5rem auto 1rem auto
   &.explore-card
-    height 24rem
-    width 20rem
+    height 27rem
+    width 22rem
+    margin auto
   &.card-pad
-    h3
+    h3 strong
       font-size 2rem
       margin-bottom .2rem
-    h4
+    h3
       font-size 1.5rem
       margin-bottom .7rem
   &.proyecto
@@ -179,13 +180,17 @@ div
         background-color #ddd
       &.active
         background-color #ccc
-  &.body-content
-    margin-top 3rem
-    padding 2rem
+
   &.document-header
     display flex
     align-items flex-end
     margin-bottom 1rem
+    margin-top 3rem
+    padding 0 2rem 0  2rem
+
+  &.document-body
+    padding 0 2rem 2rem 2rem
+
   &.search-card
     border-bottom 1px dashed #4d29ff
     padding 1.5rem 0
@@ -212,7 +217,7 @@ input[type=submit].landing-search-inputtext
   color #fff
   cursor pointer
 
-div.card-pad h3, div.card-pad h4
+div.card-pad h3
   color #2b00f7
   font-family monospace
 
@@ -324,14 +329,13 @@ footer
   border-width 2px
   border-style dotted
   border-color #3a32f9
-  position relative
 
 .card-pad
+  overflow hidden
   padding 1rem
-  button
-    position absolute
-    bottom 15px
-    right 15px
+  .button-link
+    clear both
+    float right
 
 .card-pad-ext
   padding 1rem 1rem 1rem 0
@@ -720,7 +724,7 @@ hr
     &.content
       width 95%
     &.card-pad
-      h3
+      h3 strong
         font-size 2rem
         -webkit-margin-before .2rem
         -webkit-margin-after .2rem

@@ -1,6 +1,9 @@
 import '../../components/search/search.js';
 import './home.html';
 import counter from '../../../api/stats/methods.js';
+if (Meteor.isClient) {
+  import "./scrollme.min.js";
+}
 
 Template.counters.onCreated(function() {
   var self = this;

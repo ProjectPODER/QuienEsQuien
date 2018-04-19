@@ -1,61 +1,228 @@
 <template name="Home">
 
-    <div class="jumbotron-container scrollme">
+  <div class="jumbotron-container scrollme">
 
-      <div class="landing-jumbotron scrollme animateme" data-when="span" data-from="0" data-to="1" data-opacity="0.2" data-translatey="300" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
-      <div class="landing-header-content">
-        <img class="logo animateme" src="images/single.png" alt="Logo" data-when="span" data-from="0" data-to="1" data-scale="0.75" data-translatey="100" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
+    <div class="landing-jumbotron scrollme animateme" data-when="span" data-from="0" data-to="1" data-opacity="0.2" data-translatey="300" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
+    <div class="landing-header-content">
+      <img class="logo animateme" src="images/single.png" alt="Logo" data-when="span" data-from="0" data-to="1" data-scale="0.75" data-translatey="100" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
 
-        <p>Quién es Quién Wiki (QQW) es una plataforma sobre empresarios, políticos, empresas y organizaciones que explica las conexiones entre estos actores y las pone a disposición de investigadores, periodistas y la ciudadanía en general.</p>
-        <div class="landing-search">
-          <p>Busca nombres de empresarios y organizaciones para conocer sus relaciones en estados de México.</p>
-          <form class="landing-search-form" action="subpage.html" method="get">
-            {{> searchForm }}
-            <input type="submit" value="Buscar" class="landing-search-inputtext">
-          </form>
+      <p>Quién es Quién Wiki (QQW) es una plataforma sobre empresarios, políticos, empresas y organizaciones que explica las conexiones entre estos actores y las pone a disposición de investigadores, periodistas y la ciudadanía en general.</p>
+      <div class="landing-search">
+        <p>Busca nombres de empresarios y organizaciones para conocer sus relaciones en estados de México.</p>
+        <form class="landing-search-form" action="subpage.html" method="get">
+          {{> searchForm }}
+          <input type="submit" value="Buscar" class="landing-search-inputtext">
+        </form>
 
-          <p>*Para encontrar contratos usa el buscador avanzado de contratos públicos.</p>
-        </div>
-      </div>
+        <p>*Para encontrar contratos usa el buscador avanzado de contratos públicos.</p>
       </div>
     </div>
+    </div>
+  </div>
 
-<div class="text-center">
-  {{>counters}}
-</div>
-{{test}}
+
+  <section class="explore-data">
+    {{>counters}}
+  </section>
+
+  <section class="data-sources">
+    <div class="row content">
+      <h2 class="investigaciones">¿Cuáles son nuestras fuentes de datos?</h2>
+      <div class="col-4 col-m-4 centered triplet-wrapper">
+        <img src="images/market.svg" alt="Bolsa de Valores" class="sources-icons">
+        <h3 class="triplet">Bolsa de Valores</h3>
+        <p class="triplet-text">Accionistas, directivos y mesas de todas las empresas que cotizan en la
+      Bolsa de Valores de México y la Bolsa de Valores de Lima.</p>
+        <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p>
+      </div>
+      <div class="col-4 col-m-4 centered triplet-wrapper">
+        <img src="images/compranet.svg" alt="Compranet" class="sources-icons">
+        <h3 class="triplet">Compranet 3.0 plus</h3>
+        <p class="triplet-text">Todos los contratos publicados por el Gobierno Federal Méxicano entre
+      2002 y 2018, agrupados por organismos compradores y empresas ganadoras.</p>
+        <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p>
+      </div>
+      <div class="col-4 col-m-4 centered triplet-wrapper">
+        <img src="images/research.svg" alt="Investigaciones propias" class="sources-icons">
+        <h3 class="triplet">Investigaciones propias</h3>
+        <p class="triplet-text">Datos investigados y confirmados por PODER de distintos proyectos a
+      partir de 2014.</p>
+            <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proyectos">
+    <div class="row">
+      <div class="content">
+        <h2>Proyectos</h2>
+        <div class="proyecto row">
+          <div class="col-4 col-m-5 proyecto-info-img">
+            <a href="proyectos/subpage.html"><img src="images/proyecto-1.png" alt="Proyecto Cargografías"></a>
+          </div>
+          <div class="col-8 col-m-7">
+              <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
+              <button class="button-link proyecto-info" type="button" name="cargografías" onClick="window.open('proyectos/cargografias.html','Ver Cargografías')">VER PROYECTO</button>
+          </div>
+        </div>
+        <div class="proyecto row">
+          <div class="col-4 col-m-5 proyecto-info-img">
+            <a href="proyectos/subpage.html"><img src="images/proyecto-2.png" alt="Proyecto Cargografías"></a>
+          </div>
+          <div class="col-8 col-m-7">
+              <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
+              <button class="button-link proyecto-info" type="button" name="Torre de control" onClick="window.open('proyectos/torre-de-control.html','Ver Torre de Control')">VER PROYECTO</button>
+          </div>
+        </div>
+        <div class="proyecto row">
+          <div class="col-4 col-m-5 proyecto-info-img">
+            <a href="proyectos/subpage.html"><img src="images/proyecto-3.png" alt="Proyecto Cargografías"></a>
+          </div>
+          <div class="col-8 col-m-7">
+              <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
+              <button class="button-link proyecto-info" type="button" name="Datos contratistas" onClick="window.open('proyectos/datos-contratistas.html','Ver Datos Contratistas')">VER PROYECTO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contacto">
+    <div class="contacto-text">
+      <p>¿Quieres hacer proyectos con nosotros?</p>
+      <button class="button-link" type="button" name="button">Contáctanos</button>
+    </div>
+  </div>
+
+  <section class="investigaciones">
+    <div class="content">
+      <h2>Investigaciones</h2>
+        <p class="investigaciones-p">QQW es una excelente forma de ampliar las investigaciones.</p>
+        <div class="investigaciones row">
+          <div class="col-4 col-m-4 card-pad-ext">
+            <div class="card explore-card investigaciones-card">
+              <img src="images/investigaciones-1.png" alt="Personas" class="card-image">
+              <div class="card-pad">
+                <p class="serif-gray">Los contratos de Gabriel Quadri para el Nuevo Aeropuerto de la Ciudad de México</p>
+                <button class="button-link" type="button" name="personas" onClick="window.open('ver-personas.html','Ver Personas')">VER PERSONAS</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-m-4 card-pad-ext">
+            <div class="card explore-card investigaciones-card">
+              <img src="images/investigaciones-2.png" alt="Organizaciones" class="card-image">
+              <div class="card-pad">
+                <p class="serif-gray">Conoce en cuántas empresas de la BMV tiene acciones BlackRock.</p>
+                <button class="button-link" type="button" name="organizaciones" onClick="window.open('ver-organizaciones.html','Ver Organizaciones')">VER ORGANIZACIONES</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-m-4 card-pad-ext">
+            <div class="card explore-card investigaciones-card">
+              <img src="images/investigaciones-3.png" alt="Contratos" class="card-image">
+              <div class="card-pad">
+                <p class="serif-gray">Operadora CICSA, de Carlos Slim, construirá la obra más cara del nuevo aeropuerto.</p>
+                <button class="button-link" type="button" name="contratos" onClick="window.open('ver-contratos.html','Ver Contratos')">VER CONTRATOS</button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="contacto">
+    <div class="contacto-text">
+      <p>¿Quieres aprender a usar QQW para tus investigaciones?</p>
+      <button class="button-link" type="button" name="button">Contáctanos</button>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+  $(window).scroll(function() {
+    if ($(document).scrollTop() > 600) {
+      $('nav').addClass('shrink');
+    } else {
+      $('nav').removeClass('shrink');
+    }
+  });
+
+  $(window).scroll(function() {
+    if ($(document).scrollTop() > 10) {
+      $('logo').addClass('shrink');
+    } else {
+      $('logo').removeClass('shrink');
+    }
+  });
+  </script>
 </template>
 
 <template name="counters">
-  <div id="counter">
+  <div class="content row">
     {{#if counter }}
     {{#with counter }}
-      {{#if persons }}
-        <span class="bold">{{persons}}</span>
-      {{else}}
-        <i class="fa fa-spinner fa-pulse fa-fw"></i>
-      {{/if}}
-       <span>{{__ 'persons'}}</span>,
-      {{#if orgs }}
-        <span class="bold">{{orgs}}</span>
-      {{else}}
-        <i class="fa fa-spinner fa-pulse fa-fw"></i>
-      {{/if}}
-        <span>{{__ 'organizations'}}</span>,
-      {{#if contracts }}
-        <span class="bold">{{contracts}}</span>
-      {{else}}
-        <i class="fa fa-spinner fa-pulse fa-fw"></i>
-      {{/if}}
-      <span>{{__ 'contracts'}}</span>
+      <div class="col-4 col-m-4 card-pad-ext">
+        <div class="card explore-card">
+          <img src="images/elite.png" alt="Personas" class="card-image">
+          <div class="card-pad">
+            <h3>
+              <strong>
+                {{#if persons }}
+                  {{persons}}
+                {{else}}
+                  <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                {{/if}}
+              </strong>
+              {{__ 'persons'}}
+            </h3>
+            <p class="serif-gray">Conoce cómo se relacionan los personajes de las élites políticas y económicas en México.</p>
+            <a href="/persons" class="button-link">VER PERSONAS</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 col-m-4 card-pad-ext">
+        <div class="card explore-card">
+          <img src="images/mercado.png" alt="Organizaciones" class="card-image">
+          <div class="card-pad">
+            <h3>
+              <strong>
+                {{#if orgs }}
+                  {{orgs}}
+                {{else}}
+                  <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                {{/if}}
+              </strong>
+
+              {{__ 'organizations'}}
+            </h3>
+            <p class="serif-gray">Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones.</p>
+            <a href="/orgs" class="button-link">VER ORGANIZACIONES</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-4 col-m-4 card-pad-ext">
+        <div class="card explore-card">
+          <img src="images/licitacion.png" alt="Contratos" class="card-image">
+          <div class="card-pad">
+            <h3>
+              <strong>
+              {{#if contracts }}
+                {{contracts}}
+              {{else}}
+                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+              {{/if}}
+              </strong>
+
+              {{__ 'contracts'}}
+            </h3>
+            <p class="serif-gray">Explora los importes, años, dependencias, empresas proveedoras y otras características de más de un millón de contratos.</p>
+            <a href="/contracts" class="button-link">VER CONTRATOS</a>
+          </div>
+        </div>
+      </div>
     {{/with}}
     {{else}}
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
       <span class="sr-only">{{__ "Loading" }}...</span>
     {{/if}}
   </div>
-</template>
-
-<template name="test">
-test
 </template>
