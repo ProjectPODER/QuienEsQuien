@@ -4,6 +4,7 @@ import counter from '../../../api/stats/methods.js';
 if (Meteor.isClient) {
   import "./scrollme.min.js";
 }
+import { Feeds, FeedEntries } from '../../../api/feeds.js';
 
 Template.counters.onCreated(function() {
   var self = this;
@@ -18,7 +19,7 @@ Template.counters.onCreated(function() {
       var counter = {
         orgs: result[0],
         persons: result[1],
-        contracts: result[2]
+        ant: result[2]
       };
       self.counter.set(counter);
     }
@@ -34,7 +35,7 @@ Template.counters.onCreated(function() {
         var counter = {
           orgs: result[0],
           persons: result[1],
-          contracts: result[2]
+          ant: result[2]
         };
         self.counter.set(counter);
       }
@@ -50,3 +51,12 @@ Template.counters.helpers({
     return Template.instance().counter.get();
   }
 })
+
+
+Template.investigaciones.helpers({
+  feed() {
+    Meteor.subscribe('feed_entries');
+    var rc = FeedEntries.find({},{ limit: 4});
+    return rc.fetch();
+  }
+});

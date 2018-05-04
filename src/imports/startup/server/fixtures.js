@@ -2,6 +2,7 @@ import { Roles } from 'meteor/alanning:roles';
 import { Orgs } from '../../api/organizations/organizations.js';
 import { Persons } from '../../api/persons/persons.js';
 import { Contracts } from '../../api/contracts/contracts.js';
+import { Feeds, FeedEntries } from '../../api/feeds.js';
 
 Meteor.startup(() => {
   // we can use the name for text index as that should cover most cases in the names array
@@ -53,4 +54,31 @@ Meteor.startup(() => {
     });
     process.stdout.write('Added User Fixtures');
   }
+
+  feedReader();
 });
+
+function feedReader() {
+  // pass the created collections to Feed.collections()
+  var collections = {
+      feeds: Feeds,
+      feed_entries: FeedEntries
+  }
+
+  Feed.collections(collections);
+
+
+  Feed.createAtomFeed({
+      _id: "Rindecuentas",
+      category: "RSS",
+      link: "https://www.rindecuentas.org/feed/",
+      refresh_interval: 70000
+  });
+
+
+  Feed.read();
+
+  Meteor.publish("feed_entries", function() {
+    return FeedEntries.find({});
+  })
+}
