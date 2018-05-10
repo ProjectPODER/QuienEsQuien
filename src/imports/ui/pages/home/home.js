@@ -1,10 +1,29 @@
 import '../../components/search/search.js';
 import './home.html';
 import counter from '../../../api/stats/methods.js';
-if (Meteor.isClient) {
-  import "./scrollme.min.js";
-}
 import { Feeds, FeedEntries } from '../../../api/feeds.js';
+
+Template.Home.onCreated(function() {
+
+  import("./jquery.scrollme.js").then(() => {
+    $(window).scroll(function() {
+      if ($(document).scrollTop() > 600) {
+        $('nav').addClass('shrink');
+      } else {
+        $('nav').removeClass('shrink');
+      }
+    });
+
+    $(window).scroll(function() {
+      if ($(document).scrollTop() > 10) {
+        $('logo').addClass('shrink');
+      } else {
+        $('logo').removeClass('shrink');
+      }
+    });
+  });
+})
+
 
 Template.counters.onCreated(function() {
   var self = this;
@@ -56,7 +75,8 @@ Template.counters.helpers({
 Template.investigaciones.helpers({
   feed() {
     Meteor.subscribe('feed_entries');
-    var rc = FeedEntries.find({},{ limit: 4});
+    var rc = FeedEntries.find({},{ limit: 3});
+    // console.log(rc.fetch())
     return rc.fetch();
   }
 });

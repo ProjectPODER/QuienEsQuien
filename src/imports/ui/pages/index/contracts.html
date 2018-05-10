@@ -33,9 +33,9 @@
                 <fieldset name="vigencia">
                   <p class="search-title">Vigencia de contrato</p>
                   <p class="search-label">Fecha de Inicio (a partir de 2002)</p>
-                  <input type="date" id="myDate" value="00/00/0000" min="2002-01-01">
+                  <input type="date" id="from_date_contracts_index" value="01/01/2002" min="2002-01-01">
                   <p class="search-label">Fecha de fin</p>
-                  <input type="date" id="myDate" value="00/00/0000" min="2002-01-01">
+                  <input type="date" id="to_date_contracts_index" value="00/00/0000" min="2002-01-01">
                 </fieldset>
 
                 <fieldset name="importe">
@@ -100,7 +100,7 @@
                 <output for="max_amount_contracts_index" id="max-amount-output" style="font-size:small">{{max_amount_search}}</output>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                 <label for="from_date_contracts_index">{{__ "Min start date" }}</label>
                 <input class="form-control" id="from_date_contracts_index" placeholder="{{__ 'Min start date' }}" readonly>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                 <label for="to_date_contracts_index">{{__ "Max start date" }}</label>
                 <input class="form-control" id="to_date_contracts_index" placeholder="{{__ 'Max start date' }}" readonly>
-                </div>
+                </div> -->
 
                 <div class="input-group" id="contract-multi-search">
                 <div class="input-group-btn">
@@ -163,7 +163,24 @@
     {{/each}}
   </ul>
 </template>
+<template name="dependency_cell">
+  <ul class="dependency-cell list-unstyled">
+      <li><a href="/orgs/{{dependency}}">{{dependency}}</a></li>
+  </ul>
+</template>
 
 <template name="view_contract">
   <a href="/contracts/{{item._id}}#{{item.ocid}}" class="button-link">Ver contrato{{ver_contrato}}</a>
+</template>
+
+<template name="contract_dates">
+  Vigente desde {{ format_date item.start_date}} hasta {{ format_date item.end_date}}
+</template>
+
+<template name="contract_amount">
+  {{ format_amount item.amount }}
+  <span class="contract_currency">
+
+      {{format_currency item.currency}}
+  </span>
 </template>

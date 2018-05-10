@@ -96,6 +96,7 @@ Template.Contracts.events({
     instance.search.set('type', event.target.value);
   },
   'change input#from_date_contracts_index'(event, instance) {
+    console.log("'change input#from_date_contracts_index'",event, instance);
     const dateMin = moment(event.target.value).add(18, 'hours').toDate();
     instance.search.set('min_date', dateMin);
   },
@@ -238,18 +239,18 @@ Template.Contracts.onRendered(function () {
     computation.stop();
     const minDate = Template.instance().defaults.get('min_start_date');
     const maxDate = Template.instance().defaults.get('max_start_date');
-    //
-    // const minPicker = new Pikaday({
-    //   field: $('#from_date_contracts_index')[0],
-    //   defaultDate: minDate,
-    //   setDefaultDate: true,
-    // });
-    //
-    // const maxPicker = new Pikaday({
-    //   field: $('#to_date_contracts_index')[0],
-    //   defaultDate: maxDate,
-    //   setDefaultDate: true,
-    // });
+
+    const minPicker = new Pikaday({
+      field: $('#from_date_contracts_index')[0],
+      defaultDate: minDate,
+      setDefaultDate: true,
+    });
+
+    const maxPicker = new Pikaday({
+      field: $('#to_date_contracts_index')[0],
+      defaultDate: maxDate,
+      setDefaultDate: true,
+    });
 
     $('input[type="range"]').rangeslider({ polyfill: false });
   });
@@ -257,3 +258,37 @@ Template.Contracts.onRendered(function () {
   // return moment(d).format('ll');
 
 });
+
+Template.contract_dates.helpers({
+  format_date: function(val) {
+    if (val instanceof Date) {
+      return moment(val).format('ll');
+    }
+    return 'N/A';
+  }
+});
+Template.contract_amount.helpers({
+  format_amount: function(value) {
+    if (value) {
+      return value.toLocaleString('en-UK',
+        {
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 2,
+        });
+    }
+    return 'Importe desconocido';
+  }
+})
+
+Template.contract_amount.helpers({
+  format_currency: function(value) {
+    if (value == "MXN") {
+      return "Pesos mexicanos"
+    }
+    else if (value == "USD") {
+      return "Dólares estadounidense"
+    }
+    return value;
+  }
+})

@@ -50,35 +50,29 @@ const contractFields = [
   {
     data: 'title',
     titleFn() { return i18n.__('Title'); },
-    class: 'js-title no-title search-result-title col-m-9 col-9',
+    class: 'js-title no-title search-result-title col-m-8 col-8',
   },
   {
     data: 'amount',
-    class: 'js-amount no-title search-result-emph col-m-2 col-2',
-    titleFn() { return i18n.__('Amount'); },
-    render: formatAmount,
+    class: 'js-amount no-title search-result-emph col-m-4 col-4',
+    title: "",
+    tmpl: Meteor.isClient && Template.contract_amount,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
   },
-  {
-    data: 'currency',
-    class: 'js-currency no-title search-result-emph col-m-1 col-1',
-    titleFn() { return i18n.__('Currency'); },
-  },
-  // {
-  //   data: 'type',
-  //   class: 'js-contract-type',
-  //   titleFn() { return i18n.__('Type'); },
-  // },
   {
     data: 'start_date',
-    class: 'js-start-date inline-title search-result-mono-gray col-m-2 col-2',
-    titleFn() { return i18n.__('Start date'); },
-    render: formatDate,
-  },
-  {
-    data: 'end_date',
-    class: 'js-end-date inline-title search-result-mono-gray col-m-2 col-2',
-    titleFn() { return i18n.__('End date'); },
-    render: formatDate,
+    class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
+    title: "",
+    tmpl: Meteor.isClient && Template.contract_dates,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
   },
   {
     data: 'ocid',
@@ -208,7 +202,8 @@ TabularTables.Contracts = new Tabular.Table(extend({},
         titleFn() {
           return i18n.__('Dependency');
         },
-        class: 'js-dependency col-2 col-m-2',
+        class: 'js-dependency col-4 col-m-4',
+        tmpl: Meteor.isClient && Template.dependency_cell,
       },
       {
         data: 'suppliers_org',
@@ -219,7 +214,7 @@ TabularTables.Contracts = new Tabular.Table(extend({},
         tmpl: Meteor.isClient && Template.suppliers_cell,
       },
       ]),
-    extraFields: ['suppliers_person', 'suppliers'],
+    extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
   }),
 );
 
