@@ -54,7 +54,7 @@ img
 
 .filter-bar
     input[type="text"]
-      padding 5px
+      padding 10px 5px
       width 85%
       margin-right 5px
       border-color #D3D3D3
@@ -73,6 +73,9 @@ img
       width 30%
       display inline-block
       margin-top 1rem
+      
+.filter-dropdown
+  padding 9px 12px
 
 input[type=text].nav-search-inputtext
   width 11rem
@@ -528,7 +531,7 @@ input[type="submit"].search-submit
     padding-left 20px
     padding-bottom 2px
     background url(images/calendar.png) no-repeat;
-
+  
     .cardItemData
         font-weight bold
         padding-left 5px
@@ -545,6 +548,21 @@ input[type="submit"].search-submit
     float right!important
     text-align right
     margin 2em 1em 0 0
+    
+.js-contract-count
+.js-company-count
+    color #2b00f7
+    
+.js-person-type
+    color #9b9b9b
+    
+.js-contract-count
+.js-company-count
+.js-person-type
+    font-family monospace
+    font-size 1rem
+    .cardItemData
+        padding-left 5px
 
 .contract_currency
   font-size 0.4em
@@ -572,9 +590,9 @@ a
 .button-link
   background-color #2b00f7
   color #fff
-  font-weight bold
+  // font-weight bold
   border none
-  padding 14px 14px
+  padding 10px 15px
   white-space nowrap
 
 .centered

@@ -60,23 +60,25 @@ Meteor.startup(() => {
 
 function feedReader() {
   // pass the created collections to Feed.collections()
-  var collections = {
-      feeds: Feeds,
-      feed_entries: FeedEntries
-  }
+  // var collections = {
+  //     feeds: Feeds,
+  //     feed_entries: FeedEntries
+  // }
 
-  Feed.collections(collections);
+  // console.log("Feed",Feeds);
 
-
-  Feed.createAtomFeed({
-      _id: "Rindecuentas",
-      category: "RSS",
-      link: "https://www.rindecuentas.org/feed/",
-      refresh_interval: 70000
-  });
+  // Feeds.collections(collections);
 
 
-  Feed.read();
+  // Feeds.createAtomFeed({
+  //     _id: "Rindecuentas",
+  //     category: "RSS",
+  //     link: "https://www.rindecuentas.org/feed/",
+  //     refresh_interval: 70000
+  // });
+
+
+  // Feeds.read();
 
   Meteor.publish("feed_entries", function() {
     return FeedEntries.find({});

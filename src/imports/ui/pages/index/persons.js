@@ -18,4 +18,15 @@ Template.Persons.helpers({
     return Template.instance().ready.get();
   }
 
-})
+});
+
+Template.person_type.helpers({
+  contracts_or_companies: function(item) {
+    if (item.contract_count > 0 || item.company_count > 0){
+      return true;
+    } 
+    else {
+      return false;
+    }
+  }
+});

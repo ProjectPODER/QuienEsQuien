@@ -1,3 +1,87 @@
 <template name="Persons">
-  {{> tabular table=TabularTables.Persons id="person-index" class="reactive-table table-striped table-bordered table-condensed index-table"}}
+    <div class="row document-header">
+      <div class="col-3 col-m-3">
+        <h2 class="document-title">Personas</h2>
+      </div>
+      <div class="col-9 col-m-9">
+        <p class="document-description">Conoce cómo se relacionan los personajes de las élites políticas y económicas en México.</p>
+      </div>
+    </div>
+    <div class="row document-body">
+      <div class="col-3 col-m-3">
+          <div class="filter-bar">
+            <p class="search-title">Filtrar</p>
+            <fieldset name="proveedores">
+              <p class="search-title">AGREGAR PERSONAS</p>
+              <input type="text" name="personas" placeholder="Buscar personas">
+            </fieldset>
+            <fieldset name="país">
+              <p class="search-title">POR PAÍS</p>
+              <p class="search-label">México (15,560)</p>
+              <p class="search-label">Colombia (129)</p>
+              <p class="search-label">Argentina (88)</p>
+              <p class="search-label">Brasil (220)</p>
+            </fieldset>
+            <fieldset name="tipo">
+              <p class="search-title">POR TIPO</p>
+              <p class="search-label">Proveedor (7,230)</p>
+              <p class="search-label">Propietario (230)</p>
+              <p class="search-label">Funcionario Público (5,987)</p>
+            </fieldset>
+
+            <p class="search-title">RELACIONADO CON</p>
+            <div class="input-group" id="">
+                <div class="dropdown input-group-btn">
+                  <button class="btn btn-default dropdown-toggle filter-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    FILTRO
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Dependency</a></li>
+                    <li><a class="dropdown-item" href="#">Supplier</a></li>
+                    <li><a class="dropdown-item" href="#">OCID</a></li>
+                  </ul>
+                </div>
+                <input type="text" name="filtros" placeholder="Buscar filtro">
+            </div>
+
+            <!-- CAMBIAR NAME Y CLASS -->
+            <fieldset name="cantidad-contratos">
+              <p class="search-title">Cantidad de contratos</p>
+              <input type="text" name="" placeholder="Mínimo" class="search-amount">
+              <input type="text" name="" placeholder="Máximo" class="search-amount">
+            </fieldset>
+            
+            <input type="submit" class="search-submit" value="FILTRAR">
+          </div>
+      </div>
+      <div class="col-9 col-m-9">
+        <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span> 5,908 resultados</p>
+
+        {{> tabular table=TabularTables.Persons 
+        id="person-index" 
+        class=""}}
+      </div>
+
+
+    </div>
 </template>
+
+<template name="view_person">
+  <a href="/persons/{{item.simple}}" class="button-link">Ver persona</a>
+</template>
+
+<template name="person_type">
+  <p>Proveedor {{item.type}}  
+    {{#if contracts_or_companies (item)}}
+        <span>con</span>
+    {{/if}}
+    {{#if item.company_count}}
+        <span class="js-company-count">{{item.company_count}} empresa(s)</span>
+    {{/if}}
+    {{#if item.contract_count}}
+        <span class="js-contract-count">{{item.contract_count}} contrato(s)</span>
+    {{/if}}
+ </p>
+</template>
+

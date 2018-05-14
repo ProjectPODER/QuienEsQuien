@@ -13,6 +13,7 @@ import { Contracts } from './imports/api/contracts/contracts';
 if (Meteor.isClient) {
   import './imports/ui/components/contracts/contracts.html';
   import './imports/ui/pages/index/contracts.html';
+  import './imports/ui/pages/index/persons.html';
 }
 
 const TabularTables = {};
@@ -162,26 +163,37 @@ TabularTables.Persons = new Tabular.Table(extend({},
   tableDefaults, {
     name: 'Persons',
     collection: Persons,
-    extraFields: ['simple'],
+    extraFields: ['contract_count'],
     columns: [
       {
         data: 'name',
         titleFn() {
           return i18n.__('Name');
         },
-        cellClass: 'name',
+        class: 'js-title no-title search-result-title col-m-8 col-8',
       },
       {
-        data: 'source',
-        titleFn() {
-          return i18n.__('Source');
-        },
+        data: 'simple',
+        title: 'enlace',
+        class: 'js-ocid no-title col-2 col-m-2',
+        tmpl: Meteor.isClient && Template.view_person,
+        tmplContext(rowData) {
+          return {
+            item: rowData,
+            column: 'title'
+          };
+        }
       },
       {
-        data: 'contract_count',
-        titleFn() {
-          return i18n.__('Contracts');
-        },
+        data: 'person-type',
+        class: 'js-person-type col-m-8 col-8',
+        title: "",
+        tmpl: Meteor.isClient && Template.person_type,
+        tmplContext(rowData) {
+          return {
+            item: rowData
+          };
+        }
       }],
   }),
 );
