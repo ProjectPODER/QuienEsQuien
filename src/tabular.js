@@ -92,15 +92,20 @@ const contractFields = [
 if (Meteor.isClient) {
   import { $ } from 'meteor/jquery';
   import './imports/ui/components/spin/spinner.html';
-  // import dataTablesBootstrap from 'datatables.net-bs';
-  // import 'datatables.net-bs/css/dataTables.bootstrap.css';
-  //
-  // dataTablesBootstrap(window, $);
-  // $.extend(true, $.fn.dataTable.defaults, {
-  //   language: {
-  //     processing: Blaze.toHTML(Template.loading),
-  //   },
-  // });
+  import dataTablesBootstrap from 'datatables.net-bs';
+  import 'datatables.net-bs/css/dataTables.bootstrap.css';
+  
+  dataTablesBootstrap(window, $);
+  $.extend(true, $.fn.dataTable.defaults, {
+    searching: false,
+    language: {
+      "paginate": {
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+      processing: Blaze.toHTML(Template.loading),
+    },
+  });
 }
 
 TabularTables.Orgs = new Tabular.Table(extend({},
