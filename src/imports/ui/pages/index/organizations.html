@@ -7,26 +7,138 @@
         <p class="document-description">Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones.</p>
       </div>
     </div>
+    <div class="row document-body">
+        <div class="col-3 col-m-3">
+            <div class="filter-bar">
+                <p class="search-title">Filtrar</p>
+                <fieldset name="organizaciones">
+                  <p class="search-title">Agregar organización</p>
+                  <input type="text" name="proveedor" placeholder="BUSCAR NOMBRE"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                </fieldset>
+                <fieldset>
+                    <p class="search-title">Por tipo de organización</p>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">ELIGE UN TIPO
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">Estatal</a></li>
+                          <li><a href="#">Privada</a></li>
+                          <li><a href="#">Pública (bolsa)</a></li>
+                        </ul>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <p class="search-title">Matrices</p>
+                    <input type="submit" class="btn btn-filter" value="SÓLO MATRICES">
+                    <input type="submit" class="btn btn-filter" value="TODO">
+                </fieldset>
+                <fieldset>
+                    <p class="search-title">País de origen</p>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">ELIGE UN PAÍS
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                          <li><a href="#">México</a></li>
+                          <li><a href="#">México</a></li>
+                          <li><a href="#">México</a></li>
+                        </ul>
+                    </div>
+                </fieldset>
+                <fieldset name="no-contratos">
+                  <p class="search-title">Número de contratos</p>
+                  <a class="search-label"><p>Sin contratos</p></a>
+                  <a class="search-label"><p>1 a 10</p></a>
+                  <a class="search-label"><p>10 a 50</p></a>
+                  <a class="search-label"><p>52 a 200</p></a>
+                  <a class="search-label"><p>Más de 200</p></a>
+                  <input type="text" name="cantidad-minima" placeholder="Mínimo" class="search-amount">
+                  <input type="text" name="cantidad-máxima" placeholder="Máximo" class="search-amount">
+                </fieldset>
+                <fieldset name="consejo">
+                  <p class="search-title">Consejo consultivo</p>
+                  <input type="text" name="proveedor" placeholder="BUSCA UN NOMBRE"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                </fieldset>
+                <fieldset name="accionistas">
+                  <p class="search-title">Accionistas</p>
+                  <input type="text" name="proveedor" placeholder="BUSCA UN NOMBRE"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                </fieldset>
+                <fieldset name="acciones">
+                  <p class="search-title">Acciones</p>
+                  <input type="text" name="proveedor" placeholder="ELIJE UN TIPO"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                </fieldset>
+                <fieldset>
+                    <p class="search-title">Relacionado con</p>
+                    <div class="input-group" id="">
+                        <div class="dropdown input-group-btn">
+                          <button class="btn btn-default dropdown-toggle filter-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            FILTRO
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <li><a class="dropdown-item" href="#">Dependency</a></li>
+                            <li><a class="dropdown-item" href="#">Supplier</a></li>
+                            <li><a class="dropdown-item" href="#">OCID</a></li>
+                          </ul>
+                        </div>
+                        <input type="text" name="filtros" placeholder="Buscar filtro">
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <p class="search-title">Buscar tipo de entidad</p>
+                    <input type="submit" class="btn btn-filter mb-10" value="TODOS">
+                    <input type="submit" class="btn btn-filter mb-10" value="PERSONAS">
+                    <input type="submit" class="btn btn-filter" value="ORGANIZACIÓN">
+                </fieldset>
+                <input type="submit" class="search-submit" value="FILTRAR">
+            </div>
+        </div>
+        <div class="col-9 col-m-9">
+            <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span> 5,908 resultados</p>
 
-    <!-- <div class="col-3">
-
-        <h1>{{__ "Organizations" }}</h1>
-    </div>
-    <div class="col-9">
-
-        {{__ "Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones." }}
-    </div> -->
-    <div class="col-3">
-
-        <div class="filters">
-            
-
+            {{> tabular table=TabularTables.Orgs 
+            id="organization-index" 
+            class=""}}
         </div>
     </div>
-    <div class="col-9">
-
-        {{> tabular table=TabularTables.Orgs id="organization-index" class="reactive-table table-striped table-bordered table-condensed index-table"}}
-    </div>
-
-
+</template>
+<template name="view_organization">
+  <a href="/orgs/{{item.simple}}" class="button-link">Ver organización</a>
+</template>
+<template name="contracts_fundation">
+  <p>
+    {{#if item.contract_count}}
+        <span class="js-contract-count">
+            <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
+            <img src="images/icons/contrato-blue-light.svg" alt="contrato" class="icon">
+            {{item.contract_count}} contrato(s) </span>
+    {{/if}}
+    {{#if item.foundation_date}}
+        <span class="js-foundation-date">
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        Fundado en {{item.foundation_date}}</span>
+    {{/if}}
+ </p>
+</template>
+<template name="summary_data">
+    {{#if item.company.tickers}}
+        <div class="col-4 col-m-4">
+            <p class="js-title-data">CLAVE BOLSA</p>
+            <p class="js-data">
+                {{item.company.tickers}}</p>
+        </div>
+    {{/if}}
+    {{#if item.type}}
+        <div class="col-4 col-m-4">
+            <p class="js-title-data">TIPO</p>
+            <p class="js-data">
+                {{item.type}}</p>
+        </div>
+    {{/if}}
+    {{#if item.company.classification}}
+        <div class="col-4 col-m-4">
+            <p class="js-title-data">INDUSTRIA</p>
+            <p class="js-data">
+                {{item.company.classification}} </p>
+        </div>
+    {{/if}}
 </template>

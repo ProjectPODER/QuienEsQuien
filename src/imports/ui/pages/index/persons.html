@@ -17,33 +17,35 @@
             </fieldset>
             <fieldset name="país">
               <p class="search-title">POR PAÍS</p>
-              <p class="search-label">México (15,560)</p>
-              <p class="search-label">Colombia (129)</p>
-              <p class="search-label">Argentina (88)</p>
-              <p class="search-label">Brasil (220)</p>
+              <a class="search-label"><p>México (15,560)</p></a>
+              <a class="search-label"><p>Colombia (129)</p></a>
+              <a class="search-label"><p>Argentina (88)</p></a>
+              <a class="search-label"><p>Brasil (220)</p></a>
             </fieldset>
             <fieldset name="tipo">
               <p class="search-title">POR TIPO</p>
-              <p class="search-label">Proveedor (7,230)</p>
-              <p class="search-label">Propietario (230)</p>
-              <p class="search-label">Funcionario Público (5,987)</p>
+              <a class="search-label"><p>Proveedor (7,230)</p></a>
+              <a class="search-label"><p>Propietario (230)</p></a>
+              <a class="search-label"><p>Funcionario Público (5,987)</p></a>
             </fieldset>
-
-            <p class="search-title">RELACIONADO CON</p>
-            <div class="input-group" id="">
-                <div class="dropdown input-group-btn">
-                  <button class="btn btn-default dropdown-toggle filter-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    FILTRO
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Dependency</a></li>
-                    <li><a class="dropdown-item" href="#">Supplier</a></li>
-                    <li><a class="dropdown-item" href="#">OCID</a></li>
-                  </ul>
+            <fieldset>
+                <p class="search-title">RELACIONADO CON</p>
+                <div class="input-group" id="">
+                    <div class="dropdown input-group-btn">
+                      <button class="btn btn-default dropdown-toggle filter-dropdown" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        FILTRO
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a class="dropdown-item" href="#">Dependency</a></li>
+                        <li><a class="dropdown-item" href="#">Supplier</a></li>
+                        <li><a class="dropdown-item" href="#">OCID</a></li>
+                      </ul>
+                    </div>
+                    <input type="text" name="filtros" placeholder="Buscar filtro">
                 </div>
-                <input type="text" name="filtros" placeholder="Buscar filtro">
-            </div>
+            </fieldset>
+            
 
             <!-- CAMBIAR NAME Y CLASS -->
             <fieldset name="cantidad-contratos">

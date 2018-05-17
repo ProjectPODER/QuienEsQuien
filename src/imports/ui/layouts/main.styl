@@ -358,7 +358,7 @@ p
     margin-bottom 5px
   &.document-description
     padding 1rem 0
-    font-size .8rem
+    font-size .9rem
     color #585858
   &.search-terms-text
     font-size .9rem
@@ -398,7 +398,7 @@ h2
   margin-bottom 3rem
   &.document-title
     color #21018b
-    font-size 2rem
+    font-size 2.3rem
     margin 0
 
 .filter-bar
@@ -447,6 +447,10 @@ select
 .form-control
   height 25px
   vertical-align middle
+  
+img.icon
+  width 12px
+  margin-top -3px
 
 .selected-block
   margin-bottom .8rem
@@ -463,10 +467,15 @@ select
 
 .search-label
   color #9C9C9C
-  text-transform uppercase
+  // text-transform uppercase
   margin-bottom .3rem
   margin-top .8rem
   line-height 1.2rem
+  &:hover
+  &:focus
+    color #21018b
+    text-decoration none
+    font-weight bold
 
 fieldset
   margin-bottom 1rem
@@ -490,8 +499,9 @@ input[type="submit"].search-submit
 
 .search-result-title
   font-weight bold
-  color #444
-  min-height 2.35em
+  color #4e4e4e
+  margin-bottom 0.7rem
+  font-size 1.3rem
 
 .search-result-emph
   color #2900f5
@@ -505,7 +515,7 @@ input[type="submit"].search-submit
 
 .search-result-mono-gray
   font-family monospace
-  color #669
+  color #9b9b9b;
   font-size 1rem
   display inline-block
 
@@ -519,6 +529,7 @@ input[type="submit"].search-submit
     
 #person-index_paginate
 #contract-index_paginate
+#organization-index_paginate
   text-align center
 
 .pagination > .active > a
@@ -567,10 +578,29 @@ input[type="submit"].search-submit
 .js-dependency
     clear left
     padding-right 0.5em
-
+    .cardItemTitle
+      padding-left 25px
+      background url(images/icons/dependencia-gray-light.svg) no-repeat;
+      background-size 16px
+.js-suppliers
+    .cardItemTitle
+      padding-left 25px
+      background url(images/icons/empresa-gray-light.svg) no-repeat;
+      background-size 16px
 .js-dependency
 .js-suppliers
     margin-top: 5px
+    color #9b9b9b
+    
+.dependency-cell li a
+.suppliers-cell li a
+  color #2b00f7
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  &:hover
+    text-decoration none
+    color #2d1c9d
 
 .js-ocid
     float right!important
@@ -582,19 +612,33 @@ input[type="submit"].search-submit
     color #2b00f7
     
 .js-person-type
+.js-foundation-date
     color #9b9b9b
     
 .js-contract-count
 .js-company-count
 .js-person-type
+.js-foundation-date
     font-family monospace
     font-size 1rem
     .cardItemData
         padding-left 5px
+        
+.js-title-data
+.js-data
+  text-transform uppercase
+  
+.js-title-data
+  color #9b9b9b
+  margin-bottom 0
+  
+.js-data
+  color #4e4e4e
+  font-weight bold
 
 .contract_currency
   font-size 0.4em
-  color #444
+  color #9b9b9b
   display block
   line-height 0
 
@@ -620,8 +664,29 @@ a
   color #fff
   // font-weight bold
   border none
-  padding 10px 15px
+  padding 10px 12px
   white-space nowrap
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  &:hover
+    color #fff
+    background-color #2200c5
+    text-decoration none
+    
+.btn-filter
+  background-color #9b9b9b
+  color #fff
+  border-radius 0
+  padding 10px 12px
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  margin-right 5px
+  &:hover
+  &:focus
+    background-color #2d1c9d
+    color #fff
 
 .centered
   text-align center
@@ -631,6 +696,9 @@ a
 
 .right-align
   text-align right
+  
+.mb-10
+  margin-bottom 10px
 
 hr
   background-color #999

@@ -14,6 +14,7 @@ if (Meteor.isClient) {
   import './imports/ui/components/contracts/contracts.html';
   import './imports/ui/pages/index/contracts.html';
   import './imports/ui/pages/index/persons.html';
+  import './imports/ui/pages/index/organizations.html';
 }
 
 const TabularTables = {};
@@ -98,7 +99,10 @@ if (Meteor.isClient) {
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
+    // info: false,
     language: {
+      "info": "Mostrando _PAGE_ de _PAGES_ resultados",
+      "lengthMenu":     "Mostrar _MENU_ resultados",
       "paginate": {
       "previous": "Anterior",
       "next": "Siguiente"
@@ -115,51 +119,48 @@ TabularTables.Orgs = new Tabular.Table(extend({},
     order: [
       [1, 'desc'],
     ],
-    extraFields: ['simple'],
+    extraFields: ['contract_count', 'foundation_date', 'company.tickers', 'type', 'company.classification'],
     columns: [{
-      data: 'name',
-      titleFn() {
-        return i18n.__('Name');
-      },
-      cellClass: 'name',
-    },
-        {
-          data: 'description',
+          data: 'name',
           titleFn() {
-            return i18n.__('Description');
+            return i18n.__('Name');
           },
-          searchable: false,
+          class: 'js-title no-title search-result-title col-m-8 col-8',
         },
         {
-          data: 'foundation_date',
-          titleFn() {
-            return i18n.__('Year Founded');
-          },
-          searchable: false,
+          data: 'simple',
+          title: 'enlace',
+          class: 'js-ocid no-title col-2 col-m-2',
+          tmpl: Meteor.isClient && Template.view_organization,
+          tmplContext(rowData) {
+            return {
+              item: rowData,
+              column: 'title'
+            };
+          }
         },
         {
-          data: 'contract_count',
-          titleFn() {
-            return i18n.__('Contracts');
-          },
-          searchable: false,
+          data: 'contracts_fundation',
+          class: 'col-m-8 col-8',
+          title: "",
+          tmpl: Meteor.isClient && Template.contracts_fundation,
+          tmplContext(rowData) {
+            return {
+              item: rowData
+            };
+          }
         },
         {
-          data: 'company.classification',
-          titleFn() {
-            return i18n.__('Primary Industry Classification');
-          },
+          data: 'summary-data',
+          class: 'col-m-8 col-8',
+          title: "",
+          tmpl: Meteor.isClient && Template.summary_data,
+          tmplContext(rowData) {
+            return {
+              item: rowData
+            };
+          }
         },
-        {
-          data: 'source',
-          titleFn() {
-            return i18n.__('Source');
-          },
-          searchable: false,
-        },
-        {
-          tmpl: Meteor.isClient && Template.orgsCell
-        }
     ],
   }),
 );

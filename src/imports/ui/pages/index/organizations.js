@@ -17,5 +17,15 @@ Template.Orgs.helpers({
   orgsReady: function() {
     return Template.instance().ready.get();
   }
+});
 
-})
+Template.summary_data.helpers({
+  industry_type_key: function(item) {
+    if (item.company.classification > 0 || item.type > 0 || item.company.tickers > 0){
+      return true;
+    } 
+    else {
+      return false;
+    }
+  }
+});
