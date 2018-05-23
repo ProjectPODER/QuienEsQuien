@@ -106,12 +106,13 @@
 </template>
 <template name="contracts_fundation">
   <p>
-    {{#if item.contract_count}}
         <span class="js-contract-count">
             <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
             <img src="images/icons/contrato-blue-light.svg" alt="contrato" class="icon">
+            {{#if contracts_fundation (item)}}
+                <span>Sin</span>
+            {{/if}}
             {{item.contract_count}} contrato(s) </span>
-    {{/if}}
     {{#if item.foundation_date}}
         <span class="js-foundation-date">
         <i class="fa fa-calendar-check-o" aria-hidden="true"></i>

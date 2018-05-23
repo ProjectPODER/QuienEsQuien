@@ -19,6 +19,17 @@ Template.Orgs.helpers({
   }
 });
 
+Template.contracts_fundation.helpers({
+  contracts_fundation: function(item) {
+    if (item.contract_count == undefined ){
+      return true;
+    } 
+    else {
+      return false;
+    }
+  }
+});
+
 Template.summary_data.helpers({
   industry_type_key: function(item) {
     if (item.company.classification > 0 || item.type > 0 || item.company.tickers > 0){

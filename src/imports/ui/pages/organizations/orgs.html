@@ -12,9 +12,87 @@
       {{#if name }}
         <div class="description-data-name">
           <h3>{{ name }}</h3>
+          <h4 class="org-type">Dependencia o Empresa</h4>
         </div>
+        <hr>
       {{/if}}
-      <table class="table">
+
+      <div class="">
+        <div class="col-m-6 flex">
+            <div class="col-m-12">
+              <h4 class="description-data-subtitle">INFORMACIÓN GENERAL</h4>
+            </div>
+            <div class="col-m-6">
+                <p class="js-title-data">Tipo de organización</p>
+                <p class="js-data">
+                    {{type}}</p>
+            </div>
+            <div class="col-m-6">
+                <p class="js-title-data">Sector</p>
+                <p class="js-data">
+                    {{company.sector}}</p>
+            </div>
+            <div class="col-m-6">
+                <p class="js-title-data">Situación</p>
+                <p class="js-data">
+                    Activa</p>
+            </div>
+            <div class="col-m-6">
+                <p class="js-title-data">Industria</p>
+                <p class="js-data">
+                    {{company.classification}}</p>
+            </div>
+            <div class="col-m-6">
+                {{#if foundation_date }}
+                <p class="js-title-data">Fundación</p>
+                <p class="js-data">
+                  {{foundation_date}}</p>
+                {{/if}}
+            </div>
+            <div class="col-m-12">
+                <p class="js-title-data">Organización controlante final</p>
+                <p class="js-data">
+                    Activa</p>
+            </div>
+            <div class="col-m-12">
+                <p class="js-title-data">Organización controlante directa</p>
+                <p class="js-data">
+                    {{company.classification}}</p>
+            </div>
+            <div class="col-m-6">
+                <p class="js-title-data">Cotiza en bolsa</p>
+                <p class="js-data">
+                    Si</p>
+            </div>
+          
+        </div>
+        <div class="col-m-6 flex">
+            <div class="col-m-12">
+              <h4 class="description-data-subtitle">LOCALIZACIÓN Y CONTACTO</h4>
+            </div>
+            <div class="col-m-12">
+                <p class="js-title-data">Dirección Fiscal</p>
+                <p class="js-data">
+                    </p>
+                
+            </div>
+            <div class="col-m-12">
+                <p class="js-title-data">Dirección web</p>
+                <p class="js-data">
+                   </p>
+            </div>
+            <div class="col-m-12">
+            </div>
+            <div class="col-m-12">
+                <p class="js-title-data">Teléfono</p>
+                <p class="js-data">
+                   </p>
+            </div>
+        </div>  
+      </div>
+
+
+      <!-- <table class="table">
         <tbody>
           {{#if foundation_date }}
           <tr class="description-data-year-founded">
@@ -34,7 +112,8 @@
           </tr>
           {{/if}}
         </tbody>
-      </table>
+      </table> -->
+
       </div>
      <div class="document-icon col-md-6 pull-right">
        {{> ProfileImage docId=_id imageUrl=imageUrl}}
@@ -56,6 +135,7 @@
       </table>
     </div>
     {{/if}}
+
     {{#unless isEmpty company }}
     <div class="financial clearfix">
       <h3 class="detail_header">{{__ "corporate data" }}</h3>

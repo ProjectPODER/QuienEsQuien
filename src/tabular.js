@@ -99,6 +99,7 @@ if (Meteor.isClient) {
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
+    dom: '<"top"i>rt<"bottom"flp><"clear">',
     // info: false,
     language: {
       "info": "Mostrando _PAGE_ de _PAGES_ resultados",
