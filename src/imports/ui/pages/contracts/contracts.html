@@ -43,18 +43,69 @@
   {{#with contract }}
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
-        <div class="gd-col-left-wrapper col-md-6">
+        <div class="gd-col-left-wrapper col-m-12">
           {{#if title }}
             <div class="description-data-title">
               <h3>{{title}}</h3>
+              <div class="col-m-9">
+                <h4 class="contract-type">Contrato</h4>
+              </div>
+              <div class="col-m-3 right-align">
+                <p class="amount-data">${{amount}}{{currency}}</p>
+              </div>
             </div>
           {{/if}}
         </div>
-        <div class="document-icon col-md-6 pull-right">
+        <!-- <div class="document-icon col-md-6 pull-right">
           {{> contractProfileImage orgId=_id}}
-        </div>
+        </div> -->
       </div>
+      <hr>
       <div class="contract_detail clearfix">
+
+        <div class="col-m-9 flex">
+          <h4 class="description-data-subtitle">DATOS GENERALES</h4>
+          <div class="col-m-12">
+              <p class="js-title-data">Calidad de los datos</p>
+              <p class="js-data">3/5</p>
+          </div>
+          <div class="col-m-4">
+              <p class="js-title-data">Fecha de inicio</p>
+              <p class="js-data">{{moment_ll start_date}}</p>
+          </div>
+          <div class="col-m-8">
+              <p class="js-title-data">Fecha de fin</p>
+              <p class="js-data">{{moment_ll end_date}}</p>
+          </div>
+          <div class="col-m-12">
+              <p class="js-title-data">Dependencia</p>
+              <p class="js-data">{{dependency}}</p>
+          </div>
+          <div class="col-m-8">
+              <p class="js-title-data">Unidad compradora</p>
+              <p class="js-data">3/5</p>
+          </div>
+          <div class="col-m-4">
+              <p class="js-title-data">Clave de unidad compradora</p>
+              <p class="js-data">{{clave_uc}}</p>
+          </div>
+          <div class="col-m-12">
+              <p class="js-title-data">Responsable</p>
+              <p class="js-data">3/5</p>
+          </div>
+          <div class="col-m-12">
+              <p class="js-title-data">Proveedores</p>
+              <p class="js-data">3/5</p>
+          </div>
+          <hr>
+        </div>
+
+        <div class="col-m-3"></div>
+
+
+
+
+
         <table class="table">
           <tbody>
             {{#if dependency }}

@@ -22,48 +22,54 @@
             <div class="col-m-12">
               <h4 class="description-data-subtitle">INFORMACIÓN GENERAL</h4>
             </div>
+            {{#if type }}
             <div class="col-m-6">
                 <p class="js-title-data">Tipo de organización</p>
-                <p class="js-data">
-                    {{type}}</p>
+                <p class="js-data">{{type}}</p>
             </div>
+            {{/if}}
+            {{#if company.sector }}
             <div class="col-m-6">
                 <p class="js-title-data">Sector</p>
-                <p class="js-data">
-                    {{company.sector}}</p>
+                <p class="js-data">{{company.sector}}</p>
             </div>
+            {{/if}}
+            <!-- {{#if }} -->
             <div class="col-m-6">
                 <p class="js-title-data">Situación</p>
-                <p class="js-data">
-                    Activa</p>
+                <p class="js-data">Activa</p>
             </div>
+            <!-- {{/if}} -->
+            {{#if company.classification }}
             <div class="col-m-6">
                 <p class="js-title-data">Industria</p>
-                <p class="js-data">
-                    {{company.classification}}</p>
+                <p class="js-data">{{company.classification}}</p>
             </div>
+            {{/if}}
+            {{#if foundation_date }}
             <div class="col-m-6">
-                {{#if foundation_date }}
                 <p class="js-title-data">Fundación</p>
-                <p class="js-data">
-                  {{foundation_date}}</p>
-                {{/if}}
+                <p class="js-data">{{foundation_date}}</p>
             </div>
+            {{/if}}
+            <!-- {{#if  }} -->
             <div class="col-m-12">
                 <p class="js-title-data">Organización controlante final</p>
-                <p class="js-data">
-                    Activa</p>
+                <p class="js-data">Relación</p>
             </div>
+            <!-- {{/if}} -->
+            {{#if company.classification }}
             <div class="col-m-12">
                 <p class="js-title-data">Organización controlante directa</p>
-                <p class="js-data">
-                    {{company.classification}}</p>
+                <p class="js-data">Relación</p>
             </div>
+            {{/if}}
+            <!-- {{#if  }} -->
             <div class="col-m-6">
                 <p class="js-title-data">Cotiza en bolsa</p>
-                <p class="js-data">
-                    Si</p>
+                <p class="js-data">Si</p>
             </div>
+            <!-- {{/if}} -->
           
         </div>
         <div class="col-m-6 flex">
@@ -71,22 +77,38 @@
               <h4 class="description-data-subtitle">LOCALIZACIÓN Y CONTACTO</h4>
             </div>
             <div class="col-m-12">
+              {{#if address}}
                 <p class="js-title-data">Dirección Fiscal</p>
-                <p class="js-data">
-                    </p>
-                
+                {{#if address.street}}
+                  <span class="js-data">{{address.street}}</span>
+                {{/if}}
+                {{#if address.city}}
+                  <span class="js-data">{{address.city}}</span>
+                {{/if}}
+                {{#if address.state}}
+                  <span class="js-data">{{address.state}}</span>
+                {{/if}}
+                {{#if address.country}}
+                  <span class="js-data">{{address.country}}</span>
+                {{/if}}
+                {{#if address.country}}
+                  <span class="js-data">C.P. {{address.postal_code}}</span>
+                {{/if}}
+              {{/if}}
             </div>
             <div class="col-m-12">
+              {{#if address.website}}
                 <p class="js-title-data">Dirección web</p>
-                <p class="js-data">
-                   </p>
+                <a href="//{{address.website}}" target="_blank"><p class="js-data js-data-link">{{address.website}}</p></a>
+              {{/if}}
             </div>
             <div class="col-m-12">
             </div>
             <div class="col-m-12">
+              {{#if address.phones}}
                 <p class="js-title-data">Teléfono</p>
-                <p class="js-data">
-                   </p>
+                <p class="js-data">{{address.phones}}</p>
+              {{/if}}
             </div>
         </div>  
       </div>
