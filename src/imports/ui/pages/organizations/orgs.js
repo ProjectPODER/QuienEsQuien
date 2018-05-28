@@ -128,3 +128,15 @@ Template.competitors.helpers({
     return simpleName(string);
   },
 });
+
+// Template.contract_amount.helpers({
+//   format_currency: function(value) {
+//     if (value == "MXN") {
+//       return "Pesos mexicanos"
+//     }
+//     else if (value == "USD") {
+//       return "Dólares estadounidense"
+//     }
+//     return value;
+//   }
+// })

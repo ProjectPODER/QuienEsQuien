@@ -46,7 +46,7 @@
         <div class="gd-col-left-wrapper col-m-12">
           {{#if title }}
             <div class="description-data-title">
-              <h3>{{title}}</h3>
+              <h3><img src="../images/icons/contrato-gray.svg" alt="contrato" class="icon-lf">{{title}}</h3>
               <div class="col-m-9">
                 <h4 class="contract-type">Contrato</h4>
               </div>
@@ -83,7 +83,7 @@
           </div>
           <div class="col-m-8">
               <p class="js-title-data">Unidad compradora</p>
-              <p class="js-data">3/5</p>
+              <p class="js-data">Unidad</p>
           </div>
           <div class="col-m-4">
               <p class="js-title-data">Clave de unidad compradora</p>
@@ -91,12 +91,16 @@
           </div>
           <div class="col-m-12">
               <p class="js-title-data">Responsable</p>
-              <p class="js-data">3/5</p>
+              <p class="js-data">Nombre</p>
           </div>
+          {{#if suppliers_org }}
           <div class="col-m-12">
               <p class="js-title-data">Proveedores</p>
-              <p class="js-data">3/5</p>
+            {{#each supplier in suppliers_org}}
+              <p class="js-data">{{supplier}}</p>
+            {{/each}}
           </div>
+          {{/if}}
           <hr>
         </div>
 

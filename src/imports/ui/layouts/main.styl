@@ -451,6 +451,11 @@ select
 img.icon
   width 12px
   margin-top -3px
+  
+img.icon-lf
+  width 20px
+  margin-top -0.3rem
+  margin-right 0.8rem
 
 .selected-block
   margin-bottom .8rem
@@ -505,6 +510,11 @@ input[type="submit"].search-submit
   margin-bottom 0.7rem
   font-size 1.5rem
   text-transform uppercase
+  
+.description-data-name h3
+.description-data-title h3
+  font-size 2rem
+  // display inline
 
 .search-result-emph
   color #2900f5
@@ -636,8 +646,12 @@ input[type="submit"].search-submit
   margin-bottom 0
   
 .js-data
+.js-data-lf
   color #4e4e4e
   font-weight bold
+  
+.js-data-lf
+  font-size 1.2rem
 
 .js-data-link
   color #2b00f7
@@ -663,6 +677,7 @@ input[type="submit"].search-submit
 .viewWrapper
   margin-top -5rem
   .js-data
+  .js-data-lf
     margin-bottom 2rem
     
 .org-type
@@ -670,12 +685,18 @@ input[type="submit"].search-submit
 .contract-type
   margin-bottom 3rem
   
+.contract-type
+  margin-top 3rem
+  
 .org-type
 .person-type
 .contract-type
 .description-data-subtitle
   color #2d1c9d
   font-weight bold
+
+.if-address-org
+  margin-bottom 2rem
   
 .flex
   overflow hidden
@@ -693,6 +714,7 @@ input[type="submit"].search-submit
   color #2900f5
   font-size 2.3rem
   font-weight bold
+  margin-top 2rem
   
 a
   &.see-contract
@@ -751,6 +773,9 @@ a
   
 .mb-10
   margin-bottom 10px
+  
+.mb-0
+  margin-bottom 0
 
 hr
   background-color #999
