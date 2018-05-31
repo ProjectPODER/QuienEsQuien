@@ -444,7 +444,9 @@ var scrollme = ( function( $ )
 	// ----------------------------------------------------------------------------------------------------
 	// Bind initialisation
 
-	$document.on( _this.init_events.join( ' ' ) , function(){ _this.init(); } );
+	// $document.on( _this.init_events.join( ' ' ) , function(){ _this.init(); } );
+
+	_this.init();
 
 	// ----------------------------------------------------------------------------------------------------
 

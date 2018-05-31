@@ -5,9 +5,13 @@ import { Feeds, FeedEntries } from '../../../api/feeds.js';
 
 Template.Home.onCreated(function() {
 
+$(document).ready(function () {
+  $('nav').removeClass("shrink");
+});
+
   import("./jquery.scrollme.js").then(() => {
     $(window).scroll(function() {
-      if ($(document).scrollTop() > 600) {
+      if ($(document).scrollTop() > 100) {
         $('nav').addClass('shrink');
       } else {
         $('nav').removeClass('shrink');
@@ -22,8 +26,7 @@ Template.Home.onCreated(function() {
       }
     });
   });
-})
-
+});
 
 Template.counters.onCreated(function() {
   var self = this;
@@ -69,7 +72,7 @@ Template.counters.helpers({
   counter: function() {
     return Template.instance().counter.get();
   }
-})
+});
 
 
 Template.investigaciones.helpers({

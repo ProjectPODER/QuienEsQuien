@@ -16,7 +16,7 @@ Template.searchForm.helpers({
   },
   inputAttributes() {
     return {
-      class: 'easy-search-input form-control',
+      class: 'easy-search-input landing-search-inputtext',
       placeholder: `${i18n.__('Search')} ...`
     };
   },

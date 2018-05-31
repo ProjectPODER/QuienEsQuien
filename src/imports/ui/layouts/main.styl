@@ -9,11 +9,13 @@
   transition all 0.3s ease
   transition-delay initial
   height 4rem
+  // opacity 0
 
 .shrink
   display block
   height 4rem !important
   background-color #110046
+  // opacity 1
   img
     &.logo-horizontal
       width 10rem
@@ -21,6 +23,8 @@
     &.nav-form
       width auto
       display inline-block
+  .navbar-right
+    display inline-block
 
 img
   &.logo-horizontal
@@ -39,11 +43,12 @@ img
     width 10rem
 
 .navbar-right
-    margin: -10px 0 0 0;
+    margin: -10px 0 0 0
     a,a:link
-        color: white;
+        color white
     a:visited
-        color: #ccd
+        color #ccd
+    display none
 
 .nav-form
     text-align right
@@ -203,7 +208,7 @@ div
     width 85%
 
 input[type=text].landing-search-inputtext
-  width 80%
+  width 100%
   padding 12px 20px
   box-sizing border-box
   display inline-block
@@ -694,7 +699,7 @@ input[type="submit"].search-submit
 .description-data-subtitle
   color #2d1c9d
   font-weight bold
-
+  
 .if-address-org
   margin-bottom 2rem
   
@@ -782,6 +787,17 @@ hr
   height 1px
   border 0
   margin-bottom 2rem
+  
+
+#nprogress .bar {
+  background: #000;
+  position: fixed;
+  z-index: 1031;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 1px;
+}
 
 .row
   &::after
