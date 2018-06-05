@@ -175,10 +175,11 @@
   </div>
 </template>
 <template name="entry_template">
-
   <div class="col-4 col-m-4 card-pad-ext">
     <div class="card explore-card investigaciones-card">
-      <img src="images/investigaciones-2.png" alt="Organizaciones" class="card-image">
+      <div class="card-image-container">
+        <img src="{{entry.image}}" alt="" class="card-image">
+      </div>
       <div class="card-pad">
         <p class="serif-gray">{{entry.title}}</p>
         <button class="button-link" type="button" name="leer" onClick="window.open('{{entry.link}}','Leer')">LEER</button>
