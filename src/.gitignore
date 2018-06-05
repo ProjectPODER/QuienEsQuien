@@ -1,3 +1,4 @@
 node_modules/
 bench_results.txt
 .electrify/
+.DS_Store
