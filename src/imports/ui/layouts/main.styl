@@ -9,20 +9,21 @@
   transition all 0.3s ease
   transition-delay initial
   height 4rem
-  // opacity 0
+    
+.none
+  display none
 
 .shrink
   display block
   height 4rem !important
   background-color #110046
-  // opacity 1
   img
     &.logo-horizontal
       width 10rem
   form
     &.nav-form
-      width auto
-      display inline-block
+      width 250px
+      // display inline-block
   .navbar-right
     display inline-block
 
@@ -52,8 +53,8 @@ img
 
 .nav-form
     text-align right
-    display none
-    margin 0
+    // display none
+    margin -9px 0 0 0
     float right
     width 0
 
@@ -193,7 +194,7 @@ div
     display flex
     align-items flex-end
     margin-bottom 1rem
-    margin-top 3rem
+    margin-top 6rem
     padding 0 2rem 0  2rem
 
   &.document-body
@@ -461,6 +462,12 @@ img.icon-lf
   width 20px
   margin-top -0.3rem
   margin-right 0.8rem
+  &.icon-lf-person
+    width 25px
+  &.icon-lf-organization
+    width 15px
+  &.icon-lf-contract
+    width 14px
 
 .selected-block
   margin-bottom .8rem
@@ -715,6 +722,26 @@ input[type="submit"].search-submit
   font-size 1.3rem
   margin-bottom 2rem
   
+.description-data-subname
+  font-size 1.1rem
+  color #5c5c5c
+  font-weight bold
+  
+.description-data-organization
+.description-data-rol
+.description-data-amount
+.description-data-contract
+.description-data-date
+  font-size 1.1rem
+  color #9b9b9b
+  
+.description-data-subname
+.description-data-organization
+.description-data-contract
+  text-transform uppercase
+  
+
+  
 .amount-data
   color #2900f5
   font-size 2.3rem
@@ -766,6 +793,9 @@ a
   &:focus
     background-color #2d1c9d
     color #fff
+    
+.contract-button
+  margin-top 3rem
 
 .centered
   text-align center
@@ -782,11 +812,46 @@ a
 .mb-0
   margin-bottom 0
 
+.mb-3
+  margin-bottom 3rem
 hr
   background-color #999
   height 1px
   border 0
   margin-bottom 2rem
+  
+.right-menu-contracts
+  list-style-type none
+  
+.tooltip
+    font-size 12px
+    &.top
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.right
+        .tooltip-arrow
+            border-right-color #2d1c9d
+    &.bottom
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+    &.left
+        .tooltip-arrow
+            border-left-color #2d1c9d
+    &.top-left
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.top-right
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.bottom-left
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+    &.bottom-right
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+
+.tooltip-inner
+    background-color #2d1c9d
 
 .row
   &::after

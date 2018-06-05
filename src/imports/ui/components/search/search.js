@@ -16,6 +16,7 @@ Template.searchForm.helpers({
   },
   inputAttributes() {
     return {
+      // id: 'search-home',
       class: 'easy-search-input landing-search-inputtext',
       placeholder: `${i18n.__('Search')} ...`
     };
@@ -37,3 +38,6 @@ Template.searchForm.events({
     }
   },
 });
+
+
+

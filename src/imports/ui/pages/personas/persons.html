@@ -8,14 +8,16 @@
   {{#with person }}
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
-        <div class="gd-col-left-wrapper col-md-6">
+        <div class="gd-col-left-wrapper col-m-12">
           {{#if name }}
             <div class="description-data-name">
-              <h3>{{name}}</h3>
+              <h3><img src="../images/icons/persona-gray.svg" alt="Ícono persona" class="icon-lf icon-lf-person">{{ name }}</h3>
               <h4 class="person-type">Empresario(a)</h4>
             </div>
+            <hr>
           {{/if}}
-          <table class="table">
+
+          <!-- <table class="table">
             <tbody>
 
               {{#if prefix }}
@@ -55,10 +57,102 @@
                 </tr>
               {{/if}}
             </tbody>
+          </table> -->
+        </div>
+
+        <div class="col-m-12">
+          <h4 class="description-data-subtitle">EMPRESAS</h4>
+        </div>
+        <!-- <div class="col-m-6">
+          <h5 class="description-data-subname">NOMBRE</h5>
+          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">BBVA BANCOMER</div>
+          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">GRUPO NACIONAL PROVINCIAL</div>
+          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">DINE SAV DE CV</div>
+        </div>
+        <div class="col-m-6">
+          <h5 class="description-data-subname">ROL</h5>
+          <div class="description-data-rol">Director</div>
+          <div class="description-data-rol">Chairman, Chairman of Finance & Planning Committee</div>
+          <div class="description-data-rol">Director Independiente</div>
+        </div> -->
+        <div class="col-m-12 mb-3">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th class="description-data-subname">Nombre</th>
+                <th class="description-data-subname">Rol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">BBVA BANCOMER</td>
+                <td class="description-data-rol">Director</td>
+              </tr>
+              <tr>
+                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">GRUPO NACIONAL PROVINCIAL</td>
+                <td class="description-data-rol">Chairman, Chairman of Finance & Planning Committee</td>
+              </tr>
+              <tr>
+                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">DINE SAV DE CV</td>
+                <td class="description-data-rol">Director Independiente</td>
+              </tr>
+            </tbody>
           </table>
         </div>
-        <div class="document-icon col-md-6 pull-right">
-          {{> ProfileImage docId=_id imageUrl=imageUrl}}
+        <div class="col-m-12">
+          <h4 class="description-data-subtitle">CONTRATOS</h4>
+        </div>
+        <div class="col-m-12 mb-3">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th class="description-data-subname">Nombre</th>
+                <th class="description-data-subname">Importe</th>
+                <th class="description-data-subname">Periodo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
+                <td class="description-data-amount">5,793,345,245 MXN</td>
+                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+              </tr>
+              <tr>
+                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">SUMINISTRO DE VALES DE DESPENSA PARA EL AÑO 2015</td>
+                <td class="description-data-amount">17,660,625,810 MXN</td>
+                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+              </tr>
+              <tr>
+                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
+                <td class="description-data-amount">5,793,345,245 MXN</td>
+                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-m-9 mb-3">
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th class="description-data-subname">Cantidad</th>
+                <th class="description-data-subname">Importes</th>
+                <th class="description-data-subname">Periodo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="description-data-contract">900</td>
+                <td class="description-data-amount">5,793,345,245 MXN</td>
+                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-m-3 centered contract-button">
+          <a href="" class="button-link">Ver todos los contratos</a>
+        </div>
+        <div class="col-m-12">
+          <h4 class="description-data-subtitle">GRÁFICO DE RELACIONES</h4>
         </div>
       </div>
 

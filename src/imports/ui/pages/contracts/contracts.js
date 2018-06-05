@@ -8,6 +8,7 @@ import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
 
+
 const LIMIT = 1000;
 
 contractSub = new SubsManager({
@@ -109,3 +110,9 @@ Template.contractProfileImage.helpers({
     return Thumbnails.findOne({originalId: this._id});
   }
 });
+
+Template.contractView.onRendered(function() {
+  this.$('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+});
+
+
