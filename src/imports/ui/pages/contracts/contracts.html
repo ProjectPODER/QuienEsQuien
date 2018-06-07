@@ -77,9 +77,9 @@
               <p class="js-title-data">Fecha de fin</p>
               <p class="js-data">{{moment_ll end_date}}</p>
           </div>
-          <div class="col-m-12 col-12">
+          <div class="col-m-12 col-12 link-lf-contracts">
               <p class="js-title-data">Dependencia <a href="#" data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
-              <p class="js-data">{{dependency}}</p>
+              <a href=""><p class="js-data">{{dependency}}</p></a>
           </div>
           <div class="col-m-8 col-8">
               <p class="js-title-data">Unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="El área  de  las dependencias o entidades que ha sido  registrada y autorizada para realizar operaciones y llevar a cabo procedimientos de contratación en CompraNet."><i class="fa fa-question"></i></a></p>
@@ -89,15 +89,15 @@
               <p class="js-title-data">Clave de unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="Clave de identificación de la Unidad Compradora en Compranet 3.0."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{clave_uc}}</p>
           </div>
-          <div class="col-m-12 col-12">
+          <div class="col-m-12 col-12 link-lf-contracts">
               <p class="js-title-data">Responsable <a href="#" data-toggle="tooltip" data-placement="right" title="Titular del área contratante o del área responsable de la contratación a nivel central o del servidor público que éste designe."><i class="fa fa-question"></i></a></p>
-              <p class="js-data">Nombre</p>
+              <a href=""><p class="js-data">Nombre</p></a>
           </div>
           {{#if suppliers_org }}
-          <div class="col-m-12 col-12">
+          <div class="col-m-12 col-12 link-lf-contracts">
               <p class="js-title-data">Proveedores</p>
             {{#each supplier in suppliers_org}}
-              <p class="js-data">{{supplier}}</p>
+              <a href=""><p class="js-data">{{supplier}}</p></a>
             {{/each}}
           </div>
           {{/if}}

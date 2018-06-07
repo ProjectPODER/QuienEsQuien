@@ -855,6 +855,8 @@ hr
         background-position center center
         vertical-align middle
       &:hover:before
+      // &:active:before
+      // &:focus:before
         background-image url('../images/icons/hexagono-blue.png')
       
 .rubro-list
@@ -912,7 +914,20 @@ hr
     background-color #2d1c9d
     white-space: pre-wrap
     text-align left
-
+    
+.link-lf-contracts
+  & a 
+    text-decoration none
+    p
+      color #2b00f7 !important
+      font-size 1.2rem
+      -webkit-transition all .35s
+      -moz-transition all .35s
+      transition all .35s
+      &:hover
+        color #2d1c9d !important
+      
+  
 .row
   &::after
     content ""
