@@ -1,5 +1,5 @@
 <template name="showContractWrapper">
-  {{#dynamicTabs name="sim" tabs=tabs activeTab=activeTab}}
+  <!-- {{#dynamicTabs name="sim" tabs=tabs activeTab=activeTab}} -->
 
     {{#if ready}}
 
@@ -13,7 +13,7 @@
 
     {{/if}}
 
-  {{/dynamicTabs}}
+  <!-- {{/dynamicTabs}} -->
 </template>
 
 <template name="contractProfileImage">
@@ -41,60 +41,60 @@
 
 <template name="contractView">
   {{#with contract }}
+  <div class="container-fluid mt-60">
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
         <div class="gd-col-left-wrapper col-m-12">
           {{#if title }}
             <div class="description-data-title">
               <h3><img src="../images/icons/contrato-gray.svg" alt="contrato" class="icon-lf">{{title}}</h3>
-              <div class="col-m-9">
+              <div class="col-m-9 col-9">
                 <h4 class="contract-type">Contrato</h4>
               </div>
-              <div class="col-m-3 right-align">
+              <div class="col-m-3 col-3 right-align">
                 <p class="amount-data">${{amount}}{{currency}}</p>
               </div>
             </div>
           {{/if}}
         </div>
-        <!-- <div class="document-icon col-md-6 pull-right">
-          {{> contractProfileImage orgId=_id}}
-        </div> -->
       </div>
       <hr>
       <div class="contract_detail clearfix">
 
-        <div class="col-m-9 flex">
-          <h4 class="description-data-subtitle">DATOS GENERALES</h4>
+        <div class="col-m-9  col-9flex mt-2" id="datosgenerales">
           <div class="col-m-12">
+            <h4 class="description-data-subtitle">DATOS GENERALES</h4>
+          </div>
+          <div class="col-m-12 col-12">
               <p class="js-title-data">Calidad de los datos</p>
               <p class="js-data">3/5</p>
           </div>
-          <div class="col-m-4">
+          <div class="col-m-4 col-4">
               <p class="js-title-data">Fecha de inicio</p>
               <p class="js-data">{{moment_ll start_date}}</p>
           </div>
-          <div class="col-m-8">
+          <div class="col-m-8 col-8">
               <p class="js-title-data">Fecha de fin</p>
               <p class="js-data">{{moment_ll end_date}}</p>
           </div>
-          <div class="col-m-12">
+          <div class="col-m-12 col-12">
               <p class="js-title-data">Dependencia <a href="#" data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{dependency}}</p>
           </div>
-          <div class="col-m-8">
+          <div class="col-m-8 col-8">
               <p class="js-title-data">Unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="El área  de  las dependencias o entidades que ha sido  registrada y autorizada para realizar operaciones y llevar a cabo procedimientos de contratación en CompraNet."><i class="fa fa-question"></i></a></p>
               <p class="js-data">Unidad</p>
           </div>
-          <div class="col-m-4">
-              <p class="js-title-data">Clave de unidad compradora</p>
+          <div class="col-m-4 col-4">
+              <p class="js-title-data">Clave de unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="Clave de identificación de la Unidad Compradora en Compranet 3.0."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{clave_uc}}</p>
           </div>
-          <div class="col-m-12">
-              <p class="js-title-data">Responsable</p>
+          <div class="col-m-12 col-12">
+              <p class="js-title-data">Responsable <a href="#" data-toggle="tooltip" data-placement="right" title="Titular del área contratante o del área responsable de la contratación a nivel central o del servidor público que éste designe."><i class="fa fa-question"></i></a></p>
               <p class="js-data">Nombre</p>
           </div>
           {{#if suppliers_org }}
-          <div class="col-m-12">
+          <div class="col-m-12 col-12">
               <p class="js-title-data">Proveedores</p>
             {{#each supplier in suppliers_org}}
               <p class="js-data">{{supplier}}</p>
@@ -103,41 +103,201 @@
           {{/if}}
           <hr>
         </div>
-        <div class="col-m-3">
-          <div class="">
-                <ul class="right-menu-contracts">
+        <div class="col-m-3 col-3">
+          <nav id="right-menu-contracts">
+                <ul class="right-menu-contracts nav-stacked">
                     <li>
-                        <a class="page-scroll" href="#sobremi">Datos generales</a>
+                        <a class="page-scroll" href="#datosgenerales">Datos generales</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#proyectos">Planeación</a>
+                        <a class="page-scroll" href="#planeacion">Planeación</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Licitación</a>
+                        <a class="page-scroll" href="#licitacion">Licitación</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Adjudicaciones</a>
+                        <a class="page-scroll" href="#adjudicaciones">Adjudicaciones</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Contratos</a>
+                        <a class="page-scroll" href="#contratos">Contratos</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Implementación</a>
+                        <a class="page-scroll" href="#implementacion">Implementación</a>
                     </li>
-                    <div class="">
+                    <div class="mt-2">
                       <a href="" class="button-link">VER EN COMPRANET</a>
                     </div>
                 </ul>
-            </div>
+            </nav>
+        </div>
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+        <div class="col-m-9 col-9 flex mt-2" id="planeacion">
+          <div class="col-m-12 col-12">
+            <h4 class="description-data-subtitle">PLANEACIÓN</h4>
+          </div>
+          <div class="col-m-12 col-12">
+              <span class="js-title-data">ARCHIVADO</span>
+              <span class="js-data">No</span>
+          </div>
+          <div class="col-m-12 col-12">
+              <p class="js-data mt-2">PRESUPUESTO</p>
+          </div>
+          <div class="col-m-12 col-9">
+            <table class="table table-responsive">
+              <tr>
+                <th class="js-data">Rubro</th>
+                <th class="js-data">Dato</th>
+              </tr>
+              <tr>
+                <td class="rubro-list">RAMO</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+              <tr>
+                <td class="rubro-list">CLAVE DE CARTERA</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+              <tr>
+                <td class="rubro-list">CLAVE DEL PROGRAMA</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+              <tr>
+                <td class="rubro-list">CRÉDITO EXTERNO</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+              <tr>
+                <td class="rubro-list">ORGANISMO INTERNACIONAL FINANCIERO</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+              <tr>
+                <td class="rubro-list">APORTACIÓN GENERAL</td>
+                <td class="rubro-list-data">Sin dato</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+        <div class="col-m-9 col-9 flex mt-2" id="licitacion">
+          <div class="col-m-12 col-12">
+            <h4 class="description-data-subtitle">LICITACIÓN</h4>
+          </div>
+          <div class="col-m-12 col-12">
+              <p class="js-title-data">Tipo de procedimiento <a href="#" data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
+
+l Licitación Pública.
+- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios. 
+l Invitación a cuando menos tres proveedores o contratistas. l Adjudicación Directa. 
+- La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
+              <p class="js-data">Administración Portuaria Integral de Guaymas,S.A. de C. V.</p>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Tipo de contratación <a href="#" data-toggle="tooltip" data-placement="right" title="Muestra el tipo de contratación:
+
+l Adquisiciones incluye: adquisiciones, arrendamientos y servicios.
+l Obra Pública incluye: obras públicas y los servicios relacionados con las mismas."><i class="fa fa-question"></i></a></p>
+              <p class="js-data">Adquisiciones</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Forma de procedimiento</p>
+              <p class="js-data">Mixta</p>
+          </div>
+          <div class="col-m-12 col-12">
+              <p class="js-title-data">Fecha de licitación</p>
+          </div>
+          <div class="col-m-6 col-4">
+              <span class="js-title-data">Inicio: </span>
+              <span class="js-data">24 de Febrero de 2018</span>
+          </div>
+          <div class="col-m-6 col-8">
+              <span class="js-title-data">Fin: </span>
+              <span class="js-data">24 de Febrero de 2018</span>
+          </div>
+          <div class="col-m-6 col-4 mt-2">
+              <p class="js-title-data">Estatus de la licitación</p>
+              <p class="js-data">Terminada</p>
+          </div>
+          <div class="col-m-6 col-8 mt-2">
+              <p class="js-title-data">Carácter <a href="#" data-toggle="tooltip" data-placement="right" title="Indica si el procedimiento es l) Nacional, II) Internacional o III) Internacional bajo TLC
+
+- Nacional: sólo pueden participar personas de nacionalidad mexicana y los bienes a adquirir sean productos del país y cuenten, por lo menos, con un 50% de contenido nacional.
+- Internacional abiertas: podrán participar licitantes mexicanos y extranjeros, cualquiera que sea el origen de los bienes a adquirir.
+- Internacional bajo cobertura de tratados (TLC): sólo podrán participar licitantes mexicanos y extranjeros de países con los que nuestro país tenga celebrado un tratado de libre comercio con capítulo de compras gubernamentales.
+Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público"><i class="fa fa-question"></i></a></p>
+              <p class="js-data">Internacional</p>
+          </div>
+        </div>
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+        <div class="col-m-9 col-9 flex mt-2" id="adjudicaciones">
+          <div class="col-m-12 col-12">
+            <h4 class="description-data-subtitle">ADJUDICACIONES</h4>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Estatus de la adjudicación</p>
+              <p class="js-data">completada</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Estatus de empresa en Compranet</p>
+              <p class="js-data">Habilitada</p>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Registro único de proveedores</p>
+              <p class="js-data">Sin datos</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Fecha de fallo <a href="#" data-toggle="tooltip" data-placement="right" title="Fecha del acto de fallo, en formato ISO 86019. La emisión del fallo es el acto concluyente de un proceso de contratación que determina a quien se adjudica el contrato."><i class="fa fa-question"></i></a></p>
+              <p class="js-data">Sin datos</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">País del proveedor</p>
+              <p class="js-data">México</p>
+          </div>
+        </div>
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+        <div class="col-m-9 col-9 flex mt-2"  id="contratos">
+          <div class="col-m-12 col-12">
+            <h4 class="description-data-subtitle">CONTRATOS</h4>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Estatus</p>
+              <p class="js-data">Activo</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Convenio modificatorio</p>
+              <p class="js-data">No</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Fecha de celebración</p>
+              <p class="js-data">Sin datos</p>
+          </div>
+          <div class="col-m-6 col-8">
+              <p class="js-title-data">Tipo de moneda</p>
+              <p class="js-data">MXN</p>
+          </div>
+        </div>
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+        <div class="col-m-9 col-9 flex mt-2" id="implementacion">
+          <div class="col-m-12 col-12">
+            <h4 class="description-data-subtitle">IMPLEMENTACIÓN</h4>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">No hay datos</p>
+          </div>
         </div>
 
-      
 
 
 
 
-
-        <table class="table">
+       <!--  <table class="table">
           <tbody>
             {{#if dependency }}
               <tr class="description-data-dependency">
@@ -301,9 +461,10 @@
               </tr>
             {{/if}}
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
+  </div>
   {{/with}}
 </template>
 

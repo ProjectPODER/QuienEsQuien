@@ -817,6 +817,14 @@ a
 
 .mb-3
   margin-bottom 3rem
+  
+.mt-60
+  margin-top 60px
+  
+.mt-2
+  margin-top 2rem
+  
+  
 hr
   background-color #999
   height 1px
@@ -825,9 +833,56 @@ hr
   
 .right-menu-contracts
   list-style-type none
+  text-transform uppercase
+  font-size 1.1rem
+  line-height 2.5rem
+  padding-left 0
+  & li
+    color #9b9b9b
+    text-decoration none
+    & a
+      color #9b9b9b
+      text-decoration none
+      &::before
+        content ''
+        display inline-block
+        height 30px
+        width 30px
+        background-size 20px
+        background-image url('../images/icons/hexagono-gray.png')
+        background-repeat no-repeat
+        margin-right 10px
+        background-position center center
+        vertical-align middle
+      &:hover:before
+        background-image url('../images/icons/hexagono-blue.png')
+      
+.rubro-list
+  &::before
+    content ''
+    display inline-block
+    height 30px
+    width 30px
+    background-size 10px
+    background-image url('../images/icons/hexagono-blue.png')
+    background-repeat no-repeat
+    margin-right 10px
+    background-position center center
+    vertical-align middle
+      
+.rubro-list-data
+.rubro-list
+  color #9b9b9b
+  font-size 1.1rem
+
+.affix
+  top 70px
+  // z-index 9999 !important
   
 .tooltip
     font-size 12px
+    font-family 'Montserrat', sans-serif
+    
     &.top
         .tooltip-arrow
             border-top-color #2d1c9d
@@ -855,6 +910,8 @@ hr
 
 .tooltip-inner
     background-color #2d1c9d
+    white-space: pre-wrap
+    text-align left
 
 .row
   &::after

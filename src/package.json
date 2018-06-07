@@ -33,6 +33,7 @@
     "faker": "^4.1.0",
     "fast-json-patch": "^1.2.2",
     "imagemagick-stream": "^3.0.0",
+    "jquery.easing": "^1.4.1",
     "jsonpatch-to-mongodb": "^0.3.0",
     "jsonpath-to-dot": "^0.2.0",
     "lodash": "^4.13.1",

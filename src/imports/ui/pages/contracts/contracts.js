@@ -44,7 +44,6 @@ Template.showContractWrapper.onCreated(function() {
       })
       self.ready.set(handle.ready());
   });
-
 })
 
 Template.showContractWrapper.helpers({
@@ -113,6 +112,16 @@ Template.contractProfileImage.helpers({
 
 Template.contractView.onRendered(function() {
   this.$('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+  $('.right-menu-contracts').affix({offset: {top: 280} }); 
+  import("../../../../node_modules/jquery.easing/jquery.easing.js").then(() => {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: ($($anchor.attr('href')).offset().top - 70)
+        }, 1250, 'easeInOutExpo');
+        event.preventDefault();
+    });
+  });
 });
 
 
