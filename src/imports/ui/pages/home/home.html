@@ -5,9 +5,10 @@
       <div class="landing-header-content">
         <img class="logo animateme" src="images/single.png" alt="Logo" data-when="span" data-from="0" data-to="1" data-scale="0.75" data-translatey="100" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
 
-        <p>Quién es Quién Wiki (QQW) es una plataforma sobre empresarios, políticos, empresas y organizaciones que explica las conexiones entre estos actores y las pone a disposición de investigadores, periodistas y la ciudadanía en general.</p>
+        <p>
+          Una herramienta para explorar las <strong>conexiones entre empresarios y políticos</strong>, sus empresas y organizaciones. Facilita el acceso de investigadores, periodistas y cuidadanos a varias <a href="#fuentes">fuentes de datos abiertos</a>.</p>
         <div class="landing-search">
-          <p>Busca nombres de empresarios y organizaciones para conocer sus relaciones en estados de México.</p>
+          <p>Puedes buscar nombres de empresarios y organizaciones.</p>
           <form class="landing-search-form" action="subpage.html" method="get">
             {{> searchForm }}
             <input type="submit" value="Buscar" class="landing-search-inputtext">
@@ -24,7 +25,7 @@
     {{>counters}}
   </section>
 
-  <section class="data-sources">
+  <section class="data-sources" id="fuentes">
     <div class="row content">
       <h2 class="investigaciones">¿Cuáles son nuestras fuentes de datos?</h2>
       <div class="col-4 col-m-4 centered triplet-wrapper">
@@ -36,9 +37,9 @@
       </div>
       <div class="col-4 col-m-4 centered triplet-wrapper">
         <img src="images/compranet.svg" alt="Compranet" class="sources-icons">
-        <h3 class="triplet">Compranet 3.0 plus</h3>
+        <h3 class="triplet">Compras públicas de CompraNET</h3>
         <p class="triplet-text">Todos los contratos publicados por el Gobierno Federal Méxicano entre
-      2002 y 2018, agrupados por organismos compradores y empresas ganadoras.</p>
+      2002 y 2018, incluyendo CompraNET 2 y 3 plus.</p>
         <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p>
       </div>
       <div class="col-4 col-m-4 centered triplet-wrapper">
@@ -48,6 +49,10 @@
       partir de 2014.</p>
             <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p>
       </div>
+      <div style="margin: 2em;float: left;">
+
+        <p>Toda la información disponible en este sitio y en <a href="https://api.quienesquien.wiki/v1/docs/">nuestra API</a>.</p>
+      </div>
     </div>
   </section>
 
@@ -55,33 +60,34 @@
     <div class="row">
       <div class="content">
         <h2>Proyectos</h2>
-        <div class="proyecto row">
+        <!-- <div class="proyecto row">
           <div class="col-4 col-m-5 proyecto-info-img">
-            <a href="proyectos/subpage.html"><img src="images/proyecto-1.png" alt="Proyecto Cargografías"></a>
+            <a href="proyectos/subpage.html"><img src="images/proyecto-1.png" alt="Proyecto Datos contratistas"></a>
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
-              <button class="button-link proyecto-info" type="button" name="cargografías" onClick="window.open('proyectos/cargografias.html','Ver Cargografías')">VER PROYECTO</button>
+              <a class="button-link proyecto-info" type="button" href="www.datoscontratistas.org">VER DATOS CONTRATISTAS</a>
+
           </div>
-        </div>
+        </div> -->
         <div class="proyecto row">
           <div class="col-4 col-m-5 proyecto-info-img">
-            <a href="proyectos/subpage.html"><img src="images/proyecto-2.png" alt="Proyecto Cargografías"></a>
+            <a href="proyectos/subpage.html"><img src="images/proyecto-2.png" alt="Proyecto Torre de Control"></a>
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
-              <button class="button-link proyecto-info" type="button" name="Torre de control" onClick="window.open('proyectos/torre-de-control.html','Ver Torre de Control')">VER PROYECTO</button>
+              <a class="button-link proyecto-info" type="button" href="www.torredecontrol.org">VER TORRE DE CONTROL</a>
           </div>
         </div>
-        <div class="proyecto row">
+        <!-- <div class="proyecto row">
           <div class="col-4 col-m-5 proyecto-info-img">
             <a href="proyectos/subpage.html"><img src="images/proyecto-3.png" alt="Proyecto Cargografías"></a>
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">La Administración Pública Federal ha favorecido a emporios y grupos empresariales internacionales a la hora de salir a comprar. Y varios han sido por adjudicación directa.</p>
-              <button class="button-link proyecto-info" type="button" name="Datos contratistas" onClick="window.open('proyectos/datos-contratistas.html','Ver Datos Contratistas')">VER PROYECTO</button>
+              <a class="button-link proyecto-info" type="button" href="www.cargografias.org">VER CARGOGRAFÍAS</a>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
