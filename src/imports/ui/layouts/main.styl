@@ -1,4 +1,4 @@
-.bar
+nav.bar
   position fixed
   z-index 1999
   top 0
@@ -108,7 +108,7 @@ div
     z-index 50
     height 120vh
   &.landing-jumbotron
-    background url(../images/fondo-home.png) no-repeat center center #def
+    background url(../images/fondo-home.png) no-repeat top left #def
     height auto
     width 100%
     -webkit-background-size cover
@@ -216,9 +216,10 @@ input[type=text].landing-search-inputtext
 
 input[type=submit].landing-search-inputtext
   width 15%
+  float right
+  margin-right 2em
   padding 14px 20px
   box-sizing border-box
-  display inline-block
   background-color #2b00f7
   border none
   font-weight bold
