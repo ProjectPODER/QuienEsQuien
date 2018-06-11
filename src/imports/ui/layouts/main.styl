@@ -9,20 +9,21 @@ nav.bar
   transition all 0.3s ease
   transition-delay initial
   height 4rem
-  // opacity 0
+    
+.none
+  display none
 
 .shrink
   display block
   height 4rem !important
   background-color #110046
-  // opacity 1
   img
     &.logo-horizontal
       width 10rem
   form
     &.nav-form
-      width auto
-      display inline-block
+      width 250px
+      // display inline-block
   .navbar-right
     display inline-block
 
@@ -52,8 +53,8 @@ img
 
 .nav-form
     text-align right
-    display none
-    margin 0
+    // display none
+    margin -9px 0 0 0
     float right
     width 0
 
@@ -193,7 +194,7 @@ div
     display flex
     align-items flex-end
     margin-bottom 1rem
-    margin-top 3rem
+    margin-top 6rem
     padding 0 2rem 0  2rem
 
   &.document-body
@@ -322,17 +323,29 @@ section
 footer
   background-color #21018b
   padding 3rem 0 3rem 5rem
+  clear both
   p
     color #fff
     line-height 1.5rem
     &:first-child
       margin-top 2rem
   a
-    text-decoration none
     color #fff
+    &:hover
+    &:focus
+      color #fff
+      text-decoration underline
+      
   img
     margin-top 1rem
     margin-right 1rem
+    
+  .logofooter-cargo
+    width 124px
+  .logofooter-ml
+    width 140px
+  .logofooter-pl
+    width 60px
 
 .card
   border-width 2px
@@ -466,6 +479,12 @@ img.icon-lf
   width 20px
   margin-top -0.3rem
   margin-right 0.8rem
+  &.icon-lf-person
+    width 25px
+  &.icon-lf-organization
+    width 15px
+  &.icon-lf-contract
+    width 14px
 
 .selected-block
   margin-bottom .8rem
@@ -719,6 +738,25 @@ input[type="submit"].search-submit
 .description-data-subtitle
   font-size 1.3rem
   margin-bottom 2rem
+<<<<<<< HEAD
+  
+.description-data-subname
+  font-size 1.1rem
+  color #5c5c5c
+  font-weight bold
+  
+.description-data-organization
+.description-data-rol
+.description-data-amount
+.description-data-contract
+.description-data-date
+  font-size 1.1rem
+  color #9b9b9b
+  
+.description-data-subname
+.description-data-organization
+.description-data-contract
+  text-transform uppercase
 
 .amount-data
   color #2900f5
@@ -771,6 +809,9 @@ a
   &:focus
     background-color #2d1c9d
     color #fff
+    
+.contract-button
+  margin-top 3rem
 
 .centered
   text-align center
@@ -787,12 +828,131 @@ a
 .mb-0
   margin-bottom 0
 
+.mb-3
+  margin-bottom 3rem
+  
+.mt-60
+  margin-top 60px
+  
+.mt-2
+  margin-top 2rem
+  
+  
 hr
   background-color #999
   height 1px
   border 0
   margin-bottom 2rem
+  
+.right-menu-contracts
+  list-style-type none
+  text-transform uppercase
+  font-size 1.1rem
+  line-height 2.5rem
+  padding-left 0
+  & li
+    color #9b9b9b
+    text-decoration none
+    & a
+      color #9b9b9b
+      text-decoration none
+      &::before
+        content ''
+        display inline-block
+        height 30px
+        width 30px
+        background-size 20px
+        background-image url('../images/icons/hexagono-gray.png')
+        background-repeat no-repeat
+        margin-right 10px
+        background-position center center
+        vertical-align middle
+      &:hover:before
+      // &:active:before
+      // &:focus:before
+        background-image url('../images/icons/hexagono-blue.png')
+      
+.rubro-list
+  &::before
+    content ''
+    display inline-block
+    height 30px
+    width 30px
+    background-size 10px
+    background-image url('../images/icons/hexagono-blue.png')
+    background-repeat no-repeat
+    margin-right 10px
+    background-position center center
+    vertical-align middle
+      
+.rubro-list-data
+.rubro-list
+  color #9b9b9b
+  font-size 1.1rem
 
+.affix
+  top 70px
+  // z-index 9999 !important
+  
+.tooltip
+    font-size 12px
+    font-family 'Montserrat', sans-serif
+    
+    &.top
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.right
+        .tooltip-arrow
+            border-right-color #2d1c9d
+    &.bottom
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+    &.left
+        .tooltip-arrow
+            border-left-color #2d1c9d
+    &.top-left
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.top-right
+        .tooltip-arrow
+            border-top-color #2d1c9d
+    &.bottom-left
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+    &.bottom-right
+        .tooltip-arrow
+            border-bottom-color #2d1c9d
+
+.tooltip-inner
+    background-color #2d1c9d
+    white-space: pre-wrap
+    text-align left
+    
+.link-lf-contracts
+  & a 
+    text-decoration none
+    p
+      color #2b00f7 !important
+      font-size 1.2rem
+      -webkit-transition all .35s
+      -moz-transition all .35s
+      transition all .35s
+      &:hover
+        color #2d1c9d !important
+        
+.other-dependency
+.principal-suppliers 
+  & a
+    color #2b00f7
+    font-size 1.1rem
+    text-decoration none
+    -webkit-transition all .35s
+    -moz-transition all .35s
+    transition all .35s
+    &:hover
+      color #2d1c9d
+    
+  
 .row
   &::after
     content ""

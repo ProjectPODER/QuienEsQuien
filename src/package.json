@@ -20,6 +20,7 @@
   "dependencies": {
     "babel-runtime": "^6.18.0",
     "bcrypt": "^1.0.3",
+    "bootstrap-tooltip-popover": "^1.0.1",
     "cheerio": "^1.0.0-rc.2",
     "clj-fuzzy": "^0.4.1",
     "core-js": "^2.5.1",
@@ -32,7 +33,7 @@
     "faker": "^4.1.0",
     "fast-json-patch": "^1.2.2",
     "imagemagick-stream": "^3.0.0",
-    "jquery": "^3.2.1",
+    "jquery.easing": "^1.4.1",
     "jsonpatch-to-mongodb": "^0.3.0",
     "jsonpath-to-dot": "^0.2.0",
     "lodash": "^4.13.1",

@@ -8,6 +8,7 @@ import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
 
+
 const LIMIT = 1000;
 
 contractSub = new SubsManager({
@@ -43,7 +44,6 @@ Template.showContractWrapper.onCreated(function() {
       })
       self.ready.set(handle.ready());
   });
-
 })
 
 Template.showContractWrapper.helpers({
@@ -109,3 +109,19 @@ Template.contractProfileImage.helpers({
     return Thumbnails.findOne({originalId: this._id});
   }
 });
+
+Template.contractView.onRendered(function() {
+  this.$('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+  $('.right-menu-contracts').affix({offset: {top: 280} }); 
+  import("../../../../node_modules/jquery.easing/jquery.easing.js").then(() => {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: ($($anchor.attr('href')).offset().top - 70)
+        }, 1250, 'easeInOutExpo');
+        event.preventDefault();
+    });
+  });
+});
+
+

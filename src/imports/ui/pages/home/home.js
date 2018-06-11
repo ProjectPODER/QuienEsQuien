@@ -6,8 +6,21 @@ import { Feeds, FeedEntries } from '../../../api/feeds.js';
 Template.Home.onCreated(function() {
 
 $(document).ready(function () {
-  $('nav').removeClass("shrink");
+  if (Template.Home){
+    $('#search-header').addClass("none");
+  } else {
+    $('#search-header').removeClass('none');
+  }
 });
+
+$(document).ready(function () {
+  if (Template.Home){
+    $('nav').removeClass("shrink");
+  } else {
+    $('nav').addClass("shrink");
+  }
+});
+
 
   import("./jquery.scrollme.js").then(() => {
     $(window).scroll(function() {
