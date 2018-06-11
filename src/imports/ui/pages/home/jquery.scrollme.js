@@ -120,7 +120,9 @@ var scrollme = ( function( $ )
 
 		// Recalculate heights & positions when page is fully loaded + a bit just in case
 
-		$window.load( function(){ setTimeout( function(){ _this.on_resize(); } , 100 ) });
+		// $window.load( function(){ setTimeout( function(){ _this.on_resize(); } , 100 ) });
+
+		$(window).on("load", function () { setTimeout( function(){ _this.on_resize(); } , 100 ) })
 
 		// Start animating
 
@@ -445,6 +447,8 @@ var scrollme = ( function( $ )
 	// Bind initialisation
 
 	// $document.on( _this.init_events.join( ' ' ) , function(){ _this.init(); } );
+
+	// $('document').ready(function(){ _this.init(); });
 
 	_this.init();
 

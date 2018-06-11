@@ -44,7 +44,7 @@ Template.showContractWrapper.onCreated(function() {
       })
       self.ready.set(handle.ready());
   });
-  $(document).ready(function () {    
+  $(document).ready(function () {   
     $('nav').addClass("fixed-nav");
   });
 });
