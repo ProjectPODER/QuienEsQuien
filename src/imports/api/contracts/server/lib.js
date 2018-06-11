@@ -19,7 +19,7 @@ export function statAmountsByCurrency(query) {
 }
 
 export function statMinMax(query) {
-  return rawContracts.aggregateSync([
+  var filters = [
     {
       $match: query,
     },
@@ -31,7 +31,9 @@ export function statMinMax(query) {
       amount_max: { $max: '$amount' },
     },
     },
-  ]);
+  ]
+  console.log("statMinMax",filters,filters[0]["$group"].date_min,filters[0]["$group"].date_max);
+  return rawContracts.aggregateSync(filters,{cursor: {}});
 }
 
 export function statAmountByYear(query) {
