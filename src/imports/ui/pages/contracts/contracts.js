@@ -44,7 +44,10 @@ Template.showContractWrapper.onCreated(function() {
       })
       self.ready.set(handle.ready());
   });
-})
+  $(document).ready(function () {    
+    $('nav').addClass("fixed-nav");
+  });
+});
 
 Template.showContractWrapper.helpers({
   ready: function() {
@@ -76,7 +79,7 @@ Template.showContractWrapper.helpers({
   activeTab: function() {
     return Session.get('activeTab');
   }
-})
+});
 
 
 Template.contractProfileImage.onCreated(function() {

@@ -4,7 +4,7 @@ nav.bar
   top 0
   height 5rem
   width 100%
-  background-color transparent
+  // background-color transparent
   padding 1rem
   transition all 0.3s ease
   transition-delay initial
@@ -14,6 +14,7 @@ nav.bar
   display none
 
 .shrink
+.fixed-nav
   display block
   height 4rem !important
   background-color #110046
@@ -45,11 +46,45 @@ img
 
 .navbar-right
     margin: -10px 0 0 0
-    a,a:link
-        color white
-    a:visited
-        color #ccd
     display none
+    & a
+      color white
+      -webkit-transition all .35s
+      -moz-transition all .35s
+      transition all .35s
+      &:hover
+      &:focus
+        color #ffffff
+        background-color transparent !important
+        
+.nav-link
+  display inline-block
+  vertical-align middle
+  -webkit-transform perspective(1px) translateZ(0)
+  transform perspective(1px) translateZ(0)
+  box-shadow 0 0 1px rgba(0, 0, 0, 0)
+  position relative
+  overflow hidden
+  &:before
+    content ""
+    position absolute
+    z-index -1
+    left 51%
+    right 51%
+    bottom 0
+    background #2b00f7
+    height 4px
+    -webkit-transition-property left, right
+    transition-property left, right
+    -webkit-transition-duration 0.3s
+    transition-duration 0.3s
+    -webkit-transition-timing-function ease-out
+    transition-timing-function ease-out
+
+.nav-link:hover:before, .nav-link:focus:before, .nav-link:active:before
+    left 0
+    right 0
+    
 
 .nav-form
     text-align right

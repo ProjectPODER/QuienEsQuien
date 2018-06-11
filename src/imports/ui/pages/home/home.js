@@ -16,11 +16,9 @@ $(document).ready(function () {
 $(document).ready(function () {
   if (Template.Home){
     $('nav').removeClass("shrink");
-  } else {
-    $('nav').addClass("shrink");
-  }
+    $('nav').removeClass("fixed-nav");
+  } 
 });
-
 
   import("./jquery.scrollme.js").then(() => {
     $(window).scroll(function() {

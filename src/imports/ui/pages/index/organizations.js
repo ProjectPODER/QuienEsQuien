@@ -40,3 +40,9 @@ Template.summary_data.helpers({
     }
   }
 });
+
+Template.Orgs.onCreated(function() {
+  $(document).ready(function () {    
+    $('nav').addClass("fixed-nav");
+  });
+});  

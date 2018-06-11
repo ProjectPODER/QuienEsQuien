@@ -59,6 +59,9 @@ Template.Contracts.onCreated(function() {
       self.ready.set(true);
     }
   });
+  $(document).ready(function () {    
+    $('nav').addClass("fixed-nav");
+  });
 });
 
 function catchEnter(event, template) {
