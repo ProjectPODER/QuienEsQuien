@@ -30,9 +30,3 @@ Template.person_type.helpers({
     }
   }
 });
-
-Template.Persons.onCreated(function() {
-  $(document).ready(function () {    
-    $('nav').addClass("fixed-nav");
-  });
-});  

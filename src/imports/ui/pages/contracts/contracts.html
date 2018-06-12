@@ -292,7 +292,9 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
               <p class="js-title-data">No hay datos</p>
           </div>
         </div>
-
+        <div class="col-m-12 col-12">
+          <hr>
+        </div>
 
 
 
@@ -466,15 +468,8 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
     </div>
   </div>
   {{/with}}
-</template>
-
-<template name="amount_column">
-  {{right_pad amount}}
-</template>
-
-<template name="agregar_datos">
   <div class="container-fluid">
-    <div class="col-m-12 col-12">
+    <div class="col-m-7 col-7">
       <h4 class="contract-type">¿Tienes más información? Puedes ayudarnos a completar este perfil.</h4>
       <p>SI TIENES INFORMACIÓN PARA APORTAR A ESTA PERSONA, AGRÉGALA AQUÍ.</p>
       <form action="">
@@ -487,5 +482,12 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
         </div>
       </form>
     </div>
+    <div class="col-m-5 col-5">
+      
+    </div>
   </div>
+</template>
+
+<template name="amount_column">
+  {{right_pad amount}}
 </template>

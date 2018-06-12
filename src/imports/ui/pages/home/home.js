@@ -5,24 +5,9 @@ import { Feeds, FeedEntries } from '../../../api/feeds.js';
 
 Template.Home.onCreated(function() {
 
-$(document).ready(function () {
-  if (Template.Home){
-    $('#search-header').addClass("none");
-  } else {
-    $('#search-header').removeClass('none');
-  }
-});
-
-$(document).ready(function () {
-  if (Template.Home){
-    $('nav').removeClass("shrink");
-    $('nav').removeClass("fixed-nav");
-  } 
-});
-
   import("./jquery.scrollme.js").then(() => {
     $(window).scroll(function() {
-      if ($(document).scrollTop() > 100) {
+      if ($(document).scrollTop() > 500) {
         $('nav').addClass('shrink');
       } else {
         $('nav').removeClass('shrink');
@@ -94,3 +79,18 @@ Template.investigaciones.helpers({
     return rc.fetch();
   }
 });
+
+Template.Home.onRendered(function() {
+  $(document).ready(function () {
+    if (Template.Home){
+      $('nav').removeClass("shrink");
+      $('nav').removeClass("fixed-nav");
+    } 
+  });
+  $(document).ready(function () {
+    if (Template.Home){
+      $('#search-header').addClass("none");
+    }
+  scrollme.init();
+  });
+}); 
