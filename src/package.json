@@ -1,6 +1,6 @@
 {
   "name": "quienesquien.wiki",
-  "version": "0.6.8",
+  "version": "0.7",
   "private": true,
   "scripts": {
     "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
@@ -10,10 +10,19 @@
     "lint": "eslint ."
   },
   "license": "GPL-3.0",
-  "author": {
+  "contributors": [{
     "name": "Kevin Brown",
     "email": "kevin@rindecuentas.org"
-  },
+  },{
+    "name": "Marisol Carrillo",
+    "email": "Marisol@rindecuentas.org"
+  },{
+    "name": "Martín Szyszlican",
+    "email": "martin@rindecuentas.org"
+  },{
+    "name": "Fernando Matzdorf",
+    "email": "fernando@rindecuentas.org"
+  }],
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
   },
