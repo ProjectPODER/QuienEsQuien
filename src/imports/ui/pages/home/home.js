@@ -17,7 +17,7 @@ $(document).ready(function () {
   if (Template.Home){
     $('nav').removeClass("shrink");
     $('nav').removeClass("fixed-nav");
-  } 
+  }
 });
 
   import("./jquery.scrollme.js").then(() => {
@@ -52,7 +52,7 @@ Template.counters.onCreated(function() {
       var counter = {
         orgs: result[0],
         persons: result[1],
-        ant: result[2]
+        contracts: result[2]
       };
       self.counter.set(counter);
     }
