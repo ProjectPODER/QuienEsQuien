@@ -461,6 +461,7 @@ h2card-image-container
     margin 0
 
 .filter-bar
+.addinfo-box
   background-color #F7F7F7
   border-color #9C9C9C
   border-width 1px
@@ -468,7 +469,7 @@ h2card-image-container
   margin 0 1rem 1rem 0
   font-size .8rem
   padding 1rem
-
+  
 
   img.form-control
       width: auto;
@@ -740,7 +741,7 @@ input[type="submit"].search-submit
   line-height 1.8rem
 
 .viewWrapper
-  margin-top -5rem
+  margin-top 4rem
   .js-data
   .js-data-lf
     margin-bottom 2rem
@@ -774,7 +775,6 @@ input[type="submit"].search-submit
 .description-data-subtitle
   font-size 1.3rem
   margin-bottom 2rem
-<<<<<<< HEAD
   
 .description-data-subname
   font-size 1.1rem
@@ -864,6 +864,9 @@ a
 .mb-0
   margin-bottom 0
 
+.mb-1
+  margin-bottom 1rem
+  
 .mb-3
   margin-bottom 3rem
   
@@ -927,7 +930,7 @@ hr
 
 .affix
   top 70px
-  // z-index 9999 !important
+  position fixed !important
   
 .tooltip
     font-size 12px
@@ -986,7 +989,45 @@ hr
     transition all .35s
     &:hover
       color #2d1c9d
+      
+.addinfo
+  margin-top 7rem
+  margin-bottom 4rem
+
+.addinfo-box
+  margin-left 3rem
+  margin-right 0
+  margin 0 0 3rem 3rem
+  text-align center
+  font-size 100%
+  h4
+    font-weight bold
+    color #4e4e4e
     
+        
+.addinfo-title  
+  color #2d1c9d
+  font-weight bold
+  font-size 1.5rem
+  margin-bottom 3rem
+      
+.addinfo-form
+    textarea
+      padding 10px 5px
+    input[type="text"]
+      padding 20px 5px
+      margin-right 5px
+      border-color #D3D3D3
+      border-style solid
+      border-width 1px
+    label
+      color #4e4e4e
+      font-weight bold
+      font-size 18px
+      
+.addinfo-box-logo
+  width 250px
+  padding 2rem 0
   
 .row
   &::after

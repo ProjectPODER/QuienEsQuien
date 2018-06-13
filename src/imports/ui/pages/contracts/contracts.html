@@ -3,9 +3,9 @@
 
     {{#if ready}}
 
-      {{#tabContent slug="read"}}
+      <!-- {{#tabContent slug="read"}} -->
         {{> contractView contract=selectedContractDoc }}
-      {{/tabContent}}
+      <!-- {{/tabContent}} -->
 
     {{else}}
 
@@ -41,7 +41,7 @@
 
 <template name="contractView">
   {{#with contract }}
-  <div class="container mt-60">
+  <div class="container">
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
         <div class="gd-col-left-wrapper col-m-12">
@@ -292,7 +292,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
               <p class="js-title-data">No hay datos</p>
           </div>
         </div>
-        <div class="col-m-12 col-12">
+        <div class="col-m-8 col-8">
           <hr>
         </div>
 
@@ -468,22 +468,34 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
     </div>
   </div>
   {{/with}}
-  <div class="container">
-    <div class="col-m-7 col-7">
-      <h4 class="contract-type">¿Tienes más información? Puedes ayudarnos a completar este perfil.</h4>
-      <p>SI TIENES INFORMACIÓN PARA APORTAR A ESTA PERSONA, AGRÉGALA AQUÍ.</p>
-      <form action="">
+  <div class="container addinfo">
+    <div class="col-m-12">
+      <h4 class="addinfo-title ">¿Conoces más información? Puedes ayudarnos a completar este perfil.</h4>
+    </div>
+    <div class="col-m-8 col-8">
+      <form action="" class="addinfo-form">
         <div class="form-group">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="ESCRIBE LOS DATOS QUE DESEAS APORTAR"></textarea>
+          <label>SI TIENES INFORMACIÓN PARA APORTAR A ESTA PERSONA, AGRÉGALA AQUÍ.</label>
+          <textarea class="form-control" rows="6" placeholder="ESCRIBE LOS DATOS QUE DESEAS APORTAR"></textarea>
         </div>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">FUENTE</label>
+          <label>FUENTE</label>
           <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
+        </div>
+        <div class="mt-2">
+          <a href="" class="button-link" target="_blank">ENVIAR</a>
         </div>
       </form>
     </div>
-    <div class="col-m-5 col-5">
-      
+    <div class="col-m-4 col-4">
+      <div class="addinfo-box">
+        <h4>SI DESESAS FILTRAR LOS DATOS ANÓNIMAMENTE, ACCEDE A</h4>
+        <img src="../images/mexicoleaks-negro.png" alt="Mexicoleaks Logo" class="addinfo-box-logo">
+        <p>Una plataforma de filtración de datos anónima y segura que verifica la información proporcionada.</p>
+        <div class="mt-2 mb-1">
+          <a href="https://mexicoleaks.mx/enviar-para.php?r=poder" class="button-link" target="_blank">ACCEDER</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
