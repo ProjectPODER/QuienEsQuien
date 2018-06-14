@@ -15,10 +15,10 @@ Meteor.startup(function(){
       // assign the template an onRendered callback
       template.onRendered(function(){
         $(document).ready(function () {    
-    		    $('nav').addClass("fixed-nav");
-    		    $('#search-header').removeClass('none');
-            $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
-    		});
+            // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+            $('nav').addClass("fixed-nav");
+            $('#search-header').removeClass('none');
+        });
       });
     } 
   }
