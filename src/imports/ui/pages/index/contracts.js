@@ -61,30 +61,56 @@ Template.Contracts.onCreated(function() {
   });
 });
 
-function catchEnter(event, template) {
+// function catchEnter(event, template) {
+//   const filters = template.filters.get();
+//   const code = event.keyCode || event.which;
+//   if (code === 13) {
+//     const filterName = template.$('#contract-multi-search button')
+//       .text()
+//       .trim()
+//       .toLowerCase();
+//
+//     if (filterName === 'filter') {
+//       return true;
+//     }
+//
+//     const filterString = event.target.value;
+//     filters.push({
+//       field: filterName.toLowerCase(),
+//       string: filterString,
+//     });
+//     template.filters.set(uniqBy(filters, 'string'));
+//     $(event.target).val('');
+//   }
+// }
+function filterSupplier(event, template) {
   const filters = template.filters.get();
-  const code = event.keyCode || event.which;
-  if (code === 13) {
-    const filterName = template.$('#contract-multi-search button')
-      .text()
-      .trim()
-      .toLowerCase();
-
-    if (filterName === 'filter') {
-      return true;
-    }
-
-    const filterString = event.target.value;
-    filters.push({
-      field: filterName.toLowerCase(),
-      string: filterString,
-    });
-    template.filters.set(uniqBy(filters, 'string'));
-    $(event.target).val('');
-  }
+  const filterString = event.target.value;
+  filters.push({
+    field: "supply",
+    string: filterString,
+  });
+  template.filters.set(uniqBy(filters, 'string'));
 }
 
+var filterElements = [
+  {selector: "input.supplier_name_filter", field: "supplier" }
+]
+
 Template.Contracts.events({
+  'click .search-submit': function(event,instance) {
+    console.log("Filter");
+    const filters = instance.filters.get();
+    for  (var filter in filterElements) {
+      filters.push({
+        field: filterElements[filter].field,
+        string: $(filterElements[filter].selector).val()
+      });
+    }
+    console.log("filters",filters);
+    instance.filters.set(uniqBy(filters, 'string'));
+  }
+  ,
   'click .dataTable div.js-title': function (event) {
    event.preventDefault();
    const dataTable = $(event.target).closest('.dataTable').DataTable();
@@ -95,6 +121,15 @@ Template.Contracts.events({
   'change select#select_type_contracts_index'(event, instance) {
     instance.search.set('type', event.target.value);
   },
+  // 'change input.supplier_name_filter'(event, template) {
+  //   console.log("change input.supplier_name_filter",event.target.value);
+  //   const filterString = event.target.value;
+  // },
+
+
+  // (event, instance) {
+  //   instance.search.set('supplier', instance.search.get('supplier').push(event.target.value));
+  // },
   'change input#from_date_contracts_index'(event, instance) {
     console.log("'change input#from_date_contracts_index'",event, instance);
     const dateMin = moment(event.target.value).add(18, 'hours').toDate();
@@ -112,22 +147,22 @@ Template.Contracts.events({
     const ceil = Math.ceil(parseFloat(event.target.value));
     instance.search.set('max_amount', ceil);
   },
-  'click tbody .js-ocid' (event, instance) {
-    event.preventDefault();
-    const ocid = $(event.currentTarget)
-      .text()
-      .trim();
-    FlowRouter.go(`/contracts/${ocid}#read`);
-  },
-  'click tbody .js-dependency' (event, instance) {
-    event.preventDefault();
-    const dependency = $(event.currentTarget)
-      .text()
-      .trim();
-    const simple = simpleName(dependency);
-    FlowRouter.go(`/orgs/${simple}#read`);
-  },
-  'keypress #contract-multi-search input, keydown #contract-multi-search input': debounce(catchEnter, 300),
+  // 'click tbody .js-ocid' (event, instance) {
+  //   event.preventDefault();
+  //   const ocid = $(event.currentTarget)
+  //     .text()
+  //     .trim();
+  //   FlowRouter.go(`/contracts/${ocid}#read`);
+  // },
+  // 'click tbody .js-dependency' (event, instance) {
+  //   event.preventDefault();
+  //   const dependency = $(event.currentTarget)
+  //     .text()
+  //     .trim();
+  //   const simple = simpleName(dependency);
+  //   FlowRouter.go(`/orgs/${simple}#read`);
+  // },
+  // 'keypress #contract-multi-search input, keydown #contract-multi-search input': debounce(catchEnter, 300),
 
   'click #contract-multi-search .dropdown-menu a': function(event, template) {
     event.preventDefault();
@@ -186,6 +221,7 @@ Template.Contracts.helpers({
   selector() {
     const instance = Template.instance();
     const filters = instance.filters.get();
+    console.log("Template.Contracts.helpers selector filters",filters);
     const ready = instance.ready.get();
     const search = instance.search;
 
