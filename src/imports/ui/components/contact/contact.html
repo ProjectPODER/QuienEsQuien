@@ -1,23 +1,31 @@
 <template name="contactForm">
-  {{#autoForm schema=contactFormSchema id="contactForm" type="method" meteormethod="sendEmail"}}
-  <fieldset>
-    <legend>Contact Us</legend>
-    {{> afQuickField name="name"}}
-    {{> afQuickField name="subject"}}
-    {{> afQuickField name="email"}}
-    {{> afQuickField name="message" rows=10}}
-    <div class="antispam">
-    {{> afQuickField name="antispam"}}
-  </div>
-    <div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-      <button type="reset" class="btn btn-default">Reset</button>
+    <div class="container about-template">
+        <div class="col-m-12 col-12 mb-1">
+            <h1>Contacto</h1>
+            {{#autoForm schema=contactFormSchema id="contactForm" type="method" meteormethod="sendEmail"}}
+                <fieldset class="">
+                    {{> afQuickField name="name"}}
+                    {{> afQuickField name="subject"}}
+                    {{> afQuickField name="email"}}
+                    {{> afQuickField name="message" rows=10}}
+                    <div class="antispam">
+                        {{> afQuickField name="antispam"}}
+                    </div>
+                    <div>
+                        <button type="submit" class="btn contact-submit">Submit</button>
+                        <button type="reset" class="btn btn-default">Reset</button>
+                    </div>
+                </fieldset>
+            {{/autoForm}}
+        </div>
     </div>
-  </fieldset>
-  {{/autoForm}}
 </template>
 
 <template name="contactSuccess">
-  <h1 class="page-title">{{__ 'Success'}}</h1>
-  <div class="message">{{__ 'Mail successfully sent'}}</div>
+    <div class="container">
+        <div class="col-m-12 col-12">
+            <h1 class="page-title">{{__ 'Success'}}</h1>
+            <div class="message">{{__ 'Mail successfully sent'}}</div>
+        </div>
+    </div>
 </template>
