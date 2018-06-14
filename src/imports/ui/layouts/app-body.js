@@ -4,6 +4,7 @@ import '../components/header.html';
 import '../components/footer.html';
 import '../components/spin/spinner.html';
 import './app-body.html';
+// import '../../../node_modules/bootstrap-tooltip-popover/src/tooltip.js';
 
 
 Meteor.startup(function(){
@@ -14,9 +15,10 @@ Meteor.startup(function(){
       // assign the template an onRendered callback
       template.onRendered(function(){
         $(document).ready(function () {    
-		    $('nav').addClass("fixed-nav");
-		    $('#search-header').removeClass('none');
-		});
+    		    $('nav').addClass("fixed-nav");
+    		    $('#search-header').removeClass('none');
+            $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+    		});
       });
     } 
   }
