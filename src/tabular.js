@@ -99,11 +99,11 @@ if (Meteor.isClient) {
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
-    dom: '<"top"i>rt<"bottom"flp><"clear">',
+    dom: '<<"col-m-6"i><"col-m-6"l><t><"col-m-12"ftp><"clear">>',
     // info: false,
     language: {
-      "info": "Mostrando _PAGE_ de _PAGES_ resultados",
-      "lengthMenu":     "Mostrar _MENU_ resultados",
+      "info": "Mostrando _END_ de _TOTAL_ resultados",
+      "lengthMenu": "Mostrar _MENU_ resultados",
       "paginate": {
       "previous": "Anterior",
       "next": "Siguiente"
@@ -212,7 +212,6 @@ TabularTables.Contracts = new Tabular.Table(extend({},
     order: [
       [5, 'desc'],
     ],
-    dom: '<\'row\'l>rt<\'bottom\'ip><\'clear\'>',
     columns: union(
       contractFields,
       [{
