@@ -560,7 +560,21 @@ input[type="submit"].search-submit, .contact-submit
   margin 4px 2px
   cursor pointer
   box-shadow 2px 2px 7px grey
-
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  &:hover
+  &:focus
+    color #ffffff
+    background-color #2b00f7
+    
+button[type="reset"]
+  padding 16px 32px
+  margin 4px 2px
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  
 .search-card
     overflow hidden
 
@@ -1015,6 +1029,7 @@ hr
   margin-bottom 3rem
       
 .addinfo-form
+.contact-template
     textarea
       padding 10px 5px
     input[type="text"]
@@ -1034,6 +1049,7 @@ hr
   
 .about-template
 .privacy-template
+.contact-template
   margin-top 5rem
   h1
     color: #150b58;
@@ -1058,7 +1074,7 @@ hr
   h3
     font-weight: bold;
     color: #4e4e4e;
-    text-transform: uppercase;
+    text-transform: uppercase;    
   
 .row
   &::after
