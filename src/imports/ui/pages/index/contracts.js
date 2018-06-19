@@ -44,8 +44,12 @@ Template.Contracts.onCreated(function() {
   self.search.set('max_amount', 600000000);
   self.search.set('dependency', []);
   self.search.set('supplier', []);
-  contractIndexMinMax.call((error, result) => {
+  self.ready.set(true);
+
+  //TODO: Este código parece que no se ejecutara
+  contractIndexMinMax.call({},(error, result) => {
     if (error) throw error;
+
 
     if (result) {
       self.defaults.set('min_amount', Math.floor(result.amount_min));
@@ -59,7 +63,7 @@ Template.Contracts.onCreated(function() {
       self.ready.set(true);
     }
   });
-  $(document).ready(function () {    
+  $(document).ready(function () {
     $('nav').addClass("fixed-nav");
   });
 });
@@ -102,28 +106,30 @@ var filterElements = [
 
 Template.Contracts.events({
   'click .search-submit': function(event,instance) {
-    console.log("Filter");
     const filters = instance.filters.get();
     for  (var filter in filterElements) {
-      filters.push({
-        field: filterElements[filter].field,
-        string: $(filterElements[filter].selector).val()
-      });
+      $(filterElements[filter].selector).each(function(index,filterElement) {
+        // console.log(filterElement,b);
+        filters.push({
+          field: filterElements[filter].field,
+          string: $(filterElement).val()
+        });
+      })
     }
     console.log("filters",filters);
     instance.filters.set(uniqBy(filters, 'string'));
   }
-  ,
-  'click .dataTable div.js-title': function (event) {
-   event.preventDefault();
-   const dataTable = $(event.target).closest('.dataTable').DataTable();
-   const rowData = dataTable.row(event.currentTarget).data();
-   FlowRouter.go('/contracts/'+rowData._id+"#read");
-  },
-  // Displaying Only Part of a Collection's Data Set
-  'change select#select_type_contracts_index'(event, instance) {
-    instance.search.set('type', event.target.value);
-  },
+  // ,
+  // 'click .dataTable div.js-title': function (event) {
+  //  event.preventDefault();
+  //  const dataTable = $(event.target).closest('.dataTable').DataTable();
+  //  const rowData = dataTable.row(event.currentTarget).data();
+  //  FlowRouter.go('/contracts/'+rowData._id+"#read");
+  // },
+  // // Displaying Only Part of a Collection's Data Set
+  // 'change select#select_type_contracts_index'(event, instance) {
+  //   instance.search.set('type', event.target.value);
+  // },
   // 'change input.supplier_name_filter'(event, template) {
   //   console.log("change input.supplier_name_filter",event.target.value);
   //   const filterString = event.target.value;
@@ -133,23 +139,23 @@ Template.Contracts.events({
   // (event, instance) {
   //   instance.search.set('supplier', instance.search.get('supplier').push(event.target.value));
   // },
-  'change input#from_date_contracts_index'(event, instance) {
-    console.log("'change input#from_date_contracts_index'",event, instance);
-    const dateMin = moment(event.target.value).add(18, 'hours').toDate();
-    instance.search.set('min_date', dateMin);
-  },
-  'change input#to_date_contracts_index'(event, instance) {
-    const dateMax = moment(event.target.value).add(18, 'hours').toDate();
-    instance.search.set('max_date', dateMax);
-  },
-  'change input#min_amount_contracts_index'(event, instance) {
-    const floor = Math.floor(parseFloat(event.target.value));
-    instance.search.set('min_amount', floor);
-  },
-  'change input#max_amount_contracts_index'(event, instance) {
-    const ceil = Math.ceil(parseFloat(event.target.value));
-    instance.search.set('max_amount', ceil);
-  },
+  // 'change input#from_date_contracts_index'(event, instance) {
+  //   console.log("'change input#from_date_contracts_index'",event, instance);
+  //   const dateMin = moment(event.target.value).add(18, 'hours').toDate();
+  //   instance.search.set('min_date', dateMin);
+  // },
+  // 'change input#to_date_contracts_index'(event, instance) {
+  //   const dateMax = moment(event.target.value).add(18, 'hours').toDate();
+  //   instance.search.set('max_date', dateMax);
+  // },
+  // 'change input#min_amount_contracts_index'(event, instance) {
+  //   const floor = Math.floor(parseFloat(event.target.value));
+  //   instance.search.set('min_amount', floor);
+  // },
+  // 'change input#max_amount_contracts_index'(event, instance) {
+  //   const ceil = Math.ceil(parseFloat(event.target.value));
+  //   instance.search.set('max_amount', ceil);
+  // },
   // 'click tbody .js-ocid' (event, instance) {
   //   event.preventDefault();
   //   const ocid = $(event.currentTarget)
@@ -167,19 +173,19 @@ Template.Contracts.events({
   // },
   // 'keypress #contract-multi-search input, keydown #contract-multi-search input': debounce(catchEnter, 300),
 
-  'click #contract-multi-search .dropdown-menu a': function(event, template) {
-    event.preventDefault();
-    const value = event.target.text;
-    template.$('#contract-multi-search button').text(value);
-    template.$('#contract-multi-search input').prop('disabled', false);
-  },
-  'click .js-remove-filter': function(event, template) {
-    event.preventDefault();
-    const value = template.$('.js-table-filter-controller select').val();
-    const filters = template.filters.get();
-    remove(filters, f => (f.string === value));
-    template.filters.set(filters);
-  },
+  // 'click #contract-multi-search .dropdown-menu a': function(event, template) {
+  //   event.preventDefault();
+  //   const value = event.target.text;
+  //   template.$('#contract-multi-search button').text(value);
+  //   template.$('#contract-multi-search input').prop('disabled', false);
+  // },
+  // 'click .js-remove-filter': function(event, template) {
+  //   event.preventDefault();
+  //   const value = template.$('.js-table-filter-controller select').val();
+  //   const filters = template.filters.get();
+  //   remove(filters, f => (f.string === value));
+  //   template.filters.set(filters);
+  // },
 });
 
 function contractSearchApplyFilters(op, filters) {
@@ -212,6 +218,7 @@ function contractSearchApplyFilters(op, filters) {
     }
     query.push(o);
   });
+  console.log("query",query);
   return { $and: query }
 
 }
@@ -231,7 +238,6 @@ Template.Contracts.helpers({
     if (ready && isEmpty(filters)) {
       return contractSearchOperator(null, search);
     }
-
     if (ready) {
       const op = contractSearchOperator(null, search);
       return contractSearchApplyFilters(op, filters);
@@ -276,22 +282,22 @@ Template.Contracts.onRendered(function () {
     }
 
     computation.stop();
-    const minDate = Template.instance().defaults.get('min_start_date');
-    const maxDate = Template.instance().defaults.get('max_start_date');
+    // const minDate = Template.instance().defaults.get('min_start_date');
+    // const maxDate = Template.instance().defaults.get('max_start_date');
 
-    const minPicker = new Pikaday({
-      field: $('#from_date_contracts_index')[0],
-      defaultDate: minDate,
-      setDefaultDate: true,
-    });
+    // const minPicker = new Pikaday({
+    //   field: $('#from_date_contracts_index')[0],
+    //   defaultDate: minDate,
+    //   setDefaultDate: true,
+    // });
+    //
+    // const maxPicker = new Pikaday({
+    //   field: $('#to_date_contracts_index')[0],
+    //   defaultDate: maxDate,
+    //   setDefaultDate: true,
+    // });
 
-    const maxPicker = new Pikaday({
-      field: $('#to_date_contracts_index')[0],
-      defaultDate: maxDate,
-      setDefaultDate: true,
-    });
-
-    $('input[type="range"]').rangeslider({ polyfill: false });
+    // $('input[type="range"]').rangeslider({ polyfill: false });
   });
 
   // return moment(d).format('ll');

@@ -130,7 +130,7 @@ export const contractIndexMinMax = new ValidatedMethod({
       import { statMinMax } from './server/lib';
 
       const values = statMinMax({});
-      return values[0];
+      return values;
     }
 
     return true;

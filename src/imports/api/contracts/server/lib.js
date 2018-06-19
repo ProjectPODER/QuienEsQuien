@@ -32,8 +32,8 @@ export function statMinMax(query) {
     },
     },
   ]
-  console.log("statMinMax",filters,filters[0]["$group"].date_min,filters[0]["$group"].date_max);
-  return rawContracts.aggregateSync(filters,{cursor: {}});
+  raw = rawContracts.aggregateSync(filters,{cursor: {}});
+  return raw;
 }
 
 export function statAmountByYear(query) {
