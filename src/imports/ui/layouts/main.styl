@@ -366,21 +366,22 @@ footer
       margin-top 2rem
   a
     color #fff
+    -webkit-transition all .35s
+    -moz-transition all .35s
+    transition all .35s
     &:hover
     &:focus
-      color #fff
-      text-decoration underline
-      
-  img
-    margin-top 1rem
-    margin-right 1rem
-    
-  .logofooter-cargo
-    width 124px
-  .logofooter-ml
-    width 140px
-  .logofooter-pl
-    width 60px
+      color #ccd
+      text-decoration none
+    img
+      margin-top 1rem
+      margin-right 1rem
+    .logofooter-cargo
+      width 124px
+    .logofooter-ml
+      width 140px
+    .logofooter-pl
+      width 60px
 
 .card
   border-width 2px
@@ -460,6 +461,7 @@ h2card-image-container
     margin 0
 
 .filter-bar
+.addinfo-box
   background-color #F7F7F7
   border-color #9C9C9C
   border-width 1px
@@ -467,7 +469,7 @@ h2card-image-container
   margin 0 1rem 1rem 0
   font-size .8rem
   padding 1rem
-
+  
 
   img.form-control
       width: auto;
@@ -549,7 +551,7 @@ img.icon-lf
 fieldset
   margin-bottom 1rem
 
-input[type="submit"].search-submit
+input[type="submit"].search-submit, .contact-submit
   background-color #21018b
   border none
   color white
@@ -558,7 +560,21 @@ input[type="submit"].search-submit
   margin 4px 2px
   cursor pointer
   box-shadow 2px 2px 7px grey
-
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  &:hover
+  &:focus
+    color #ffffff
+    background-color #2b00f7
+    
+button[type="reset"]
+  padding 16px 32px
+  margin 4px 2px
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  
 .search-card
     overflow hidden
 
@@ -733,13 +749,18 @@ input[type="submit"].search-submit
   line-height 0
 
 .dataTables_info
-  font-size .9rem
-  font-weight bold
+.dataTables_length label
+  padding-top 0 !important
+  font-size .9rem 
+  font-weight bold !important
   color #21018b
   line-height 1.8rem
+  
+.dataTables_length
+  text-align right
 
 .viewWrapper
-  margin-top -5rem
+  margin-top 4rem
   .js-data
   .js-data-lf
     margin-bottom 2rem
@@ -773,7 +794,6 @@ input[type="submit"].search-submit
 .description-data-subtitle
   font-size 1.3rem
   margin-bottom 2rem
-<<<<<<< HEAD
   
 .description-data-subname
   font-size 1.1rem
@@ -863,8 +883,14 @@ a
 .mb-0
   margin-bottom 0
 
+.mb-1
+  margin-bottom 1rem
+  
 .mb-3
   margin-bottom 3rem
+
+.mb-2
+  margin-bottom 2rem
   
 .mt-60
   margin-top 60px
@@ -884,7 +910,6 @@ hr
   text-transform uppercase
   font-size 1.1rem
   line-height 2.5rem
-  padding-left 0
   & li
     color #9b9b9b
     text-decoration none
@@ -927,7 +952,7 @@ hr
 
 .affix
   top 70px
-  // z-index 9999 !important
+  position fixed !important
   
 .tooltip
     font-size 12px
@@ -986,7 +1011,75 @@ hr
     transition all .35s
     &:hover
       color #2d1c9d
+      
+.addinfo
+  margin-top 7rem
+  margin-bottom 4rem
+
+.addinfo-box
+  margin-left 3rem
+  margin-right 0
+  margin 0 0 3rem 3rem
+  text-align center
+  font-size 100%
+  h4
+    font-weight bold
+    color #4e4e4e
     
+        
+.addinfo-title  
+  color #2d1c9d
+  font-weight bold
+  font-size 1.5rem
+  margin-bottom 3rem
+      
+.addinfo-form
+.contact-template
+    textarea
+      padding 10px 5px
+    input[type="text"]
+      padding 20px 5px
+      margin-right 5px
+      border-color #D3D3D3
+      border-style solid
+      border-width 1px
+    label
+      color #4e4e4e
+      font-weight bold
+      font-size 18px
+      
+.addinfo-box-logo
+  width 250px
+  padding 2rem 0
+  
+.about-template
+.privacy-template
+.contact-template
+  margin-top 5rem
+  h1
+    color: #150b58;
+    font-size 2.5rem
+    font-weight bold
+    margin-bottom 2rem
+  h2
+    color #2b00f7
+    font-family monospace
+    font-size 2rem
+  a 
+    color #21018b 
+    text-decoration none
+    -webkit-transition all .35s
+    -moz-transition all .35s
+    transition all .35s
+    font-weight bold
+    &:hover
+      color #2b00f7
+      
+.privacy-template
+  h3
+    font-weight: bold;
+    color: #4e4e4e;
+    text-transform: uppercase;    
   
 .row
   &::after

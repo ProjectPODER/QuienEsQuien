@@ -16,9 +16,3 @@ AutoForm.hooks({
     }
   }
 });
-
-Template.contactForm.onCreated(function() {
-  $(document).ready(function () {    
-    $('nav').addClass("fixed-nav");
-  });
-}); 

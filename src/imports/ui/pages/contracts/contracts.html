@@ -3,9 +3,9 @@
 
     {{#if ready}}
 
-      {{#tabContent slug="read"}}
+      <!-- {{#tabContent slug="read"}} -->
         {{> contractView contract=selectedContractDoc }}
-      {{/tabContent}}
+      <!-- {{/tabContent}} -->
 
     {{else}}
 
@@ -41,7 +41,7 @@
 
 <template name="contractView">
   {{#with contract }}
-  <div class="container-fluid mt-60">
+  <div class="container">
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
         <div class="gd-col-left-wrapper col-m-12">
@@ -81,11 +81,11 @@
               <p class="js-title-data">Dependencia <a href="#" data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
               <a href=""><p class="js-data">{{dependency}}</p></a>
           </div>
-          <div class="col-m-8 col-8">
+          <div class="col-m-7 col-7">
               <p class="js-title-data">Unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="El área  de  las dependencias o entidades que ha sido  registrada y autorizada para realizar operaciones y llevar a cabo procedimientos de contratación en CompraNet."><i class="fa fa-question"></i></a></p>
               <p class="js-data">Unidad</p>
           </div>
-          <div class="col-m-4 col-4">
+          <div class="col-m-5 col-5">
               <p class="js-title-data">Clave de unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="Clave de identificación de la Unidad Compradora en Compranet 3.0."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{clave_uc}}</p>
           </div>
@@ -296,7 +296,6 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
 
 
 
-
        <!--  <table class="table">
           <tbody>
             {{#if dependency }}
@@ -466,26 +465,41 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
     </div>
   </div>
   {{/with}}
+  <div class="container addinfo">
+    <div class="col-m-12 col-12">
+      <hr>
+    </div>
+    <div class="col-m-12">
+      <h4 class="addinfo-title ">¿Conoces más información? Puedes ayudarnos a completar este perfil.</h4>
+    </div>
+    <div class="col-m-8 col-8">
+      <form action="" class="addinfo-form">
+        <div class="form-group">
+          <label>SI TIENES INFORMACIÓN PARA APORTAR A ESTA PERSONA, AGRÉGALA AQUÍ.</label>
+          <textarea class="form-control" rows="6" placeholder="ESCRIBE LOS DATOS QUE DESEAS APORTAR"></textarea>
+        </div>
+        <div class="form-group">
+          <label>FUENTE</label>
+          <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
+        </div>
+        <div class="mt-2">
+          <a href="" class="button-link" target="_blank">ENVIAR</a>
+        </div>
+      </form>
+    </div>
+    <div class="col-m-4 col-4">
+      <div class="addinfo-box">
+        <h4>SI DESESAS FILTRAR LOS DATOS ANÓNIMAMENTE, ACCEDE A</h4>
+        <img src="../images/mexicoleaks-negro.png" alt="Mexicoleaks Logo" class="addinfo-box-logo">
+        <p>Una plataforma de filtración de datos anónima y segura que verifica la información proporcionada.</p>
+        <div class="mt-2 mb-1">
+          <a href="https://mexicoleaks.mx/enviar-para.php?r=poder" class="button-link" target="_blank">ACCEDER</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <template name="amount_column">
   {{right_pad amount}}
-</template>
-
-<template name="agregar_datos">
-  <div class="container-fluid">
-    <div class="col-m-12 col-12">
-      <h4 class="contract-type">¿Tienes más información? Puedes ayudarnos a completar este perfil.</h4>
-      <p>SI TIENES INFORMACIÓN PARA APORTAR A ESTA PERSONA, AGRÉGALA AQUÍ.</p>
-      <form action="">
-        <div class="form-group">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="ESCRIBE LOS DATOS QUE DESEAS APORTAR"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">FUENTE</label>
-          <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
-        </div>
-      </form>
-    </div>
-  </div>
 </template>

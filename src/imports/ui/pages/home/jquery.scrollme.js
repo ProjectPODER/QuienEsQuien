@@ -448,9 +448,9 @@ var scrollme = ( function( $ )
 
 	// $document.on( _this.init_events.join( ' ' ) , function(){ _this.init(); } );
 
-	// $('document').ready(function(){ _this.init(); });
+	$('document').ready(function(){ _this.init(); });
 
-	_this.init();
+	// _this.init();
 
 	// ----------------------------------------------------------------------------------------------------
 

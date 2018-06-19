@@ -166,7 +166,7 @@ FlowRouter.route('/contact/', {
 
 FlowRouter.route('/privacy/', {
   waitOn() {
-    return import('../../ui/pages/privacy.html');
+    return import('../../ui/pages/privacy/privacy.js');
   },
   action: function () {
     this.render('ApplicationLayout', 'aviso_de_privacidad');
