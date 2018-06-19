@@ -99,14 +99,14 @@ if (Meteor.isClient) {
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
-    dom: '<<"col-m-6"i><"col-m-6"l><t><"col-m-12"ftp><"clear">>',
+    dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"frtp><"clear">>',
     // info: false,
     language: {
       "info": "Mostrando _END_ de _TOTAL_ resultados",
       "lengthMenu": "Mostrar _MENU_ resultados",
       "paginate": {
       "previous": "Anterior",
-      "next": "Siguiente"
+      "next": "Siguiente",
     },
       processing: Blaze.toHTML(Template.loading),
     },
