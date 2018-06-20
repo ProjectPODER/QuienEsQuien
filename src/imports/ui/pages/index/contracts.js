@@ -40,8 +40,8 @@ Template.Contracts.onCreated(function() {
   self.defaults = new ReactiveDict();
 
   self.search.set('type', 'all');
-  self.search.set('min_amount', 0);
-  self.search.set('max_amount', 600000000);
+  // self.search.set('min_amount', 0);
+  // self.search.set('max_amount', 600000000);
   self.search.set('dependency', []);
   self.search.set('supplier', []);
   self.ready.set(true);
@@ -68,57 +68,52 @@ Template.Contracts.onCreated(function() {
   });
 });
 
-// function catchEnter(event, template) {
-//   const filters = template.filters.get();
-//   const code = event.keyCode || event.which;
-//   if (code === 13) {
-//     const filterName = template.$('#contract-multi-search button')
-//       .text()
-//       .trim()
-//       .toLowerCase();
-//
-//     if (filterName === 'filter') {
-//       return true;
-//     }
-//
-//     const filterString = event.target.value;
-//     filters.push({
-//       field: filterName.toLowerCase(),
-//       string: filterString,
-//     });
-//     template.filters.set(uniqBy(filters, 'string'));
-//     $(event.target).val('');
-//   }
-// }
-function filterSupplier(event, template) {
-  const filters = template.filters.get();
-  const filterString = event.target.value;
-  filters.push({
-    field: "supply",
-    string: filterString,
-  });
-  template.filters.set(uniqBy(filters, 'string'));
-}
-
 var filterElements = [
   {selector: "input.supplier_name_filter", field: "supplier" }
+  ,{selector: "input.dependency_name_filter", field: "dependency" }
+  ,{selector: "input#from_date_contracts_index", field: "min_start_date" }
+  ,{selector: "input#to_date_contracts_index", field: "max_date" }
 ]
 
 Template.Contracts.events({
   'click .search-submit': function(event,instance) {
-    const filters = instance.filters.get();
+    const filters = [];
     for  (var filter in filterElements) {
       $(filterElements[filter].selector).each(function(index,filterElement) {
-        // console.log(filterElement,b);
-        filters.push({
-          field: filterElements[filter].field,
-          string: $(filterElement).val()
-        });
+        var value = $(filterElement).val();
+        if (!isEmpty(value)) {
+          filters.push({
+            field: filterElements[filter].field,
+            string: value
+          });
+        }
       })
     }
     console.log("filters",filters);
     instance.filters.set(uniqBy(filters, 'string'));
+  },
+  'click .add-field-control': function(event, instance) {
+    var controlGroup = $(event.target).parent().find(".multiple-controls-group");
+    var fieldName = controlGroup.find(".multiple-control:last").attr("name");
+    var newField = controlGroup.find(".multiple-control-container:last").clone();
+    newField.find(".multiple-control")
+        .attr("name",fieldName+"-clone")
+        .val("");
+    controlGroup.append(newField);
+    controlGroup.find(".remove-field-control:not(:last)").show()
+
+  },
+  'click .remove-field-control': function(event, instance) {
+    var fieldContainer = $(event.target).parent(".multiple-control-container");
+    if (fieldContainer.is(":only-child")) {
+      fieldContainer.find(".multiple-control").val("");
+      fieldContainer.find(".remove-field-control").hide();
+    }
+    else {
+      $(event.target).parent(".multiple-control-container").remove();
+    }
   }
+
   // ,
   // 'click .dataTable div.js-title': function (event) {
   //  event.preventDefault();
@@ -134,8 +129,6 @@ Template.Contracts.events({
   //   console.log("change input.supplier_name_filter",event.target.value);
   //   const filterString = event.target.value;
   // },
-
-
   // (event, instance) {
   //   instance.search.set('supplier', instance.search.get('supplier').push(event.target.value));
   // },
@@ -172,7 +165,6 @@ Template.Contracts.events({
   //   FlowRouter.go(`/orgs/${simple}#read`);
   // },
   // 'keypress #contract-multi-search input, keydown #contract-multi-search input': debounce(catchEnter, 300),
-
   // 'click #contract-multi-search .dropdown-menu a': function(event, template) {
   //   event.preventDefault();
   //   const value = event.target.text;
@@ -189,7 +181,7 @@ Template.Contracts.events({
 });
 
 function contractSearchApplyFilters(op, filters) {
-  const query = op.$and;
+  const query = op.$and || [];
   const grouped = groupBy(filters, 'field');
 
   filters.forEach((filter) => {
@@ -199,13 +191,13 @@ function contractSearchApplyFilters(op, filters) {
       o.$or = [
         {
           suppliers_org: {
-            $regex: regex,
+            $regex: filter.string,
             $options: 'i',
           },
         },
         {
           suppliers_person: {
-            $regex: regex,
+            $regex: filter.string,
             $options: 'i',
           },
         }
@@ -229,6 +221,7 @@ Template.Contracts.helpers({
   },
 
   selector() {
+    console.log("selector",filters,search)
     const instance = Template.instance();
     const filters = instance.filters.get();
     console.log("Template.Contracts.helpers selector filters",filters);
@@ -323,10 +316,7 @@ Template.contract_amount.helpers({
         });
     }
     return 'Importe desconocido';
-  }
-})
-
-Template.contract_amount.helpers({
+  },
   format_currency: function(value) {
     if (value == "MXN") {
       return "Pesos mexicanos"

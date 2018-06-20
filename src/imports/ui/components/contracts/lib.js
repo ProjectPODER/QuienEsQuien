@@ -1,6 +1,11 @@
-export function contractSearchOperator(baseQuery, data) {
-  const query = [];
+import {
+  isEmpty
+} from 'lodash';
 
+export function contractSearchOperator(baseQuery, data) {
+  console.log("hola");
+  const query = [];
+  var searchOperator = {};
   if (baseQuery) {
     query.push(baseQuery);
   }
@@ -93,5 +98,9 @@ export function contractSearchOperator(baseQuery, data) {
       ],
     });
   }
-  return { $and: query };
+  
+  if (!isEmpty(query)) {
+    searchOperator = { $and: query };
+  }
+  return searchOperator;
 }

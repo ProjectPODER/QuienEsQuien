@@ -14,31 +14,26 @@
 
                 <fieldset name="proveedores">
                   <p class="search-title">FILTRAR PROVEEDORES</p>
-                  <input type="text" name="proveedor" placeholder="Nombre de proveedor" class="supplier_name_filter multiple-control">
-                  <input type="text" name="proveedor2" placeholder="Nombre de proveedor" class="supplier_name_filter multiple-control">
+                  <div class="multiple-controls-group">
+                    <div class="multiple-control-container">
+                      <input type="text" name="proveedor" placeholder="Nombre de proveedor" class="supplier_name_filter multiple-control">
+                      <img src="images/button-no.png" alt="quitar" class="form-control remove-field-control">
+                    </div>
+
+                  </div>
                   <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control">
                 </fieldset>
-<!--
-<script type="text/javascript">
-  $(".add-field-control").click({
-    function(e) {
-      var fieldset = $(e.target).parent("fieldset");
-      fieldset.append(fieldset.find(".multiple-control").clone());
-    }
-  })
-</script> -->
 
                 <fieldset name="dependencias">
                   <p class="search-title">FILTRAR DEPENDENCIAS</p>
-                  <div class="selected-block">
-                    <div class="selected-form-text">
-                      <p>Comisión federal de electricidad</p>
+                  <div class="multiple-controls-group">
+                    <div class="multiple-control-container">
+                      <input type="text" name="dependencia" placeholder="Nombre de dependencia" class="dependency_name_filter multiple-control">
+                      <img src="images/button-no.png" alt="quitar" class="form-control remove-field-control">
                     </div>
-                    <img src="images/button-no.png" alt="quitar" class="form-control">
 
                   </div>
-                  <input type="text" name="dependencia" placeholder="Nombre de dependencia"> <img src="images/button-yes.png" alt="agregar" class="form-control">
-
+                  <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control">
                 </fieldset>
 
                 <fieldset name="vigencia">
