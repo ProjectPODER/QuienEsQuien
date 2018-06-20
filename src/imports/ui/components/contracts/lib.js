@@ -3,7 +3,6 @@ import {
 } from 'lodash';
 
 export function contractSearchOperator(baseQuery, data) {
-  console.log("hola");
   const query = [];
   var searchOperator = {};
   if (baseQuery) {
@@ -98,7 +97,7 @@ export function contractSearchOperator(baseQuery, data) {
       ],
     });
   }
-  
+
   if (!isEmpty(query)) {
     searchOperator = { $and: query };
   }

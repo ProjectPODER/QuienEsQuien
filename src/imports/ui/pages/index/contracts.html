@@ -135,11 +135,7 @@
                 <form class="js-table-filter-controller">
                 <div class="form-group col-md-10">
                   <select name="filters" class="form-control">
-                    {{#each filter in filters }}
-                      <option value="{{filter.string}}">
-                        {{filter.field}}: {{filter.string}}
-                      </option>
-                    {{/each}}
+
                   </select>
                 </div>
                 <button type="submit" class="btn btn-danger js-remove-filter">
@@ -150,8 +146,17 @@
           </div>
         </div>
         <div class="col-9 col-m-9">
-            <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p>
+            {{#if filters }}
 
+              <p class="search-terms-text">
+                Búsqueda para:
+                {{#each filter in filters }}
+                  <span class="blob">
+                    {{filter.field}}: {{filter.string}}
+                  </span>
+                {{/each}}
+              </p>
+            {{/if}}
             {{> tabular table=TabularTables.Contracts
             id="contract-index" selector=selector
             class="" }}

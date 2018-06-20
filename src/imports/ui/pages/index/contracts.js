@@ -11,6 +11,7 @@ import {
   isEmpty,
   remove,
   groupBy,
+  clone,
 } from 'lodash';
 import {
   DocHead
@@ -39,14 +40,15 @@ Template.Contracts.onCreated(function() {
   self.search = new ReactiveDict();
   self.defaults = new ReactiveDict();
 
-  self.search.set('type', 'all');
+  // self.search.set('type', 'all');
   // self.search.set('min_amount', 0);
   // self.search.set('max_amount', 600000000);
-  self.search.set('dependency', []);
-  self.search.set('supplier', []);
+  // self.search.set('dependency', []);
+  // self.search.set('supplier', []);
   self.ready.set(true);
 
   //TODO: Este código parece que no se ejecutara
+  //Creo que sirve para setear minimos y maximos en los controles
   contractIndexMinMax.call({},(error, result) => {
     if (error) throw error;
 
@@ -71,7 +73,10 @@ Template.Contracts.onCreated(function() {
 var filterElements = [
   {selector: "input.supplier_name_filter", field: "supplier" }
   ,{selector: "input.dependency_name_filter", field: "dependency" }
-  ,{selector: "input#from_date_contracts_index", field: "min_start_date" }
+];
+
+var searchElements = [
+  {selector: "input#from_date_contracts_index", field: "min_date" }
   ,{selector: "input#to_date_contracts_index", field: "max_date" }
 ]
 
@@ -91,6 +96,17 @@ Template.Contracts.events({
     }
     console.log("filters",filters);
     instance.filters.set(uniqBy(filters, 'string'));
+
+    for  (var se in searchElements) {
+      $(searchElements[se].selector).each(function(index,searchElement) {
+        var value = $(searchElement).val();
+        if (!isEmpty(value)) {
+          var date = moment(value).toDate();
+          console.log("search",searchElements[se].field, date);
+          instance.search.set(searchElements[se].field, date);
+        }
+      })
+    }
   },
   'click .add-field-control': function(event, instance) {
     var controlGroup = $(event.target).parent().find(".multiple-controls-group");
@@ -134,7 +150,7 @@ Template.Contracts.events({
   // },
   // 'change input#from_date_contracts_index'(event, instance) {
   //   console.log("'change input#from_date_contracts_index'",event, instance);
-  //   const dateMin = moment(event.target.value).add(18, 'hours').toDate();
+    // const dateMin = moment(event.target.value).add(18, 'hours').toDate();
   //   instance.search.set('min_date', dateMin);
   // },
   // 'change input#to_date_contracts_index'(event, instance) {
@@ -221,12 +237,12 @@ Template.Contracts.helpers({
   },
 
   selector() {
-    console.log("selector",filters,search)
     const instance = Template.instance();
     const filters = instance.filters.get();
-    console.log("Template.Contracts.helpers selector filters",filters);
     const ready = instance.ready.get();
     const search = instance.search;
+
+    console.log("Template.Contracts.helpers selector filters",filters,"search",search);
 
     if (ready && isEmpty(filters)) {
       return contractSearchOperator(null, search);
@@ -235,6 +251,7 @@ Template.Contracts.helpers({
       const op = contractSearchOperator(null, search);
       return contractSearchApplyFilters(op, filters);
     }
+
 
     return {};
   },
@@ -263,7 +280,28 @@ Template.Contracts.helpers({
 
   filters() {
     const instance = Template.instance();
-    return instance.filters.get();
+    const search = instance.search;
+    const filters = instance.filters.get();
+    // console.log(instance,search,filters);
+
+    var filtersInView = [];
+
+    if (filters) {
+      for (f in filters) {
+        filtersInView.push(filters[f]);
+      }
+    }
+
+    if (search) {
+      for (s in search.keys) {
+        if (!isEmpty(search.keys[s])) {
+          filtersInView.push({"field": s, "string": search.keys[s]});
+        }
+      }
+    }
+
+
+    return filtersInView;
   },
 });
 
