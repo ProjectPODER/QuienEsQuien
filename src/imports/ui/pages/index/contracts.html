@@ -42,6 +42,9 @@
                   <input type="date" id="from_date_contracts_index" value="01/01/2002" min="2002-01-01">
                   <p class="search-label">Fecha de fin</p>
                   <input type="date" id="to_date_contracts_index" value="00/00/0000" min="2002-01-01">
+                  <p>
+                    <input type="checkbox" id="fecha-desconocido" checked="checked"> Incluir contratos con fecha desconocida
+                  </p>
                 </fieldset>
 
                 <fieldset name="importe">
@@ -50,8 +53,12 @@
                   <a class="search-label"><p>Entre 1 millón y 500 millones</p></a>
                   <a class="search-label"><p>Entre 500 millones a 1,000 millones</p></a>
                   <a class="search-label"><p>Más de mil millones</p></a>
-                  <input type="text" name="importe-minimo" placeholder="Mínimo" class="search-amount">
-                  <input type="text" name="importe-máximo" placeholder="Máximo" class="search-amount">
+                  <input type="text" id="importe-minimo" placeholder="Mínimo" class="search-amount">
+                  <input type="text" id="importe-maximo" placeholder="Máximo" class="search-amount">
+                  <p>
+                    <input type="checkbox" id="importe-desconocido" checked="checked"> Incluir contratos con importe desconocido
+                  </p>
+
                 </fieldset>
 
                 <fieldset name="tipo-adquisicion">

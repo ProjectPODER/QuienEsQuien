@@ -76,8 +76,13 @@ var filterElements = [
 ];
 
 var searchElements = [
-  {selector: "input#from_date_contracts_index", field: "min_date" }
-  ,{selector: "input#to_date_contracts_index", field: "max_date" }
+  {selector: "input#from_date_contracts_index", field: "min_date",type: "date" }
+  ,{selector: "input#to_date_contracts_index", field: "max_date",type: "date" }
+  ,{selector: "input#fecha-desconocido", field: "unknown_date", type: "bool" }
+  ,{selector: "input#importe-minimo", field: "min_amount", type: "number" }
+  ,{selector: "input#importe-maximo", field: "max_amount", type: "number" }
+  ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool" }
+
 ]
 
 Template.Contracts.events({
@@ -101,9 +106,23 @@ Template.Contracts.events({
       $(searchElements[se].selector).each(function(index,searchElement) {
         var value = $(searchElement).val();
         if (!isEmpty(value)) {
-          var date = moment(value).toDate();
-          console.log("search",searchElements[se].field, date);
-          instance.search.set(searchElements[se].field, date);
+          switch (searchElements[se].type) {
+            case "date":
+              value = moment(value).toDate();
+              break;
+            case "bool":
+              value = $(searchElement).is(":checked");
+              break;
+            case "number":
+              value = Number(value)
+              break;
+            default:
+              value
+
+          }
+
+          console.log("search",searchElements[se].field, value);
+          instance.search.set(searchElements[se].field, value);
         }
       })
     }
@@ -129,7 +148,9 @@ Template.Contracts.events({
       $(event.target).parent(".multiple-control-container").remove();
     }
   }
-
+  // 'click': function(event, instance) {
+  // }
+  
   // ,
   // 'click .dataTable div.js-title': function (event) {
   //  event.preventDefault();
