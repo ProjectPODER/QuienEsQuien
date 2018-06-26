@@ -18,6 +18,7 @@ import '../../components/image/image.js';
 import { prepareSubArray } from '../../components/visualizations/relations.js';
 import { isEmpty } from 'lodash';
 import './orgs.html';
+import nvd3 from 'nvd3';
 
 const LIMIT = 1000;
 
@@ -108,7 +109,61 @@ Template.orgView.onRendered(function() {
   DocHead.setTitle('QuiénEsQuién.Wiki - ' + Template.instance().data.document.names[0]);
   this.$(function () {
     $('[data-toggle="tooltip"]').tooltip()
-  })
+  });
+
+    nv.addGraph(function() {
+    var chart = nv.models.linePlusBarChart()
+      .margin({top: 30, right: 60, bottom: 50, left: 70})
+      .x(function(d, i) { return i })
+      .y(function(d) { return d[1] })
+      .color(d3.scale.category20().range().slice(1))
+      ;
+
+    var data = [{
+        "key" : "Importe",
+        "color": "#D80000",
+        "bar": true,
+        "values" : [ [ 1136005200000 , 11084] , [ 1138683600000 , 830531.56] , [ 1141102800000 , 1800000] , [ 1143781200000 , 6000] , [ 1146369600000 , 43000] , [ 1149048000000 , 850000] , [ 1151640000000 , 43600] , [ 1154318400000 , 141798.40] , [ 1149048000000 , 27757.79] , [ 1151640000000 , 26346.30] ]
+      },
+      {
+        "key" : "Cantidad",
+        "color": "#0000d8",
+        "values" : [ [ 1136005200000 , 10] , [ 1138683600000 , 30] , [ 1141102800000 , 2] , [ 1143781200000 , 21] , [ 1146369600000 , 3] , [ 1149048000000 , 01] , [ 1151640000000 , 3] , [ 1154318400000 , 0] , [ 1149048000000 , 2] , [ 1151640000000 , 20] ]
+    }]
+    ;
+
+    chart.xAxis
+      .showMaxMin(false)
+      .tickFormat(function(d) {
+        var dx = data[0].values[d] && data[0].values[d][0] || 0;
+        return d3.time.format('%Y')(new Date(dx))
+      });
+
+    chart.y1Axis
+
+  		.tickFormat(function(d) { return '$' + d3.format(',f')(d) });
+
+    chart.y2Axis
+     	.tickFormat(d3.format(',f'));
+
+
+    chart.bars.forceY([0]);
+
+  	chart.bars.forceX([0]);
+
+
+    d3.select('#chart svg')
+      .datum(
+            data
+          )
+      .transition().duration(500)
+      .call(chart)
+      ;
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
 })
 
 Template.upsertOrganisationForm.helpers({

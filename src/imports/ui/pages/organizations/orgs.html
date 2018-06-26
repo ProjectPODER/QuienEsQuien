@@ -71,7 +71,7 @@
                 <p class="js-data-lf">{{company.traded}}</p>
             </div>
             {{/if}}
-          
+
         </div>
         {{#if address}}
         <div class="col-m-6 flex mt-2">
@@ -101,7 +101,7 @@
                   {{/if}}
                 </p>
               </div>
-              
+
             </div>
             <div class="col-m-12">
               {{#if address.website}}
@@ -123,16 +123,19 @@
           <hr>
         </div>
         <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
-        </div>
-        <div class="col-m-4 col-4 mt-2">
           <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
+          <div id="chart">
+            <svg></svg>
+          </div>
         </div>
-        <div class="col-m-4 col-4 mt-2">
+        <div class="col-m-6 col-6 mt-2">
           <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
         </div>
-        <div class="col-m-4 col-4 mt-2">
+        <div class="col-m-6 col-6 mt-2">
           <h4 class="description-data-subtitle">PRESUPUESTO_POR_RAMO</h4>
+        </div>
+        <div class="col-m-12 col-12 mt-2">
+          <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
         </div>
         <div class="col-m-8 col-8">
           <hr>
@@ -220,11 +223,11 @@
       </div>
 
       </div>
-     
+
     </div>
 
   </div>
-</div>  
+</div>
 {{/with}}
 <div class="container addinfo">
     <div class="col-m-12 col-12">

@@ -1105,6 +1105,35 @@ hr
     color: #4e4e4e;
     text-transform: uppercase;
 
+
+#chart
+    svg
+        height 500px
+
+.nvd3
+    .nv-axis
+        line
+            fill none
+            stroke #e5e5e5
+            shape-rendering crispEdges
+    .nv-y1
+        path
+            fill #D80000
+            stroke #D80000 !important
+            stroke-width 3
+    .nv-y2
+        path
+            fill #0000d8
+            stroke #0000d8 !important
+            stroke-width 3
+    &.nv-line
+        .nvd3
+            &.nv-scatter
+                .nv-groups
+                    .nv-point
+                        fill-opacity 1 !important
+                        stroke-opacity 1 !important
+
 .row
   &::after
     content ""
