@@ -1,0 +1,54 @@
+stages:
+  - test
+  - build
+  - deploy
+
+variables:
+  DOCKER_DRIVER: overlay
+
+test:
+  image: poder/archlinux:meteor
+  stage: test
+  services:
+    - name: mvertes/alpine-mongo
+      alias: mongo
+  tags:
+   - docker
+  variables:
+    MONGO_URL: 'mongodb://mongo/runner'
+    NODE_ENV: 'development'
+    TEST_BROWSER_DRIVER: 'nightmare'
+    TEST_PARALLEL: "1"
+  script:
+    - (cd src && meteor npm install --silent)
+    - (cd src && meteor npm run testci)
+
+staging:
+  image: tmaier/dpl
+  stage: deploy
+  tags:
+    - heroku
+  only:
+    - dev
+  environment:
+    name: stageing
+    url: https://qqwext.herokuapp.com
+  script:
+    - dpl --provider=heroku --app=qqwext --api-key=$HEROKU_API_KEY
+
+build:
+  image: poder/archlinux:meteor
+  stage: build
+  tags:
+    - docker
+  only:
+    - master
+  artifacts:
+    paths:
+    - dist/
+  variables:
+    NODE_ENV: 'development'
+    METEOR_ALLOW_SUPERUSER: 'true'
+  script:
+    - (cd src && meteor npm install --silent)
+    - (cd src && meteor build --directory ../dist --architecture=os.linux.x86_64 --server-only)
