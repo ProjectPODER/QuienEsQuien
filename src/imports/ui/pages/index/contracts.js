@@ -68,6 +68,7 @@ Template.Contracts.onCreated(function() {
 var filterElements = [
   {selector: "input.supplier_name_filter", field: "supplier" }
   ,{selector: "input.dependency_name_filter", field: "dependency" }
+  ,{selector: "select#tipo-adquisicion", field: "procedure_type", type: "string" }
 ];
 
 var searchElements = [
@@ -77,7 +78,6 @@ var searchElements = [
   ,{selector: "input#importe-minimo", field: "min_amount", type: "number" }
   ,{selector: "input#importe-maximo", field: "max_amount", type: "number" }
   ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool" }
-  ,{selector: "select#tipo-adquisicion", field: "procedure_type", type: "string" }
 ];
 
 Template.Contracts.events({
