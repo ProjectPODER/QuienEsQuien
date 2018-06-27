@@ -111,6 +111,7 @@ Template.orgView.onRendered(function() {
     $('[data-toggle="tooltip"]').tooltip()
   });
 
+//Evolución de contratos chart
     nv.addGraph(function() {
     var chart = nv.models.linePlusBarChart()
       .margin({top: 30, right: 60, bottom: 50, left: 70})
@@ -122,13 +123,13 @@ Template.orgView.onRendered(function() {
 
     var data = [{
         "key" : "Importe",
-        "color": "#71a7f2",
+        // "color": "#71a7f2",
         "bar": true,
         "values" : [ [ NaN , NaN], [ 1136005200000 , 11084] , [ 1138683600000 , 830531.56] , [ 1141102800000 , 1800000] , [ 1143781200000 , 6000] , [ 1146369600000 , 43000] , [ 1149048000000 , 850000] , [ 1151640000000 , 43600] , [ 1154318400000 , 141798.40] , [ 1149048000000 , 27757.79] , [ 1151640000000 , 26346.30], [ NaN , NaN] ]
       },
       {
         "key" : "Cantidad",
-        "color": "#ff6e00",
+        // "color": "#ff6e00",
         "values" : [ [ NaN , NaN], [ 1136005200000 , 10] , [ 1138683600000 , 30] , [ 1141102800000 , 2] , [ 1143781200000 , 21] , [ 1146369600000 , 3] , [ 1149048000000 , 01] , [ 1151640000000 , 3] , [ 1154318400000 , 0] , [ 1149048000000 , 2] , [ 1151640000000 , 20], [ NaN , NaN] ]
     }]
     ;
@@ -160,6 +161,37 @@ Template.orgView.onRendered(function() {
     nv.utils.windowResize(chart.update);
 
     return chart;
+  });
+
+//Tipo de contratos chart
+  nv.addGraph(function() {
+    var piechart = nv.models.pieChart()
+        .x(function(d) { return d.label })
+        .y(function(d) { return d.value })
+        .color(d3.scale.category20().range().slice(1))
+        .showLabels(true);
+
+    var piedata =  [
+            {
+              "label": "Licitación",
+              "value" : 21
+            } ,
+            {
+              "label": "Adjudicación directa",
+              "value" : 5
+            } ,
+            {
+              "label": "Invitación a 3°",
+              "value" : 1
+            }
+      ]
+
+      d3.select("#piechart svg")
+          .datum(piedata)
+        .transition().duration(1200)
+          .call(piechart);
+
+    return piechart;
   });
 })
 
