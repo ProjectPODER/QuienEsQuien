@@ -49,10 +49,10 @@
 
                 <fieldset name="importe">
                   <p class="search-title">Importe del contrato</p>
-                  <a class="search-label"><p>Menor a 1 millón de pesos</p></a>
-                  <a class="search-label"><p>Entre 1 millón y 500 millones</p></a>
-                  <a class="search-label"><p>Entre 500 millones a 1,000 millones</p></a>
-                  <a class="search-label"><p>Más de mil millones</p></a>
+                  <a class="search-label importe-bucket" data-bucket="0-1000000"><p>Menor a 1 millón de pesos</p></a>
+                  <a class="search-label importe-bucket" data-bucket="1000000-500000000"><p>Entre 1 millón y 500 millones</p></a>
+                  <a class="search-label importe-bucket" data-bucket="500000000-1000000000"><p>Entre 500 millones a 1,000 millones</p></a>
+                  <a class="search-label importe-bucket" data-bucket="1000000000-"><p>Más de mil millones</p></a>
                   <input type="text" id="importe-minimo" placeholder="Mínimo" class="search-amount">
                   <input type="text" id="importe-maximo" placeholder="Máximo" class="search-amount">
                   <p>
@@ -63,93 +63,14 @@
 
                 <fieldset name="tipo-adquisicion">
                   <p class="search-title">Procedimiento de contratación</p>
-                  <select name="tipo-adquisicion" class="search-select">
-                    <option value="licitacion">Licitación</option>
-                    <option value="adjudicacion">Adjudicación directa</option>
-                    <option value="invitacion">Invitación a 3</option>
+                  <select id="tipo-adquisicion" class="search-select">
+                    <option value="">Todos</option>
+                    <option value="Adjudicación Directa Federal">Adjudicación directa</option>
+                    <option value="Invitación a Cuando Menos 3 Personas">Invitación a 3</option>
+                    <option value="Licitación Pública|Licitación Pública con OSD">Licitación</option>
                   </select>
                 </fieldset>
                 <input type="submit" class="search-submit" value="FILTRAR">
-
-                <fieldset name="proveedores">
-
-                    <label for="select_type_contracts_index">{{__ "Type" }}</label>
-                    <select class="form-control" name="select_type_contracts_index" required="required" id="select_type_contracts_index">
-                      <option value="all">
-                        All
-                      </option>
-                      <option value="adquisiciones">
-                        Adquisiciones
-                      </option>
-                      <option value="arrendamientos">
-                        Arrendamientos
-                      </option>
-                      <option value="obra pública">
-                        Obra Pública
-                      </option>
-                      <option value="servicios">
-                        Servicios
-                      </option>
-                      <option value="servicios_relacionados_con_la_op">
-                        Servicios Relacionados con la OP
-                      </option>
-                    </select>
-                </fieldset>
-
-                <div class="form-group">
-                <label for="min_amount_contracts_index">{{__ "Min amount" }}</label>
-                <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{min_amount}}" class="form-control" id="min_amount_contracts_index">
-                </div>
-
-                <div class="form-group slider-output">
-                <output for="min_amount_contracts_index" id="min-amount-output-contracts-index" style="font-size:small">{{min_amount_search}}</output>
-                </div>
-
-                <div class="form-group">
-                <label for="max_amount_contracts_index">{{__ "Max amount" }}</label>
-                <input type="range" min="{{min_amount}}" max="{{max_amount}}" value="{{max_amount}}" class="form-control" id="max_amount_contracts_index">
-                </div>
-                <div class="form-group slider-output">
-                <output for="max_amount_contracts_index" id="max-amount-output" style="font-size:small">{{max_amount_search}}</output>
-                </div>
-
-                <!-- <div class="form-group">
-                <label for="from_date_contracts_index">{{__ "Min start date" }}</label>
-                <input class="form-control" id="from_date_contracts_index" placeholder="{{__ 'Min start date' }}" readonly>
-                </div>
-
-                <div class="form-group">
-                <label for="to_date_contracts_index">{{__ "Max start date" }}</label>
-                <input class="form-control" id="to_date_contracts_index" placeholder="{{__ 'Max start date' }}" readonly>
-                </div> -->
-
-                <div class="input-group" id="contract-multi-search">
-                <div class="input-group-btn">
-                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li><a>Title</a></li>
-                    <li><a>Dependency</a></li>
-                    <li><a>Supplier</a></li>
-                    <li><a>OCID</a></li>
-                  </ul>
-                </div><!-- /btn-group -->
-                <input type="text" class="form-control" aria-label="input-type-text" disabled>
-                </div><!-- /input-group -->
-
-                <form class="js-table-filter-controller">
-                <div class="form-group col-md-10">
-                  <select name="filters" class="form-control">
-
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-danger js-remove-filter">
-                  <i class="fa fa-times" aria-hidden="true"></i>
-                </button>
-                </form>
-
           </div>
         </div>
         <div class="col-9 col-m-9">
@@ -158,9 +79,11 @@
               <p class="search-terms-text">
                 Búsqueda para:
                 {{#each filter in filters }}
-                  <span class="blob">
-                    {{filter.field}}: {{filter.string}}
-                  </span>
+                  {{#if filter.hidden = true }}
+                    <span class="blob">
+                      {{filter.field}}: {{filter.string}}
+                    </span>
+                  {{/if}}
                 {{/each}}
               </p>
             {{/if}}
