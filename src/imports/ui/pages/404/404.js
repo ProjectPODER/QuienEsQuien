@@ -5,6 +5,6 @@ Template.pageNotFound.onRendered(function () {
 
   Meteor.setTimeout(function(){
     FlowRouter.go('/');
-  }, 4000);
+  }, 10000);
 
 });
