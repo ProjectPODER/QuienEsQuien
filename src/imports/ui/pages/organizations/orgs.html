@@ -209,7 +209,7 @@
           </table>
         </div>
         <div class="col-m-3 centered contract-button">
-          <a href="" class="button-link">Ver todos los contratos</a>
+          <a href="/contracts?{{# if public }}filter_dependency={{name}}{{else}}filter_supplier={{simpleName name}}{{/if}}" class="button-link">Ver todos los contratos</a>
         </div>
         <div class="col-m-8 col-8">
           <hr>
