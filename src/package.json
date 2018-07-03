@@ -1,6 +1,6 @@
 {
   "name": "quienesquien.wiki",
-  "version": "0.7",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
@@ -10,19 +10,24 @@
     "lint": "eslint ."
   },
   "license": "GPL-3.0",
-  "contributors": [{
-    "name": "Kevin Brown",
-    "email": "kevin@rindecuentas.org"
-  },{
-    "name": "Marisol Carrillo",
-    "email": "Marisol@rindecuentas.org"
-  },{
-    "name": "Martín Szyszlican",
-    "email": "martin@rindecuentas.org"
-  },{
-    "name": "Fernando Matzdorf",
-    "email": "fernando@rindecuentas.org"
-  }],
+  "contributors": [
+    {
+      "name": "Kevin Brown",
+      "email": "kevin@rindecuentas.org"
+    },
+    {
+      "name": "Marisol Carrillo",
+      "email": "Marisol@rindecuentas.org"
+    },
+    {
+      "name": "Martín Szyszlican",
+      "email": "martin@rindecuentas.org"
+    },
+    {
+      "name": "Fernando Matzdorf",
+      "email": "fernando@rindecuentas.org"
+    }
+  ],
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
   },
@@ -58,7 +63,7 @@
     "rangeslider.js": "^2.3.0",
     "read-file": "^0.2.0",
     "rus-diff": "^1.1.0",
-    "simpl-schema": "^0.3.2",
+    "simpl-schema": "^0.5.0",
     "string-hash": "^1.1.3",
     "urlencode": "^1.1.0",
     "world-countries": "^1.8.1"
