@@ -70,11 +70,14 @@ FlowRouter.route('/orgs', {
   name: 'orgs',
 });
 
-FlowRouter.route('/contracts', {
+FlowRouter.route('/contracts/', {
   waitOn() {
     return import('../../ui/pages/index/contracts.js');
   },
   action: function () {
+    //Enviar parámetros del query via window
+    //TODO: Buscar un método mejor
+    window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'Contracts');
   },
   name: 'contracts',

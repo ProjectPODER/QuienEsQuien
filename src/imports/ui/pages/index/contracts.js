@@ -62,67 +62,25 @@ Template.Contracts.onCreated(function() {
   });
   $(document).ready(function () {
     $('nav').addClass("fixed-nav");
+    generateFilters(null,self,window.queryParams);
+
   });
 });
 
 var filterElements = [
-  {selector: "input.supplier_name_filter", field: "supplier" }
-  ,{selector: "input.dependency_name_filter", field: "dependency" }
-  ,{selector: "select#tipo-adquisicion", field: "procedure_type", type: "string" }
-];
-
-var searchElements = [
-  {selector: "input#from_date_contracts_index", field: "min_date",type: "date" }
-  ,{selector: "input#to_date_contracts_index", field: "max_date",type: "date" }
-  ,{selector: "input#fecha-desconocido", field: "unknown_date", type: "bool" }
-  ,{selector: "input#importe-minimo", field: "min_amount", type: "number" }
-  ,{selector: "input#importe-maximo", field: "max_amount", type: "number" }
-  ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool" }
+  {selector: "input.supplier_name_filter", field: "supplier", mode:"filter" }
+  ,{selector: "input.dependency_name_filter", field: "dependency", mode:"filter" }
+  ,{selector: "select#tipo-adquisicion", field: "procedure_type", type: "string", mode:"filter" }
+  ,{selector: "input#from_date_contracts_index", field: "min_date",type: "date", mode:"search" }
+  ,{selector: "input#to_date_contracts_index", field: "max_date",type: "date", mode:"search" }
+  ,{selector: "input#fecha-desconocido", field: "unknown_date", type: "bool", mode:"search" }
+  ,{selector: "input#importe-minimo", field: "min_amount", type: "number", mode:"search" }
+  ,{selector: "input#importe-maximo", field: "max_amount", type: "number", mode:"search" }
+  ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool", mode:"search" }
 ];
 
 Template.Contracts.events({
-  'click .search-submit': function(event,instance) {
-    const filters = [];
-    for  (var filter in filterElements) {
-      $(filterElements[filter].selector).each(function(index,filterElement) {
-        var value = $(filterElement).val();
-        if (!isEmpty(value)) {
-          filters.push({
-            field: filterElements[filter].field,
-            string: value,
-            hidden: filterElements[filter].hidden
-          });
-        }
-      })
-    }
-    console.log("filters",filters);
-    instance.filters.set(uniqBy(filters, 'string'));
-
-    for  (var se in searchElements) {
-      $(searchElements[se].selector).each(function(index,searchElement) {
-        var value = $(searchElement).val();
-        if (!isEmpty(value)) {
-          switch (searchElements[se].type) {
-            case "date":
-              value = moment(value).toDate();
-              break;
-            case "bool":
-              value = $(searchElement).is(":checked");
-              break;
-            case "number":
-              value = Number(value)
-              break;
-            default:
-              value
-
-          }
-
-          console.log("search",searchElements[se].field, value);
-          instance.search.set(searchElements[se].field, value);
-        }
-      })
-    }
-  },
+  'click .search-submit': generateFilters,
   'click .add-field-control': function(event, instance) {
     var controlGroup = $(event.target).parent().find(".multiple-controls-group");
     var fieldName = controlGroup.find(".multiple-control:last").attr("name");
@@ -163,6 +121,60 @@ Template.Contracts.events({
 
   }
 });
+
+function generateFilters(event,instance,values) {
+  const filters = [];
+  console.log("generateFilters",event,instance,values);
+  for  (var filter in filterElements) {
+    $(filterElements[filter].selector).each(function(index,filterElement) {
+
+      var value = $(filterElement).val();
+      //Permitir setear valores por URL
+      if (values) {
+        console.log(filterElements[filter].field,values["filter_"+filterElements[filter].field])
+        if (values["filter_"+filterElements[filter].field]) {
+          if (!isEmpty(values["filter_"+filterElements[filter].field])) {
+            value = values["filter_"+filterElements[filter].field].replace(/['"]+/g, '');
+            if (!isEmpty(value)) {
+              $(filterElement).val(value);
+            }
+          }
+        }
+      }
+      if (!isEmpty(value)) {
+        if (filterElements[filter].mode == "filter") {
+          filters.push({
+            field: filterElements[filter].field,
+            string: value,
+            hidden: filterElements[filter].hidden
+          });
+        } else if (filterElements[filter].mode == "search") {
+          switch (filterElements[filter].type) {
+            case "date":
+              value = moment(value).toDate();
+              break;
+            case "bool":
+              value = $(filterElement).is(":checked");
+              break;
+            case "number":
+              value = Number(value)
+              break;
+            default:
+              value
+
+          }
+        }
+
+        if (filterElements[filter].mode == "search") {
+          console.log("search",filterElements[filter].field, value);
+          instance.search.set(filterElements[filter].field, value);
+        }
+      }
+    })
+  }
+  console.log("filters",filters);
+  instance.filters.set(uniqBy(filters, 'string'));
+}
 
 function contractSearchApplyFilters(op, filters) {
   const query = op.$and || [];
