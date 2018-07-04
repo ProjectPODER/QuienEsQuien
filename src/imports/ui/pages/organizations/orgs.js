@@ -20,7 +20,7 @@ import { isEmpty } from 'lodash';
 import './orgs.html';
 import nvd3 from 'nvd3';
 import d3 from 'd3';
-import './d3plus.full.js';
+import d3plus from './d3plus.full.js';
 
 const LIMIT = 1000;
 
@@ -190,61 +190,52 @@ Template.orgView.onRendered(function() {
 
       d3.select("#piechart svg")
           .datum(piedata)
-        .transition().duration(1200)
+          .transition().duration(1200)
           .call(piechart);
 
     return piechart;
   });
 
-  var sample_data = [
-      {"usd": 2300000000, "name": "Transport", "group": "Transportation"},
-      {"usd": 700000000, "name": "Public Transit", "group": "Transportation"},
-      {"usd": 8600000000, "name": "Medical Services", "group": "Healthcare"},
-      {"usd": 10400000000, "name": "Welfare Payments for Medical Care", "group": "Healthcare"},
-      {"usd": 17500000000, "name": "Pre primary thru secondary education", "group": "Education"},
-      {"usd": 5600000000, "name": "Tertiary education", "group": "Education"},
-      {"usd": 1600000000, "name": "Other Misc. Education", "group": "Education"},
-      {"usd":100000000, "name": "Sickness and disability", "group": "Pensions"},
-      {"usd": 7100000000, "name": "Elderly and Old Age Pensions", "group": "Pensions"},
-      {"usd":2000000000, "name": "Police services", "group": "Public safety"},
-      {"usd": 1000000000, "name": "Fire protection services", "group": "Public safety"},
-      {"usd": 2200000000, "name": "Prisons", "group": "Public safety"},
-      {"usd": 2300000000, "name": "Executive and legislative organs, finances", "group": "Administrative"},
-      {"usd": 1200000000, "name": "Law Courts", "group": "Administrative"},
-      {"usd": 1500000000, "name": "Other Misc. Government Administration", "group": "Administrative"},
-      {"usd": 400000000, "name": "Agriculture, forestry, fishing and hunting", "group": "Other"},
-      {"usd": 3100000000, "name": "Fuel and Energy", "group": "Other"},
-      {"usd": 500000000, "name": "Waste Management", "group": "Other"},
-      {"usd": 800000000, "name": "Waste Water Management", "group": "Other"},
-      {"usd": 2400000000, "name": "Water Supply", "group": "Other"},
-      {"usd": 700000000, "name": "Recreational and Sporting Services", "group": "Other"},
-    ]
-    var visualization = d3plus.viz()
-      .container("#treemap")
-      .data(sample_data)
-      .type("tree_map")
-      .id(["group","name"])
-      .size("usd")
-      .format({
-        "text": function(text, params) {
-          if (text === "usd") {
-            return "State Budget Amount";
-          }
-          else {
-            return d3plus.string.title(text, params);
-          }
+//Treemap
+  var data = [
+    {parent: "Comercial", id: "Gerencia Metropolitana", value: 300000, year: 2010},
+    {parent: "Comercial", id: "Gerencia", value: 650000, year: 2008},
+    {parent: "Bancario", id: "Programa de Abasto Social Baja California",  value: 100000, year: 2014},
+    {parent: "Bancario", id: "Subdirección de adquisiciones de Consumo Interno", value: 83053.56,  year: 2012}
+  ];
+
+  //var layerColors = d3plus.color.random(slice(1) )
+
+
+    new d3plus.Treemap()
+      .data(data)
+      .select('#treemap')
+      .groupBy(["parent", "id"])
+      .tooltipConfig({
+        body: function(d) {
+          var table = "<table class='tooltip-table'>";
+          table += "<tr><td class='title'>Año:</td><td class='data'>" + d.year + "</td></tr>";
+          table += "<tr><td class='title'>Monto:</td><td class='data'>" + d.value + "</td></tr>";
+          table += "</table>";
+          return table;
         },
-        "number": function(number, params) {
-          var formatted = d3plus.number.format(number, params);
-          if (params.key === "usd") {
-            return "$" + formatted + " USD";
-          }
-          else {
-            return formatted;
-          }
+        footer: function(d) {
+          return "<sub class='tooltip-footer'>Datos recolectados en 2012</sub>";
+        },
+        title: function(d) {
+          var txt = d.id;
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();;
         }
       })
-    .draw()
+      .colorRandom("category20")
+      //.color({
+        //"scale": "category20"
+        //"range": [ "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5" ],
+        //"value": "growth"
+      //})  
+      .sum("value")
+      .render();
+ 
 })
 
 Template.upsertOrganisationForm.helpers({
