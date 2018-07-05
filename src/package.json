@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^2.0.1",
     "bootstrap-tooltip-popover": "^1.0.1",
     "cheerio": "^1.0.0-rc.2",
     "clj-fuzzy": "^0.4.1",
