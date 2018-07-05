@@ -25,7 +25,7 @@ test:
     TEST_BROWSER_DRIVER: 'nightmare'
     TEST_PARALLEL: "1"
   script:
-    - (cd src && meteor npm install --silent)
+    - (cd src && meteor npm install)
     - (cd src && meteor npm run testci)
 
 staging:
