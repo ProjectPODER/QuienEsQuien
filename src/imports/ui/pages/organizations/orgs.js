@@ -105,6 +105,10 @@ Template.orgView.helpers({
   isEmpty(array) {
     return isEmpty(array)
   },
+  simpleName(string) {
+    return simpleName(string);
+  },
+
 })
 
 Template.orgView.onRendered(function() {
