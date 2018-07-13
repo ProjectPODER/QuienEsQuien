@@ -39,7 +39,7 @@ function formatAmount(value) {
 }
 
 const tableDefaults = {
-  stateSave: true,
+  stateSave: false,
   sub: new SubsManager(),
   responsive: true,
   autoWidth: false,
