@@ -90,8 +90,8 @@ Template.person_update_form.helpers({
   }
 });
 
-Template.personView.onRendered(function() {
-  if (Template.personView){
+/*Template.showPersonWrapper.onRendered(function() {
+  if (Template.showPersonWrapper){
       $(".loading").css("left", "50%")
     }
-});
+});*/
