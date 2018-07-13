@@ -1,11 +1,5 @@
 <template name="showPersonWrapper">
-  {{#if ready }}
-    {{> DetailWrapper document=selectedPersonDoc ready=ready }}
-  {{/if}}
-</template>
-
-<template name="personView">
-  {{#with person }}
+  {{#with selectedPersonDoc }}
   <div class="container">
     <div class='viewWrapper'>
       <div class='datos-generales clearfix'>
@@ -13,69 +7,28 @@
           {{#if name }}
             <div class="description-data-name">
               <h3><img src="../images/icons/persona-gray.svg" alt="Ícono persona" class="icon-lf icon-lf-person">{{ name }}</h3>
-              <h4 class="person-type">Empresario(a)</h4>
+              <h4 class="person-type">
+
+
+                {{#if gender }}
+                  {{#if gender = "male" }}
+                  Empresario
+                  {{else}}
+                  Empresaria
+                  {{/if}}
+                {{else}}
+                Empresario(a)
+                {{/if}}
+              </h4>
             </div>
             <hr>
           {{/if}}
-
-          <!-- <table class="table">
-            <tbody>
-
-              {{#if prefix }}
-                <tr class="description-data-prefix">
-                  <td>{{__ "prefix" }}</td>
-                  <td>{{prefix}}</td>
-                </tr>
-              {{/if}}
-              {{#if suffix }}
-                <tr class="description-data-suffix">
-                  <td>{{__ "suffix" }}</td>
-                  <td>{{suffix}}</td>
-                </tr>
-              {{/if}}
-              {{#if gender }}
-                <tr class="description-data-gender">
-                  <td>{{__ "gender" }}</td>
-                  <td>{{gender}}</td>
-                </tr>
-              {{/if}}
-              {{#if nationality }}
-                <tr class="description-data-nationality">
-                  <td>{{__ "nationality" }}</td>
-                  <td>{{nationality}}</td>
-                </tr>
-              {{/if}}
-              {{#if date_of_birth }}
-                <tr class="description-data-dateofbirth">
-                  <td>{{__ "date of birth" }}</td>
-                  <td>{{date_of_birth}}</td>
-                </tr>
-              {{/if}}
-              {{#if date_of_death }}
-                <tr class="description-data-dateofdeath">
-                  <td>{{__ "date of death"}}</td>
-                  <td>{{date_of_death}}</td>
-                </tr>
-              {{/if}}
-            </tbody>
-          </table> -->
         </div>
 
+        {{#if has_memberships }}
         <div class="col-m-12">
           <h4 class="description-data-subtitle">EMPRESAS</h4>
         </div>
-        <!-- <div class="col-m-6">
-          <h5 class="description-data-subname">NOMBRE</h5>
-          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">BBVA BANCOMER</div>
-          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">GRUPO NACIONAL PROVINCIAL</div>
-          <div class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">DINE SAV DE CV</div>
-        </div>
-        <div class="col-m-6">
-          <h5 class="description-data-subname">ROL</h5>
-          <div class="description-data-rol">Director</div>
-          <div class="description-data-rol">Chairman, Chairman of Finance & Planning Committee</div>
-          <div class="description-data-rol">Director Independiente</div>
-        </div> -->
         <div class="col-m-12 mb-3">
           <table class="table table-responsive">
             <thead>
@@ -85,21 +38,17 @@
               </tr>
             </thead>
             <tbody>
+              {{# each membership in memberships }}
               <tr>
-                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">BBVA BANCOMER</td>
-                <td class="description-data-rol">Director</td>
+                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">{{membership.sob_org}}</td>
+                <td class="description-data-rol">{{membership.role}}</td>
               </tr>
-              <tr>
-                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">GRUPO NACIONAL PROVINCIAL</td>
-                <td class="description-data-rol">Chairman, Chairman of Finance & Planning Committee</td>
-              </tr>
-              <tr>
-                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">DINE SAV DE CV</td>
-                <td class="description-data-rol">Director Independiente</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
+        {{/if}}
+        {{#if has_contracts }}
         <div class="col-m-12">
           <h4 class="description-data-subtitle">CONTRATOS</h4>
         </div>
@@ -113,21 +62,13 @@
               </tr>
             </thead>
             <tbody>
+              {{# each contract in contracts }}
               <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">{{contract.title}}</td>
+                <td class="description-data-amount">{{contract.amount}}</td>
+                <td class="description-data-date">{{contract.dates}}</td>
               </tr>
-              <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">SUMINISTRO DE VALES DE DESPENSA PARA EL AÑO 2015</td>
-                <td class="description-data-amount">17,660,625,810 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
-              </tr>
-              <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
@@ -142,16 +83,18 @@
             </thead>
             <tbody>
               <tr>
-                <td class="description-data-contract">900</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+                <td class="description-data-contract">{{total_contract_number}}</td>
+                <td class="description-data-amount">{{total_contract_amount}}</td>
+                <td class="description-data-date">{{contract_periods}}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <div class="col-m-3 centered contract-button">
-          <a href="" class="button-link">Ver todos los contratos</a>
+          <a href="/contracts?filter_supplier={{id}}" class="button-link">Ver todos los contratos</a>
         </div>
+        {{/if}}
+
         <div class="col-m-12">
           <h4 class="description-data-subtitle">GRÁFICO DE RELACIONES</h4>
         </div>
@@ -256,7 +199,7 @@
   type=formType
   meteormethod=meteormethod
   singleMethodArgument=true
-}}
+  }}
       <!-- datos generales -->
       <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="general_data_heading">
