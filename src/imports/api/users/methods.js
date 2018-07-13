@@ -51,6 +51,27 @@ export const registerUser = new ValidatedMethod({
   }
 });
 
+export const registerUserNewsletter = new ValidatedMethod({
+  name: 'Users.methods.registerNewsletter',
+
+  validate: new SimpleSchema({
+    email: {
+      type: String,
+      regEx: SimpleSchema.RegEx.Email
+    }
+  }).validator(),
+
+  run({ email }) {
+    this.unblock();
+    const loggedInUser = Meteor.user()
+
+    if (Meteor.isServer) {
+      let id = Accounts.createUser({ email: email });
+      return 'success';
+    }
+  }
+});
+
 export const userAssignRole = new ValidatedMethod({
   /**
   * update a user's permissions
