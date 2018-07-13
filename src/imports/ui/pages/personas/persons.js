@@ -76,3 +76,9 @@ Template.person_update_form.helpers({
     return Persons
   }
 });
+
+Template.personView.onRendered(function() {
+  if (Template.personView){
+      $(".loading").css("left", "50%")
+    }
+});

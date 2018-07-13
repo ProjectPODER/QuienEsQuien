@@ -4,17 +4,44 @@
   height 100%
 
 .loading
-  position: absolute;
-  width: 0px;
-  z-index: 2000000000;
-  left: 50%;
-  top: 40%;
+  position fixed
+  width 0px
+  z-index 2000000000
+  left 60%
+  top 50%
 
 .spin
   width 20px
   margin 5em auto
 
 /* dataTable Processing */
+// div.dataTables_wrapper div.dataTables_processing
+//   background-color rgba(0, 0, 0, 0)
+//   background-size 100%
+//   border-width 0
+
 div.dataTables_wrapper div.dataTables_processing
-  background-color: rgba(0, 0, 0, 0);
-  border-width: 0;
+    position fixed !important
+    top 0 !important
+    left 25% !important
+    width 100% !important
+    height 100% !important
+    margin-left 0 !important
+    margin-top 0 !important
+    text-align center !important
+    padding 0 !important
+    background-color rgba(255, 255, 255, 0.7) !important
+    border-width 0
+
+// .bg-spinner
+  // position relative 
+  // top 0 !important
+  // left 25% !important
+  // width 100% !important
+  // margin-left 0 !important
+  // margin-top 0 !important
+  // text-align center !important
+  // padding 0 !important
+  // height 100% !important
+  // background-color rgba(255, 255, 2, 0.7) !important
+  // border-width 0

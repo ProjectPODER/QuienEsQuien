@@ -99,11 +99,13 @@ if (Meteor.isClient) {
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
-    dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"frtp><"clear">>',
+    dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"frtp>>',
     // info: false,
     language: {
       "info": "Mostrando _END_ de _TOTAL_ resultados",
       "lengthMenu": "Mostrar _MENU_ resultados",
+      "infoEmpty": "Mostrando _END_ de _TOTAL_ resultados",
+      "emptyTable": "No hay datos disponibles",
       "paginate": {
       "previous": "Anterior",
       "next": "Siguiente",
