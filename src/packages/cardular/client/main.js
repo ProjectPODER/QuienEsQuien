@@ -282,7 +282,7 @@ Template.tabular.onRendered(function () {
     //console.log('tabular_getInfo autorun');
 
     function onReady() {
-      //template.tabular.isLoading.set(false);
+      template.tabular.isLoading.set(false);
     }
 
     var connection = template.tabular.connection;
@@ -460,10 +460,10 @@ Template.tabular.onRendered(function () {
     const isLoading = template.tabular.isLoading.get();
     if (isLoading) {
       template.$('.dataTables_processing').show();
-      template.$('.dataTables_info,.dataTables_length,.dataTables_paginate,.dataTables_empty').hide();
+      // template.$('.dataTables_info,.dataTables_length,.dataTables_paginate,.dataTables_empty').hide();
     } else {
       template.$('.dataTables_processing').hide();
-      template.$('.dataTables_info,.dataTables_length,.dataTables_paginate,.dataTables_empty').show();
+      // template.$('.dataTables_info,.dataTables_length,.dataTables_paginate,.dataTables_empty').show();
     }
   });
 

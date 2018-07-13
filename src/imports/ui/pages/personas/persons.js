@@ -89,3 +89,9 @@ Template.person_update_form.helpers({
     return Persons
   }
 });
+
+/*Template.showPersonWrapper.onRendered(function() {
+  if (Template.showPersonWrapper){
+      $(".loading").css("left", "50%")
+    }
+});*/
