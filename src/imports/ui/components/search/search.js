@@ -24,6 +24,13 @@ Template.searchForm.helpers({
   first(array) {
     return array[0];
   },
+   searchCount: () => {
+    // index instanceof EasySearch.index
+    let dict = indexes.getComponentDict(firstOption)
+
+    // get the total count of search results, useful when displaying additional information
+    return dict.get('count')
+  },
 });
 
 Template.searchForm.events({
@@ -36,6 +43,14 @@ Template.searchForm.events({
     if (event.keyCode === 27) {
       template.$('.easy-search-input').val('');
     }
+    if (event.keyCode === 13) {
+       event.preventDefault();
+       window.location.href = template.$('ul.suggestions li a').first().attr("href");
+    }
+  },
+
+  'click #first-search': function (event, template) {
+    window.location.href = template.$('ul.suggestions li a').first().attr("href");
   },
 });
 

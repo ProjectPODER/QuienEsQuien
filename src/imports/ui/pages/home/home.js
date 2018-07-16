@@ -93,4 +93,11 @@ Template.Home.onRendered(function() {
     }
   scrollme.init();
   });
+
+  /*$(".landing-search-inputtext").keydown(function (e) {
+    if (e.keyCode == 13) {
+      $('ul.suggestions li a').first().click();
+    }
+  });*/
 });
+
