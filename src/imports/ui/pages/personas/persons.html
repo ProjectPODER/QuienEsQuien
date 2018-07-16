@@ -25,7 +25,10 @@
           {{/if}}
         </div>
 
-        {{#if has_memberships }}
+        {{> Memberships }}
+        {{> ContractsInfoBasic}}
+
+        {{#if allMemberships.fetch.length }}
         <div class="col-m-12">
           <h4 class="description-data-subtitle">EMPRESAS</h4>
         </div>
@@ -38,7 +41,7 @@
               </tr>
             </thead>
             <tbody>
-              {{# each membership in memberships }}
+              {{# each membership in allMemberships.fetch }}
               <tr>
                 <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">{{membership.sob_org}}</td>
                 <td class="description-data-rol">{{membership.role}}</td>
@@ -48,7 +51,7 @@
           </table>
         </div>
         {{/if}}
-        {{#if has_contracts }}
+        {{#if contractsSupplied.fetch.length }}
         <div class="col-m-12">
           <h4 class="description-data-subtitle">CONTRATOS</h4>
         </div>
@@ -62,7 +65,7 @@
               </tr>
             </thead>
             <tbody>
-              {{# each contract in contracts }}
+              {{# each contract in contractsSupplied.fetch }}
               <tr>
                 <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">{{contract.title}}</td>
                 <td class="description-data-amount">{{contract.amount}}</td>

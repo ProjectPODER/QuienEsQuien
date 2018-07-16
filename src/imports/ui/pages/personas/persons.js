@@ -6,6 +6,7 @@ import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { Persons } from '../../../api/persons/persons.js';
 import Memberships from '../../../api/memberships/memberships';
+import Contracts from '../../../api/contracts/contracts';
 import '../../components/memberships/memberships.js';
 import '../../components/visualizations/viz.js';
 import '../../components/similar/similar.js';
@@ -43,7 +44,6 @@ Template.showPersonWrapper.onCreated(function () {
   const self = this;
 
   self.person = new ReactiveVar(false);
-  self.memberships = new ReactiveVar(false);
   self.ready = new ReactiveVar(false);
 
   self.autorun(() => {
@@ -56,11 +56,6 @@ Template.showPersonWrapper.onCreated(function () {
         });
         Session.set('currentDocumentId', person._id);
         self.person.set(person);
-        const membership = Memberships.find({
-          "person_id": id,
-        })
-        self.memberships.set(membership.fetch());
-        console.log("membership",id,membership)
       },
     });
     self.ready.set(handle.ready());
@@ -74,14 +69,10 @@ Template.showPersonWrapper.helpers({
   selectedPersonDoc: function() {
     var person = Template.instance().person.get();
     person.collection = 'persons';
+    person.document = person;
     return person;
   },
-  memberships: function() {
-    return Template.instance().memberships.get();
-  },
-  has_memberships: function() {
-    return Template.instance().memberships.get().length > 0;
-  }
+
 });
 
 Template.person_update_form.helpers({
@@ -89,9 +80,3 @@ Template.person_update_form.helpers({
     return Persons
   }
 });
-
-/*Template.showPersonWrapper.onRendered(function() {
-  if (Template.showPersonWrapper){
-      $(".loading").css("left", "50%")
-    }
-});*/
