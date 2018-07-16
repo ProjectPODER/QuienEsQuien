@@ -87,17 +87,12 @@ Template.Home.onRendered(function() {
       $('nav').removeClass("fixed-nav");
     }
   });
-  $(document).ready(function () {
-    if (Template.Home){
-      $('#search-header').addClass("none");
-    }
   scrollme.init();
-  });
+});
 
-  /*$(".landing-search-inputtext").keydown(function (e) {
-    if (e.keyCode == 13) {
-      $('ul.suggestions li a').first().click();
-    }
-  });*/
+Template.Home.events({
+  'click #first-search': function (event, template) {
+    window.location.href = template.$('ul.suggestions li a').first().attr("href");
+  },
 });
 

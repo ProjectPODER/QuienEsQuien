@@ -7,10 +7,12 @@
         </button>
 
           <a href="/"><img class="logo-horizontal" src="../../../images/logo-h.png" alt="Logo QuiénEsQuién.wiki"></a>
-         
-          <form id="search-header" class="nav-form" role="search" method="get">
-            {{> searchForm }}
-          </form>
+          
+          {{#if isNotActiveRoute regex='home'}}
+              <form id="search-header" class="nav-form" role="search" method="get">
+                {{> searchForm }}
+              </form>
+          {{/if}}
 
         <ul class="nav navbar-nav navbar-right">
           <li class="{{isActiveRoute regex='contracts|contractShow|contractsubmit' className='active'}}"

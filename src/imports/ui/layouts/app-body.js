@@ -17,7 +17,7 @@ Meteor.startup(function(){
         // $(document).ready(function () {    
             // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
             $('nav').addClass("fixed-nav");
-            $('#search-header').removeClass('none');
+            // $('#search-header').removeClass('none');
         // });
       });
     } 

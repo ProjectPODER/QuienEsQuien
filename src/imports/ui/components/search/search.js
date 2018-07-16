@@ -48,10 +48,6 @@ Template.searchForm.events({
        window.location.href = template.$('ul.suggestions li a').first().attr("href");
     }
   },
-
-  'click #first-search': function (event, template) {
-    window.location.href = template.$('ul.suggestions li a').first().attr("href");
-  },
 });
 
 
