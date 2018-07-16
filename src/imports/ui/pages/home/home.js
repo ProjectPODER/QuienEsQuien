@@ -8,9 +8,9 @@ Template.Home.onCreated(function() {
   import("./jquery.scrollme.js").then(() => {
     $(window).scroll(function() {
       if ($(document).scrollTop() > 500) {
-        $('nav').addClass('shrink');
+        $('#navbar').addClass('shrink');
       } else {
-        $('nav').removeClass('shrink');
+        $('#navbar').removeClass('shrink');
       }
     });
 
@@ -83,8 +83,8 @@ Template.investigaciones.helpers({
 Template.Home.onRendered(function() {
   $(document).ready(function () {
     if (Template.Home){
-      $('nav').removeClass("shrink");
-      $('nav').removeClass("fixed-nav");
+      $('#navbar').removeClass("shrink");
+      $('#navbar').removeClass("fixed-nav");
     }
   });
   scrollme.init();

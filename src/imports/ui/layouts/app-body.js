@@ -14,11 +14,8 @@ Meteor.startup(function(){
       var template=Template[property];
       // assign the template an onRendered callback
       template.onRendered(function(){
-        // $(document).ready(function () {    
-            // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
-            $('nav').addClass("fixed-nav");
-            // $('#search-header').removeClass('none');
-        // });
+        // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
+        $('nav').addClass("fixed-nav");
       });
     } 
   }
