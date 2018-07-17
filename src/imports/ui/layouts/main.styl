@@ -226,7 +226,8 @@ div
       font-size 1.3rem
   &.investigaciones-card
     width 100%
-    height 21rem
+    height 100%
+    position relative
     img
       height auto
   &.tab
@@ -368,20 +369,21 @@ section
     margin-left 2rem
     background-color #21018b
 
-.investigaciones
+.investigaciones.row
+  height 400px
   h2
     color #150b58
   p
-    font-size 1.3rem
+    font-size 1.5rem
 
 .investigaciones-p
   color #2d1c9d
 
 // @keyframes jump { 0% { top: 0; } 50% { top: 50px; } 100% { top: 0; } }
-    
+
 .arrow-down
   text-align center
-  /*position relative 
+  /*position relative
   margin 0 auto
   animation jump 3s infinite*/
   i
@@ -421,15 +423,19 @@ footer
   border-width 2px
   border-style dotted
   border-color #3a32f9
+  position relative
 
 .card-pad
   overflow hidden
   padding 1rem
+
   .button-link
-    clear both
-    float right
+    position: absolute
+    bottom 1em
+    right 1em
 
 .card-pad-ext
+  height 100%
   padding 1rem 1rem 1rem 0
 
 .card-image-container
@@ -835,6 +841,9 @@ button[type="reset"]
   font-size 1.1rem
   color #5c5c5c
   font-weight bold
+
+.description-data-organization
+  width 30%
 
 .description-data-organization
 .description-data-rol
@@ -1251,7 +1260,7 @@ hr
   .investigaciones
     .card
       p
-        font-size 1.2rem
+        font-size 1.4rem
 
 @media only screen and (max-width: 870px)
   .explore-card
@@ -1269,7 +1278,8 @@ hr
       background-color #fff
   div
     &.investigaciones-card
-      height 14rem
+      height 100%
+
 
 @media only screen and (max-width: 768px)
   .explore-card
@@ -1305,7 +1315,9 @@ hr
         -webkit-margin-before .2rem
         -webkit-margin-after .2rem
     &.investigaciones-card
-      height 10rem
+      height 100%
+      position relative
+
   img
     &.name
       width 100%

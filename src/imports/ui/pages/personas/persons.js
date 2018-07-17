@@ -5,8 +5,9 @@ import { Session } from 'meteor/session';
 import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { Persons } from '../../../api/persons/persons.js';
-import Memberships from '../../../api/memberships/memberships';
-import Contracts from '../../../api/contracts/contracts';
+import Memberships from '../../../api/memberships/memberships.js';
+import {Contracts} from '../../../api/contracts/contracts.js';
+import {contractsMinMax}  from '../../../api/contracts/methods.js';
 import '../../components/memberships/memberships.js';
 import '../../components/visualizations/viz.js';
 import '../../components/similar/similar.js';
@@ -44,32 +45,95 @@ Template.showPersonWrapper.onCreated(function () {
   const self = this;
 
   self.person = new ReactiveVar(false);
+  self.contracts = new ReactiveVar(false);
+  self.contracts_summary = new ReactiveVar(false);
+  self.memberships = new ReactiveVar(false);
   self.ready = new ReactiveVar(false);
 
-  self.autorun(() => {
-    const id = FlowRouter.getParam('_id');
-    DocHead.setTitle(`QuienEsQuien.wiki - ${id}`);
-    const handle = self.subscribe('person', id, {
-      onReady() {
-        const person = Persons.findOne({
-          $or: [{ _id: id }, { simple: id }, { name: id }, { names: id }],
-        });
-        Session.set('currentDocumentId', person._id);
-        self.person.set(person);
-      },
-    });
-    self.ready.set(handle.ready());
+  const id = FlowRouter.getParam('_id');
+  DocHead.setTitle(`QuienEsQuien.wiki - ${id}`);
+
+  const handle = self.subscribe('person', id, {
+    onReady() {
+      const person = Persons.findOne({
+        $or: [{ _id: id }, { simple: id }, { name: id }, { names: id }],
+      });
+      Session.set('currentDocumentId', person._id);
+      self.person.set(person);
+    },
+  });
+  const handlec = self.subscribe('contracts-by-supplier', id, {
+    onReady() {
+      const contracts = Contracts.find({
+        $or: [{ suppliers_org: id }, { suppliers_person: id }],
+      }, {limit: 3});
+      self.contracts.set(contracts.fetch());
+
+      self.ready.set(handlec.ready());
+    },
+  });
+
+  // console.log(contractsMinMax);
+  // contractsMinMax.call({names: [id], "names.$": id, isPublic: false}, (err, res) => {
+  //   console.log(err,res);
+  //   if (err) {
+  //     throw err;
+  //   }
+
+
+    // self.contracts_summary.set(res);
+    // console.log(self.contracts_summary);
+  // });
+
+  const handlem = self.subscribe('memberships', id, {
+    onReady() {
+      const memberships = Memberships.find({
+        $or: [{ sob_org: id }, { person_id: id }],
+      });
+
+      self.memberships.set(memberships.fetch());
+      self.ready.set(handlem.ready());
+    },
   });
 });
+
+Template.showPersonWrapper.onRendered(function() {
+  const self = this;
+  self.autorun(function() {
+    if (self.ready.get() == true) {
+      Template.loading.onRendered(function() {
+        console.log("hide",$(".loading-container"));
+        $(".loading-container").hide();
+      });
+    }
+    else {
+      Template.loading.onRendered(function() {
+        console.log("show",$(".loading-container"));
+        $(".loading-container").show();
+      });
+    }
+  })
+
+})
 
 Template.showPersonWrapper.helpers({
   ready: function() {
     return Template.instance().ready.get();
   },
+  contracts: function() {
+    return Template.instance().contracts.get();
+  },
+  // total_contract_amount: function() {
+  //   return Template.instance().contracts_summary.get()["amount_max"];
+  // },
+  memberships: function() {
+    return Template.instance().memberships.get();
+  },
   selectedPersonDoc: function() {
     var person = Template.instance().person.get();
     person.collection = 'persons';
     person.document = person;
+    person.names = [person.name];
     return person;
   },
 

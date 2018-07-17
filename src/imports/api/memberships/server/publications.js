@@ -13,6 +13,7 @@ import {
 import {
   rankedSobOrg,
 } from './lib';
+import Memberships from "../memberships.js"
 
 function selector(id) {
   return {
@@ -66,4 +67,19 @@ Meteor.publish('sharesOfEntity', function(id, collectionName) {
   });
 
   this.ready();
+});
+
+
+Meteor.publish('memberships', function(id) {
+  check(id, String);
+  const LIMIT = 75; // max items to return for each relationship
+
+  return Memberships.find({
+    $or:
+    [
+      {person_id: id},
+      {sob_org: id}
+    ]
+  }, {limit: LIMIT})
+
 });
