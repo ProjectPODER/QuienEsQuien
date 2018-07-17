@@ -1,45 +1,52 @@
 <template name="header">
     <nav class="nav bar" id='navbar'>
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex1-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
 
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex1-collapse">
-          <span class="sr-only">Desplegar navegación</span>
-          <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
-        </button>
-
-          <a href="/"><img class="logo-horizontal" src="../../../images/logo-h.png" alt="Logo QuiénEsQuién.wiki"></a>
-         
-          <form id="search-header" class="nav-form" role="search" method="get">
-            {{> searchForm }}
-          </form>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li class="{{isActiveRoute regex='contracts|contractShow|contractsubmit' className='active'}}"
-          data-toggle="collapse" data-target=".navbar-collapse.in">
-            <a href="/contracts" class="nav-link">
-              <div class="contenedor_item_menu_top">
-                <i class="fa fa-file-text" aria-hidden="true"></i>
-                <span class="contracts_header_menu">{{__ "Contracts" }}</span>
-              </div>
-            </a>
-          </li>
-          <li class="{{isActiveRoute regex='persons|personShow|personsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
-            <a href="/persons" class="nav-link">
-              <div class="contenedor_item_menu_top">
-                <i class="fa fa-users" aria-hidden="true"></i>
-                <span class="empresarios_header_menu">{{__ "Persons" }}</span>
-              </div>
-            </a>
-          </li>
-          <li class="{{isActiveRoute regex='orgs|orgShow|orgsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
-            <a href="/orgs" class="nav-link">
-              <div class="contenedor_item_menu_top">
-                <i class="fa fa-building" aria-hidden="true"></i>
-                <span class="empresas_header_menu">{{__ "Organizations" }}</span>
-              </div>
-            </a>
-          </li>
-          {{ > loginButtons }}
-        </ul>
-
+            <a href="/"><img class="logo-horizontal" src="../../../images/logo-h.png" alt="Logo QuiénEsQuién.wiki"></a>
+          
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex1-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="{{isActiveRoute regex='contracts|contractShow|contractsubmit' className='active'}}"
+            data-toggle="collapse" data-target=".navbar-collapse.in">
+              <a href="/contracts" class="nav-link">
+                <div class="contenedor_item_menu_top">
+                  <i class="fa fa-file-text" aria-hidden="true"></i>
+                  <span class="contracts_header_menu">{{__ "Contracts" }}</span>
+                </div>
+              </a>
+            </li>
+            <li class="{{isActiveRoute regex='persons|personShow|personsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
+              <a href="/persons" class="nav-link">
+                <div class="contenedor_item_menu_top">
+                  <i class="fa fa-users" aria-hidden="true"></i>
+                  <span class="empresarios_header_menu">{{__ "Persons" }}</span>
+                </div>
+              </a>
+            </li>
+            <li class="{{isActiveRoute regex='orgs|orgShow|orgsubmit' className='active'}}" data-toggle="collapse" data-target=".navbar-collapse.in">
+              <a href="/orgs" class="nav-link">
+                <div class="contenedor_item_menu_top">
+                  <i class="fa fa-building" aria-hidden="true"></i>
+                  <span class="empresas_header_menu">{{__ "Organizations" }}</span>
+                </div>
+              </a>
+            </li>
+            <li>
+              {{#if isNotActiveRoute regex='home'}}
+                  <form id="search-header" class="nav-form" role="search" method="get">
+                    {{> searchForm }}
+                  </form>
+              {{/if}}
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
 </template>
