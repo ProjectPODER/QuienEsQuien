@@ -25,82 +25,86 @@
           {{/if}}
         </div>
 
-        {{> Memberships }}
-        {{> ContractsInfoBasic}}
-
-        {{#if allMemberships.fetch.length }}
-        <div class="col-m-12">
-          <h4 class="description-data-subtitle">EMPRESAS</h4>
-        </div>
-        <div class="col-m-12 mb-3">
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th class="description-data-subname">Nombre</th>
-                <th class="description-data-subname">Rol</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{# each membership in allMemberships.fetch }}
-              <tr>
-                <td class="description-data-organization"><img src="../images/icons/organizacion-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-organization">{{membership.sob_org}}</td>
-                <td class="description-data-rol">{{membership.role}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
+        {{#if memberships.length }}
+          <div class="col-m-12">
+            <h4 class="description-data-subtitle">EMPRESAS</h4>
+          </div>
+          <div class="col-m-12 mb-3">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th class="description-data-subname">Nombre</th>
+                  <th class="description-data-subname">Rol</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{# each membership in memberships }}
+                <tr>
+                  <td class="description-data-organization">
+                    <img src="../images/icons/organizacion-blue.svg" alt="" class="icon-lf icon-lf-organization">
+                    <a href="/orgs/{{membership.sob_org}}">{{membership.sob_org}}</a>
+                  </td>
+                  <td class="description-data-rol">{{membership.role}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
         {{/if}}
-        {{#if contractsSupplied.fetch.length }}
-        <div class="col-m-12">
-          <h4 class="description-data-subtitle">CONTRATOS</h4>
-        </div>
-        <div class="col-m-12 mb-3">
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th class="description-data-subname">Nombre</th>
-                <th class="description-data-subname">Importe</th>
-                <th class="description-data-subname">Periodo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{# each contract in contractsSupplied.fetch }}
-              <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">{{contract.title}}</td>
-                <td class="description-data-amount">{{contract.amount}}</td>
-                <td class="description-data-date">{{contract.dates}}</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class="col-m-9 mb-3">
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th class="description-data-subname">Cantidad</th>
-                <th class="description-data-subname">Importes</th>
-                <th class="description-data-subname">Periodo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="description-data-contract">{{total_contract_number}}</td>
-                <td class="description-data-amount">{{total_contract_amount}}</td>
-                <td class="description-data-date">{{contract_periods}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-m-3 centered contract-button">
-          <a href="/contracts?filter_supplier={{id}}" class="button-link">Ver todos los contratos</a>
-        </div>
+        {{#if contracts.length }}
+          <div class="col-m-12">
+            <h4 class="description-data-subtitle">CONTRATOS</h4>
+          </div>
+          <div class="col-m-12 mb-3">
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th class="description-data-subname">Nombre</th>
+                  <th class="description-data-subname">Importe</th>
+                  <th class="description-data-subname">Periodo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{# each contract in contracts }}
+                <tr>
+                  <td class="description-data-contract">
+                    <img src="../images/icons/contrato-blue.svg" alt="" class="icon-lf icon-lf-contract">
+                    <a href="/contracts/{{contract.ocid}}">{{contract.title}}</a>
+                  </td>
+                  <td class="description-data-amount">{{contract.amount}}</td>
+                  <td class="description-data-date">{{get_year contract.start_date}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-m-9 mb-3">
+            <p>Viendo los 3 contratos más importantes de un total de <strong>{{contract_count}} contratos en total</strong>. </p>
+            <div class="col-m-3 centered contract-button">
+              <a href="/contracts?filter_supplier={{simple}}" class="button-link">Ver todos los contratos</a>
+            </div>
+            <!-- <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th class="description-data-subname">Cantidad</th>
+                  <th class="description-data-subname">Importe total</th>
+                  <th class="description-data-subname">Períodos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="description-data-contract">{{contract_count}}</td>
+                  <td class="description-data-amount">{{total_contract_amount}}</td>
+                  <td class="description-data-date">{{contract_periods}}</td>
+                </tr>
+              </tbody>
+            </table> -->
+          </div>
         {{/if}}
 
-        <div class="col-m-12">
+        <!-- <div class="col-m-12">
           <h4 class="description-data-subtitle">GRÁFICO DE RELACIONES</h4>
-        </div>
+        </div> -->
       </div>
 
       {{#if address }}
@@ -118,7 +122,6 @@
           </table>
         </div>
       {{/if}}
-      {{> Memberships }}
     </div>
   </div>
   {{/with}}

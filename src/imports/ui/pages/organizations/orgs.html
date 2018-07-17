@@ -13,7 +13,7 @@
       {{#if name }}
         <div class="description-data-name">
           <h3><img src="../images/icons/organizacion-gray.svg" alt="organización" class="icon-lf">{{ name }}</h3>
-          <h4 class="org-type">Dependencia o Empresa</h4>
+          <h4 class="org-type">{{#if isPublic}}Dependencia{{else}}Empresa{{/if}}</h4>
         </div>
         <hr>
       {{/if}}
