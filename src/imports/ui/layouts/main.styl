@@ -518,6 +518,7 @@ h2card-image-container
       background: transparent;
       display: inline;
       box-shadow: none;
+      margin-right 0
 
 .search-title
   font-weight bold
@@ -903,6 +904,7 @@ a
   -moz-transition all .35s
   transition all .35s
   margin-right 5px
+  margin-bottom 5px
   &:hover
   &:focus
     background-color #2d1c9d
@@ -1060,7 +1062,6 @@ hr
   margin-bottom 4rem
 
 .addinfo-box
-  margin-left 3rem
   margin-right 0
   margin 0 0 3rem 3rem
   text-align center
@@ -1094,6 +1095,7 @@ hr
 .addinfo-box-logo
   width 250px
   padding 2rem 0
+  margin auto
 
 .about-template
 .privacy-template
@@ -1259,6 +1261,34 @@ hr
     .card
       p
         font-size 1.2rem
+        
+@media only screen and (max-width: 992px)
+    .navbar-header
+        float none
+    .navbar-left,.navbar-right
+        float none !important
+    .navbar-toggle
+        display block
+    .navbar-collapse
+        border-top 1px solid transparent
+        box-shadow inset 0 1px 0 rgba(255,255,255,0.1)
+        &.collapse
+            display none!important
+    .navbar-fixed-top
+        top 0
+        border-width 0 0 1px
+    .navbar-nav
+        float none!important
+        margin-top 7.5px
+        & > li
+            float none
+            & > a
+                padding-top 10px
+                padding-bottom 10px
+    .collapse
+        &.in
+            display block !important
+
 
 @media only screen and (max-width: 870px)
   .explore-card
@@ -1298,12 +1328,18 @@ hr
     padding 1rem
     
   .shrink 
+  .fixed-nav
     .navbar-right 
       width 100%
     form.nav-form, .fixed-nav form.nav-form
       width 100%
       text-align left
       margin-bottom 10px
+  #right-menu-contracts
+    display none
+    
+  .addinfo-box
+    margin 3rem 0 0 0
      
 
 @media only screen and (max-width: 700px)
@@ -1319,8 +1355,8 @@ hr
       p
         font-size 1.2rem
         text-align left
-    &.content
-      width 95%
+    // &.content
+    //   width 95%
     &.card-pad
       h3 strong
         font-size 2rem
@@ -1333,6 +1369,7 @@ hr
       width 100%
       margin-left 0
   .shrink
+  .fixed-nav
     img
       &.logo-horizontal
         width 7rem
