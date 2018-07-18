@@ -1,5 +1,6 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import moment from 'moment';
+import 'moment/locale/es'
 import i18n from 'meteor/universe:i18n';
 import { Contracts } from '../../../api/contracts/contracts.js';
 import { Orgs } from '../../../api/organizations/organizations.js';
