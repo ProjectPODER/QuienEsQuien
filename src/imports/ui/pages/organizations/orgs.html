@@ -128,13 +128,13 @@
             <svg></svg>
           </div>
         </div>
-        <div class="col-m-6 col-6 mt-2">
+        <div class="col-m-12 col-6 mt-2">
           <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
           <div id="piechart">
             <svg></svg>
           </div>
         </div>
-        <div class="col-m-6 col-6 mt-2">
+        <div class="col-m-12 col-6 mt-2">
           <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
           <div id="treemap">
           </div>
@@ -266,7 +266,7 @@
           <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
         </div>
         <div class="mt-2">
-          <a href="" class="button-link" target="_blank">ENVIAR</a>
+          <button type="button" class="button-link" data-toggle="modal" data-target="#subscribe-popup">ENVIAR</button>
         </div>
       </form>
     </div>
@@ -281,6 +281,7 @@
       </div>
     </div>
   </div>
+  {{> popupSubscribe }}
 </template>
 
 
@@ -306,7 +307,7 @@
   </div>
 </template>
 
-<template name="OrgSubmit">
+<!-- <template name="OrgSubmit">
   {{#if authInProcess}}
     <p>&nbsp;</p>
   {{else}}
@@ -323,9 +324,9 @@
       </p>
     {{/if}}
   {{/if}}
-</template>
+</template> -->
 
-<template name="upsertOrganisationForm">
+<!-- <template name="upsertOrganisationForm">
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 {{#autoForm collection=orgsCollection
   doc=selectedOrganizationDoc
@@ -333,9 +334,9 @@
   type=formType
   meteormethod=meteormethod
   singleMethodArgument=true
-}}
+}} -->
 <!-- general data -->
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="general_data_heading">
       <h4 class="panel-title text-capitalize">
         <a role="button" data-toggle="collapse" data-parent="#accordion"
@@ -355,10 +356,10 @@
         {{> afQuickField name='source'}}
       </div>
     </div>
-  </div>
+  </div> -->
 <!-- general data -->
 <!-- address -->
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="address_heading">
       <h4 class="panel-title text-capitalize">
         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#address_collapse" aria-expanded="true" aria-controls="address_collapse">
@@ -371,10 +372,10 @@
 {{> afQuickField name='address'}}
       </div>
     </div>
-  </div>
+  </div> -->
 <!-- address -->
 <!-- corporate data -->
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="corporate_data_heading">
       <h4 class="panel-title text-capitalize">
         <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#corporate_data_collapse" aria-expanded="false" aria-controls="corporate_data_collapse">
@@ -389,9 +390,9 @@
         {{> afQuickField name='company'}}
      </div>
     </div>
-  </div>
+  </div> -->
 <!-- corporate data -->
-<button type="submit" class="btn btn-primary">{{__ "Submit"}}</button>
+<!-- <button type="submit" class="btn btn-primary">{{__ "Submit"}}</button>
 {{/autoForm}}
 </div>
 
@@ -407,4 +408,4 @@
 
 <template name="start_date_table_column">
 {{moment_L start_date}}
-</template>
+</template> -->

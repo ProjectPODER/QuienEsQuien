@@ -7,6 +7,7 @@ import { Images, Thumbnails } from '../../../api/images/images.js';
 import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
+import '../../components/subscribe/subscribe.js';
 
 
 const LIMIT = 1000;

@@ -7,3 +7,13 @@ global.Buffer = global.Buffer || require("buffer").Buffer; // eslint-disable-lin
 // then refresh the page to hit the breakpoint and see via the call stack which
 // package is trying to use Buffer
 // https://github.com/meteor/meteor/issues/8645
+T9n.setLanguage('es');
+
+AccountsTemplates.configure({
+	    texts: {
+	      title: {
+	        signIn: "",
+	        signUp: "",
+	      }
+	    }
+	});

@@ -483,7 +483,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
           <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
         </div>
         <div class="mt-2">
-          <a href="" class="button-link" target="_blank">ENVIAR</a>
+          <button type="button" class="button-link" data-toggle="modal" data-target="#subscribe-popup">ENVIAR</button>
         </div>
       </form>
     </div>
@@ -498,6 +498,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
       </div>
     </div>
   </div>
+  {{> popupSubscribe }}
 </template>
 
 <template name="amount_column">
