@@ -1,6 +1,6 @@
 import '../components/nav/nav.js';
 import '../components/search/search.js';
-import '../components/header.html';
+import '../components/header/header.html';
 import '../components/footer.html';
 import '../components/spin/spinner.html';
 import './app-body.html';
@@ -15,7 +15,9 @@ Meteor.startup(function(){
       // assign the template an onRendered callback
       template.onRendered(function(){
         // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
-        $('nav').addClass("fixed-nav");
+        $('nav').addClass('fixed-nav');
+        /*$('#subscribe-popup').modal('show');
+        $('#login-popup').modal('show');*/
       });
     } 
   }

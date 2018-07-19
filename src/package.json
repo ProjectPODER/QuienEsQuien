@@ -67,7 +67,8 @@
     "simpl-schema": "^0.5.0",
     "string-hash": "^1.1.3",
     "urlencode": "^1.1.0",
-    "world-countries": "^1.8.1"
+    "world-countries": "^1.8.1",
+    "yarn": "^1.7.0"
   },
   "postcss": {
     "plugins": {

@@ -2,6 +2,7 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 // import Pikaday from 'pikaday';
 import rangeslider from 'rangeslider.js';
 import moment from 'moment';
+import 'moment/locale/es'
 import numbro from 'numbro';
 // import 'pikaday/css/pikaday.css';
 import 'rangeslider.js/dist/rangeslider.css';
@@ -300,7 +301,7 @@ Template.Contracts.onRendered(function () {
 Template.contract_dates.helpers({
   format_date: function(val) {
     if (val instanceof Date) {
-      return moment(val).format('ll');
+      return moment(val).locale('es').format('LL');
     }
     return 'N/A';
   }

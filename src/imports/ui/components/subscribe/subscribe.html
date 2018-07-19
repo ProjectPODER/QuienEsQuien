@@ -1,0 +1,32 @@
+<template name="popupSubscribe">
+	<!-- Modal -->
+	<div class="modal fade" id="subscribe-popup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-body">
+		      	<a type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+		        <p class="modal-title" id="myModalLabel">Gracias por enviar la información.</p>
+				<h2>REGÍSTRATE</h2>
+	      	<div class="container">
+	      		<div class="row">
+		      		<div class="col-5 col-m-5 pr-1">
+			      		<p class="mb-2">Necesitamos tus datos para dar seguimiento a la información proporcionada</p>
+			      		<p>Beneficios de registrate:</p>
+			      		<ul class="mb-2">
+			      			<li class="rubro-list">Atribuimos tus contribuciones</li>
+			      			<li class="rubro-list">Seguimiento en caso de preguntas</li>
+			      			<li class="rubro-list">Envío de listado de datos</li>
+			      			<li class="rubro-list">Participa en nuestras investigaciones</li>
+			      		</ul>
+			      		<p><em>Jamás compartiremos tus datos con terceros. Puedes leer aquí nuestro <a href="/privacy" target="_blank">Aviso de Privacidad</a></em></p>
+			      	</div>
+			      	<div class="col-4 col-m-4">
+						{{> atForm }}
+			      	</div>
+		      	</div>
+	      	</div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</template>

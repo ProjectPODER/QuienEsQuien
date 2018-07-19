@@ -16,6 +16,7 @@ import '../../components/contracts/contracts.js';
 import '../../components/detail/detail.js';
 import '../../components/image/image.js';
 import '../../components/upload/upload.js'
+import '../../components/subscribe/subscribe.js';
 import './persons.html';
 
 AutoForm.hooks({

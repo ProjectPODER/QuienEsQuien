@@ -1,5 +1,6 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import moment from 'moment';
+import 'moment/locale/es'
 import i18n from 'meteor/universe:i18n';
 import { Contracts } from '../../../api/contracts/contracts.js';
 import { Orgs } from '../../../api/organizations/organizations.js';
@@ -7,6 +8,7 @@ import { Images, Thumbnails } from '../../../api/images/images.js';
 import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
+import '../../components/subscribe/subscribe.js';
 
 
 const LIMIT = 1000;

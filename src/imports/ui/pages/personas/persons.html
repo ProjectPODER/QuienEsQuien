@@ -144,14 +144,15 @@
           <input class="form-control" type="text" placeholder="AGREGA LA FUENTE DE INFORMACIÓN">
         </div>
         <div class="mt-2">
-          <a href="" class="button-link" target="_blank">ENVIAR</a>
+          <!-- <a href="" class="button-link" target="_blank">ENVIAR</a> -->
+          <button type="button" class="button-link" data-toggle="modal" data-target="#subscribe-popup">ENVIAR</button>
         </div>
       </form>
     </div>
     <div class="col-m-4 col-4">
       <div class="addinfo-box">
         <h4>SI DESESAS FILTRAR LOS DATOS ANÓNIMAMENTE, ACCEDE A</h4>
-        <img src="../images/mexicoleaks-negro.png" alt="Mexicoleaks Logo" class="addinfo-box-logo">
+        <img src="../images/mexicoleaks-negro.png" alt="Mexicoleaks Logo" class="addinfo-box-logo img-responsive">
         <p>Una plataforma de filtración de datos anónima y segura que verifica la información proporcionada.</p>
         <div class="mt-2 mb-1">
           <a href="https://mexicoleaks.mx/enviar-para.php?r=poder" class="button-link" target="_blank">ACCEDER</a>
@@ -159,6 +160,8 @@
       </div>
     </div>
   </div>
+  {{> popupSubscribe }}
+
 </template>
 
 <template name="PersonSubmit">

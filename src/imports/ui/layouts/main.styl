@@ -31,6 +31,9 @@ nav.bar
       // display inline-block
   .navbar-right
     display inline-block
+    li.open a.dropdown-toggle
+      background-color #2b00f7 !important
+      border-color transparent
     
   .navbar-toggle .icon-bar
       background-color #fff
@@ -40,6 +43,15 @@ nav.bar
     
 .navbar-header button 
     margin-right 0 !important
+    
+#login-dropdown-list
+  color white
+  -webkit-transition all .35s
+  -moz-transition all .35s
+  transition all .35s
+  &:hover
+  &:focus
+    background-color #2b00f7 !important
 
 img
   &.logo-horizontal
@@ -524,6 +536,7 @@ h2card-image-container
       background: transparent;
       display: inline;
       box-shadow: none;
+      margin-right 0
 
 .search-title
   font-weight bold
@@ -912,6 +925,7 @@ a
   -moz-transition all .35s
   transition all .35s
   margin-right 5px
+  margin-bottom 5px
   &:hover
   &:focus
     background-color #2d1c9d
@@ -949,6 +963,9 @@ a
 
 .mt-2
   margin-top 2rem
+  
+.pr-1
+  padding-right 1rem
 
 
 hr
@@ -1069,7 +1086,6 @@ hr
   margin-bottom 4rem
 
 .addinfo-box
-  margin-left 3rem
   margin-right 0
   margin 0 0 3rem 3rem
   text-align center
@@ -1103,6 +1119,7 @@ hr
 .addinfo-box-logo
   width 250px
   padding 2rem 0
+  margin auto
 
 .about-template
 .privacy-template
@@ -1170,8 +1187,58 @@ hr
 
 #treemap
   height 500px
-  width 550px
+  width 100%
   margin auto
+    
+#subscribe-popup
+#login-dropdown-list
+  .form-suscribe
+    margin-right 10px
+  .modal-dialog
+    margin 100px auto 30px
+  p 
+    color #5b5b5b
+    font-size: 1.1rem;
+  ul
+    padding-left 0 
+  li
+    list-style-type none
+    color #5b5b5b
+  h2
+    color: #2d1c9d;
+    font-weight bold
+  .modal-body
+    padding 40px 15px
+  label
+    color: #2d1c9d;
+    font-size: 1.1rem;
+    text-transform uppercase
+    font-weight bold
+  input
+    padding 20px
+  button
+    padding: 15px 25px;
+    font-weight bold
+    margin-bottom 10px
+    background-color #2b00f7
+    text-transform uppercase
+    color #fff
+    border none
+    white-space nowrap
+    -webkit-transition all .35s
+    -moz-transition all .35s
+    transition all .35s
+    &:hover
+    &:focus
+      color #fff
+      background-color #2200c5
+      text-decoration none
+  .modal-content
+    background-color #f6f6f6
+  .at-form
+    margin-top -35px
+    margin-bottom 0
+  
 
 .row
   &::after
@@ -1268,6 +1335,33 @@ hr
     .card
       p
         font-size 1.4rem
+        
+@media only screen and (max-width: 992px)
+    .navbar-header
+        float none
+    .navbar-left,.navbar-right
+        float none !important
+    .navbar-toggle
+        display block
+    .navbar-collapse
+        border-top 1px solid transparent
+        box-shadow inset 0 1px 0 rgba(255,255,255,0.1)
+        &.collapse
+            display none!important
+    .navbar-fixed-top
+        top 0
+        border-width 0 0 1px
+    .navbar-nav
+        float none!important
+        margin-top 7.5px
+        & > li
+            float none
+            & > a
+                padding-top 10px
+                padding-bottom 10px
+    .collapse
+        &.in
+            display block !important
 
 @media only screen and (max-width: 870px)
   .explore-card
@@ -1308,12 +1402,18 @@ hr
     padding 1rem
     
   .shrink 
+  .fixed-nav
     .navbar-right 
       width 100%
     form.nav-form, .fixed-nav form.nav-form
       width 100%
       text-align left
       margin-bottom 10px
+  #right-menu-contracts
+    display none
+    
+  .addinfo-box
+    margin 3rem 0 0 0
      
 
 @media only screen and (max-width: 700px)
@@ -1329,8 +1429,8 @@ hr
       p
         font-size 1.2rem
         text-align left
-    &.content
-      width 95%
+    // &.content
+    //   width 95%
     &.card-pad
       h3 strong
         font-size 2rem
@@ -1345,6 +1445,7 @@ hr
       width 100%
       margin-left 0
   .shrink
+  .fixed-nav
     img
       &.logo-horizontal
         width 7rem
