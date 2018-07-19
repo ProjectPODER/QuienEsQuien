@@ -35,7 +35,7 @@ jobs:
           working_directory: src
 
       - run:
-          command: get checkout node_modules/datatables.net
+          command: git checkout node_modules/datatables.net
           name: restaurar datatables
           working_directory: src
 
