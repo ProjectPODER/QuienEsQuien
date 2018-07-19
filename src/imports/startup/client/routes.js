@@ -179,7 +179,7 @@ FlowRouter.route('/privacy/', {
 
 FlowRouter.route('/about/', {
   waitOn() {
-    return import('../../ui/pages/about.html');
+    return import('../../ui/pages/about/about.js');
   },
   action: function () {
     this.render('ApplicationLayout', 'acerca_de');

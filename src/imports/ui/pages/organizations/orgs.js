@@ -300,6 +300,8 @@ Template.orgView.onRendered(function() {
         .transition().duration(1200)
         .call(piechart);
 
+        nv.utils.windowResize(piechart.update);
+
         return piechart;
       });
 
@@ -671,7 +673,7 @@ Template.orgView.onRendered(function() {
 
 
       /******** User interactions ********/
-
+      
       update();
 
 
