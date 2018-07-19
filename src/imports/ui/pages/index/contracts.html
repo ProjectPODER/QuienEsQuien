@@ -112,7 +112,7 @@
 </template>
 
 <template name="view_contract">
-  <a href="/contracts/{{item._id}}#{{item.ocid}}" class="button-link">Ver contrato{{ver_contrato}}</a>
+  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers_org}}{{item.suppliers_person}}" class="button-link">Ver contrato{{ver_contrato}}</a>
 </template>
 
 <template name="contract_dates">

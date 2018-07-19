@@ -2,9 +2,12 @@ import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import moment from 'moment';
 import 'moment/locale/es'
 import i18n from 'meteor/universe:i18n';
-import { Contracts } from '../../../api/contracts/contracts.js';
+import { ContractsOCDS } from '../../../api/contracts_ocds/contracts_ocds.js';
 import { Orgs } from '../../../api/organizations/organizations.js';
 import { Images, Thumbnails } from '../../../api/images/images.js';
+import {
+  simpleName,
+} from '../../../api/lib';
 import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
@@ -29,24 +32,30 @@ Template.showContractWrapper.onCreated(function() {
   self.ready = new ReactiveVar();
 
   self.autorun(function() {
-      const id = FlowRouter.getParam("_id");
-      const contract = Contracts.findOne({ $or: [
-        { ocid: id },
-        { _id: id }
-      ]});
-      self.contract.set('document', contract);
-      var handle = contractSub.subscribe('contract', id, {
+    const id = FlowRouter.getParam("_id");
+    const supplier = window.queryParams.supplier.replace(/"/g,'');
+      const contract = ContractsOCDS.find(
+        { ocid: id }
+      )
+      contract.forEach((contract) => { selectContract(contract,supplier)})
+      var handle = contractSub.subscribe('contract_ocds', id, {
         onReady: function() {
-          const contract = Contracts.findOne({ $or: [
-            { ocid: id },
-            { _id: id }
-          ]});
-          self.contract.set('document', contract);
+          const contract = ContractsOCDS.find({ocid: id });
+          contract.forEach((contract) => { selectContract(contract,supplier)})
         }
       })
-      self.ready.set(handle.ready());
+
+      function selectContract(contract,supplier) {
+        // console.log("selectContract",simpleName(contract.contracts[0].suppliers),supplier)
+        if (simpleName(contract.contracts[0].suppliers) == supplier) {
+          self.contract.set('document', contract)
+          self.ready.set(true);
+        }
+      }
+
   });
 });
+
 
 Template.showContractWrapper.helpers({
   ready: function() {
@@ -114,8 +123,8 @@ Template.contractProfileImage.helpers({
 
 Template.contractView.onRendered(function() {
   $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
-  $('.right-menu-contracts').affix({offset: {top: 280, bottom:900} }); 
-  import("../../../../../node_modules/jquery.easing/jquery.easing.js").then(() => {
+  $('.right-menu-contracts').affix({offset: {top: 280, bottom:900} });
+  import("../../../../node_modules/jquery.easing/jquery.easing.js").then(() => {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
         $('html, body').stop().animate({
@@ -126,4 +135,24 @@ Template.contractView.onRendered(function() {
   });
 });
 
+Template.contractView.helpers({
+  simpleName: function(params) {
+    return simpleName(params)
+  },
+  getField: function(params) {
+    if (params.hash.object && params.hash.object[0] && params.hash.field)
+    {
+      console.log(params.hash.object[0][params.hash.field]);
+      try {
 
+        return params.hash.object[0][params.hash.field].toString();
+      }
+      catch(e) {
+        console.log(e);
+        return "--"
+      }
+
+    }
+    return "-"
+  }
+})
