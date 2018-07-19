@@ -70,6 +70,6 @@ Template.registerHelper('get_year', function(date) {
   return moment(date).format('YYYY');
 });
 
-Template.registerHelper('moment_ll', function(date) {
-  return moment(date).format('ll');
+Template.registerHelper('moment_LL', function(date) {
+  return moment(date).format('LL');
 });
