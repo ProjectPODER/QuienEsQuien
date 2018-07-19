@@ -25,8 +25,18 @@ jobs:
       - run: echo 'export TEST_BROWSER_DRIVER=nightmare' >> $BASH_ENV
 
       - run:
-          command: meteor npm install
-          name: install
+          command: npm install -g yarn
+          name: install yarn
+          working_directory: src
+
+      - run:
+          command: yarn install
+          name: install yarn install
+          working_directory: src
+
+      - run:
+          command: get checkout node_modules/datatables.net
+          name: restaurar datatables
           working_directory: src
 
       - save_cache:
