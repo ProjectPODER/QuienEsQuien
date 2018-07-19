@@ -11,6 +11,7 @@ import '../../api/server/version.js';
 import '../../api/mail.js';
 import '../../api/images/server/publications.js';
 import '../../api/contracts/server/publications.js';
+import '../../api/contracts_ocds/server/publications.js';
 import '../../api/contracts/methods';
 import '../../api/matches/methods.js';
 import '../../api/revisions/server/publications.js';

@@ -108,6 +108,7 @@ FlowRouter.route('/contracts/:_id', {
     return import('../../ui/pages/contracts/contracts.js');
   },
   action: function () {
+    window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'showContractWrapper');
   },
   name: 'contractShow',
