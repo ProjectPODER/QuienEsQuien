@@ -16,18 +16,18 @@ if (Meteor.isClient) {
     //  Template.deregisterHelper('_');
     //});
 
-    it('Should be titled "Quién es Quién Wiki"', function () {
-      withRenderedTemplate('Home', {}, el => {
-        assert.strictEqual($(el).find('.page-title').text(), "Quién es Quién Wiki")
-      });
-    });
-
-    it('Should have description "Base de datos sobre las élites y las estructuras..."', function () {
-      withRenderedTemplate('Home', {}, el => {
-        assert.strictEqual($(el).find('.page-description').text(),
-          "Base de datos sobre las élites y las estructuras de poder")
-      });
-    });
+    // it('Should be titled "Quién es Quién Wiki"', function () {
+    //   withRenderedTemplate('Home', {}, el => {
+    //     assert.strictEqual($(el).find('.page-title').text(), "Quién es Quién Wiki")
+    //   });
+    // });
+    //
+    // it('Should have description "Base de datos sobre las élites y las estructuras..."', function () {
+    //   withRenderedTemplate('Home', {}, el => {
+    //     assert.strictEqual($(el).find('.page-description').text(),
+    //       "Base de datos sobre las élites y las estructuras de poder")
+    //   });
+    // });
 
   });
 }
