@@ -136,11 +136,13 @@
           <div class="col-m-12 col-12">
             <h4 class="description-data-subtitle">PLANEACIÓN</h4>
           </div>
+          {{#if planning.budget.budgetBreakdown.length}}
+          Si ves esto avisanos a info@quiensquien.wiki porque falta mostrar algo de información aquí.
           <div class="col-m-12 col-12">
               <p class="js-data mt-2">PRESUPUESTO</p>
           </div>
           <div class="col-m-12 col-9">
-            <table class="table table-responsive">
+            <!-- <table class="table table-responsive">
               <tr>
                 <th class="js-data">Rubro</th>
                 <th class="js-data">Dato</th>
@@ -169,8 +171,11 @@
                 <td class="rubro-list">APORTACIÓN GENERAL</td>
                 <td class="rubro-list-data">Sin dato</td>
               </tr>
-            </table>
+            </table> -->
           </div>
+          {{else}}
+          No hay datos
+          {{/if}}
         </div>
         <div class="col-m-8 col-8">
           <hr>
@@ -234,9 +239,9 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
           <div class="col-m-6 col-4">
               <p class="js-title-data">Monto adjudicado</p>
               <p class="js-data">
-                {{#let value=(getField object=awards field="value")}}
-                {{value.amount}}
-                {{value.currency}}
+                {{#let value3=(getField object=awards field="value")}}
+                {{value3.amount}}
+                {{value3.currency}}
                 {{/let}}</p>
           </div>
           <div class="col-m-6 col-8">
@@ -250,6 +255,10 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
         <div class="col-m-9 col-9 flex mt-2"  id="contratos">
           <div class="col-m-12 col-12">
             <h4 class="description-data-subtitle">CONTRATOS</h4>
+          </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Importe</p>
+              <p class="js-data">${{#let value2=(getField object=contracts field="value")}}{{value2.amount}}{{value2.currency}}{{/let}}</p>
           </div>
           <div class="col-m-6 col-4">
               <p class="js-title-data">Estatus</p>
