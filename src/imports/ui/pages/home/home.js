@@ -37,7 +37,7 @@ Template.counters.onCreated(function() {
       var counter = {
         orgs: result[0],
         persons: result[1],
-        contracts: result[2]
+        contracts: result[3]
       };
       self.counter.set(counter);
     }
@@ -53,7 +53,7 @@ Template.counters.onCreated(function() {
         var counter = {
           orgs: result[0],
           persons: result[1],
-          contracts: result[2]
+          contracts: result[3]
         };
         self.counter.set(counter);
       }
@@ -94,4 +94,3 @@ Template.Home.events({
     window.location.href = template.$('ul.suggestions li a').first().attr("href");
   },
 });
-
