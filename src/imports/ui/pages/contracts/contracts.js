@@ -41,12 +41,15 @@ Template.showContractWrapper.onCreated(function() {
       var handle = contractSub.subscribe('contract_ocds', id, {
         onReady: function() {
           const contract = ContractsOCDS.find({ocid: id });
+          if (contract.fetch().length==0) {
+            console.log("ERROR: No existe el contrato",id);
+          }
           contract.forEach((contract) => { selectContract(contract,supplier)})
         }
       })
 
       function selectContract(contract,supplier) {
-        // console.log("selectContract",simpleName(contract.contracts[0].suppliers),supplier)
+        console.log("selectContract",simpleName(contract.contracts[0].suppliers),supplier)
         if (simpleName(contract.contracts[0].suppliers) == supplier) {
           self.contract.set('document', contract)
           self.ready.set(true);

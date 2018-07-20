@@ -87,7 +87,7 @@ Template.Home.onRendered(function() {
       $('#navbar').removeClass("fixed-nav");
     }
   });
-  scrollme.init();
+  // scrollme.init();
 });
 
 Template.Home.events({
