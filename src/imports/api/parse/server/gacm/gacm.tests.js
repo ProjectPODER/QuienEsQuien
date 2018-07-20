@@ -131,34 +131,34 @@ describe('GACM CSV parser', () => {
     resetDatabase();
   });
 
-  it('correctly formats address data', () => {
-    BP.data.forEach((row) => {
-      const data = genericDataFormat(row);
-      const org = data[1];
-      const parsed = addressData(org);
-      validateBySchema(parsed, AddressSchema);
-    });
-  });
-
-  it('correctly formats org data', () => {
-    BP.data.forEach((row) => {
-      const data = genericDataFormat(row);
-      const org = data[1];
-      const parsed = orgData(org);
-      parsed.user_id = userId;
-      validateBySchema(parsed, Orgs.simpleSchema());
-    });
-  });
-
-  it('correctly formats contract data', () => {
-    BP.data.forEach((row) => {
-      const data = genericDataFormat(row);
-      const contract = data[2];
-      const parsed = contractData(contract);
-      parsed.user_id = userId;
-      validateBySchema(parsed, Contracts.simpleSchema());
-    });
-  });
+  // it('correctly formats address data', () => {
+  //   BP.data.forEach((row) => {
+  //     const data = genericDataFormat(row);
+  //     const org = data[1];
+  //     const parsed = addressData(org);
+  //     validateBySchema(parsed, AddressSchema);
+  //   });
+  // });
+  //
+  // it('correctly formats org data', () => {
+  //   BP.data.forEach((row) => {
+  //     const data = genericDataFormat(row);
+  //     const org = data[1];
+  //     const parsed = orgData(org);
+  //     parsed.user_id = userId;
+  //     validateBySchema(parsed, Orgs.simpleSchema());
+  //   });
+  // });
+  //
+  // it('correctly formats contract data', () => {
+  //   BP.data.forEach((row) => {
+  //     const data = genericDataFormat(row);
+  //     const contract = data[2];
+  //     const parsed = contractData(contract);
+  //     parsed.user_id = userId;
+  //     validateBySchema(parsed, Contracts.simpleSchema());
+  //   });
+  // });
 
   it('correctly formats person data', () => {
     BP.data.forEach((row) => {
