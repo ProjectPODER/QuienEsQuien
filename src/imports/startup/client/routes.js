@@ -6,6 +6,7 @@ FlowRouter.route('*', {
     return import('../../ui/pages/404/404.js');
   },
   action() {
+    GARecordPage('/404');
     this.render('ApplicationLayout', 'pageNotFound');
   },
 });
@@ -15,6 +16,7 @@ FlowRouter.route('/', {
     return import('../../ui/pages/home/home.js');
   },
   action: function () {
+    GARecordPage('/');
     this.render('ApplicationLayout', 'Home');
   },
   name: "home",
@@ -25,6 +27,7 @@ FlowRouter.route('/dash', {
     return import('../../ui/pages/users/users.js');
   },
   action: function () {
+    GARecordPage('/dash');
     this.render('ApplicationLayout', 'userDash');
   },
   name: 'userDash',
@@ -55,6 +58,7 @@ FlowRouter.route('/persons', {
     return import('../../ui/pages/index/persons.js');
   },
   action: function () {
+    GARecordPage('/persons');
     this.render('ApplicationLayout', 'Persons');
   },
   name: 'persons',
@@ -65,6 +69,7 @@ FlowRouter.route('/orgs', {
     return import('../../ui/pages/index/organizations.js');
   },
   action: function () {
+    GARecordPage('/orgs');
     this.render('ApplicationLayout', 'Orgs');
   },
   name: 'orgs',
@@ -77,6 +82,7 @@ FlowRouter.route('/contracts/', {
   action: function () {
     //Enviar parámetros del query via window
     //TODO: Buscar un método mejor
+    GARecordPage('/contracts');
     window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'Contracts');
   },
@@ -87,7 +93,8 @@ FlowRouter.route('/persons/:_id', {
   waitOn() {
     return import('../../ui/pages/personas/persons.js');
   },
-  action: function () {
+  action: function (params) {
+    GARecordPage('/persons/'+params._id);
     this.render('ApplicationLayout', 'showPersonWrapper');
   },
   name: 'personShow',
@@ -98,6 +105,7 @@ FlowRouter.route('/orgs/:_id', {
     return import('../../ui/pages/organizations/orgs.js');
   },
   action: function () {
+    GARecordPage('/orgs/'+params._id);
     this.render('ApplicationLayout', 'showOrgWrapper');
   },
   name: 'orgShow',
@@ -108,6 +116,7 @@ FlowRouter.route('/contracts/:_id', {
     return import('../../ui/pages/contracts/contracts.js');
   },
   action: function () {
+    GARecordPage('/contracts/'+params._id);
     window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'showContractWrapper');
   },
@@ -163,6 +172,7 @@ FlowRouter.route('/contact/', {
     return import('../../ui/components/contact/contact.js');
   },
   action: function () {
+    GARecordPage('/contact/');
     this.render('ApplicationLayout','contactForm');
   },
   name: 'contactForm',
@@ -173,6 +183,7 @@ FlowRouter.route('/privacy/', {
     return import('../../ui/pages/privacy/privacy.js');
   },
   action: function () {
+    GARecordPage('/privacy/');
     this.render('ApplicationLayout', 'aviso_de_privacidad');
   },
   name: 'avisoDePrivacidad',
@@ -183,6 +194,7 @@ FlowRouter.route('/about/', {
     return import('../../ui/pages/about/about.js');
   },
   action: function () {
+    GARecordPage('/about/');
     this.render('ApplicationLayout', 'acerca_de');
   },
   name: 'acerca_de',
