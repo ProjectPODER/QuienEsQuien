@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row document-body">
-      <div class="col-3 col-m-3">
+      <!-- <div class="col-3 col-m-3">
           <div class="filter-bar">
             <p class="search-title">Filtrar</p>
             <fieldset name="proveedores">
@@ -45,23 +45,24 @@
                     <input type="text" name="filtros" placeholder="Buscar filtro">
                 </div>
             </fieldset>
-            
 
-            <!-- CAMBIAR NAME Y CLASS -->
-            <fieldset name="cantidad-contratos">
+
+            <! CAMBIAR NAME Y CLASS -->
+            <!-- <fieldset name="cantidad-contratos">
               <p class="search-title">Cantidad de contratos</p>
               <input type="text" name="" placeholder="Mínimo" class="search-amount">
               <input type="text" name="" placeholder="Máximo" class="search-amount">
             </fieldset>
-            
+
             <input type="submit" class="search-submit" value="FILTRAR">
           </div>
-      </div>
-      <div class="col-9 col-m-9">
-        <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p>
+      </div> -->
 
-        {{> tabular table=TabularTables.Persons 
-        id="person-index" 
+      <div class="col-12 col-m-12">
+        <!-- <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p> -->
+
+        {{> tabular table=TabularTables.Persons
+        id="person-index"
         class=""}}
       </div>
 
@@ -74,7 +75,7 @@
 </template>
 
 <template name="person_type">
-  <p>Proveedor {{item.type}}  
+  <p>Proveedor {{item.type}}
     {{#if contracts_or_companies (item)}}
         <span>con</span>
     {{/if}}
@@ -86,4 +87,3 @@
     {{/if}}
  </p>
 </template>
-
