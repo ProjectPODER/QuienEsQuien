@@ -105,6 +105,9 @@ AutoForm.hooks({
 });
 
 Template.orgView.helpers({
+  contracts() {
+    return Session.get("orgContracts")
+  },
   contractSummary() {
     var oc =Session.get("orgContracts");
     let summary = {}
@@ -120,6 +123,19 @@ Template.orgView.helpers({
       summary[year].count += 1;
     }
     console.log("cs",summary);
+    return summary;
+  },
+  dependencySummary() {
+    var oc =Session.get("orgContracts");
+    let summary = []
+
+    for (c in oc) {
+      let cc = oc[c];
+      console.log(cc);
+      let year = cc.start_date.getFullYear();
+      summary.push({name: cc.dependency})
+    }
+    console.log("ds",summary);
     return summary;
   },
   isWebsite: function(value) {
