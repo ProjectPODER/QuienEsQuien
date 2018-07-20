@@ -148,23 +148,23 @@
           <hr>
         </div>
         <div class="col-m-5 col-5 mt-2">
-          <h4 class="description-data-subtitle">PROVEEDORES PRINCIPALES</h4>
-          <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banamex SAB DE CV</a></p>
-          <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banorte SA DE CV</a></p>
-          <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco Santander Serfín</a></p>
-          <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Manco Mercantil del Norte</a></p>
-          <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco del Bajío SAB</a></p>
+          <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}UNIDADES COMPRADORAS PRINCIPALES{{/if}}</h4>
+          {{# each dependency in dependencySummary }}
+          <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">{{dependency.name}}</a></p>
+          {{/each}}
+          
           <!-- <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">BanRegio SA de CV</a></p>
           <div class="mt-2">
             <a href="" class="button-link">VER TODOS LOS PROVEEDORES</a>
           </div> -->
         </div>
-        <div class="col-m-7 col-7 mt-2">
+        <!-- <div class="col-m-7 col-7 mt-2">
           <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
-        </div>
+        </div> -->
         <div class="col-m-8 col-8">
           <hr>
         </div>
+        {{#if contracts.length }}
         <div class="col-m-12 col-12 mt-2">
           <h4 class="description-data-subtitle">CONTRATOS</h4>
           <table class="table table-responsive">
@@ -176,26 +176,25 @@
               </tr>
             </thead>
             <tbody>
+              {{# each contract in contracts }}
               <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
+                  <td class="description-data-contract">
+                    <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
+                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.suppliers_person}}">{{contract.title}}</a>
+                  </td>
+                  <td class="description-data-amount">{{contract.amount}}</td>
+                  <td class="description-data-date">{{get_year contract.start_date}}</td>
               </tr>
-              <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">SUMINISTRO DE VALES DE DESPENSA PARA EL AÑO 2015</td>
-                <td class="description-data-amount">17,660,625,810 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
-              </tr>
-              <tr>
-                <td class="description-data-contract"><img src="../images/icons/contrato-blue.svg" alt="Ícono persona" class="icon-lf icon-lf-contract">CONTRATO SEGURITECH</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
-              </tr>
+              {{/each}}
             </tbody>
           </table>
         </div>
         <div class="col-m-9 mb-3">
-          <table class="table table-responsive">
+          <p>Viendo <strong>{{contract_count}} contrato(s) en total</strong>. </p>
+          <div class="col-m-3 centered contract-button">
+            <a href="/contracts?{{# if public }}filter_dependency={{name}}{{else}}filter_supplier={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>
+          </div>
+          <!-- <table class="table table-responsive">
             <thead>
               <tr>
                 <th class="description-data-subname">Cantidad</th>
@@ -210,16 +209,14 @@
                 <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
               </tr>
             </tbody>
-          </table>
-        </div>
-        <div class="col-m-3 centered contract-button">
-          <a href="/contracts?{{# if public }}filter_dependency={{name}}{{else}}filter_supplier={{simpleName name}}{{/if}}" class="button-link">Ver todos los contratos</a>
-        </div>
-        <div class="col-m-8 col-8">
-          <hr>
+          </table> -->
         </div>
         {{/if}}
-        <div class="col-m-12 col-12 mt-2">
+        <!-- <div class="col-m-8 col-8">
+          <hr>
+        </div> -->
+        {{/if}}
+        <!-- <div class="col-m-12 col-12 mt-2">
           <h4 class="description-data-subtitle">OTRAS DEPENDENCIAS DEL MISMO RAMO</h4>
           <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banamex SAB DE CV</a></p>
           <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banorte SA DE CV</a></p>
@@ -227,7 +224,7 @@
           <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Manco Mercantil del Norte</a></p>
           <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco del Bajío SAB</a></p>
           <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">BanRegio SA de CV</a></p>
-        </div>
+        </div> -->
       </div>
 
       </div>
