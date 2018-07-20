@@ -16,8 +16,6 @@ Meteor.startup(function(){
       template.onRendered(function(){
         // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
         $('nav').addClass('fixed-nav');
-        /*$('#subscribe-popup').modal('show');
-        $('#login-popup').modal('show');*/
       });
     } 
   }
