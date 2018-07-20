@@ -124,7 +124,7 @@
                         <a class="page-scroll" href="#implementacion">Implementación</a>
                     </li>
                     <div class="mt-2">
-                      <a href="{{source}}" class="button-link">VER EN COMPRANET</a>
+                      <a href="{{getField object="source" field="url"}}" class="button-link">VER EN COMPRANET</a>
                     </div>
                 </ul>
             </div>
@@ -231,6 +231,14 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
               <p class="js-title-data">Estatus de la adjudicación</p>
               <p class="js-data">{{getField object=awards field="status"}}</p>
           </div>
+          <div class="col-m-6 col-4">
+              <p class="js-title-data">Monto adjudicado</p>
+              <p class="js-data">
+                {{#let value=(getField object=awards field="value")}}
+                {{value.amount}}
+                {{value.currency}}
+                {{/let}}</p>
+          </div>
           <div class="col-m-6 col-8">
               <p class="js-title-data">Fecha de fallo <a href="#" data-toggle="tooltip" data-placement="right" title="Fecha del acto de fallo, en formato ISO 86019. La emisión del fallo es el acto concluyente de un proceso de contratación que determina a quien se adjudica el contrato."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{moment_LL (getField object=awards field="date")}}</p>
@@ -245,19 +253,13 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
           </div>
           <div class="col-m-6 col-4">
               <p class="js-title-data">Estatus</p>
-              <p class="js-data">Activo</p>
+              <p class="js-data">{{getField object=contracts field="statusMxCnet"}}</p>
           </div>
           <div class="col-m-6 col-8">
-              <p class="js-title-data">Convenio modificatorio</p>
-              <p class="js-data">No</p>
-          </div>
-          <div class="col-m-6 col-8">
-              <p class="js-title-data">Fecha de celebración</p>
-              <p class="js-data">Sin datos</p>
-          </div>
-          <div class="col-m-6 col-8">
-              <p class="js-title-data">Tipo de moneda</p>
-              <p class="js-data">MXN</p>
+              <p class="js-title-data">Período</p>
+              <p class="js-data">{{#let period=(getField object=contracts field="period")}}
+                  {{moment_LL period.startDate}} - {{moment_LL period.endDate}}
+                {{/let}}</p>
           </div>
         </div>
         <div class="col-m-8 col-8">
@@ -267,9 +269,13 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
           <div class="col-m-12 col-12">
             <h4 class="description-data-subtitle">IMPLEMENTACIÓN</h4>
           </div>
+          {{#if implementation}}
+          Este es un maravilloso contrato con datos de implementación. Si ves este mensaje por favor avisanos a info@quienesquien.wiki.
+          {{else}}
           <div class="col-m-6 col-4">
               <p class="js-title-data">No hay datos</p>
           </div>
+          {{/if}}
         </div>
 
 

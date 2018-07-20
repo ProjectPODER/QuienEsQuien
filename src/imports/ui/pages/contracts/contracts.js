@@ -145,13 +145,20 @@ Template.contractView.helpers({
   getField: function(params) {
     if (params.hash.object && params.hash.object[0] && params.hash.field)
     {
-      console.log(params.hash.object[0][params.hash.field]);
       try {
 
-        return params.hash.object[0][params.hash.field].toString();
+        if (params.hash.object[0][params.hash.field]) {
+
+          console.log(params.hash.field,params.hash.object[0][params.hash.field]);
+          return params.hash.object[0][params.hash.field].toString();
+        }
+        else {
+          console.log(params.hash.field,"---");
+          return "---"
+        }
       }
       catch(e) {
-        console.log(e);
+        console.log(e,"object",params.hash.object,"field",params.hash.field,"value");
         return "--"
       }
 
