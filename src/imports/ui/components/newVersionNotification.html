@@ -1,0 +1,52 @@
+<template name="newVersionNotification">
+  <style media="screen">
+    .newVersionNotification {
+      position: absolute;
+      bottom:5em;
+      right: 5em;
+      min-width: 300px;
+      max-width: 500px;
+      max-height: 60%;
+      overflow: auto;
+      background: #cde;
+      border: 2px solid #ccc;
+      padding: 1em 2em 2em 2em;
+      font-family: sans-serif;
+    }
+    .newVersionNotification_button {
+      background: #eee;
+      border: 1px solid black;
+      padding: 0.1em 0.5em;
+      cursor: pointer;
+      float: right;
+      margin-left: 0.5em;
+    }
+    .newVersionNotification_close {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+    }
+    p {
+      font-size: 1.2em;
+    }
+  </style>
+  <div class="newVersionNotification">
+    <h2>
+      Estamos preparando una nueva versión de QuienEsQuien.wiki
+    </h2>
+    <p>
+      Déjanos tu e-mail para que te avisemos cuando esté lista.
+    </p>
+    <form id="newUserForm">
+      <input type="text" name="newUserEmail" placeholder="email" value="">
+      <input type="submit" name="" value="Enviar">
+    </form>
+    <div class="newVersionNotification_close" title="cerrar" aria-role="button">
+      <div class="newVersionNotification_button">
+      X
+      </div>
+       <a href="#" class="newVersionNotification_access">Cerrar</a>
+    </div>
+
+  </div>
+</template>
