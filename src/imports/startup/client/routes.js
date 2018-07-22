@@ -1,12 +1,20 @@
 import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
 import '../../ui/layouts/app-body.js';
 
+// //GARecordPage = function(pageLocation) {
+// ga('create', 'UA-122512835-1', 'auto');
+// ga('send', 'pageview', {
+//   page: pageLocation
+// });
+// }
+
+
 FlowRouter.route('*', {
   waitOn() {
     return import('../../ui/pages/404/404.js');
   },
   action() {
-    GARecordPage('/404');
+    // //GARecordPage('/404');
     this.render('ApplicationLayout', 'pageNotFound');
   },
 });
@@ -16,7 +24,7 @@ FlowRouter.route('/', {
     return import('../../ui/pages/home/home.js');
   },
   action: function () {
-    GARecordPage('/');
+    // //GARecordPage('/');
     this.render('ApplicationLayout', 'Home');
   },
   name: "home",
@@ -27,7 +35,7 @@ FlowRouter.route('/dash', {
     return import('../../ui/pages/users/users.js');
   },
   action: function () {
-    GARecordPage('/dash');
+    // //GARecordPage('/dash');
     this.render('ApplicationLayout', 'userDash');
   },
   name: 'userDash',
@@ -58,7 +66,7 @@ FlowRouter.route('/persons', {
     return import('../../ui/pages/index/persons.js');
   },
   action: function () {
-    GARecordPage('/persons');
+    //GARecordPage('/persons');
     this.render('ApplicationLayout', 'Persons');
   },
   name: 'persons',
@@ -69,7 +77,7 @@ FlowRouter.route('/orgs', {
     return import('../../ui/pages/index/organizations.js');
   },
   action: function () {
-    GARecordPage('/orgs');
+    //GARecordPage('/orgs');
     this.render('ApplicationLayout', 'Orgs');
   },
   name: 'orgs',
@@ -82,7 +90,7 @@ FlowRouter.route('/contracts/', {
   action: function () {
     //Enviar parámetros del query via window
     //TODO: Buscar un método mejor
-    GARecordPage('/contracts');
+    //GARecordPage('/contracts');
     window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'Contracts');
   },
@@ -94,7 +102,7 @@ FlowRouter.route('/persons/:_id', {
     return import('../../ui/pages/personas/persons.js');
   },
   action: function (params) {
-    GARecordPage('/persons/'+params._id);
+    //GARecordPage('/persons/'+params._id);
     this.render('ApplicationLayout', 'showPersonWrapper');
   },
   name: 'personShow',
@@ -105,7 +113,7 @@ FlowRouter.route('/orgs/:_id', {
     return import('../../ui/pages/organizations/orgs.js');
   },
   action: function () {
-    GARecordPage('/orgs/'+params._id);
+    //GARecordPage('/orgs/'+params._id);
     this.render('ApplicationLayout', 'showOrgWrapper');
   },
   name: 'orgShow',
@@ -116,7 +124,7 @@ FlowRouter.route('/contracts/:_id', {
     return import('../../ui/pages/contracts/contracts.js');
   },
   action: function () {
-    GARecordPage('/contracts/'+params._id);
+    //GARecordPage('/contracts/'+params._id);
     window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'showContractWrapper');
   },
@@ -172,7 +180,7 @@ FlowRouter.route('/contact/', {
     return import('../../ui/components/contact/contact.js');
   },
   action: function () {
-    GARecordPage('/contact/');
+    //GARecordPage('/contact/');
     this.render('ApplicationLayout','contactForm');
   },
   name: 'contactForm',
@@ -183,7 +191,7 @@ FlowRouter.route('/privacy/', {
     return import('../../ui/pages/privacy/privacy.js');
   },
   action: function () {
-    GARecordPage('/privacy/');
+    //GARecordPage('/privacy/');
     this.render('ApplicationLayout', 'aviso_de_privacidad');
   },
   name: 'avisoDePrivacidad',
@@ -194,7 +202,7 @@ FlowRouter.route('/about/', {
     return import('../../ui/pages/about/about.js');
   },
   action: function () {
-    GARecordPage('/about/');
+    //GARecordPage('/about/');
     this.render('ApplicationLayout', 'acerca_de');
   },
   name: 'acerca_de',
