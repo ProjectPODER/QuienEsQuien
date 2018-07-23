@@ -361,7 +361,7 @@ Template.orgView.onRendered(function() {
       //Force-directed Graph
 
       var chartDiv = document.getElementById("graph-container");
-      $(chartDiv).height(500);
+      // $(chartDiv).height(500);
       var width = chartDiv.clientWidth;
       var height = chartDiv.clientHeight;
       var slide;
