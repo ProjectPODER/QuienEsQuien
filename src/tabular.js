@@ -53,6 +53,12 @@ const contractFields = [
     data: 'title',
     titleFn() { return i18n.__('Title'); },
     class: 'js-title no-title search-result-title col-m-8 col-8',
+    tmpl: Meteor.isClient && Template.link_title,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
   },
   {
     data: 'amount',
