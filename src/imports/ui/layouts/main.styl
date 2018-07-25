@@ -570,14 +570,14 @@ input[type="date"]::placeholder
 
 select
   &.search-select
-    height 34px
+    padding 10px 5px
     font-size .8rem
     text-transform uppercase
     color #808080
     border-radius 0
     border-style solid
     border-width 1px
-
+    background-color white
 .form-control
   height 25px
   vertical-align middle
@@ -626,6 +626,12 @@ img.icon-lf
 
 fieldset
   margin-bottom 1rem
+  
+input[type="submit"].search-submit
+  width 100%
+  font-weight bold
+  font-size 1rem
+  margin-top 1.5rem !important
 
 input[type="submit"].search-submit, .contact-submit
   background-color #21018b
@@ -650,6 +656,9 @@ button[type="reset"]
   -webkit-transition all .35s
   -moz-transition all .35s
   transition all .35s
+  
+button.reset-filters
+  width 100%
 
 .search-card
     overflow hidden
