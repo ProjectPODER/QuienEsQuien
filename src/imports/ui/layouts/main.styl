@@ -133,8 +133,8 @@ img
     .multiple-control-container
       &:not(:last-child)
         .multiple-control
-          border-color: transparent
-          background: none
+          border-color transparent
+          background none
 
           &:hover
             border-color: black
@@ -144,11 +144,13 @@ img
             background: white
 
       .remove-field-control
-        display: none
+        display none
+        float right
+        margin-top 5px
 
     .add-field-control
-      float: right
-      margin: -2.4em 2.3em 0 0
+      float right
+      margin -2.4em 2.3em 0 0
 
     input[type="date"]
       padding 5px 5px 5px 25px
@@ -843,6 +845,9 @@ button.reset-filters
 
 .dataTables_length
   text-align right
+  
+.dataTables_paginate
+  margin-top 2.5rem !important
 
 .viewWrapper
   margin-top 4rem
