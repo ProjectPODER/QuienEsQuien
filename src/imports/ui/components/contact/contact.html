@@ -8,9 +8,9 @@
                     {{> afQuickField name="subject"}}
                     {{> afQuickField name="email"}}
                     {{> afQuickField name="message" rows=10}}
-                    <div class="antispam">
+                    <!-- <div class="antispam">
                         {{> afQuickField name="antispam"}}
-                    </div>
+                    </div> -->
                     <div>
                         <button type="submit" class="btn contact-submit">Enviar</button>
                         <button type="reset" class="btn btn-default">Resetear</button>
@@ -23,7 +23,7 @@
 
 <template name="contactSuccess">
     <div class="container">
-        <div class="col-m-12 col-12">
+        <div class="col-m-12 col-12 mb-1">
             <h1 class="page-title">{{__ 'Success'}}</h1>
             <div class="message">{{__ 'Mail successfully sent'}}</div>
         </div>
