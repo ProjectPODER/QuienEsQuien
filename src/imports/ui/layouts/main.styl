@@ -667,11 +667,18 @@ img.icon-lf
 
 fieldset
   margin-bottom 1rem
-  
-.fixed-filter-button
-  position: fixed
+ 
+#fixed-filter-button
+  position: absolute 
   left 31px
-  bottom 30px
+  bottom 0
+  &.affix
+    top 400px !important
+    position fixed !important
+.fixed-filter-button
+  // position: absolute
+  // left 31px
+  // bottom 30px
   width 400px
   
 input[type="submit"].search-submit

@@ -296,6 +296,7 @@ Template.Contracts.onRendered(function () {
 
     computation.stop();
   });
+  $('#fixed-filter-button').affix({offset: {top: 450} });
 });
 
 Template.contract_dates.helpers({
