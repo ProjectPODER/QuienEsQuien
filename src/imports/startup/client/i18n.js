@@ -11,7 +11,7 @@ function getUserLanguage() {
       navigator.language ||
       navigator.browserLanguage ||
       navigator.userLanguage ||
-      'en-US'
+      'es'
   );
 }
 
