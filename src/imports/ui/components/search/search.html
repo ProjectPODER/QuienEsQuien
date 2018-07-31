@@ -3,6 +3,7 @@
     {{> EasySearch.Input indexes=indexes attributes=inputAttributes }}
 
       {{#EasySearch.IfNoResults indexes=indexes logic="AND" }}
+        <!-- <div class="no-results">No hay resultados</div> -->
       {{/EasySearch.IfNoResults}}
 
       {{#EasySearch.IfSearching indexes=indexes logic="OR" }}

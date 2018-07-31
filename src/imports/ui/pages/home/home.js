@@ -91,6 +91,11 @@ Template.Home.onRendered(function() {
 
 Template.Home.events({
   'click #first-search': function (event, template) {
-    window.location.href = template.$('ul.suggestions li a').first().attr("href");
+    let url =  template.$('ul.suggestions li a').first().attr("href");
+       if (url)
+        window.location.href = url;
+       else {
+        //TODO: Explicarle al usuario que no lo podemos llevar a ningun lado hasta que no haya ningún resultado.
+       }
   },
 });
