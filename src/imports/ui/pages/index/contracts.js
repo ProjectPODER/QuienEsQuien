@@ -296,7 +296,15 @@ Template.Contracts.onRendered(function () {
 
     computation.stop();
   });
-  $('#fixed-filter-button').affix({offset: {top: 450} });
+  // $('#fixed-filter-button')
+  //   .affix({
+  //     offset:
+  //     {
+  //       top: $(".filter-bar").offset().top + $(".filter-bar").height()
+  //     }
+  //   }
+  // );
+
 });
 
 Template.contract_dates.helpers({
