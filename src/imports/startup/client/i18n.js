@@ -6,13 +6,17 @@ import {
 import moment from 'moment';
 
 function getUserLanguage() {
-  return (
+  lang = (
       navigator.languages && navigator.languages[0] ||
       navigator.language ||
       navigator.browserLanguage ||
       navigator.userLanguage ||
       'es'
   );
+  if (lang == "es-419")
+    lang = "es"
+
+  return lang;
 }
 
 Meteor.startup(() => {
