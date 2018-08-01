@@ -596,15 +596,15 @@ Template.orgView.onRendered(function() {
 
         d4.selectAll(".node").selectAll("text").remove();
 
-        // nodeLabel = d4.select("#node12").append("text")
-        //   .html(function(d) {
-        //     return d.label;
-        //   })
-        //   .attr('text-anchor', 'middle')
-        //   .style('font-size', function(d) { return Math.min(2 * radius(d.weight), (2 * radius(d.weight)) / this.getComputedTextLength() * 12) + 'px'; })//12
-        //   .attr('dy', '.35em')
-        //   .attr('pointer-events', 'none')
-        //   .attr('class', 'bubble-label');
+        nodeLabel = d4.select("#node1").append("text")
+          .html(function(d) {
+            return d.label;
+          })
+          .attr('text-anchor', 'middle')
+          .style('font-size', '1rem')//12
+          .attr('dy', '.35em')
+          .attr('pointer-events', 'none')
+          .attr('class', 'bubble-label');
 
         // Apply the general update pattern to the links.
         link = link.data(links);//, function(d) { return links[findWithAttr(links, "id", d.source)] + "-" + links[findWithAttr(links, "id", d.target)]; });
@@ -653,9 +653,9 @@ Template.orgView.onRendered(function() {
           .attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
 
-        // nodeLabel
-        //   .attr("x", function(d) { return d.x; })
-        //   .attr("y", function(d) { return d.y; });
+        nodeLabel
+          .attr("x", function(d) { return d.x; })
+          .attr("y", function(d) { return d.y; });
 
         link
           .attr("x1", function(d) { return d.source.x; })

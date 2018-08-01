@@ -194,12 +194,16 @@ input[type=submit].nav-search-inputtext
   cursor pointer
 
 div
+  &.line-blue
+    border-top 5px solid #110046
+    position fixed
+    z-index 99999
+    width 100%
   &.jumbotron-container
     background-color white
     overflow hidden
     z-index 50
     height 120vh
-    border-top 5px solid #110046
   &.landing-jumbotron
     background -webkit-gradient(linear, left top, left bottom, color-stop(88%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))), url(../images/fondo-home.png) no-repeat top left #def /* safari4+,chrome */
     height 100vh
@@ -1323,13 +1327,13 @@ hr
         stroke #fff
         stroke-width 1px
     .bubble-label
-        font-family 'Poppins'
-        font-weight 600
-        font-size 12px
-        fill #FFF
-        stroke #000000
-        stroke-width 1px
-        stroke-linejoin round
+        // font-family 'Poppins'
+        font-weight bold
+        font-size 1rem
+        fill #000
+        // stroke #000
+        // stroke-width 1px
+        // stroke-linejoin round
 
 .foreign-tooltip
     display flex

@@ -27,7 +27,6 @@ Meteor.startup(function(){
             autoplay:true,
             autoplayTimeout:3000,
             autoplayHoverPause:true,
-            animateOut: 'fadeOut',
             responsive:{
                 1042:{
                     items:1
