@@ -74,7 +74,7 @@
                 <div id="fixed-filter-button">
                   <input type="submit" class="search-submit fixed-filter-button" value="FILTRAR">
                 </div>
-                
+
                 <!-- <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button> -->
             </form>
           </div>
@@ -93,10 +93,11 @@
                 {{/each}}
               </p>
             {{/if}}
-            {{> tabular table=TabularTables.Contracts
-            id="contract-index" selector=selector
+            {{> tabular table=TabularTables.ContractsOCDS
+            id="contract-index"
             class="" }}
 
+ <!-- selector=selector -->
         </div>
     </div>
 </template>

@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Orgs } from './imports/api/organizations/organizations';
 import { Persons } from './imports/api/persons/persons';
 import { Contracts } from './imports/api/contracts/contracts';
+import { ContractsOCDS } from './imports/api/contracts_ocds/contracts_ocds';
 
 if (Meteor.isClient) {
   import './imports/ui/components/contracts/contracts.html';
@@ -101,7 +102,7 @@ if (Meteor.isClient) {
   import './imports/ui/components/spin/spinner.html';
   import dataTablesBootstrap from 'datatables.net-bs';
   import 'datatables.net-bs/css/dataTables.bootstrap.css';
-  
+
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
     searching: false,
@@ -217,6 +218,38 @@ TabularTables.Contracts = new Tabular.Table(extend({},
   tableDefaults, {
     name: 'Contracts',
     collection: Contracts,
+    order: [
+      [5, 'desc'],
+    ],
+    columns: union(
+      contractFields,
+      [{
+
+        data: 'buyer.name',
+        titleFn() {
+          return i18n.__('Dependency');
+        },
+        class: 'js-dependency col-4 col-m-4',
+        tmpl: Meteor.isClient && Template.dependency_cell,
+      },
+      // {
+      //   data: 'suppliers_org',
+      //   titleFn() {
+      //     return i18n.__('Suppliers');
+      //   },
+      //   class: 'js-suppliers col-4 col-m-4',
+      //   tmpl: Meteor.isClient && Template.suppliers_cell,
+      // },
+      ]),
+    // extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
+  }),
+);
+
+
+TabularTables.ContractsOCDS = new Tabular.Table(extend({},
+  tableDefaults, {
+    name: 'ContractsOCDS',
+    collection: ContractsOCDS,
     order: [
       [5, 'desc'],
     ],
