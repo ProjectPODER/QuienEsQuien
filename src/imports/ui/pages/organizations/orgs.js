@@ -610,7 +610,7 @@ Template.orgView.onRendered(function() {
 
         d4.selectAll(".node").selectAll("text").remove();
 
-        nodeLabel = d4.select("#node1").append("text")
+        nodeLabel = d4.select("#node2").append("text")
           .html(function(d) {
             return d.label;
           })
