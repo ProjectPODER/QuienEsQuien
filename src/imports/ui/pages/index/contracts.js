@@ -296,7 +296,7 @@ Template.Contracts.onRendered(function () {
 
     computation.stop();
   });
-  $('#fixed-filter-button').affix({offset: {top: 100} });
+  
   // $('#fixed-filter-button')
   //   .affix({
   //     offset:
@@ -332,7 +332,7 @@ Template.contract_amount.helpers({
       return "Pesos mexicanos"
     }
     else if (value == "USD") {
-      return "Dólares estadounidense"
+      return "Dólares estadounidenses"
     }
     else if (value == "EUR") {
       return "Euros"
