@@ -199,8 +199,9 @@ div
     overflow hidden
     z-index 50
     height 120vh
+    border-top 5px solid #110046
   &.landing-jumbotron
-    background url(../images/fondo-home.png) no-repeat top left #def
+    background -webkit-gradient(linear, left top, left bottom, color-stop(88%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))), url(../images/fondo-home.png) no-repeat top left #def /* safari4+,chrome */
     height 100vh
     width 100%
     -webkit-background-size cover
@@ -219,7 +220,7 @@ div
       font-size 4rem
     p
       display inline-block
-      margin 7% auto 7% auto
+      margin 7%
       font-size 1.5rem
       color #5c5c5c
       text-align center
@@ -672,8 +673,9 @@ fieldset
   position: absolute 
   left 31px
   bottom 0
+  height auto
   &.affix
-    top 400px !important
+    top 50px !important
     position fixed !important
 .fixed-filter-button
   // position: absolute
