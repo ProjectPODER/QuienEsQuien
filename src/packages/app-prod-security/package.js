@@ -1,6 +1,6 @@
 Package.describe({
   summary: 'Loads some useful packages for security, but only in production',
-  prodOnly: true,
+  prodOnly: false,
   documentation: null,
 });
 
