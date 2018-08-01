@@ -296,9 +296,7 @@ Template.Contracts.onRendered(function () {
 
     computation.stop();
   });
-<<<<<<< HEAD
-  $('#fixed-filter-button').affix({offset: {top: 100} });
-=======
+
   // $('#fixed-filter-button')
   //   .affix({
   //     offset:
@@ -308,7 +306,6 @@ Template.Contracts.onRendered(function () {
   //   }
   // );
 
->>>>>>> 7445b689a320bd55f24dca70cf75611e6f5b60bb
 });
 
 Template.contract_dates.helpers({
@@ -336,7 +333,7 @@ Template.contract_amount.helpers({
       return "Pesos mexicanos"
     }
     else if (value == "USD") {
-      return "Dólares estadounidense"
+      return "Dólares estadounidenses"
     }
     else if (value == "EUR") {
       return "Euros"
