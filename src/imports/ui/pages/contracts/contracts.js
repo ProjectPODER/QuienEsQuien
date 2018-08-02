@@ -150,7 +150,7 @@ Template.contractView.helpers({
         if (params.hash.object[0][params.hash.field]) {
 
           console.log(params.hash.field,params.hash.object[0][params.hash.field]);
-          return params.hash.object[0][params.hash.field].toString();
+          return params.hash.object[0][params.hash.field];
         }
         else {
           console.log(params.hash.field,"---");
