@@ -111,7 +111,7 @@ const contractFieldsOCDS = [
     }
   },
   {
-    data: 'amount',
+    data: 'contracts.value.amount',
     class: 'js-amount no-title search-result-emph col-m-4 col-4',
     title: "",
     tmpl: Meteor.isClient && Template.contract_amount,
@@ -122,7 +122,7 @@ const contractFieldsOCDS = [
     }
   },
   {
-    data: 'start_date',
+    data: 'contracts.period.startDate',
     class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
     title: "",
     tmpl: Meteor.isClient && Template.contract_dates,
@@ -275,38 +275,6 @@ TabularTables.Contracts = new Tabular.Table(extend({},
       contractFields,
       [{
 
-        data: 'buyer.name',
-        titleFn() {
-          return i18n.__('Dependency');
-        },
-        class: 'js-dependency col-4 col-m-4',
-        tmpl: Meteor.isClient && Template.dependency_cell,
-      },
-      // {
-      //   data: 'suppliers_org',
-      //   titleFn() {
-      //     return i18n.__('Suppliers');
-      //   },
-      //   class: 'js-suppliers col-4 col-m-4',
-      //   tmpl: Meteor.isClient && Template.suppliers_cell,
-      // },
-      ]),
-    // extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
-  }),
-);
-
-
-TabularTables.ContractsOCDS = new Tabular.Table(extend({},
-  tableDefaults, {
-    name: 'ContractsOCDS',
-    collection: ContractsOCDS,
-    order: [
-      [5, 'desc'],
-    ],
-    columns: union(
-      contractFields,
-      [{
-
         data: 'dependency',
         titleFn() {
           return i18n.__('Dependency');
@@ -324,6 +292,38 @@ TabularTables.ContractsOCDS = new Tabular.Table(extend({},
       },
       ]),
     extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
+  }),
+);
+
+
+TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
+  tableDefaults, {
+    name: 'Contracts_OCDS',
+    collection: ContractsOCDS,
+    order: [
+      [5, 'desc'],
+    ],
+    columns: union(
+      contractFieldsOCDS,
+      [{
+
+        data: 'buyer.name',
+        titleFn() {
+          return i18n.__('Dependency');
+        },
+        class: 'js-dependency col-4 col-m-4',
+        tmpl: Meteor.isClient && Template.dependency_cell,
+      },
+      {
+        data: 'suppliers_org',
+        titleFn() {
+          return i18n.__('Suppliers');
+        },
+        class: 'js-suppliers col-4 col-m-4',
+        tmpl: Meteor.isClient && Template.suppliers_cell,
+      },
+      ]),
+    extraFields: ['suppliers_person', 'suppliers', 'contracts.period.endDate', 'contracts.value.currency'],
   }),
 );
 
