@@ -289,13 +289,13 @@ Template.Contracts.helpers({
 
 Template.Contracts.onRendered(function () {
   const self = this;
-  self.autorun((computation) => {
-    if (!self.ready.get()) {
-      return;
-    }
-
-    computation.stop();
-  });
+  // self.autorun((computation) => {
+  //   if (!self.ready.get()) {
+  //     return;
+  //   }
+  //
+  //   computation.stop();
+  // });
   // $('#fixed-filter-button')
   //   .affix({
   //     offset:

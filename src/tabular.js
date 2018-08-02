@@ -97,6 +97,56 @@ const contractFields = [
   },
 ];
 
+
+const contractFieldsOCDS = [
+  {
+    data: 'tender.title',
+    titleFn() { return i18n.__('Title'); },
+    class: 'js-title no-title search-result-title col-m-8 col-8',
+    tmpl: Meteor.isClient && Template.link_title,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
+  },
+  {
+    data: 'amount',
+    class: 'js-amount no-title search-result-emph col-m-4 col-4',
+    title: "",
+    tmpl: Meteor.isClient && Template.contract_amount,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
+  },
+  {
+    data: 'start_date',
+    class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
+    title: "",
+    tmpl: Meteor.isClient && Template.contract_dates,
+    tmplContext(rowData) {
+      return {
+        item: rowData
+      };
+    }
+  },
+  {
+    data: 'ocid',
+    title: 'OCID',
+    class: 'js-ocid no-title col-2 col-m-2',
+    tmpl: Meteor.isClient && Template.view_contract,
+    tmplContext(rowData) {
+      return {
+        item: rowData,
+        column: 'title'
+      };
+    }
+  },
+];
+
+
 if (Meteor.isClient) {
   import { $ } from 'meteor/jquery';
   import './imports/ui/components/spin/spinner.html';

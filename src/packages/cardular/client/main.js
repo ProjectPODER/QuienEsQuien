@@ -118,8 +118,8 @@ Template.tabular.onRendered(function () {
         data.columns || null,
         options.columns,
       );
-      console.log("tabluar pubSelector",pubSelector);
       template.tabular.pubSelector.set(template.tabular);
+      // console.log("tabluar pubSelector",template);
 
       // We're ready to subscribe to the data.
       // Matters on the first run only.
