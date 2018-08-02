@@ -180,7 +180,7 @@
               <tr>
                   <td class="description-data-contract">
                     <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
-                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.suppliers_person}}">{{contract.title}}</a>
+                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.suppliers_person}}{{contract.suppliers_org}}">{{contract.title}}</a>
                   </td>
                   <td class="description-data-amount">{{ format_amount contract.amount}} {{format_currency contract.currency}}</td>
                   <td class="description-data-date">{{get_year contract.start_date}}</td>
