@@ -77,7 +77,7 @@ Template.registerHelper('moment_LL', function(date) {
 
 Template.registerHelper('format_amount', function(value) {
   if (value) {
-    return value.toLocaleString('en-UK',
+    return value.toLocaleString('es-MX',
       {
         style: 'currency',
         currency: 'USD',
@@ -85,6 +85,13 @@ Template.registerHelper('format_amount', function(value) {
       });
   }
   return 'Importe desconocido';
+});
+
+Template.registerHelper('format_number', function(value) {
+  if (value) {
+    return value.toLocaleString('es-MX');
+  }
+  return 'Valor desconocido';
 });
 
 Template.registerHelper('format_currency', function(value) {

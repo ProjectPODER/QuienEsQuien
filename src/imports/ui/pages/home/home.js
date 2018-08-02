@@ -1,5 +1,6 @@
 import '../../components/search/search.js';
 import './home.html';
+import '../../helpers';
 import counter from '../../../api/stats/methods.js';
 import { Feeds, FeedEntries } from '../../../api/feeds.js';
 

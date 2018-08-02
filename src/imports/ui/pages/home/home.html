@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-  
+
 
   <section class="explore-data" id="down">
     {{>counters}}
@@ -138,7 +138,7 @@
             <a href="/persons"><h3>
               <strong>
                 {{#if persons }}
-                  {{persons}}
+                  {{format_number persons}}
                 {{else}}
                   <i class="fa fa-spinner fa-pulse fa-fw"></i>
                 {{/if}}
@@ -157,7 +157,7 @@
             <a href="/orgs"><h3>
               <strong>
                 {{#if orgs }}
-                  {{orgs}}
+                  {{format_number orgs}}
                 {{else}}
                   <i class="fa fa-spinner fa-pulse fa-fw"></i>
                 {{/if}}
@@ -176,7 +176,7 @@
             <a href="/contracts"><h3>
               <strong>
               {{#if contracts }}
-                {{contracts}}
+                {{format_number contracts}}
               {{else}}
                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
               {{/if}}
