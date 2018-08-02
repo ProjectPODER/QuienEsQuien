@@ -1,6 +1,6 @@
 <template name="Home">
   <div class="jumbotron-container scrollme">
-
+    <div class="line-blue"></div>
     <div class="landing-jumbotron animateme" data-when="span" data-from="0" data-to="1" data-opacity="0.5" data-translatey="300" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
       <div class="landing-header-content">
         <img class="logo animateme img-responsive" src="images/single.png" alt="Logo" data-when="span" data-from="0" data-to="1" data-scale="0.75" data-translatey="100" data-easing="linear" style="opacity: 1; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale3d(1, 1, 1);">
@@ -17,13 +17,13 @@
         </div>
       </div>
       <div class="arrow-down">
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
+        <a href="#down"><i class="fa fa-angle-down" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
   
 
-  <section class="explore-data">
+  <section class="explore-data" id="down">
     {{>counters}}
   </section>
 
@@ -35,24 +35,19 @@
       <div class="col-4 col-m-4 centered triplet-wrapper">
         <img src="images/market.svg" alt="Bolsa de Valores" class="sources-icons">
         <h3 class="triplet"><a href="/about/#user-content-contratos">Contratos públicos</a></h3>
-        <p class="triplet-text">En los procesos de contratación pública se esconden casos flagrantes de captura del estado. Tenemos importadas las siguientes bases de datos:</p>
-        <p class="triplet-text"><a href="/about/#user-content--compranet-plus-méxico">· CompraNet Plus/México/2010-</a></p>
+        <p class="triplet-text">En los procesos de contratación pública se esconden casos flagrantes de captura del estado. Tenemos importadas las siguientes bases de datos: <a href="/about/#user-content--compranet-plus-méxico">CompraNet Plus, México</a></p>
         <!-- <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p> -->
       </div>
       <div class="col-4 col-m-4 centered triplet-wrapper">
         <img src="images/compranet.svg" alt="Compranet" class="sources-icons">
         <h3 class="triplet"><a href="/about/#user-content-beneficiarios-reales">Beneficiarios reales</a></h3>
-        <p class="triplet-text">La propietarios de la empresa y sus controladores es una de las informaciones más difíciles de acceder. Aquí la lista de datasets que usamos para vincular corporaciones y empresas:
-        </p>
-        <p class="triplet-text"><a href="/about/#user-content--bolsa-de-valores-mexicana-méxico">· Bolsa de Valores de México/México/</a></p>
+        <p class="triplet-text">La propietarios de la empresa y sus controladores es una de las informaciones más difíciles de acceder. Aquí la lista de datasets que usamos para vincular corporaciones y empresas: <a href="/about/#user-content--bolsa-de-valores-mexicana-méxico">Bolsa de Valores de México</a></p>
         <!-- <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p> -->
       </div>
       <div class="col-4 col-m-4 centered triplet-wrapper">
         <img src="images/research.svg" alt="Investigaciones propias" class="sources-icons">
         <h3 class="triplet"><a href="/about/#user-content-investigaciones-propias">Investigaciones propias</a></h3>
-        <p class="triplet-text">Proyectos de distintas organizaciones de la sociedad civil que siguen el dinero y mapean una corporación o gobierno:</p>
-        <p class="triplet-text"><a href="/about/#user-content--torredecontrolorg">· TorreDeControl.org/México/15/03/17</a></p>
-        <p class="triplet-text"><a href="/about/#user-content--cargografías">· Cargografias/Argentina/27/07/17</a></p>
+        <p class="triplet-text">Proyectos de distintas organizaciones de la sociedad civil que siguen el dinero y mapean una corporación o gobierno: <a href="/about/#user-content--torredecontrolorg">TorreDeControl.org, México</a> y <a href="/about/#user-content--cargografías">Cargografías, Argentina</a></p>
         <!-- <p class="triplet-last-update">Fecha de última actualización: XX/XX/XXXX</p> -->
       </div>
     </div>
@@ -69,7 +64,7 @@
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">Desde PODER, y con el apoyo de Connectas y el ICFJ, se mapearon todos los vínculos que la gestora de activos BlackRock tiene en México: acciones en la bolsa de valores, proyectos energéticos, gestión de inversión de pensiones y sus relaciones con el poder político.</p>
-              <a class="button-link proyecto-info" type="button" href="https://conoceblackrock.projectpoder.org/" target="_blank">VER BlackRock, el gigante desconocido</a>
+              <a class="button-link proyecto-info" type="button" href="https://conoceblackrock.projectpoder.org/" target="_blank">VER BLACKROCK, EL GIGANTE DESCONOCIDO</a>
 
           </div>
         </div>
@@ -84,11 +79,11 @@
         </div>
         <div class="proyecto row">
           <div class="col-4 col-m-5 proyecto-info-img">
-            <a href=""><img src="images/contratistasdelpoder.png" alt="Proyecto Contratistas del Poder"></a>
+            <img src="images/contratistasdelpoder.png" alt="Proyecto Contratistas del Poder">
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">Análisis de las empresas más beneficiadas por la contratación pública en los tres primeros años del mandato del presidente Enrique Peña Nieto. Proyecto realizado por El Universal Data y PODER.</p>
-              <!-- <a class="button-link proyecto-info" type="button" href="http://data.eluniversal.com.mx/contratistas-poder/index.html" target="_blank">VER Los Contratistas del Poder</a> -->
+              <button class="btn btn-default" type="button" disabled>FUERA DE LÍNEA</button>
 
           </div>
         </div>
@@ -103,11 +98,11 @@
         </div>
         <div class="proyecto row">
           <div class="col-4 col-m-5 proyecto-info-img">
-            <a href=""><img src="images/LogoINCIDEALTARES.jpg" alt="Proyecto VigilanciaWiki"></a>
+            <img src="images/LogoINCIDEALTARES.jpg" alt="Proyecto VigilanciaWiki">
           </div>
           <div class="col-8 col-m-7">
               <p class="serif-gray proyecto-info">Incide Social registró las votaciones de los consejeros del Instituto Nacional Electoral de México para mostrar si existía algún tipo de colusión entre ello. </p>
-              <!-- <a class="button-link proyecto-info" type="button" href="" target="_blank">VER SALA DE PODER</a> -->
+              <button class="btn btn-default" type="button" disabled>FUERA DE LÍNEA</button>
           </div>
         </div>
       </div>
@@ -138,9 +133,9 @@
     {{#with counter }}
       <div class="col-4 col-m-4 card-pad-ext">
         <div class="card explore-card">
-          <img src="images/Consejo-Mexicano-de-Negocios.jpg" alt="Personas" class="card-image">
+          <a href="/persons"><img src="images/Consejo-Mexicano-de-Negocios.jpg" alt="Personas" class="card-image"></a>
           <div class="card-pad">
-            <h3>
+            <a href="/persons"><h3>
               <strong>
                 {{#if persons }}
                   {{persons}}
@@ -149,7 +144,7 @@
                 {{/if}}
               </strong>
             </h3>
-            <h3 class="card-h3">{{__ 'persons'}}</h3>
+            <h3 class="card-h3">{{__ 'persons'}}</h3></a>
             <p class="serif-gray">Funcionarios, empresarios y proveedores del Estado, qué negocios tienen, con quién se asocian y cómo consiguen sus contratos públicos.</p>
             <a href="/persons" class="button-link">VER PERSONAS</a>
           </div>
@@ -157,9 +152,9 @@
       </div>
       <div class="col-4 col-m-4 card-pad-ext">
         <div class="card explore-card">
-          <img src="images/mercado.png" alt="Organizaciones" class="card-image">
+          <a href="/orgs"><img src="images/mercado.png" alt="Organizaciones" class="card-image"></a>
           <div class="card-pad">
-            <h3>
+            <a href="/orgs"><h3>
               <strong>
                 {{#if orgs }}
                   {{orgs}}
@@ -168,7 +163,7 @@
                 {{/if}}
               </strong>
             </h3>
-            <h3 class="card-h3">{{__ 'organizations'}}</h3>
+            <h3 class="card-h3">{{__ 'organizations'}}</h3></a>
             <p class="serif-gray">Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones.</p>
             <a href="/orgs" class="button-link">VER ORGANIZACIONES</a>
           </div>
@@ -176,9 +171,9 @@
       </div>
       <div class="col-4 col-m-4 card-pad-ext">
         <div class="card explore-card">
-          <img src="images/licitacion.png" alt="Contratos" class="card-image">
+          <a href="/contracts"><img src="images/licitacion.png" alt="Contratos" class="card-image"></a>
           <div class="card-pad">
-            <h3>
+            <a href="/contracts"><h3>
               <strong>
               {{#if contracts }}
                 {{contracts}}
@@ -187,7 +182,7 @@
               {{/if}}
               </strong>
             </h3>
-            <h3 class="card-h3">{{__ 'contracts'}}</h3>
+            <h3 class="card-h3">{{__ 'contracts'}}</h3></a>
             <p class="serif-gray">Explora los importes, años, dependencias, empresas proveedoras y otras características de más de un millón de contratos.</p>
             <a href="/contracts" class="button-link">VER CONTRATOS</a>
           </div>

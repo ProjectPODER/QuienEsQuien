@@ -40,8 +40,6 @@
 </template>
 
 <template name="contractView">
-  {{contract}}
-  {{contract.contracts}}
   {{#with contract }}
   <div class="container">
     <div class='viewWrapper'>
@@ -53,11 +51,16 @@
                 <img src="../images/icons/contrato-gray.svg" alt="contrato" class="icon-lf">
                 {{ getField object=contracts field="title"}}
               </h3>
-              <div class="col-m-9 col-9">
+              <div class="col-m-6 col-6">
                 <h4 class="contract-type">Contrato</h4>
               </div>
-              <div class="col-m-3 col-3 right-align">
-                <p class="amount-data">${{#let value=(getField object=contracts field="value")}}{{value.amount}}{{value.currency}}{{/let}}</p>
+              <div class="col-m-6 col-6 right-align">
+                {{#let value1=(getField object=contracts field="value")}}
+                <p class="amount-data">
+                    {{format_amount value1.amount}}
+                </p>
+                {{format_currency value1.currency}}
+                {{/let}}
               </div>
             </div>
           {{/if}}
@@ -240,7 +243,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
               <p class="js-title-data">Monto adjudicado</p>
               <p class="js-data">
                 {{#let value3=(getField object=awards field="value")}}
-                {{value3.amount}}
+                {{format_amount value3.amount}}
                 {{value3.currency}}
                 {{/let}}</p>
           </div>
@@ -258,7 +261,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
           </div>
           <div class="col-m-6 col-4">
               <p class="js-title-data">Importe</p>
-              <p class="js-data">${{#let value2=(getField object=contracts field="value")}}{{value2.amount}}{{value2.currency}}{{/let}}</p>
+              <p class="js-data">{{#let value2=(getField object=contracts field="value")}}{{format_amount value2.amount}} {{value2.currency}}{{/let}}</p>
           </div>
           <div class="col-m-6 col-4">
               <p class="js-title-data">Estatus</p>

@@ -18,7 +18,7 @@ Meteor.startup(function(){
         $('nav').addClass('fixed-nav');
         $('.owl-carousel').owlCarousel({
             // center: true,
-            items:3,
+            items:1,
             loop:true,
             margin:0,
             dots:false,
@@ -29,10 +29,10 @@ Meteor.startup(function(){
             autoplayHoverPause:true,
             responsive:{
                 1042:{
-                    items:3
+                    items:1
                 },
                 992:{
-                    items:2
+                    items:1
                 },
                 300:{
                     items:1

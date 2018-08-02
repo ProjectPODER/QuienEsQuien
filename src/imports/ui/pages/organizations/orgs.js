@@ -17,7 +17,7 @@ import '../../components/detail/detail.js';
 import '../../components/image/image.js';
 import '../../components/subscribe/subscribe.js';
 import { prepareSubArray } from '../../components/visualizations/relations.js';
-import { isEmpty } from 'lodash';
+import { isEmpty, uniqBy } from 'lodash';
 import jquery from 'jquery'
 import './orgs.html';
 import nvd3 from 'nvd3';
@@ -108,23 +108,6 @@ Template.orgView.helpers({
   contracts() {
     return Session.get("orgContracts")
   },
-  contractSummary() {
-    var oc =Session.get("orgContracts");
-    let summary = {}
-
-    for (c in oc) {
-      let cc = oc[c];
-      console.log(cc);
-      let year = cc.start_date.getFullYear();
-      if (!summary[year]) {
-        summary[year] = {value: 0, count: 0}
-      }
-      summary[year].value += cc.amount;
-      summary[year].count += 1;
-    }
-    console.log("cs",summary);
-    return summary;
-  },
   dependencySummary() {
     var oc =Session.get("orgContracts");
     let summary = []
@@ -135,6 +118,7 @@ Template.orgView.helpers({
       let year = cc.start_date.getFullYear();
       summary.push({name: cc.dependency})
     }
+    summary = uniqBy(summary,"name")
     console.log("ds",summary);
     return summary;
   },
@@ -160,12 +144,15 @@ Template.orgView.onRendered(function() {
     $('[data-toggle="tooltip"]').tooltip()
   });
 
+  //Esto corre cada vez que se actualiza la variable de sesión de los contratos
+  //TODO: A veces se duplican los gráficos
   this.autorun(() => {
 
     var oc = Session.get("orgContracts");
     // console.log(oc);
     if (oc) {
 
+      //Generar los objetos para cada gráfico
       let summary = {}
       let typeSummary = {}
       let ramoSummary = {}
@@ -173,7 +160,9 @@ Template.orgView.onRendered(function() {
 
       let nodeNumber = 1;
       let linkNumber = 1;
-      relationSummary.nodes.push({"id":nodeNumber,"label":Template.instance().data.document.names[0],"weight":32.88,"color":"#b22200","cluster":1});
+
+      var orgName = Template.instance().data.document.names[0];
+      addNode(relationSummary,{"label":orgName,"weight":32.88,"color":"#b22200","cluster":1});
 
       for (c in oc) {
         let cc = oc[c];
@@ -201,29 +190,43 @@ Template.orgView.onRendered(function() {
         // Nodos empresa: org, contratos, department, dependency
         // links: org-contrato, contrato-department, department-dependency
 
-        nodeNumber++;
-        relationSummary.nodes.push({"id":nodeNumber,"label":cc.title,"weight":10,"color":"#282f6b","cluster":2})
+        addNode(relationSummary,{"label":cc.procedure_type,"weight":20,"color":"#282ffb","cluster":1})
+        addLink(relationSummary,{source:orgName,target:cc.procedure_type});
 
-        let contractLink = {"id":linkNumber,"source":1,"target":nodeNumber}
-        relationSummary.links.push(contractLink);
+        addNode(relationSummary,{"label":cc.title,"weight":10,"color":"#282f6b","cluster":2})
+        addLink(relationSummary,{source:cc.procedure_type,target:cc.title});
 
-        nodeNumber++;
-        relationSummary.nodes.push ({"id":nodeNumber,"label":cc.department,"weight":12,"color":"#aec7e8","cluster":3})
+        addNode(relationSummary,{"label":cc.department,"weight":12,"color":"#aec7e8","cluster":3})
+        addLink(relationSummary,{source:cc.title,target:cc.department});
 
+
+        addNode(relationSummary,{"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
+        addLink(relationSummary,{source:cc.department,target:cc.dependency});
+
+        // nodeNumber++;
+        // relationSummary.nodes.push({"id":nodeNumber,"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
+        //
+        // linkNumber++;
+        // let dependencyLink = {"id":linkNumber,"source":departmentLink.target,"target":nodeNumber}
+        // relationSummary.links.push(dependencyLink);
+
+      }
+
+      function addNode(relationSummary,node) {
+        if (!_.findWhere(relationSummary.nodes,node)) {
+          nodeNumber++;
+          node.id = nodeNumber;
+          relationSummary.nodes.push(node);
+        }
+      }
+      function addLink (relationSummary,link) {
+        var sourceId = _.findWhere(relationSummary.nodes,{label:link.source}).id;
+        var targetId = _.findWhere(relationSummary.nodes,{label:link.target}).id;
         linkNumber++;
-        let departmentLink = {"id":linkNumber,"source":contractLink.target,"target":nodeNumber}
-        relationSummary.links.push(departmentLink);
-
-        nodeNumber++;
-        relationSummary.nodes.push({"id":nodeNumber,"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
-
-        linkNumber++;
-        let dependencyLink = {"id":linkNumber,"source":departmentLink.target,"target":nodeNumber}
-        relationSummary.links.push(dependencyLink);
+        relationSummary.links.push({id:linkNumber,source:sourceId,target:targetId})
 
       }
       // console.log(summary,typeSummary,ramoSummary);
-
 
       //Evolución de contratos chart
       nv.addGraph(function() {
@@ -232,8 +235,13 @@ Template.orgView.onRendered(function() {
         .x(function(d, i) { return i })
         .y(function(d) { return d[1] })
         .color(d3.scale.category20().range().slice(1))
+        .showLabels(true)
+        .showLegend(true)
         .focusEnable(false)
         ;
+
+        // chart.bars.showValues(true);
+
 
 
         let importeValues = []
@@ -244,14 +252,14 @@ Template.orgView.onRendered(function() {
             while(parseInt(year)>parseInt(lastYear)+1) {
               lastYear = parseInt(lastYear)+1;
               let lastUnixYear = new Date((lastYear+1).toString()).getTime();
-              importeValues.push([lastUnixYear,0])
-              cantidadValues.push([lastUnixYear,0])
+              importeValues.push([new Date(lastUnixYear).getFullYear(),0])
+              cantidadValues.push([new Date(lastUnixYear).getFullYear(),0])
             }
           }
 
           let unixYear = new Date((parseInt(year)+1).toString()).getTime();
-          importeValues.push([unixYear,summary[year].value])
-          cantidadValues.push([unixYear,summary[year].count])
+          importeValues.push([new Date(unixYear).getFullYear(),summary[year].value])
+          cantidadValues.push([new Date(unixYear).getFullYear(),summary[year].count])
 
           lastYear = year;
         }
@@ -267,22 +275,23 @@ Template.orgView.onRendered(function() {
         }];
 
         chart.xAxis
-        .showMaxMin(false)
+        .showMaxMin(true)
         .tickFormat(function(d) {
-          var dx = data[0].values[d] && data[0].values[d][0] || 0;
-          return d3.time.format('%Y')(new Date(dx))
+          return data[0].values[d] && data[0].values[d][0] || d
         });
 
         chart.y1Axis
-        .tickFormat(function(d) { return '$' + d3.format(',f')(d) });
+        .tickFormat(d3.format('$,f'));
 
 
         chart.y2Axis
         .tickFormat(d3.format(',f'));
 
-        chart.bars.forceY([0]);
+        chart.bars.forceY([0,1000]);
 
-        chart.bars.forceX([0]);
+        // chart.bars.forceX([0]);
+
+        chart.lines.forceY([0,2]);
 
         d3.select('#chart svg')
         .datum(data)
@@ -291,6 +300,11 @@ Template.orgView.onRendered(function() {
         ;
 
         nv.utils.windowResize(chart.update);
+
+        if (importeValues.length == 2) {
+          console.log("importeValues.length",importeValues.length,$("#chart").width()/2);
+          console.log(chart.width($("#chart").width()/2))
+        }
 
         return chart;
       });
@@ -596,15 +610,15 @@ Template.orgView.onRendered(function() {
 
         d4.selectAll(".node").selectAll("text").remove();
 
-        // nodeLabel = d4.select("#node12").append("text")
-        //   .html(function(d) {
-        //     return d.label;
-        //   })
-        //   .attr('text-anchor', 'middle')
-        //   .style('font-size', function(d) { return Math.min(2 * radius(d.weight), (2 * radius(d.weight)) / this.getComputedTextLength() * 12) + 'px'; })//12
-        //   .attr('dy', '.35em')
-        //   .attr('pointer-events', 'none')
-        //   .attr('class', 'bubble-label');
+        nodeLabel = d4.select("#node2").append("text")
+          .html(function(d) {
+            return d.label;
+          })
+          .attr('text-anchor', 'middle')
+          .style('font-size', '1rem')//12
+          .attr('dy', '.35em')
+          .attr('pointer-events', 'none')
+          .attr('class', 'bubble-label');
 
         // Apply the general update pattern to the links.
         link = link.data(links);//, function(d) { return links[findWithAttr(links, "id", d.source)] + "-" + links[findWithAttr(links, "id", d.target)]; });
@@ -653,9 +667,9 @@ Template.orgView.onRendered(function() {
           .attr("cx", function(d) { return d.x; })
           .attr("cy", function(d) { return d.y; });
 
-        // nodeLabel
-        //   .attr("x", function(d) { return d.x; })
-        //   .attr("y", function(d) { return d.y; });
+        nodeLabel
+          .attr("x", function(d) { return d.x; })
+          .attr("y", function(d) { return d.y; });
 
         link
           .attr("x1", function(d) { return d.source.x; })
@@ -689,7 +703,7 @@ Template.orgView.onRendered(function() {
 
 
       /******** User interactions ********/
-      
+
       update();
 
 

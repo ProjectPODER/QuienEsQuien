@@ -73,3 +73,29 @@ Template.registerHelper('get_year', function(date) {
 Template.registerHelper('moment_LL', function(date) {
   return moment(date).format('LL');
 });
+
+
+Template.registerHelper('format_amount', function(value) {
+  if (value) {
+    return value.toLocaleString('en-UK',
+      {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 2,
+      });
+  }
+  return 'Importe desconocido';
+});
+
+Template.registerHelper('format_currency', function(value) {
+  if (value == "MXN") {
+    return "Pesos mexicanos"
+  }
+  else if (value == "USD") {
+    return "Dólares estadounidenses"
+  }
+  else if (value == "EUR") {
+    return "Euros"
+  }
+  return value;
+});

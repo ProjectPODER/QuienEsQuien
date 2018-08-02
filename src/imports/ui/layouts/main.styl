@@ -194,13 +194,18 @@ input[type=submit].nav-search-inputtext
   cursor pointer
 
 div
+  &.line-blue
+    border-top 5px solid #110046
+    position fixed
+    z-index 99999
+    width 100%
   &.jumbotron-container
     background-color white
     overflow hidden
     z-index 50
     height 120vh
   &.landing-jumbotron
-    background url(../images/fondo-home.png) no-repeat top left #def
+    background -webkit-gradient(linear, left top, left bottom, color-stop(88%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1))), url(../images/fondo-home.png) no-repeat top left #def /* safari4+,chrome */
     height 100vh
     width 100%
     -webkit-background-size cover
@@ -213,13 +218,14 @@ div
     width 75%
     text-align center
     margin auto
+    padding-top 7%
     h1
       display inline-block
       margin-left 1rem
       font-size 4rem
     p
       display inline-block
-      margin 7% auto 7% auto
+      margin 7%
       font-size 1.5rem
       color #5c5c5c
       text-align center
@@ -254,9 +260,8 @@ div
       width 90%
     p
       margin-right 1rem
-      margin-bottom 1rem
+      margin-bottom 3rem
       padding 1rem 1.5rem 0 0
-      top 15%
       font-size 1.3rem
   &.investigaciones-card
     width 100%
@@ -384,7 +389,7 @@ section
     color #fff
 
 .proyecto-info
-  margin-top 3.4em
+  margin-top 0
 
 .proyecto
   button
@@ -453,24 +458,29 @@ footer
       margin-top 1rem
       margin-right 1rem
     .logofooter-ml
-      width 115px
+      width 80px
     .logofooter-pl
-      width 150px
+      width 120px
 
 .owl-carousel
   margin-left -30px
+  margin-bottom 20px
+  z-index 0 !important
 .owl-theme
   .owl-controls
+    text-align left
+    margin-left 100px
     .owl-nav
       [class*='owl-']
         color white
-        font-size 2rem
+        font-size 1rem
         margin 5px
         padding 4px 7px
         background transparent
         -webkit-transition all .35s
         -moz-transition all .35s
         transition all .35s
+        opacity 0.6
         &:hover
         &:focus
           color #ccd
@@ -480,18 +490,20 @@ footer
   background-position center center
   background-repeat no-repeat
   background-size contain
-  margin 70px 20px 40px
+  margin 30px 20px 0
   height 50px
-.logo-poder
-    background-image url('../images/logo_poder_2018.png')
+  width 200px
 .logo-wingu
-    background-image url('../images/wingu.svg')
+    background-image url('../images/wingu-blanco.png')
+    height 35px
 .logo-ojopublico
-    background-image url('../images/logo-ojopublico.png')
+    background-image url('../images/logo-ojopublico-blanco.png')
+    height 30px
 .logo-cargo
     background-image url('../images/cargografias.png')
 .logo-ml
-    background-image url('../images/mexicoleaks-negro.png')
+    background-image url('../images/mexicoleaks.png')
+    height 35px
 
 .card
   border-width 2px
@@ -672,7 +684,10 @@ fieldset
   // position: absolute
   left 31px
   bottom 0
+  height auto
   &.affix
+    top 50px !important
+    position fixed !important
     top 400px !important
     // position fixed !important
 .fixed-filter-button
@@ -916,9 +931,6 @@ button.reset-filters
 .contract-type
   margin-bottom 3rem
 
-.contract-type
-  margin-top 3rem
-
 .org-type
 .person-type
 .contract-type
@@ -964,9 +976,9 @@ button.reset-filters
 
 .amount-data
   color #2900f5
-  font-size 2.3rem
+  font-size 2rem
   font-weight bold
-  margin-top 2rem
+  margin-top 1.5rem
 
 a
   &.see-contract
@@ -1000,6 +1012,14 @@ a
     color #fff
     background-color #2200c5
     text-decoration none
+
+.btn-default
+    color #333
+    background-color #fff
+    border-color #ccc
+    padding 10px 12px
+    white-space nowrap
+    border-radius 0
 
 .btn-filter
   background-color #9b9b9b
@@ -1307,13 +1327,13 @@ hr
         stroke #fff
         stroke-width 1px
     .bubble-label
-        font-family 'Poppins'
-        font-weight 600
-        font-size 12px
-        fill #FFF
-        stroke #000000
-        stroke-width 1px
-        stroke-linejoin round
+        // font-family 'Poppins'
+        font-weight bold
+        font-size 1rem
+        fill #000
+        // stroke #000
+        // stroke-width 1px
+        // stroke-linejoin round
 
 .foreign-tooltip
     display flex

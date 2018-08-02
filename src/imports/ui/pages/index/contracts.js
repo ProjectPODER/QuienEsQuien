@@ -289,13 +289,14 @@ Template.Contracts.helpers({
 
 Template.Contracts.onRendered(function () {
   const self = this;
-  // self.autorun((computation) => {
-  //   if (!self.ready.get()) {
-  //     return;
-  //   }
-  //
-  //   computation.stop();
-  // });
+  self.autorun((computation) => {
+    if (!self.ready.get()) {
+      return;
+    }
+
+    computation.stop();
+  });
+
   // $('#fixed-filter-button')
   //   .affix({
   //     offset:
@@ -304,7 +305,6 @@ Template.Contracts.onRendered(function () {
   //     }
   //   }
   // );
-
 });
 
 Template.contract_dates.helpers({
@@ -332,7 +332,7 @@ Template.contract_amount.helpers({
       return "Pesos mexicanos"
     }
     else if (value == "USD") {
-      return "Dólares estadounidense"
+      return "Dólares estadounidenses"
     }
     else if (value == "EUR") {
       return "Euros"
