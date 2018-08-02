@@ -6,6 +6,7 @@
 /*
  * Sort styling
  */
+
 table.dataTable thead th {
 	position: relative;
 	background-image: none !important; /* Remove the DataTables bootstrap integration styling */
