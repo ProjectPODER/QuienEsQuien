@@ -99,39 +99,39 @@ const contractFields = [
 
 
 const contractFieldsOCDS = [
-  {
-    data: 'tender.title',
-    titleFn() { return i18n.__('Title'); },
-    class: 'js-title no-title search-result-title col-m-8 col-8',
-    tmpl: Meteor.isClient && Template.link_title,
-    tmplContext(rowData) {
-      return {
-        item: rowData
-      };
-    }
-  },
-  {
-    data: 'contracts.value.amount',
-    class: 'js-amount no-title search-result-emph col-m-4 col-4',
-    title: "",
-    tmpl: Meteor.isClient && Template.contract_amount,
-    tmplContext(rowData) {
-      return {
-        item: rowData
-      };
-    }
-  },
-  {
-    data: 'contracts.period.startDate',
-    class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
-    title: "",
-    tmpl: Meteor.isClient && Template.contract_dates,
-    tmplContext(rowData) {
-      return {
-        item: rowData
-      };
-    }
-  },
+  // {
+  //   data: 'tender.title',
+  //   titleFn() { return i18n.__('Title'); },
+  //   class: 'js-title no-title search-result-title col-m-8 col-8',
+  //   tmpl: Meteor.isClient && Template.link_title,
+  //   tmplContext(rowData) {
+  //     return {
+  //       item: rowData
+  //     };
+  //   }
+  // },
+  // {
+  //   data: 'contracts.value.amount',
+  //   class: 'js-amount no-title search-result-emph col-m-4 col-4',
+  //   title: "",
+  //   tmpl: Meteor.isClient && Template.contract_amount,
+  //   tmplContext(rowData) {
+  //     return {
+  //       item: rowData
+  //     };
+  //   }
+  // },
+  // {
+  //   data: 'contracts.period.startDate',
+  //   class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
+  //   title: "",
+  //   tmpl: Meteor.isClient && Template.contract_dates,
+  //   tmplContext(rowData) {
+  //     return {
+  //       item: rowData
+  //     };
+  //   }
+  // },
   {
     data: 'ocid',
     title: 'OCID',
@@ -300,14 +300,63 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
   tableDefaults, {
     name: 'Contracts_OCDS',
     collection: ContractsOCDS,
-    order: [
-      [5, 'desc'],
-    ],
-    columns: union(
-      contractFieldsOCDS,
-      [{
+    columns: [
+      {
+        data: 'tender.title',
+        titleFn() { return i18n.__('Title'); },
+        class: 'js-title no-title search-result-title col-m-8 col-8',
+        tmpl: Meteor.isClient && Template.link_title,
+        tmplContext(rowData) {
+          return {
+            item: rowData
+          };
+        }
+      },
+      {
+        data: 'amount()',
+        class: 'js-amount no-title search-result-emph col-m-4 col-4',
+        title: "",
+        tmpl: Meteor.isClient && Template.contract_amount,
+        tmplContext(rowData) {
+          return {
+            item: rowData
+          };
+        }
+      },
+      {
+        data: 'startDate()',
+        class: 'js-start-date inline-title search-result-mono-gray col-m-8 col-8',
+        title: "",
+        tmpl: Meteor.isClient && Template.contract_dates,
+        tmplContext(rowData) {
+          return {
+            item: rowData
+          };
+        }
+      },
+      {
+        data: 'ocid',
+        title: 'OCID',
+        class: 'js-ocid no-title col-2 col-m-2',
+        tmpl: Meteor.isClient && Template.view_contract,
+        tmplContext(rowData) {
+          return {
+            item: rowData,
+            column: 'title'
+          };
+        }
+      },
 
-        data: 'buyer.name',
+      {
+        data: "tender.procurementMethodMxCnet",
+        titleFn() {
+          return i18n.__('Procedimiento de contratación');
+        },
+        class: 'js-procedure col-4 col-m-4',
+        // tmpl: Meteor.isClient && Template.dependency_cell,
+      },
+      {
+        data: "buyer.name",
         titleFn() {
           return i18n.__('Dependency');
         },
@@ -315,15 +364,40 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         tmpl: Meteor.isClient && Template.dependency_cell,
       },
       {
-        data: 'suppliers_org',
+        data: "suppliers()",
         titleFn() {
           return i18n.__('Suppliers');
         },
         class: 'js-suppliers col-4 col-m-4',
-        tmpl: Meteor.isClient && Template.suppliers_cell,
+        tmpl: Meteor.isClient && Template.supplier_cell,
       },
-      ]),
-    extraFields: ['suppliers_person', 'suppliers', 'contracts.period.endDate', 'contracts.value.currency'],
+    ],
+    extraFields: ['endDate()',"contracts"],
+    // order: [
+    //   [5, 'desc'],
+    // ],
+    // columns: union(
+    //   contractFieldsOCDS,
+    //   [
+    //     {
+    //
+    //     data: 'buyer.name',
+    //     titleFn() {
+    //       return i18n.__('Dependency');
+    //     },
+    //     class: 'js-dependency col-4 col-m-4',
+    //     tmpl: Meteor.isClient && Template.dependency_cell,
+    //   },
+    //   {
+    //     data: 'suppliers_org',
+    //     titleFn() {
+    //       return i18n.__('Suppliers');
+    //     },
+    //     class: 'js-suppliers col-4 col-m-4',
+    //     tmpl: Meteor.isClient && Template.suppliers_cell,
+    //   },
+    //   ]),
+    // extraFields: ['suppliers_person', 'suppliers', 'contracts.period.endDate', 'contracts.value.currency'],
   }),
 );
 

@@ -93,8 +93,8 @@
                 {{/each}}
               </p>
             {{/if}}
-            {{> tabular table=TabularTables.Contracts
-            id="contract-index"  selector=selector 
+            {{> tabular table=TabularTables.Contracts_OCDS
+            id="contract-index"  selector=selector
             class="" }}
 
  <!---->
@@ -103,30 +103,27 @@
 </template>
 
 <template name="link_title">
-  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers_org}}{{item.suppliers_person}}">{{item.title}}</a>
+  <a href="/contracts/{{item.ocid}}?supplier={{ item.suppliers.[0]}}">{{item.tender.title}}</a>
 </template>
 <template name="suppliers_cell">
   <ul class="suppliers-cell list-unstyled">
-    {{#each supplier in suppliers_org }}
+    {{#each supplier in item.suppliers }}
       <li><a href="/orgs/{{supplier}}">{{supplier}}</a></li>
-    {{/each}}
-    {{#each supplier in suppliers_person }}
-      <li><a href="/persons/{{supplier}}">{{supplier}}</a></li>
     {{/each}}
   </ul>
 </template>
 <template name="dependency_cell">
   <ul class="dependency-cell list-unstyled">
-      <li><a href="/orgs/{{dependency}}">{{dependency}}</a></li>
+      <li><a href="/orgs/{{simpleName buyer.name}}">{{buyer.name}}</a></li>
   </ul>
 </template>
 
 <template name="view_contract">
-  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers_org}}{{item.suppliers_person}}" class="button-link">Ver contrato{{ver_contrato}}</a>
+  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers.[0]}}" class="button-link">Ver contrato{{ver_contrato}}</a>
 </template>
 
 <template name="contract_dates">
-  Vigente desde {{ format_date item.start_date}} hasta {{ format_date item.end_date}}
+  Vigente desde {{ format_date item.startDate}} hasta {{ format_date item.endDate}}
 </template>
 
 <template name="contract_amount">

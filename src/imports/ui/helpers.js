@@ -1,6 +1,9 @@
 import moment from 'moment';
 import { intersection, keys } from 'lodash';
 import i18n from 'meteor/universe:i18n';
+import {
+  simpleName,
+} from '../api/lib';
 
 moment.locale(i18n.getLocale());
 
@@ -23,6 +26,7 @@ function isPrivladgedUser() {
 }
 
 Template.registerHelper('is_admin', isAdmin);
+Template.registerHelper('simpleName', simpleName);
 
 Template.registerHelper('isPrivladged', isPrivladgedUser);
 

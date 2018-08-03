@@ -120,7 +120,7 @@ Template.tabular.onRendered(function () {
       );
 
       console.log("tabluar pubSelector",template.tabular);
-      template.tabular.pubSelector.set(template.tabular);
+      template.tabular.pubSelector.set(pubSelector);
 
       // We're ready to subscribe to the data.
       // Matters on the first run only.

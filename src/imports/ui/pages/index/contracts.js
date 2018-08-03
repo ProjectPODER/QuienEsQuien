@@ -26,6 +26,7 @@ import {
 import {
   simpleName,
 } from '../../../api/lib';
+import '../../helpers.js';
 import './contracts.html';
 import TabularTables from '../../../../tabular.js';
 
