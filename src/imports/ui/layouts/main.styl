@@ -694,7 +694,7 @@ fieldset
   // position: absolute
   // left 31px
   // bottom 30px
-  width 400px
+  width 100%
 
 input[type="submit"].search-submit
   // width 100%
@@ -1483,13 +1483,17 @@ hr
   div
     &.explore-card
       width 100%
+      height 29rem
   .proyecto-info
     position relative
   .proyecto
     button
+    a
       width 100%
       bottom 0
       right 0
+      display block
+      text-align center
 
 @media only screen and (max-width: 1042px)
   input[type=text].landing-search-inputtext
@@ -1499,7 +1503,7 @@ hr
     margin 0
   div
     &.explore-card
-      height 14rem
+      height 20rem
   .card-image
     display none
   .contacto
@@ -1539,6 +1543,9 @@ hr
     .collapse
         &.in
             display block !important
+    .card-pad
+      .button-link
+        font-size 0.8rem
 
 @media only screen and (max-width: 870px)
   .explore-card
@@ -1577,6 +1584,8 @@ hr
         margin auto
   .card-pad
     padding 1rem
+    .button-link
+      font-size 1rem
 
   .shrink
   .fixed-nav
@@ -1588,10 +1597,25 @@ hr
       margin-bottom 10px
   #right-menu-contracts
     display none
-
+  .investigaciones.row 
+    height 400px
   .addinfo-box
     margin 3rem 0 0 0
-
+  .investigaciones.row
+    height auto
+  .investigaciones-card
+    .card-pad
+      .button-link
+        position inherit
+        display block
+        width 100%
+  footer 
+    a 
+      .logofooter-ml
+      .logofooter-pl
+        margin-bottom 1rem
+  .js-ocid
+    margin-bottom 2rem
 
 @media only screen and (max-width: 700px)
   input[type=submit].landing-search-inputtext
@@ -1600,6 +1624,9 @@ hr
     width 100%
   .autosuggest
     width 100% !important
+  div
+    &.explore-card
+      height 18rem
   div
     &.landing-header-content
       padding 64px 0 0 0
