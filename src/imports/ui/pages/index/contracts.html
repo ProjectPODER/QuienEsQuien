@@ -72,7 +72,7 @@
                   </select>
                 </fieldset>
                 <!-- <div id="fixed-filter-button"> -->
-                  <input type="submit" class="search-submit fixed-filter-button" value="FILTRAR">
+                  <input type="button" class="search-submit fixed-filter-button" value="FILTRAR">
                 <!-- </div> -->
 
                 <!-- <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button> -->
@@ -107,9 +107,7 @@
 </template>
 <template name="suppliers_cell">
   <ul class="suppliers-cell list-unstyled">
-    {{#each supplier in item.suppliers }}
-      <li><a href="/orgs/{{supplier}}">{{supplier}}</a></li>
-    {{/each}}
+      <li><a href="/orgs/{{simpleName item.suppliers.[0]}}">{{item.suppliers.[0]}}</a></li>
   </ul>
 </template>
 <template name="dependency_cell">
