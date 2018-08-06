@@ -352,7 +352,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         titleFn() {
           return i18n.__('Dependency');
         },
-        class: 'js-dependency col-3 col-m-3',
+        class: 'js-dependency col-4 col-m-4',
         tmpl: Meteor.isClient && Template.dependency_cell,
       },
       {
@@ -360,11 +360,17 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         titleFn() {
           return i18n.__('Suppliers');
         },
-        class: 'js-suppliers col-4 col-m-4',
-        // tmpl: Meteor.isClient && Template.suppliers_cell,
+        class: 'js-suppliers col-3 col-m-3',
+        tmpl: Meteor.isClient && Template.suppliers_cell,
+        tmplContext(rowData) {
+          return {
+            item: rowData,
+            column: 'title'
+          };
+        }
       },
       {
-        data: "tender.procurementMethodMxCnet",
+        data: "procurementMethodMxCnet()",
         titleFn() {
           return i18n.__('Procedimiento');
         },

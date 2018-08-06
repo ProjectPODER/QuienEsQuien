@@ -24,6 +24,9 @@ ContractsOCDS.helpers({
     }
     return suppliers;
   },
+  procurementMethodMxCnet() {
+    return this.tender.procurementMethodMxCnet.replace("Cuando Menos","").replace("Federal","")
+  }
 });
 
 ContractsOCDS.deny({
