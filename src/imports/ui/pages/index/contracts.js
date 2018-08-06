@@ -70,14 +70,14 @@ Template.Contracts.onCreated(function() {
 });
 
 var filterElements = [
-  {selector: "input.supplier_name_filter", field: "supplier", mode:"filter" }
-  ,{selector: "input.dependency_name_filter", field: "dependency", mode:"filter" }
-  ,{selector: "select#tipo-adquisicion", field: "procedure_type", type: "string", mode:"filter" }
-  ,{selector: "input#from_date_contracts_index", field: "min_date",type: "date", mode:"search" }
-  ,{selector: "input#to_date_contracts_index", field: "max_date",type: "date", mode:"search" }
+  {selector: "input.supplier_name_filter", field: "contracts.0.suppliers", mode:"filter" }
+  ,{selector: "input.dependency_name_filter", field: "buyer.name", mode:"filter" }
+  ,{selector: "select#tipo-adquisicion", field: "tender.procurementMethodMxCnet", type: "string", mode:"filter" }
+  ,{selector: "input#from_date_contracts_index", field: "contracts.0.period.startDate",type: "date", mode:"search" }
+  ,{selector: "input#to_date_contracts_index", field: "contracts.0.period.endDate",type: "date", mode:"search" }
   ,{selector: "input#fecha-desconocido", field: "unknown_date", type: "bool", mode:"search" }
-  ,{selector: "input#importe-minimo", field: "min_amount", type: "number", mode:"search" }
-  ,{selector: "input#importe-maximo", field: "max_amount", type: "number", mode:"search" }
+  ,{selector: "input#importe-minimo", field: "contracts.0.value.amount", type: "number", mode:"search" }
+  ,{selector: "input#importe-maximo", field: "contracts.0.value.amount", type: "number", mode:"search" }
   ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool", mode:"search" }
 ];
 

@@ -306,6 +306,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         titleFn() { return i18n.__('Title'); },
         class: 'js-title no-title search-result-title col-m-8 col-8',
         tmpl: Meteor.isClient && Template.link_title,
+        orderable: true,
         tmplContext(rowData) {
           return {
             item: rowData
@@ -313,7 +314,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         }
       },
       {
-        data: 'amount()',
+        data: 'contracts.0.value.amount',
         class: 'js-amount no-title search-result-emph col-m-4 col-4',
         title: "",
         tmpl: Meteor.isClient && Template.contract_amount,
@@ -321,7 +322,22 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
           return {
             item: rowData
           };
-        }
+        },
+        orderable: true,
+        // render(data,type,row) {
+        //   if (row.contracts) {
+        //
+        //     if (type==="display") {
+        //       return formatAmount(row.contracts[0].value.amount);
+        //     }
+        //     else {
+        //       return row.contracts[0].value.amount;
+        //     }
+        //   }
+        //   else {
+        //     console.log("wtf render",data,type,row);
+        //   }
+        // }
       },
       {
         data: 'startDate()',
@@ -379,9 +395,9 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
       },
     ],
     extraFields: ['endDate()',"contracts"],
-    // order: [
-    //   [5, 'desc'],
-    // ],
+    order: [
+      [1, 'desc'],
+    ],
     // columns: union(
     //   contractFieldsOCDS,
     //   [

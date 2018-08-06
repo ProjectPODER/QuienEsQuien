@@ -125,9 +125,9 @@
 </template>
 
 <template name="contract_amount">
-  {{ format_amount item.amount }}
+  {{ format_amount item.contracts.[0].value.amount }}
   <span class="contract_currency">
 
-      {{format_currency item.currency}}
+      {{format_currency item.contracts.[0].value.currency}}
   </span>
 </template>

@@ -5,9 +5,6 @@ import {
 export const ContractsOCDS = new Mongo.Collection('contracts_ocds');
 
 ContractsOCDS.helpers({
-  amount() {
-    return this.contracts[0].value.amount;
-  },
   currency() {
     return this.contracts[0].value.currency;
   },
