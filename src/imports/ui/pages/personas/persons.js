@@ -6,13 +6,13 @@ import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { Persons } from '../../../api/persons/persons.js';
 import Memberships from '../../../api/memberships/memberships.js';
-import {Contracts} from '../../../api/contracts/contracts.js';
-import {contractsMinMax}  from '../../../api/contracts/methods.js';
+import {ContractsOCDS} from '../../../api/contracts_ocds/contracts_ocds.js';
+// import {contractsMinMax}  from '../../../api/contracts/methods.js';
 import '../../components/memberships/memberships.js';
 import '../../components/visualizations/viz.js';
 import '../../components/similar/similar.js';
 import '../../components/history/history.js';
-import '../../components/contracts/contracts.js';
+// import '../../components/contracts/contracts.js';
 import '../../components/detail/detail.js';
 import '../../components/image/image.js';
 import '../../components/upload/upload.js'
@@ -63,28 +63,18 @@ Template.showPersonWrapper.onCreated(function () {
       self.person.set(person);
     },
   });
-  const handlec = self.subscribe('contracts-by-supplier', id, {
+  const handlec = self.subscribe('contracts-by-supplier-ocds', id, {
     onReady() {
-      const contracts = Contracts.find({
-        $or: [{ suppliers_org: id }, { suppliers_person: id }],
+      console.log("onready");
+      const contracts = ContractsOCDS.find({
+        $or: [{ "contracts.0.supplies": id }],
       }, {limit: 3});
       self.contracts.set(contracts.fetch());
+      console.log(self.contracts.get())
 
       self.ready.set(handlec.ready());
     },
   });
-
-  // console.log(contractsMinMax);
-  // contractsMinMax.call({names: [id], "names.$": id, isPublic: false}, (err, res) => {
-  //   console.log(err,res);
-  //   if (err) {
-  //     throw err;
-  //   }
-
-
-    // self.contracts_summary.set(res);
-    // console.log(self.contracts_summary);
-  // });
 
   const handlem = self.subscribe('memberships', id, {
     onReady() {

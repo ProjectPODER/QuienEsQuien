@@ -8,3 +8,15 @@ Meteor.publish("contract_ocds", function(_id) {
     { _id: _id }
   ]});
 });
+
+
+Meteor.publish("contracts-by-supplier-ocds", function(supplier_id) {
+  check(supplier_id, String);
+  return ContractsOCDS.find(
+      { "contracts.0.supplier": supplier_id }
+  , {
+    sort: {
+      amount: -1
+    }
+  });
+});

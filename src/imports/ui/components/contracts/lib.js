@@ -42,12 +42,12 @@ export function contractSearchOperator(baseQuery, data) {
 
     q[operator] = [
       {
-        amount: {
+        "contracts.0.value.amount": {
           $lte: maxAmount,
         },
       },
       {
-        amount: {
+        "contracts.0.value.amount": {
           $exists: !unkownAmount,
         },
       },
@@ -62,12 +62,12 @@ export function contractSearchOperator(baseQuery, data) {
 
     q[operator] = [
       {
-        amount: {
+        "contracts.0.value.amount": {
           $gte: minAmount,
         },
       },
       {
-        amount: {
+        "contracts.0.value.amount": {
           $exists: !unkownAmount,
         },
       },
@@ -82,12 +82,12 @@ export function contractSearchOperator(baseQuery, data) {
 
     q[operator] = [
       {
-        start_date: {
+        "contracts.0.period.startDate": {
           $gte: minDate,
         },
       },
       {
-        start_date: {
+        "contracts.0.period.startDate": {
           $exists: !unkownDate,
         },
       },
@@ -102,12 +102,12 @@ export function contractSearchOperator(baseQuery, data) {
 
     q[operator] = [
       {
-        start_date: {
+        "contracts.0.period.startDate": {
           $lte: maxDate,
         },
       },
       {
-        start_date: {
+        "contracts.0.period.startDate": {
           $exists: !unkownDate,
         },
       },
