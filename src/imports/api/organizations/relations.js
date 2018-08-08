@@ -1,5 +1,6 @@
 import Memberships from '../memberships/memberships';
 import { Contracts } from '../contracts/contracts';
+import { ContractsOCDS } from '../contracts_ocds/contracts_ocds';
 
 export function getShareHolders(doc) {
   return Memberships.find({
@@ -49,20 +50,14 @@ export function getBoard(doc) {
 }
 
 export function getContractsSupplied(doc) {
-  return Contracts.find({
-    $or: [
-      { suppliers: doc.simple },
-      { suppliers_org: doc.simple },
-      { proveedor: doc.simple },
-    ],
-  }, {
-    fields: {
-      user_id: 0,
-    },
+  return ContractsOCDS.find(
+  {},
+  {
     sort: {
-      amount: -1,
+      "contracts.0.value.amount": -1,
     },
-  });
+  }
+  );
 }
 
 export function getContractsSolicited(doc) {

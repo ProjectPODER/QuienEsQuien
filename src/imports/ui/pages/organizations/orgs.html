@@ -41,10 +41,12 @@
                 <p class="js-data-lf">{{company.classification}}</p>
             </div>
             {{/if}}
+            {{#if isPublic=false }}
             <div class="col-m-6">
                 <p class="js-title-data">Cotiza en bolsa</p>
                 <p class="js-data-lf">{{#if company.tickers }}Si, clave: {{company.tickers}}{{else}}No{{/if}}</p>
             </div>
+            {{/if}}
             {{#if company.status}}
             <div class="col-m-6">
                 <p class="js-title-data">Situación</p>
@@ -73,7 +75,7 @@
 
         </div>
         {{#if address}}
-        <div class="col-m-6 flex mt-2">
+          <div class="col-m-6 flex mt-2">
             <div class="col-m-12">
               <h4 class="description-data-subtitle">LOCALIZACIÓN Y CONTACTO</h4>
             </div>
@@ -122,74 +124,73 @@
           <hr>
         </div>
         {{#if contract_count }}
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
-          <div id="chart">
-            <svg></svg>
-          </div>
-        </div>
-        <div class="col-m-12 col-6 mt-2">
-          <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
-          <div id="piechart">
-            <svg></svg>
-          </div>
-        </div>
-        <div class="col-m-12 col-6 mt-2">
-          <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
-          <div id="treemap">
-          </div>
-        </div>
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
-          <div id="graph-container">
-          </div>
-        </div>
-        <div class="col-m-8 col-8">
-          <hr>
-        </div>
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}UNIDADES COMPRADORAS PRINCIPALES{{/if}}</h4>
-          {{# each dependency in dependencySummary }}
-          <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">{{dependency.name}}</a></p>
-          {{/each}}
-
-          <!-- <p class="principal-suppliers"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">BanRegio SA de CV</a></p>
-          <div class="mt-2">
-            <a href="" class="button-link">VER TODOS LOS PROVEEDORES</a>
-          </div> -->
-        </div>
-        <!-- <div class="col-m-7 col-7 mt-2">
-          <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
-        </div> -->
-        <div class="col-m-8 col-8">
-          <hr>
-        </div>
-        {{#if contracts.length }}
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">CONTRATOS</h4>
-          <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th class="description-data-subname">Nombre</th>
-                <th class="description-data-subname">Importe</th>
-                <th class="description-data-subname">Periodo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{# each contract in contracts }}
-              <tr>
-                  <td class="description-data-contract">
-                    <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
-                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.suppliers_person}}{{contract.suppliers_org}}">{{contract.title}}</a>
-                  </td>
-                  <td class="description-data-amount">{{ format_amount contract.amount}} {{format_currency contract.currency}}</td>
-                  <td class="description-data-date">{{get_year contract.start_date}}</td>
-              </tr>
+          {{#if contracts.length = 0 }}
+            Cargando gráficos
+          {{else}}
+            <div class="col-m-12 col-12 mt-2">
+              <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
+              <div id="chart">
+                <svg></svg>
+              </div>
+            </div>
+            <div class="col-m-12 col-6 mt-2">
+              <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
+              <div id="piechart">
+                <svg></svg>
+              </div>
+            </div>
+            <div class="col-m-12 col-6 mt-2">
+              <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
+              <div id="treemap">
+              </div>
+            </div>
+            <div class="col-m-12 col-12 mt-2">
+              <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
+              <div id="graph-container">
+              </div>
+            </div>
+            <div class="col-m-8 col-8">
+              <hr>
+            </div>
+            <div class="col-m-12 col-12 mt-2">
+              <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}UNIDADES COMPRADORAS PRINCIPALES{{/if}}</h4>
+              {{# each dependency in dependencySummary }}
+              <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">{{dependency.name}} ({{dependency.memberOf}})</a></p>
               {{/each}}
-            </tbody>
-          </table>
-        </div>
-        <div class="col-m-9 mb-3">
+            </div>
+            <!-- <div class="col-m-7 col-7 mt-2">
+              <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
+            </div> -->
+            <div class="col-m-8 col-8">
+              <hr>
+            </div>
+          {{/if}}
+        {{#if contracts.length }}
+          <div class="col-m-12 col-12 mt-2">
+            <h4 class="description-data-subtitle">CONTRATOS</h4>
+            <table class="table table-responsive">
+              <thead>
+                <tr>
+                  <th class="description-data-subname">Nombre</th>
+                  <th class="description-data-subname">Importe</th>
+                  <th class="description-data-subname">Periodo</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{# each contract in contracts }}
+                <tr>
+                    <td class="description-data-contract">
+                      <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
+                      <a href="/contracts/{{contract.ocid}}?supplier={{contract.contracts.[0].suppliers}}">{{contract.contracts.[0].title}}</a>
+                    </td>
+                    <td class="description-data-amount">{{ format_amount contract.contracts.[0].value.amount}} {{format_currency contract.contracts.[0].value.currency}}</td>
+                    <td class="description-data-date">{{get_year contract.contracts.[0].period.startDate}}</td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+          <div class="col-m-9 mb-3">
           <p>Viendo <strong>{{contract_count}} contrato(s) en total</strong>. </p>
           <div class="col-m-3 centered contract-button">
             <a href="/contracts?{{# if public }}filter_dependency={{name}}{{else}}filter_supplier={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>

@@ -12,12 +12,11 @@ import '../../components/memberships/memberships.js';
 import '../../components/visualizations/viz.js';
 import '../../components/similar/similar.js';
 import '../../components/history/history.js';
-import '../../components/contracts/contracts.js';
 import '../../components/detail/detail.js';
 import '../../components/image/image.js';
 import '../../components/subscribe/subscribe.js';
 import { prepareSubArray } from '../../components/visualizations/relations.js';
-import { isEmpty, uniqBy } from 'lodash';
+import { isEmpty, uniqBy, slice, find } from 'lodash';
 import jquery from 'jquery'
 import './orgs.html';
 import nvd3 from 'nvd3';
@@ -55,7 +54,7 @@ Template.showOrgWrapper.onCreated(function() {
           ],
         });
         Session.set("currentDocumentId", org._id);
-        self.subscribe("contracts-by-supplier",org.simple, {
+        self.subscribe("contracts-by-supplier-ocds",org.name, {
           onReady() {
             Session.set("orgContracts", org.contractsSupplied().fetch());
           }
@@ -106,7 +105,7 @@ AutoForm.hooks({
 
 Template.orgView.helpers({
   contracts() {
-    return Session.get("orgContracts")
+    return slice(Session.get("orgContracts"),0,3)
   },
   dependencySummary() {
     var oc =Session.get("orgContracts");
@@ -114,9 +113,9 @@ Template.orgView.helpers({
 
     for (c in oc) {
       let cc = oc[c];
-      console.log(cc);
-      let year = cc.start_date.getFullYear();
-      summary.push({name: cc.dependency})
+      // console.log(cc);
+      let year = new Date(cc.contracts[0].period.startDate).getFullYear();
+      summary.push({name: cc.parties[0].name, memberOf: cc.parties[0].memberOf.name})
     }
     summary = uniqBy(summary,"name")
     console.log("ds",summary);
@@ -151,6 +150,7 @@ Template.orgView.onRendered(function() {
     var oc = Session.get("orgContracts");
     // console.log(oc);
     if (oc) {
+      console.log("orgContracts",oc);
 
       //Generar los objetos para cada gráfico
       let summary = {}
@@ -167,49 +167,42 @@ Template.orgView.onRendered(function() {
 
       for (c in oc) {
         let cc = oc[c];
-        let year = cc.start_date.getFullYear();
+        let year = new Date(cc.contracts[0].period.startDate).getFullYear();
         if (!summary[year]) {
           summary[year] = {value: 0, count: 0}
         }
-        summary[year].value += cc.amount;
+        summary[year].value += cc.contracts[0].value.amount;
         summary[year].count += 1;
 
-        if (!typeSummary[cc.procedure_type]) {
-          typeSummary[cc.procedure_type] = 0;
+        if (!typeSummary[cc.tender.procurementMethodMxCnet]) {
+          typeSummary[cc.tender.procurementMethodMxCnet] = 0;
         }
-        typeSummary[cc.procedure_type]++;
+        typeSummary[cc.tender.procurementMethodMxCnet]++;
 
-        if (!ramoSummary[cc.clave_uc.substr(0,3)]) {
-          ramoSummary[cc.clave_uc.substr(0,3)] = {};
+        if (!ramoSummary[cc.buyer.id.substr(0,3)]) {
+          ramoSummary[cc.buyer.id.substr(0,3)] = {};
         }
-        if (!ramoSummary[cc.clave_uc.substr(0,3)][cc.dependency]) {
-          ramoSummary[cc.clave_uc.substr(0,3)][cc.dependency] = 0;
+        if (!ramoSummary[cc.buyer.id.substr(0,3)][cc.buyer.name]) {
+          ramoSummary[cc.buyer.id.substr(0,3)][cc.buyer.name] = 0;
         }
-        ramoSummary[cc.clave_uc.substr(0,3)][cc.dependency] += cc.amount;
+        ramoSummary[cc.buyer.id.substr(0,3)][cc.dependency] += cc.contracts[0].value.amount;
 
         // Nodos dependencia: org, unidadesCompradoras, contratos, proveedores
         // Nodos empresa: org, contratos, department, dependency
         // links: org-contrato, contrato-department, department-dependency
 
         //adjudicación 2
-        addNode(relationSummary,{"label":cc.procedure_type,"weight":20,"color":"#282ffb","cluster":1})
-        addLink(relationSummary,{source:orgName,target:cc.procedure_type});
+        addNode(relationSummary,{"label":cc.tender.procurementMethodMxCnet,"weight":20,"color":"#282ffb","cluster":1})
+        addLink(relationSummary,{source:orgName,target:cc.tender.procurementMethodMxCnet});
         //contartos 3
-        addNode(relationSummary,{"label":cc.title,"weight":10,"color":"#282f6b","cluster":2})
-        addLink(relationSummary,{source:cc.procedure_type,target:cc.title});
+        addNode(relationSummary,{"label":cc.contracts[0].title,"weight":10,"color":"#282f6b","cluster":2})
+        addLink(relationSummary,{source:cc.tender.procurementMethodMxCnet,target:cc.contracts[0].title});
         //departamento 4
-        addNode(relationSummary,{"label":cc.department,"weight":12,"color":"#aec7e8","cluster":3})
-        addLink(relationSummary,{source:cc.title,target:cc.department});
+        addNode(relationSummary,{"label":cc.buyer.name,"weight":12,"color":"#aec7e8","cluster":3})
+        addLink(relationSummary,{source:cc.contracts[0].title,target:cc.department});
         // dependencia 5
-        addNode(relationSummary,{"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
-        addLink(relationSummary,{source:cc.department,target:cc.dependency});
-
-        // nodeNumber++;
-        // relationSummary.nodes.push({"id":nodeNumber,"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
-        //
-        // linkNumber++;
-        // let dependencyLink = {"id":linkNumber,"source":departmentLink.target,"target":nodeNumber}
-        // relationSummary.links.push(dependencyLink);
+        addNode(relationSummary,{"label":cc.buyer.name,"weight":15,"color":"#ff7f0e","cluster":4})
+        addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
 
       }
 
