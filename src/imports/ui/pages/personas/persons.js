@@ -66,9 +66,7 @@ Template.showPersonWrapper.onCreated(function () {
   const handlec = self.subscribe('contracts-by-supplier-ocds', id, {
     onReady() {
       console.log("onready");
-      const contracts = ContractsOCDS.find({
-        $or: [{ "contracts.0.supplies": id }],
-      }, {limit: 3});
+      const contracts = ContractsOCDS.find({}, {limit: 3});
       self.contracts.set(contracts.fetch());
       console.log(self.contracts.get())
 

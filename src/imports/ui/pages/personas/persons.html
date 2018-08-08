@@ -71,7 +71,7 @@
                     <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
                     <a href="/contracts/{{contract.ocid}}?supplier={{contract.contracts.[0].supplier}}">{{contract.contracts.[0].title}}</a>
                   </td>
-                  <td class="description-data-amount">{{format_amount contract.contracts.[0].value.amount}} {{contract.contracts.[0].value.currency}}</td>
+                  <td class="description-data-amount">{{format_amount contract.contracts.[0].value.amount }} {{contract.contracts.[0].value.currency}}</td>
                   <td class="description-data-date">{{get_year contract.start_date}}</td>
                 </tr>
                 {{/each}}

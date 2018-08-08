@@ -84,7 +84,7 @@ Template.registerHelper('format_amount', function(value) {
     return value.toLocaleString('es-MX',
       {
         style: 'currency',
-        currency: 'USD',
+        currency: "MXN",
         maximumFractionDigits: 2,
       });
   }
