@@ -83,10 +83,10 @@ Template.investigaciones.helpers({
 
 Template.Home.onRendered(function() {
   $(document).ready(function () {
-    if (Template.Home){
+    // if (Template.Home){
       $('nav').removeClass("shrink");
       $('nav').removeClass("fixed-nav");
-    }
+    // }
   });
 });
 
