@@ -159,7 +159,7 @@ if (Meteor.isClient) {
     dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"frtp>>',
     // info: false,
     language: {
-      "info": "Mostrando _END_ de _TOTAL_ resultados",
+      "info": "Mostrando del _START_ al _END_  de _TOTAL_ resultados",
       "lengthMenu": "Mostrar _MENU_ resultados",
       "infoEmpty": "Mostrando _END_ de _TOTAL_ resultados",
       "emptyTable": "No hay datos disponibles",
