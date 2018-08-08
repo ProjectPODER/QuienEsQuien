@@ -177,9 +177,9 @@ TabularTables.Orgs = new Tabular.Table(extend({},
     name: 'Orgs',
     collection: Orgs,
     order: [
-      [1, 'desc'],
+      [4, 'desc'],
     ],
-    extraFields: ['contract_count', 'foundation_date', 'company.tickers', 'type', 'company.classification'],
+    extraFields: [ 'foundation_date', 'company.tickers', 'type', 'company.classification'],
     columns: [{
           data: 'name',
           titleFn() {
@@ -220,6 +220,11 @@ TabularTables.Orgs = new Tabular.Table(extend({},
               item: rowData
             };
           }
+        },
+        {
+          data: 'contract_count',
+          class: 'col-m-8 col-8',
+          title: "",
         },
     ],
   }),
