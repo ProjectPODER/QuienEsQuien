@@ -12,8 +12,8 @@ Meteor.startup(function(){
     // check if the property is actually a blaze template
     if(Blaze.isTemplate(Template[property])){
       var template=Template[property];
-      // assign the template an onRendered callback
-      template.onRendered(function(){
+      // assign the template an onCreated callback
+      template.onCreated(function(){
         // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
         $('nav').addClass('fixed-nav');
         $('.owl-carousel').owlCarousel({
