@@ -162,6 +162,7 @@ Template.orgView.onRendered(function() {
       let linkNumber = 1;
 
       var orgName = Template.instance().data.document.names[0];
+      //organización 1
       addNode(relationSummary,{"label":orgName,"weight":32.88,"color":"#b22200","cluster":1});
 
       for (c in oc) {
@@ -190,16 +191,16 @@ Template.orgView.onRendered(function() {
         // Nodos empresa: org, contratos, department, dependency
         // links: org-contrato, contrato-department, department-dependency
 
+        //adjudicación 2
         addNode(relationSummary,{"label":cc.procedure_type,"weight":20,"color":"#282ffb","cluster":1})
         addLink(relationSummary,{source:orgName,target:cc.procedure_type});
-
+        //contartos 3
         addNode(relationSummary,{"label":cc.title,"weight":10,"color":"#282f6b","cluster":2})
         addLink(relationSummary,{source:cc.procedure_type,target:cc.title});
-
+        //departamento 4
         addNode(relationSummary,{"label":cc.department,"weight":12,"color":"#aec7e8","cluster":3})
         addLink(relationSummary,{source:cc.title,target:cc.department});
-
-
+        // dependencia 5
         addNode(relationSummary,{"label":cc.dependency,"weight":15,"color":"#ff7f0e","cluster":4})
         addLink(relationSummary,{source:cc.department,target:cc.dependency});
 
@@ -361,7 +362,7 @@ Template.orgView.onRendered(function() {
           return table;
         },
         footer: function(d) {
-          return "<sub class='tooltip-footer'>Datos recolectados en 2012</sub>";
+          // return "<sub class='tooltip-footer'>Datos recolectados en 2012</sub>";
         },
         title: function(d) {
           var txt = d.id;
@@ -494,7 +495,7 @@ Template.orgView.onRendered(function() {
       var radius = d4.scaleSqrt()
         .range(radiusRange);
 
-      var color = d4.scaleOrdinal(d4.schemeCategory10);
+      var color = d4.scaleOrdinal(d4.schemeCategory20); //d4.scale.category20().range().slice(1)
 
       // Nodos dependencia: org, unidadesCompradoras, contratos, proveedores
       // Nodos empresa: org, contratos, department, dependency
