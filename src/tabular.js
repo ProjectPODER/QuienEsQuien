@@ -223,8 +223,9 @@ TabularTables.Orgs = new Tabular.Table(extend({},
         },
         {
           data: 'contract_count',
-          class: 'col-m-8 col-8',
+          class: 'hidden',
           title: "",
+          tmpl: Meteor.isClient && Template.hidden,
         },
     ],
   }),
@@ -234,7 +235,9 @@ TabularTables.Persons = new Tabular.Table(extend({},
   tableDefaults, {
     name: 'Persons',
     collection: Persons,
-    extraFields: ['contract_count'],
+    order: [
+      [3, 'desc'],
+    ],
     columns: [
       {
         data: 'name',
@@ -265,6 +268,12 @@ TabularTables.Persons = new Tabular.Table(extend({},
             item: rowData
           };
         }
+      },
+      {
+        data: 'contract_count',
+        class: 'hidden',
+        title: "",
+        tmpl: Meteor.isClient && Template.hidden,
       }],
   }),
 );

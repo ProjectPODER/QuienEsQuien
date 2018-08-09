@@ -193,7 +193,7 @@
           <div class="col-m-9 mb-3">
           <p>Viendo <strong>{{contract_count}} contrato(s) en total</strong>. </p>
           <div class="col-m-3 centered contract-button">
-            <a href="/contracts?{{# if public }}filter_dependency={{name}}{{else}}filter_supplier={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>
+            <a href="/contracts?{{# if public }}filter_buyer.name={{name}}{{else}}filter_contracts.0.suppliers={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>
           </div>
           <!-- <table class="table table-responsive">
             <thead>
@@ -292,6 +292,10 @@
       </tbody>
     </table>
   </div>
+</template>
+
+<template name="hidden">
+
 </template>
 
 <!-- <template name="OrgSubmit">

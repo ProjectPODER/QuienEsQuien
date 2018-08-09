@@ -69,15 +69,15 @@ Template.Contracts.onCreated(function() {
 });
 
 var filterElements = [
-  {selector: "input.supplier_name_filter", field: "contracts.0.suppliers", mode:"filter" }
-  ,{selector: "input.dependency_name_filter", field: "buyer.name", mode:"filter" }
-  ,{selector: "select#tipo-adquisicion", field: "tender.procurementMethodMxCnet", type: "string", mode:"filter" }
-  ,{selector: "input#from_date_contracts_index", field: "min_date",type: "date", mode:"search" }
-  ,{selector: "input#to_date_contracts_index", field: "max_date",type: "date", mode:"search" }
-  ,{selector: "input#fecha-desconocido", field: "unknown_date", type: "bool", mode:"search" }
-  ,{selector: "input#importe-minimo", field: "min_amount", type: "number", mode:"search" }
-  ,{selector: "input#importe-maximo", field: "max_amount", type: "number", mode:"search" }
-  ,{selector: "input#importe-desconocido", field: "unknown_amount", type: "bool", mode:"search" }
+  {selector: "input.supplier_name_filter", field: "contracts.0.suppliers", field_name: "Proveedor", mode:"filter" }
+  ,{selector: "input.dependency_name_filter", field: "buyer.name", field_name: "Dependencia", mode:"filter" }
+  ,{selector: "select#tipo-adquisicion", field: "tender.procurementMethodMxCnet", field_name: "Procedimiento", type: "string", mode:"filter" }
+  ,{selector: "input#from_date_contracts_index", field: "min_date",field_name: "Fecha de inicio",type: "date", mode:"search" }
+  ,{selector: "input#to_date_contracts_index", field: "max_date",field_name: "Fecha de fin",type: "date", mode:"search" }
+  ,{selector: "input#fecha-desconocido", field: "unknown_date",field_name: "Fecha desconocida",hiddenIfTrue: true, type: "bool", mode:"search" }
+  ,{selector: "input#importe-minimo", field: "min_amount",field_name: "Importe mínimo", type: "number", mode:"search" }
+  ,{selector: "input#importe-maximo", field: "max_amount",field_name: "Importe máximo", type: "number", mode:"search" }
+  ,{selector: "input#importe-desconocido", field: "unknown_amount",field_name: "Importe desconocido", hiddenIfTrue: true, type: "bool", mode:"search" }
 ];
 
 Template.Contracts.events({
@@ -104,7 +104,11 @@ Template.Contracts.events({
     }
   },
   'click .delete-blob-filter': function(event, instance) {
-    $(".search-terms-text span").remove();
+    let field = $(event.target).parent(".blob").data("field");
+    console.log("delete blob filter",field)
+    let selector = _.findWhere(filterElements,{field:field}).selector;
+    $(selector).val("")
+    generateFilters(event,instance);
   },
   'click .importe-bucket': function(event, instance) {
     let item = $(event.target).parent(".importe-bucket");
@@ -260,19 +264,28 @@ Template.Contracts.helpers({
 
     if (filters) {
       for (f in filters) {
+        let filterDef = _.findWhere(filterElements,{field:filters[f].field});
+        filters[f].field_name = filterDef.field_name;
         filtersInView.push(filters[f]);
       }
     }
 
     if (search) {
       for (s in search.keys) {
-        if (!isEmpty(search.keys[s])) {
-          // var hidden = searchElements.findIndex({"field":s}).hidden;
-          filtersInView.push({"field": s, "string": search.keys[s]}); // , "hidden": hidden
+        let filterDef = _.findWhere(filterElements,{field:s});
+        //Los filtros se agregan si están definidos y no son null
+        if (!isEmpty(search.keys[s]) && search.keys[s]!="null") {
+          // y si el hiddenIfTrue es true y valor no es true o el hiddenIfTrue no está definido
+          if (filterDef.hiddenIfTrue == true && search.keys[s] != "true" || !filterDef.hiddenIfTrue) {
+            let value = search.keys[s].replace("true", "si").replace("false", "no");
+            // var hidden = searchElements.findIndex({"field":s}).hidden;
+            filtersInView.push({"field": s, "field_name": filterDef.field_name, "string": value}); // , "hidden": hidden
+          }
         }
       }
     }
 
+    // console.log("filtersInView",filtersInView);
 
     return filtersInView;
   },
