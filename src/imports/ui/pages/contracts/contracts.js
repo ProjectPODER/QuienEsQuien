@@ -49,8 +49,8 @@ Template.showContractWrapper.onCreated(function() {
       })
 
       function selectContract(contract,supplier) {
-        console.log("selectContract",simpleName(contract.contracts[0].suppliers),supplier)
-        if (simpleName(contract.contracts[0].suppliers) == supplier) {
+        console.log("selectContract",contract.contracts[0].suppliers,supplier)
+        if (contract.contracts[0].suppliers == supplier) {
           self.contract.set('document', contract)
           self.ready.set(true);
         }
