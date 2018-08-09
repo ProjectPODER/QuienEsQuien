@@ -88,6 +88,7 @@
                   {{#if filter.hidden = true }}
                     <span class="blob">
                       {{filter.field}}: {{filter.string}}
+                      <i class="fa fa-times delete-blob-filter" aria-hidden="true"></i>
                     </span>
                   {{/if}}
                 {{/each}}
@@ -97,7 +98,6 @@
             id="contract-index"  selector=selector
             class="" }}
 
- <!---->
         </div>
     </div>
 </template>

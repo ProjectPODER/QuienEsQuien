@@ -63,7 +63,6 @@ Template.Contracts.onCreated(function() {
     }
   });
   $(document).ready(function () {
-    $('nav').addClass("fixed-nav");
     generateFilters(null,self,window.queryParams);
 
   });
@@ -103,6 +102,9 @@ Template.Contracts.events({
     else {
       $(event.target).parent(".multiple-control-container").remove();
     }
+  },
+  'click .delete-blob-filter': function(event, instance) {
+    $(".search-terms-text span").remove();
   },
   'click .importe-bucket': function(event, instance) {
     let item = $(event.target).parent(".importe-bucket");

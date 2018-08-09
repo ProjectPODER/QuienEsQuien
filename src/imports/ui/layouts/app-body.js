@@ -1,7 +1,7 @@
 import '../components/nav/nav.js';
 import '../components/search/search.js';
 import '../components/header/header.html';
-import '../components/footer.html';
+import '../components/footer/footer.js';
 import '../components/spin/spinner.html';
 import './app-body.html';
 // import '../../../node_modules/bootstrap-tooltip-popover/src/tooltip.js';
@@ -16,7 +16,9 @@ Meteor.startup(function(){
       template.onCreated(function(){
         // $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
         $('nav').addClass('fixed-nav');
-        $('.owl-carousel').owlCarousel({
+      });
+      template.onRendered(function() {
+          $('.owl-carousel').owlCarousel({
             // center: true,
             items:1,
             loop:true,
@@ -42,7 +44,31 @@ Meteor.startup(function(){
                 }
             }
         });
+        // Code to link to anchor hashes within a page
+            var scrollToHash = function  (hash, time) {
+              hash = window.location.hash;
+              time = time || 200;
+
+              // If the link goes to the same (home) page
+              if (hash == '/') {
+                $('body').animate({
+                  scrollTop: 0
+                }, time);  
+              }
+              else if ($(hash).length) {
+                $('body').animate({
+                  scrollTop: $(hash).offset().top
+                }, time);
+                console.log(scrollToHash);
+              }
+              else {
+                $('body').animate({
+                  scrollTop: 0
+                }, time);
+              }
+            };
       });
     }
   }
 });
+
