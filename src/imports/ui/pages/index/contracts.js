@@ -264,6 +264,8 @@ Template.Contracts.helpers({
 
     if (filters) {
       for (f in filters) {
+        let filterDef = _.findWhere(filterElements,{field:filters[f].field});
+        filters[f].field_name = filterDef.field_name;
         filtersInView.push(filters[f]);
       }
     }
