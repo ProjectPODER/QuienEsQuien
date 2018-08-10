@@ -301,14 +301,19 @@ Template.Contracts.onRendered(function () {
     computation.stop();
   });
 
-  // $('#fixed-filter-button')
-  //   .affix({
-  //     offset:
-  //     {
-  //       top: $(".filter-bar").offset().top + $(".filter-bar").height()
-  //     }
-  //   }
-  // );
+  // $('#fixed-filter-button').affix({offset: {top: 450} });
+
+  /*$(window).scroll(function(){
+    if ($(window).scrollTop() > 350)
+      {
+        $(".fixed-filter-button").fadeOut("slow");
+      }
+      else
+      {
+        $(".fixed-filter-button").fadeIn("slow");
+      }
+  });*/
+
 });
 
 Template.contract_dates.helpers({

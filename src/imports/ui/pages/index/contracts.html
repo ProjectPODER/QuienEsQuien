@@ -1,12 +1,12 @@
 <template name="Contracts">
-    <div class="row document-header">
+    <!-- <div class="row document-header">
       <div class="col-3 col-m-3">
         <h2 class="document-title">Contratos</h2>
       </div>
       <div class="col-9 col-m-9">
         <p class="document-description">Explora los importes, años, dependencias, empresas proveedoras y otras características de más de un millón de contratos de México.</p>
       </div>
-    </div>
+    </div> -->
     <div class="row document-body">
         <div class="col-3 col-m-3">
           <div class="filter-bar">
@@ -24,7 +24,7 @@
                   </div>
                   <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control">
                 </fieldset>
-
+                
                 <fieldset name="dependencias">
                   <p class="search-title">FILTRAR DEPENDENCIAS</p>
                   <div class="multiple-controls-group">
@@ -71,15 +71,20 @@
                     <option value="Licitación Pública|Licitación Pública con OSD">Licitación</option>
                   </select>
                 </fieldset>
-                <!-- <div id="fixed-filter-button"> -->
                   <input type="button" class="search-submit fixed-filter-button" value="FILTRAR">
-                <!-- </div> -->
-
                 <!-- <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button> -->
             </form>
           </div>
         </div>
-        <div class="col-9 col-m-9">
+        <div class="col-9 col-m-9" style="margin-left: 25%">
+          <div class="row document-header">
+            <div class="col-3 col-m-3">
+              <h2 class="document-title">Contratos</h2>
+            </div>
+            <div class="col-9 col-m-9">
+              <p class="document-description">Explora los importes, años, dependencias, empresas proveedoras y otras características de más de un millón de contratos de México.</p>
+            </div>
+          </div>
             {{#if filters }}
 
               <p class="search-terms-text">
