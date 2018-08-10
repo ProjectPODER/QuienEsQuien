@@ -169,7 +169,7 @@ Template.orgView.onRendered(function() {
     var oc = Session.get("orgContracts");
 
     if (oc && $("#treemap").length > 0) {
-      console.log("orgContracts",oc);
+      // console.log("orgContracts",oc);
 
       //Generar los objetos para cada gráfico
       let summary = {}
@@ -229,7 +229,7 @@ Template.orgView.onRendered(function() {
         addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
 
       }
-      console.log("relationSummary",relationSummary);
+      // console.log("relationSummary",relationSummary);
 
       //Evolución de contratos chart
       nv.addGraph(function() {
@@ -602,7 +602,7 @@ Template.orgView.onRendered(function() {
         d4.selectAll(".node").selectAll("text").remove();
 
         //TODO: Agregar texto para nodos con mucho weight
-        nodeLabel = d4.select("#node2").selectAll().append("text")
+        nodeLabel = d4.select("#node0").append("text")
           .html(function(d) {
             return d.label;
           })
