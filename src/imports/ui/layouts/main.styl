@@ -594,14 +594,18 @@ h2card-image-container
     font-size 2.3rem
     margin 0
 
+#tipo-adquisicion
+  margin-bottom 10rem
+
 .filter-bar
   position fixed
   width 24%
-  height 85%
+  // height calc(85% - 3em)
+  height 100%
   z-index 1
   overflow-y scroll
-  top 4.4rem
-  left 5px
+  top 4.05rem
+  left 0
 .filter-bar
 .addinfo-box
   background-color #F7F7F7
@@ -707,9 +711,13 @@ fieldset
     // position fixed !important
 .fixed-filter-button
   position: fixed
-  left 20px
-  bottom 10px
-  width 405px
+  left 14px
+  bottom 5px
+  width 22%
+/*.fixed-filter-button-bg
+  background-color black
+  width 100%
+  position relative*/
 
 input[type="submit"].search-submit
 input[type="button"].search-submit
