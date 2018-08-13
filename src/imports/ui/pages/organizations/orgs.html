@@ -41,7 +41,7 @@
                 <p class="js-data-lf">{{company.classification}}</p>
             </div>
             {{/if}}
-            {{#if isPublic=false }}
+            {{#if company.public=false }}
             <div class="col-m-6">
                 <p class="js-title-data">Cotiza en bolsa</p>
                 <p class="js-data-lf">{{#if company.tickers }}Si, clave: {{company.tickers}}{{else}}No{{/if}}</p>
@@ -123,8 +123,9 @@
         <div class="col-m-12 col-12">
           <hr>
         </div>
+
         {{#if contract_count }}
-          {{#if contracts.length = 0 }}
+          {{#if 0 }}
             Cargando gráficos
           {{else}}
             <div class="col-m-12 col-12 mt-2">
@@ -155,7 +156,9 @@
             <div class="col-m-12 col-12 mt-2">
               <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}UNIDADES COMPRADORAS PRINCIPALES{{/if}}</h4>
               {{# each dependency in dependencySummary }}
-              <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">{{dependency.name}} ({{dependency.memberOf}})</a></p>
+              <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">
+                {{dependency.name}}
+              </a></p>
               {{/each}}
             </div>
             <!-- <div class="col-m-7 col-7 mt-2">

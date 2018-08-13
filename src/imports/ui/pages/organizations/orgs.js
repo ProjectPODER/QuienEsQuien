@@ -115,7 +115,7 @@ Template.orgView.helpers({
       let cc = oc[c];
       // console.log(cc);
       let year = new Date(cc.contracts[0].period.startDate).getFullYear();
-      summary.push({name: cc.parties[0].name, memberOf: cc.parties[0].memberOf.name})
+      summary.push({name: cc.parties[0].memberOf.name})
     }
     summary = uniqBy(summary,"name")
     console.log("ds",summary);
@@ -137,6 +137,25 @@ Template.orgView.helpers({
 
 })
 
+function addLink (relationSummary,link) {
+  var source = _.findWhere(relationSummary.nodes,{"label": link.source});
+  var target = _.findWhere(relationSummary.nodes,{"label": link.target});
+  // console.log("addLink",link,sourceId,target.id);
+  if (!source.fixedWeight){
+    source.weight++;
+  }
+  if (!_.findWhere(relationSummary.links,{source: source.id,target: target.id})) {
+    relationSummary.links.push({id:relationSummary.links.length,source:source.id,target:target.id})
+  }
+}
+function addNode(relationSummary,node) {
+  if (!_.findWhere(relationSummary.nodes,{label: node.label})) {
+    node.id = relationSummary.nodes.length;
+    relationSummary.nodes.push(node);
+  }
+}
+
+
 Template.orgView.onRendered(function() {
   DocHead.setTitle('QuiénEsQuién.Wiki - ' + Template.instance().data.document.names[0]);
   this.$(function () {
@@ -148,8 +167,8 @@ Template.orgView.onRendered(function() {
   this.autorun(() => {
 
     var oc = Session.get("orgContracts");
-    // console.log(oc);
-    if (oc) {
+
+    if (oc && $("#treemap").length > 0) {
       console.log("orgContracts",oc);
 
       //Generar los objetos para cada gráfico
@@ -163,7 +182,7 @@ Template.orgView.onRendered(function() {
 
       var orgName = Template.instance().data.document.names[0];
       //organización 1
-      addNode(relationSummary,{"label":orgName,"weight":32.88,"color":"#b22200","cluster":1});
+      addNode(relationSummary,{"label":orgName,"weight":32.88,"color":"#b22200","cluster":1},nodeNumber);
 
       for (c in oc) {
         let cc = oc[c];
@@ -171,6 +190,8 @@ Template.orgView.onRendered(function() {
         if (!summary[year]) {
           summary[year] = {value: 0, count: 0}
         }
+        //TODO: sumar los amounts en MXN siempre
+
         summary[year].value += cc.contracts[0].value.amount;
         summary[year].count += 1;
 
@@ -179,13 +200,16 @@ Template.orgView.onRendered(function() {
         }
         typeSummary[cc.tender.procurementMethodMxCnet]++;
 
-        if (!ramoSummary[cc.buyer.id.substr(0,3)]) {
-          ramoSummary[cc.buyer.id.substr(0,3)] = {};
+        var buyer = cc.parties[0];
+        var ramo = buyer.id.toString().substr(0,3);
+        if (!ramoSummary[ramo]) {
+          ramoSummary[ramo] = {};
         }
-        if (!ramoSummary[cc.buyer.id.substr(0,3)][cc.buyer.name]) {
-          ramoSummary[cc.buyer.id.substr(0,3)][cc.buyer.name] = 0;
+        if (!ramoSummary[ramo][buyer.memberOf.name]) {
+          ramoSummary[ramo][buyer.memberOf.name] = 0;
         }
-        ramoSummary[cc.buyer.id.substr(0,3)][cc.dependency] += cc.contracts[0].value.amount;
+        //TODO: sumar los amounts en MXN siempre
+        ramoSummary[ramo][buyer.memberOf.name] += cc.contracts[0].value.amount;
 
         // Nodos dependencia: org, unidadesCompradoras, contratos, proveedores
         // Nodos empresa: org, contratos, department, dependency
@@ -195,32 +219,17 @@ Template.orgView.onRendered(function() {
         addNode(relationSummary,{"label":cc.tender.procurementMethodMxCnet,"weight":20,"color":"#282ffb","cluster":1})
         addLink(relationSummary,{source:orgName,target:cc.tender.procurementMethodMxCnet});
         //contartos 3
-        addNode(relationSummary,{"label":cc.contracts[0].title,"weight":10,"color":"#282f6b","cluster":2})
+        addNode(relationSummary,{"label":cc.contracts[0].title,"weight":cc.contracts[0].value.amount/100000,fixedWeight: true, "color":"#282f6b","cluster":2})
         addLink(relationSummary,{source:cc.tender.procurementMethodMxCnet,target:cc.contracts[0].title});
         //departamento 4
         addNode(relationSummary,{"label":cc.buyer.name,"weight":12,"color":"#aec7e8","cluster":3})
-        addLink(relationSummary,{source:cc.contracts[0].title,target:cc.department});
+        addLink(relationSummary,{source:cc.contracts[0].title,target:cc.buyer.name});
         // dependencia 5
-        addNode(relationSummary,{"label":cc.buyer.name,"weight":15,"color":"#ff7f0e","cluster":4})
+        addNode(relationSummary,{"label":cc.parties[0].memberOf.name,"weight":15,"color":"#ff7f0e","cluster":4})
         addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
 
       }
-
-      function addNode(relationSummary,node) {
-        if (!_.findWhere(relationSummary.nodes,node)) {
-          nodeNumber++;
-          node.id = nodeNumber;
-          relationSummary.nodes.push(node);
-        }
-      }
-      function addLink (relationSummary,link) {
-        var sourceId = _.findWhere(relationSummary.nodes,{label:link.source}).id;
-        var targetId = _.findWhere(relationSummary.nodes,{label:link.target}).id;
-        linkNumber++;
-        relationSummary.links.push({id:linkNumber,source:sourceId,target:targetId})
-
-      }
-      // console.log(summary,typeSummary,ramoSummary);
+      console.log("relationSummary",relationSummary);
 
       //Evolución de contratos chart
       nv.addGraph(function() {
@@ -235,8 +244,6 @@ Template.orgView.onRendered(function() {
         ;
 
         // chart.bars.showValues(true);
-
-
 
         let importeValues = []
         let cantidadValues = []
@@ -295,6 +302,7 @@ Template.orgView.onRendered(function() {
 
         nv.utils.windowResize(chart.update);
 
+        //Si son solo dos años, la grafica tiene que ser de la mitad de ancho
         if (importeValues.length == 2) {
           console.log("importeValues.length",importeValues.length,$("#chart").width()/2);
           console.log(chart.width($("#chart").width()/2))
@@ -314,7 +322,7 @@ Template.orgView.onRendered(function() {
         var piedata = [];
         for (type in typeSummary) {
           piedata.push({
-            "label": type,
+            "label": type+" ",
             "value": typeSummary[type]
           })
         }
@@ -336,12 +344,12 @@ Template.orgView.onRendered(function() {
           data.push({
             parent: ramo,
             id: dependency,
-            value: ramoSummary[ramo][dependency],
-            year: 2010
+            value: Math.round(ramoSummary[ramo][dependency]),
           })
         }
       }
 
+      // console.log("data",data);
       new d3plus.Treemap()
       .data(data)
       .select('#treemap')
@@ -349,18 +357,10 @@ Template.orgView.onRendered(function() {
       .tooltipConfig({
         body: function(d) {
           var table = "<table class='tooltip-table'>";
-          // table += "<tr><td class='title'>Año:</td><td class='data'>" + d.year + "</td></tr>";
           table += "<tr><td class='title'>Monto:</td><td class='data'>" + d.value + "</td></tr>";
           table += "</table>";
           return table;
         },
-        footer: function(d) {
-          // return "<sub class='tooltip-footer'>Datos recolectados en 2012</sub>";
-        },
-        title: function(d) {
-          var txt = d.id;
-          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();;
-        }
       })
       .sum("value")
       .render();
@@ -495,7 +495,6 @@ Template.orgView.onRendered(function() {
       // links: org-contrato, contrato-department, department-dependency
 
       data = relationSummary;
-      console.log(data);
 
       var dOver = [];
 
@@ -513,8 +512,6 @@ Template.orgView.onRendered(function() {
           .strength(0.5))
         .force("radial", d4.forceRadial(200,centerCoor[0],centerCoor[1]))
         .on("tick", ticked);
-        window.simulation = simulation;
-        window.d4 = d4;
 
       var link = chart.append("g")
         .attr("class", "links")
@@ -604,7 +601,8 @@ Template.orgView.onRendered(function() {
 
         d4.selectAll(".node").selectAll("text").remove();
 
-        nodeLabel = d4.select("#node2").append("text")
+        //TODO: Agregar texto para nodos con mucho weight
+        nodeLabel = d4.select("#node2").selectAll().append("text")
           .html(function(d) {
             return d.label;
           })
