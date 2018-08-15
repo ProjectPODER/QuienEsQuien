@@ -17,6 +17,24 @@ Meteor.publish("contracts-by-supplier-ocds", function(supplier_id) {
   , {
     sort: {
       amount: -1
+    },
+    limit: 200
+  });
+});
+
+Meteor.publish("contracts-by-buyer-ocds", function(party_name) {
+  check(party_name, String);
+  return ContractsOCDS.find(
+    {$or:
+      [
+        { "buyer": {$regex: party_name, $options: "i"} },
+        { "parties.0.memberOf.name": {$regex: party_name, $options: "i"} }
+      ]
     }
+  , {
+    sort: {
+      amount: -1
+    },
+    limit: 200
   });
 });

@@ -41,7 +41,12 @@
                 <p class="js-data-lf">{{company.classification}}</p>
             </div>
             {{/if}}
-            {{#if company.public=false }}
+            {{#if isPublic }}
+            <div class="col-m-6">
+                <p class="js-title-data">Tipo de organización</p>
+                <p class="js-data-lf">Dependencia pública o empresa paraestatal</p>
+            </div>
+            {{else}}
             <div class="col-m-6">
                 <p class="js-title-data">Cotiza en bolsa</p>
                 <p class="js-data-lf">{{#if company.tickers }}Si, clave: {{company.tickers}}{{else}}No{{/if}}</p>
@@ -125,50 +130,55 @@
         </div>
 
         {{#if contract_count }}
-          {{#if 0 }}
-            Cargando gráficos
-          {{else}}
-            <div class="col-m-12 col-12 mt-2">
-              <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
-              <div id="chart">
-                <svg></svg>
-              </div>
-            </div>
-            <div class="col-m-12 col-6 mt-2">
-              <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
-              <div id="piechart">
-                <svg></svg>
-              </div>
-            </div>
-            <div class="col-m-12 col-6 mt-2">
-              <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
-              <div id="treemap">
-              </div>
-            </div>
-            <div class="col-m-12 col-12 mt-2">
-              <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
-              <div id="graph-container">
-              </div>
-            </div>
-            <div class="col-m-8 col-8">
-              <hr>
-            </div>
-            <div class="col-m-12 col-12 mt-2">
-              <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}UNIDADES COMPRADORAS PRINCIPALES{{/if}}</h4>
-              {{# each dependency in dependencySummary }}
-              <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">
-                {{dependency.name}}
-              </a></p>
-              {{/each}}
-            </div>
-            <!-- <div class="col-m-7 col-7 mt-2">
-              <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
-            </div> -->
-            <div class="col-m-8 col-8">
-              <hr>
-            </div>
-          {{/if}}
+
         {{#if contracts.length }}
+        {{else}}
+        <div class="" style="text-align: center">
+          Cargando información
+        </div>
+        {{/if}}
+        <div  class="{{#if contracts.length }}col-m-12 col-12 mt-2{{else}}hidden{{/if}}">
+
+
+          <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
+          <div id="chart">
+            <svg></svg>
+          </div>
+        </div>
+        <div class="col-m-12 col-6 mt-2">
+          <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
+          <div id="piechart">
+            <svg></svg>
+          </div>
+        </div>
+        <div class="col-m-12 col-6 mt-2">
+          <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
+          <div id="treemap">
+          </div>
+        </div>
+        <div class="col-m-12 col-12 mt-2">
+          <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
+          <div id="graph-container">
+          </div>
+        </div>
+        <div class="col-m-8 col-8">
+          <p>Los gráficos están limitados a 200 contratos (400 nodos y 1000 relaciones en total) por razones de performance. </p>
+          <hr>
+        </div>
+        <div class="col-m-12 col-12 mt-2">
+          <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}COMPRADORAS PRINCIPALES{{/if}}</h4>
+          {{# each dependency in dependencySummary }}
+          <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">
+            {{dependency.name}}
+          </a></p>
+          {{/each}}
+        </div>
+        <!-- <div class="col-m-7 col-7 mt-2">
+        <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
+      </div> -->
+      <div class="col-m-8 col-8">
+        <hr>
+      </div>
           <div class="col-m-12 col-12 mt-2">
             <h4 class="description-data-subtitle">CONTRATOS</h4>
             <table class="table table-responsive">
@@ -194,31 +204,13 @@
             </table>
           </div>
           <div class="col-m-9 mb-3">
-          <p>Viendo <strong>{{contract_count}} contrato(s) en total</strong>. </p>
+          <p>Viendo 3 de <strong>{{contract_count}} contrato(s) en total</strong>. </p>
           <div class="col-m-3 centered contract-button">
             <a href="/contracts?{{# if public }}filter_buyer.name={{name}}{{else}}filter_contracts.0.suppliers={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>
           </div>
-          <!-- <table class="table table-responsive">
-            <thead>
-              <tr>
-                <th class="description-data-subname">Cantidad</th>
-                <th class="description-data-subname">Importes</th>
-                <th class="description-data-subname">Periodo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="description-data-contract">900</td>
-                <td class="description-data-amount">5,793,345,245 MXN</td>
-                <td class="description-data-date">Diciembre 14, 2013 - Diciembre 29, 2013</td>
-              </tr>
-            </tbody>
-          </table> -->
         </div>
-        {{/if}}
-        <!-- <div class="col-m-8 col-8">
-          <hr>
-        </div> -->
+
+
         {{/if}}
         <!-- <div class="col-m-12 col-12 mt-2">
           <h4 class="description-data-subtitle">OTRAS DEPENDENCIAS DEL MISMO RAMO</h4>
