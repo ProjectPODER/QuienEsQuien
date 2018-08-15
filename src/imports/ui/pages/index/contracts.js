@@ -301,18 +301,7 @@ Template.Contracts.onRendered(function () {
     computation.stop();
   });
 
-  // $('#fixed-filter-button').affix({offset: {top: 450} });
-
-  /*$(window).scroll(function(){
-    if ($(window).scrollTop() > 350)
-      {
-        $(".fixed-filter-button").fadeOut("slow");
-      }
-      else
-      {
-        $(".fixed-filter-button").fadeIn("slow");
-      }
-  });*/
+  $('[data-toggle="tooltip"]').tooltip({placement: 'top'});
 
 });
 
