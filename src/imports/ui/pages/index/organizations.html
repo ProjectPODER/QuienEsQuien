@@ -99,7 +99,7 @@
         <div class="col-12 col-m-12">
             <!-- <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p> -->
 
-            {{> tabular table=TabularTables.Orgs 
+            {{> tabular table=TabularTables.Orgs
             id="organization-index"
             class=""}}
         </div>
@@ -117,7 +117,7 @@
             {{#if contracts_fundation (item)}}
                 <span>Sin</span>
             {{/if}}
-            {{item.contract_count}} contrato(s) </span>
+            {{item.ocds_contract_count}} contrato(s) </span>
     {{#if item.foundation_date}}
         <span class="js-foundation-date">
         <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
