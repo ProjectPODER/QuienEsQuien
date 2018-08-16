@@ -84,19 +84,19 @@
           </div>
           {{/let}}
           <div class="col-m-12 col-12 link-lf-contracts">
-              <p class="js-title-data">Dependencia <a href="#" data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
+              <p class="js-title-data">Dependencia <a data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
               <a href="/orgs/{{simpleName (getField object=parties field="parent")}}"><p class="js-data">{{getField object=parties field="parent"}}</p></a>
           </div>
           <div class="col-m-7 col-7">
-              <p class="js-title-data">Unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="El área  de  las dependencias o entidades que ha sido  registrada y autorizada para realizar operaciones y llevar a cabo procedimientos de contratación en CompraNet."><i class="fa fa-question"></i></a></p>
+              <p class="js-title-data">Unidad compradora <a data-toggle="tooltip" data-placement="right" title="El área  de  las dependencias o entidades que ha sido  registrada y autorizada para realizar operaciones y llevar a cabo procedimientos de contratación en CompraNet."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{buyer.name}}</p>
           </div>
           <div class="col-m-5 col-5">
-              <p class="js-title-data">Clave de unidad compradora <a href="#" data-toggle="tooltip" data-placement="right" title="Clave de identificación de la Unidad Compradora en Compranet 3.0."><i class="fa fa-question"></i></a></p>
+              <p class="js-title-data">Clave de unidad compradora <a data-toggle="tooltip" data-placement="right" title="Clave de identificación de la Unidad Compradora en Compranet 3.0."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{buyer.id}}</p>
           </div>
           <div class="col-m-12 col-12 link-lf-contracts">
-              <p class="js-title-data">Responsable <a href="#" data-toggle="tooltip" data-placement="right" title="Titular del área contratante o del área responsable de la contratación a nivel central o del servidor público que éste designe."><i class="fa fa-question"></i></a></p>
+              <p class="js-title-data">Responsable <a data-toggle="tooltip" data-placement="right" title="Titular del área contratante o del área responsable de la contratación a nivel central o del servidor público que éste designe."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{getField object=parties field="contactPoint"}}</p>
           </div>
           <div class="col-m-12 col-12 link-lf-contracts">
@@ -188,7 +188,7 @@
             <h4 class="description-data-subtitle">CONVOCATORIA</h4>
           </div>
           <div class="col-m-12 col-12">
-              <p class="js-title-data">Tipo de procedimiento <a href="#" data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
+              <p class="js-title-data">Tipo de procedimiento <a data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
 
 a) Licitación Pública.
 - Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
@@ -198,7 +198,7 @@ c) Adjudicación Directa.
               <p class="js-data">{{tender.procurementMethodMxCnet}}</p>
           </div>
           <div class="col-m-6 col-4">
-              <p class="js-title-data">Tipo de contratación <a href="#" data-toggle="tooltip" data-placement="right" title="Muestra el tipo de contratación:
+              <p class="js-title-data">Tipo de contratación <a data-toggle="tooltip" data-placement="right" title="Muestra el tipo de contratación:
 
 a) Adquisiciones incluye: adquisiciones, arrendamientos y servicios.
 b) Obra Pública incluye: obras públicas y los servicios relacionados con las mismas."><i class="fa fa-question"></i></a></p>
@@ -220,7 +220,7 @@ b) Obra Pública incluye: obras públicas y los servicios relacionados con las m
               <p class="js-data">{{tender.status}}</p>
           </div>
           <div class="col-m-6 col-8 mt-2">
-              <p class="js-title-data">Carácter <a href="#" data-toggle="tooltip" data-placement="right" title="Indica si el procedimiento es I) Nacional, II) Internacional o III) Internacional bajo TLC
+              <p class="js-title-data">Carácter <a data-toggle="tooltip" data-placement="right" title="Indica si el procedimiento es I) Nacional, II) Internacional o III) Internacional bajo TLC
 
 - Nacional: sólo pueden participar personas de nacionalidad mexicana y los bienes a adquirir sean productos del país y cuenten, por lo menos, con un 50% de contenido nacional.
 - Internacional abiertas: podrán participar licitantes mexicanos y extranjeros, cualquiera que sea el origen de los bienes a adquirir.
@@ -249,7 +249,7 @@ Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servici
                 {{/let}}</p>
           </div>
           <div class="col-m-6 col-8">
-              <p class="js-title-data">Fecha de fallo <a href="#" data-toggle="tooltip" data-placement="right" title="Fecha del acto de fallo, en formato ISO 86019. La emisión del fallo es el acto concluyente de un proceso de contratación que determina a quien se adjudica el contrato."><i class="fa fa-question"></i></a></p>
+              <p class="js-title-data">Fecha de fallo <a data-toggle="tooltip" data-placement="right" title="Fecha del acto de fallo, en formato ISO 86019. La emisión del fallo es el acto concluyente de un proceso de contratación que determina a quien se adjudica el contrato."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{moment_LL (getField object=awards field="date")}}</p>
           </div>
         </div>

@@ -14,7 +14,7 @@
                 <h4 class="search-title">Filtros Avanzados</h4>
 
                 <fieldset name="proveedores">
-                  <p class="search-title">FILTRAR PROVEEDORES</p>
+                  <p class="search-title">FILTRAR PROVEEDORES <a data-toggle="tooltip" data-placement="right" title="Nombre o Razón Social del Proveedor o Contratista ganador de la contratación."><i class="fa fa-question"></i></a></p>
                   <div class="multiple-controls-group">
                     <div class="multiple-control-container">
                       <input type="text" name="proveedor" placeholder="Nombre de proveedor" class="supplier_name_filter multiple-control">
@@ -26,7 +26,7 @@
                 </fieldset>
                 
                 <fieldset name="dependencias">
-                  <p class="search-title">FILTRAR DEPENDENCIAS</p>
+                  <p class="search-title">FILTRAR DEPENDENCIAS <a data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
                   <div class="multiple-controls-group">
                     <div class="multiple-control-container">
                       <input type="text" name="dependencia" placeholder="Nombre de dependencia" class="dependency_name_filter multiple-control">
@@ -38,7 +38,7 @@
                 </fieldset>
 
                 <fieldset name="vigencia">
-                  <p class="search-title">Vigencia de contrato</p>
+                  <p class="search-title">Vigencia de contrato <a data-toggle="tooltip" data-placement="right" title="Fecha de inicio y fecha de expiración del contrato reportado por la Unidad Compradora."><i class="fa fa-question"></i></a></p>
                   <p class="search-label">Fecha de Inicio (a partir de 2002)</p>
                   <input type="date" id="from_date_contracts_index" value="01/01/2002" min="2002-01-01">
                   <p class="search-label">Fecha de fin</p>
@@ -49,7 +49,7 @@
                 </fieldset>
 
                 <fieldset name="importe">
-                  <p class="search-title">Importe del contrato</p>
+                  <p class="search-title">Importe del contrato <a data-toggle="tooltip" data-placement="right" title="Importe del contrato sin incluir el impuesto al valor agregado."><i class="fa fa-question"></i></a></p>
                   <a class="search-label importe-bucket" data-bucket="0-1000000"><p>Menor a 1 millón de pesos</p></a>
                   <a class="search-label importe-bucket" data-bucket="1000000-500000000"><p>Entre 1 millón y 500 millones</p></a>
                   <a class="search-label importe-bucket" data-bucket="500000000-1000000000"><p>Entre 500 millones a 1,000 millones</p></a>
@@ -63,7 +63,13 @@
                 </fieldset>
 
                 <fieldset name="tipo-adquisicion">
-                  <p class="search-title">Procedimiento de contratación</p>
+                  <p class="search-title">Procedimiento de contratación <a data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
+
+a) Licitación Pública.
+- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios. 
+b) Invitación a cuando menos tres proveedores o contratistas. 
+c) Adjudicación Directa. 
+- La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
                   <select id="tipo-adquisicion" class="search-select">
                     <option value="">Todos</option>
                     <option value="Adjudicación Directa Federal">Adjudicación directa</option>
