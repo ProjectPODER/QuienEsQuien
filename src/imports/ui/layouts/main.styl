@@ -1292,7 +1292,8 @@ hr
 #chart
     svg
         height 500px
-
+        width 100%
+  
 .nvd3
     .nv-axis
         line
@@ -1310,18 +1311,24 @@ hr
             stroke #ff6e00 !important
             stroke-width 2
     &.nv-line
+        fill-opacity 0 !important
+        path
+          fill-opacity 0 !important
         .nvd3
             &.nv-scatter
                 .nv-groups
                     .nv-point
                         fill-opacity 1 !important
                         stroke-opacity 1 !important
+    &.nv-line
+        fill-opacity 0 !important
     // .nv-bars
     //     transform translateX(50px)
 
 #piechart
     svg
         height 500px
+        width 100%
 
 #treemap
   height 500px

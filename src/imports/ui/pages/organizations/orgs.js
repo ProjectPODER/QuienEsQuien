@@ -602,7 +602,7 @@ Template.orgView.onRendered(function() {
         d4.selectAll(".node").selectAll("text").remove();
 
         //TODO: Agregar texto para nodos con mucho weight
-        nodeLabel = d4.select("#node2").selectAll().append("text")
+        nodeLabel = d4.select("#node0").selectAll().append("text")
           .html(function(d) {
             return d.label;
           })
