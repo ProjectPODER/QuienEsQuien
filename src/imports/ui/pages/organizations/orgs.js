@@ -53,7 +53,12 @@ Template.showOrgWrapper.onCreated(function() {
             },
           ],
         });
-        Session.set("currentDocumentId", org._id);
+        if (org) {
+          Session.set("currentDocumentId", org._id);
+        }
+        else {
+          window.location = "/persons/"+id;
+        }
 
         suscriptionName = org.isPublic() ? "contracts-by-buyer-ocds" : "contracts-by-supplier-ocds"
         self.subscribe(suscriptionName,org.name, {
