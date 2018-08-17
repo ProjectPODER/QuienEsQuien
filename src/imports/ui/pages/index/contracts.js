@@ -278,6 +278,10 @@ Template.Contracts.helpers({
           // y si el hiddenIfTrue es true y valor no es true o el hiddenIfTrue no está definido
           if (filterDef.hiddenIfTrue == true && search.keys[s] != "true" || !filterDef.hiddenIfTrue) {
             let value = search.keys[s].replace("true", "si").replace("false", "no");
+            if (s == "min_date" || s == "max_date") {
+              unixtime = value.substr(9,value.length-10);
+              value = new Date(Number(unixtime)).toLocaleDateString();
+            }
             // var hidden = searchElements.findIndex({"field":s}).hidden;
             filtersInView.push({"field": s, "field_name": filterDef.field_name, "string": value}); // , "hidden": hidden
           }

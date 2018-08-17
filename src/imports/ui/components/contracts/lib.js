@@ -82,12 +82,12 @@ export function contractSearchOperator(baseQuery, data) {
 
     q[operator] = [
       {
-        "contracts.0.period.startDate": {
+        "contracts.period.startDate": {
           $gte: minDate,
         },
       },
       {
-        "contracts.0.period.startDate": {
+        "contracts.period.startDate": {
           $exists: !unkownDate,
         },
       },
