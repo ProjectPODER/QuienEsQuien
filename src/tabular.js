@@ -155,8 +155,8 @@ if (Meteor.isClient) {
 
   dataTablesBootstrap(window, $);
   $.extend(true, $.fn.dataTable.defaults, {
-    searching: false,
-    dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"frtp>>',
+    searching: true,
+    dom: '<<"col-m-6"i><"col-m-6"l><"col-m-12"rtp>>',
     // info: false,
     language: {
       "info": "Mostrando del _START_ al _END_  de _TOTAL_ resultados",
@@ -164,9 +164,11 @@ if (Meteor.isClient) {
       "infoEmpty": "Mostrando _END_ de _TOTAL_ resultados",
       "emptyTable": "No hay datos disponibles",
       "paginate": {
-      "previous": "Anterior",
-      "next": "Siguiente",
-    },
+        "previous": "Anterior",
+        "next": "Siguiente"
+      },
+      "search": "Buscar",
+      "searchPlaceholder": "Nombre",
       processing: Blaze.toHTML(Template.loading),
     },
   });
