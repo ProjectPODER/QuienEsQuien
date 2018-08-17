@@ -54,7 +54,9 @@ Template.showOrgWrapper.onCreated(function() {
           ],
         });
         Session.set("currentDocumentId", org._id);
-        self.subscribe("contracts-by-supplier-ocds",org.name, {
+
+        suscriptionName = org.isPublic() ? "contracts-by-buyer-ocds" : "contracts-by-supplier-ocds"
+        self.subscribe(suscriptionName,org.name, {
           onReady() {
             Session.set("orgContracts", org.contractsSupplied().fetch());
           }
@@ -138,6 +140,8 @@ Template.orgView.helpers({
 })
 
 function addLink (relationSummary,link) {
+  if (relationSummary.links.length > 1000) return false;
+
   var source = _.findWhere(relationSummary.nodes,{"label": link.source});
   var target = _.findWhere(relationSummary.nodes,{"label": link.target});
   // console.log("addLink",link,sourceId,target.id);
@@ -149,6 +153,8 @@ function addLink (relationSummary,link) {
   }
 }
 function addNode(relationSummary,node) {
+  if (relationSummary.nodes.length > 400) return false;
+
   if (!_.findWhere(relationSummary.nodes,{label: node.label})) {
     node.id = relationSummary.nodes.length;
     relationSummary.nodes.push(node);
@@ -168,7 +174,7 @@ Template.orgView.onRendered(function() {
 
     var oc = Session.get("orgContracts");
 
-    if (oc && $("#treemap").length > 0) {
+    if (oc) {
       console.log("orgContracts",oc);
 
       //Generar los objetos para cada gráfico
@@ -219,7 +225,7 @@ Template.orgView.onRendered(function() {
         addNode(relationSummary,{"label":cc.tender.procurementMethodMxCnet,"weight":20,"color":"#282ffb","cluster":1})
         addLink(relationSummary,{source:orgName,target:cc.tender.procurementMethodMxCnet});
         //contartos 3
-        addNode(relationSummary,{"label":cc.contracts[0].title,"weight":cc.contracts[0].value.amount/100000,fixedWeight: true, "color":"#282f6b","cluster":2})
+        addNode(relationSummary,{"label":cc.contracts[0].title,"weight":cc.contracts[0].value.amount/200000,fixedWeight: true, "color":"#282f6b","cluster":2})
         addLink(relationSummary,{source:cc.tender.procurementMethodMxCnet,target:cc.contracts[0].title});
         //departamento 4
         addNode(relationSummary,{"label":cc.buyer.name,"weight":12,"color":"#aec7e8","cluster":3})
@@ -229,7 +235,8 @@ Template.orgView.onRendered(function() {
         addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
 
       }
-      console.log("relationSummary",relationSummary);
+      // console.log("relationSummary",relationSummary);
+
 
       //Evolución de contratos chart
       nv.addGraph(function() {
@@ -356,19 +363,19 @@ Template.orgView.onRendered(function() {
 
       // console.log("data",data);
       new d3plus.Treemap()
-      .data(data)
-      .select('#treemap')
-      .groupBy(["parent", "id"])
-      .tooltipConfig({
-        body: function(d) {
-          var table = "<table class='tooltip-table'>";
-          table += "<tr><td class='title'>Monto:</td><td class='data'>" + d.value + "</td></tr>";
-          table += "</table>";
-          return table;
-        },
-      })
-      .sum("value")
-      .render();
+        .data(data)
+        .select('#treemap')
+        .groupBy(["parent", "id"])
+        .tooltipConfig({
+          body: function(d) {
+            var table = "<table class='tooltip-table'>";
+            table += "<tr><td class='title'>Monto:</td><td class='data'>" + d.value + "</td></tr>";
+            table += "</table>";
+            return table;
+          },
+        })
+        .sum("value")
+        .render();
 
 
       //Force-directed Graph
@@ -607,7 +614,7 @@ Template.orgView.onRendered(function() {
         d4.selectAll(".node").selectAll("text").remove();
 
         //TODO: Agregar texto para nodos con mucho weight
-        nodeLabel = d4.select("#node0").selectAll().append("text")
+        nodeLabel = d4.select("#node0").append("text")
           .html(function(d) {
             return d.label;
           })
@@ -709,11 +716,6 @@ Template.orgView.onRendered(function() {
 
 });
 
-/*Template.upsertOrganisationForm.helpers({
-  orgsCollection: function() {
-    return Orgs
-  }
-});*/
 
 Template.competitors.helpers({
   ready: function() {
@@ -726,15 +728,3 @@ Template.competitors.helpers({
     return simpleName(string);
   },
 });
-
-// Template.contract_amount.helpers({
-//   format_currency: function(value) {
-//     if (value == "MXN") {
-//       return "Pesos mexicanos"
-//     }
-//     else if (value == "USD") {
-//       return "Dólares estadounidense"
-//     }
-//     return value;
-//   }
-// })
