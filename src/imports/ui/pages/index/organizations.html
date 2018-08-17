@@ -1,23 +1,28 @@
 <template name="Orgs">
-  <div class="container">
-    <div class="row document-header">
+    <!-- <div class="row document-header">
       <div class="col-3 col-m-3">
         <h2 class="document-title">Organizaciones</h2>
       </div>
       <div class="col-9 col-m-9">
         <p class="document-description">Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones.</p>
       </div>
-    </div>
+    </div> -->
     <div class="row document-body">
-        <!-- <div class="col-3 col-m-3">
+        <div class="col-3 col-m-3">
             <div class="filter-bar">
               <form>
                 <h4 class="search-title">Filtrar</h4>
                 <fieldset name="organizaciones">
-                  <p class="search-title">Agregar organización</p>
-                  <input type="text" name="proveedor" placeholder="BUSCAR NOMBRE"> <img src="images/button-yes.png" alt="agregar" class="form-control">
+                  <p class="search-title">Buscar organización</p>
+                  <div class="multiple-controls-group">
+                    <div class="multiple-control-container">
+                      <input type="text" name="proveedor" placeholder="NOMBRE" class="org_name_filter multiple-control"> 
+                      <!-- <img src="images/button-no.png" alt="quitar" class="form-control remove-field-control"> -->
+                    </div>
+                  </div>
+                  <!-- <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control"> -->
                 </fieldset>
-                <fieldset>
+                <!-- <fieldset>
                     <p class="search-title">Por tipo de organización</p>
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">ELIGE UN TIPO
@@ -85,26 +90,45 @@
                         <input type="text" name="filtros" placeholder="Buscar filtro">
                     </div>
                 </fieldset>
-                <fieldset>
+                <fieldset style="margin-bottom: 10rem">
                     <p class="search-title">Buscar tipo de entidad</p>
                     <input type="submit" class="btn btn-filter mb-10" value="TODOS">
                     <input type="submit" class="btn btn-filter mb-10" value="PERSONAS">
                     <input type="submit" class="btn btn-filter" value="ORGANIZACIÓN">
-                </fieldset>
-                <input type="submit" class="search-submit" value="FILTRAR">
-                <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button>
+                </fieldset> -->
+                <input type="submit" class="search-submit fixed-filter-button" value="FILTRAR">
+                <!-- <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button> -->
               </form>
             </div>
-        </div> -->
-        <div class="col-12 col-m-12">
-            <!-- <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p> -->
+        </div>
+        <div class="col-9 col-m-9 orgs-content">
+            <div class="row document-header">
+              <div class="col-3 col-m-3">
+                <h2 class="document-title">Organizaciones</h2>
+              </div>
+              <div class="col-9 col-m-9">
+                <p class="document-description">Nuestra base de datos la conforman empresas proveedoras del gobierno, firmas que cotizan en el mercado bursátil y otros tipos de instituciones.</p>
+              </div>
+            </div>
+            {{#if filters }}
 
-            {{> tabular table=TabularTables.Orgs
+              <p class="search-terms-text">
+                Búsqueda para:
+                {{#each filter in filters }}
+                  {{#if filter.hidden = true }}
+                    <span class="blob" data-field="{{filter.field}}">
+                      {{filter.field_name}}: {{filter.string}}
+                      <i class="fa fa-times delete-blob-filter" aria-hidden="true"></i>
+                    </span>
+                  {{/if}}
+                {{/each}}
+              </p>
+            {{/if}}
+            {{> tabular table=TabularTables.Orgs 
             id="organization-index"
             class=""}}
         </div>
     </div>
-  </div>
 </template>
 <template name="view_organization">
   <a href="/orgs/{{item.simple}}" class="button-link">Ver organización</a>

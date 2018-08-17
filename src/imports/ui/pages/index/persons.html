@@ -1,23 +1,28 @@
 <template name="Persons">
-  <div class="container">
-    <div class="row document-header">
+    <!-- <div class="row document-header">
       <div class="col-3 col-m-3">
         <h2 class="document-title">Personas</h2>
       </div>
       <div class="col-9 col-m-9">
         <p class="document-description">Conoce cómo se relacionan los personajes de las élites políticas y económicas en México.</p>
       </div>
-    </div>
+    </div> -->
     <div class="row document-body">
-      <!-- <div class="col-3 col-m-3">
+      <div class="col-3 col-m-3">
           <div class="filter-bar">
             <form>
               <h4 class="search-title">Filtrar</h4>
               <fieldset name="proveedores">
-                <p class="search-title">AGREGAR PERSONAS</p>
-                <input type="text" name="personas" placeholder="Buscar personas">
+                <p class="search-title">Buscar personas</p>
+                <div class="multiple-controls-group">
+                  <div class="multiple-control-container">
+                    <input type="text" name="personas" placeholder="Nombre" class="persona_name_filter multiple-control">
+                    <!-- <img src="images/button-no.png" alt="quitar" class="form-control remove-field-control"> -->
+                  </div>
+                </div>
+                <!-- <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control"> -->
               </fieldset>
-              <fieldset name="país">
+              <!-- <fieldset name="país">
                 <p class="search-title">POR PAÍS</p>
                 <a class="search-label"><p>México (15,560)</p></a>
                 <a class="search-label"><p>Colombia (129)</p></a>
@@ -51,24 +56,41 @@
                 <p class="search-title">Cantidad de contratos</p>
                 <input type="text" name="" placeholder="Mínimo" class="search-amount">
                 <input type="text" name="" placeholder="Máximo" class="search-amount">
-              </fieldset>
-              <input type="submit" class="search-submit" value="FILTRAR">
-              <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button>
+              </fieldset> -->
+              <input type="submit" class="search-submit fixed-filter-button" value="FILTRAR">
+              <!-- <button type="reset" class="btn btn-default reset-filters">LIMPIAR</button> -->
             </form>
           </div>
-      </div> -->
+      </div>
 
-      <div class="col-12 col-m-12">
-        <!-- <p class="search-terms-text">Búsqueda para: <span class="blob">Comisión Federal de electricidad</span> <span class="blob">Fecha inicio: 21/09/2009, Fecha fin: 21/09/2012</span> <span class="blob">Licitación</span></p> -->
+      <div class="col-9 col-m-9 personas-content">
+        <div class="row document-header">
+          <div class="col-3 col-m-3">
+            <h2 class="document-title">Personas</h2>
+          </div>
+          <div class="col-9 col-m-9">
+            <p class="document-description">Conoce cómo se relacionan los personajes de las élites políticas y económicas en México.</p>
+          </div>
+        </div>
+        {{#if filters }}
 
+          <p class="search-terms-text">
+            Búsqueda para:
+            {{#each filter in filters }}
+              {{#if filter.hidden = true }}
+                <span class="blob" data-field="{{filter.field}}">
+                  {{filter.field_name}}: {{filter.string}}
+                  <i class="fa fa-times delete-blob-filter" aria-hidden="true"></i>
+                </span>
+              {{/if}}
+            {{/each}}
+          </p>
+        {{/if}}
         {{> tabular table=TabularTables.Persons
         id="person-index"
         class=""}}
       </div>
-
-
     </div>
-  </div>
 </template>
 
 <template name="view_person">
