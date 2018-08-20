@@ -16,7 +16,7 @@
                   <p class="search-title">Buscar organización</p>
                   <div class="multiple-controls-group">
                     <div class="multiple-control-container">
-                      <input type="text" name="proveedor" placeholder="NOMBRE" class="org_name_filter multiple-control"> 
+                      <input type="text" name="proveedor" placeholder="NOMBRE" class="org_name_filter multiple-control">
                       <!-- <img src="images/button-no.png" alt="quitar" class="form-control remove-field-control"> -->
                     </div>
                   </div>
@@ -124,7 +124,7 @@
                 {{/each}}
               </p>
             {{/if}}
-            {{> tabular table=TabularTables.Orgs 
+            {{> tabular table=TabularTables.Orgs
             id="organization-index"
             class=""}}
         </div>
@@ -134,13 +134,22 @@
   <a href="/orgs/{{item.simple}}" class="button-link">Ver organización</a>
 </template>
 <template name="contracts_fundation">
-  <p>
+  <p class="js-person-type">
+    {{#if item.public}}
+    <img src="images/icons/dependencia-gray-light.svg" alt="" class="icon">
+    Dependencia
+    {{else}}
+    <img src="images/icons/empresa-gray-light.svg" alt="" class="icon">
+    Empresa
+    {{/if}}
+    {{#if contracts_fundation (item)}}
+      sin
+      {{else}}
+      con
+    {{/if}}
         <span class="js-contract-count">
             <!-- <i class="fa fa-file-text" aria-hidden="true"></i> -->
             <img src="images/icons/contrato-blue-light.svg" alt="contrato" class="icon">
-            {{#if contracts_fundation (item)}}
-                <span>Sin</span>
-            {{/if}}
             {{item.ocds_contract_count}} contrato(s) </span>
     {{#if item.foundation_date}}
         <span class="js-foundation-date">

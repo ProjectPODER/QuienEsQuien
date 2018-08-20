@@ -9,9 +9,10 @@ Template.Orgs.onRendered(function() {
   //     table.search( this.value ).draw();
   // } );
 
-  $('.search-submit').click(function () {
+  $('.search-submit').click(function (event) {
       event.preventDefault();
       table.search($(".org_name_filter").val()).draw();
+      return false;
   });
 });
 
@@ -35,9 +36,9 @@ Template.Orgs.helpers({
 
 Template.contracts_fundation.helpers({
   contracts_fundation: function(item) {
-    if (item.contract_count == undefined ){
+    if (item.ocds_contract_count == undefined ){
       return true;
-    } 
+    }
     else {
       return false;
     }
@@ -48,10 +49,9 @@ Template.summary_data.helpers({
   industry_type_key: function(item) {
     if (item.company.classification > 0 || item.type > 0 || item.company.tickers > 0){
       return true;
-    } 
+    }
     else {
       return false;
     }
   }
 });
-

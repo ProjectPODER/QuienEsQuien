@@ -12,7 +12,7 @@ import './persons.html';
 Template.Persons.onRendered(function() {
   var table = $('#person-index').DataTable();
 
-  $('.search-submit').click(function () {
+  $('.search-submit').click(function (event) {
       event.preventDefault();
       table.search($(".persona_name_filter").val()).draw();
   });
@@ -40,7 +40,7 @@ Template.person_type.helpers({
   contracts_or_companies: function(item) {
     if (item.contract_count > 0 || item.company_count > 0){
       return true;
-    } 
+    }
     else {
       return false;
     }
