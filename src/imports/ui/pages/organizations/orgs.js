@@ -353,9 +353,9 @@ Template.orgView.onRendered(function() {
       var data = []
       for (ramo in ramoSummary) {
         for (dependency in ramoSummary[ramo]) {
-          if (ramoSummary[ramo].length == 1) {
-            dependency = ramo + " - " + dependency
-          }
+          // if (ramoSummary[ramo].length == 1) {
+          //   dependency = ramo + " - " + dependency
+          // }
           data.push({
             parent: ramo,
             id: dependency,

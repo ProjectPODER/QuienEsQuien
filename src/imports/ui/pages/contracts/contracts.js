@@ -126,7 +126,7 @@ Template.contractProfileImage.helpers({
 
 Template.contractView.onRendered(function() {
   $('[data-toggle="tooltip"]').tooltip({placement: 'right'});
-  $('.right-menu-contracts').affix({offset: {top: 280, bottom:900} });
+  $('.right-menu-contracts').affix({offset: {top: 280, bottom:950} });
   import("../../../../node_modules/jquery.easing/jquery.easing.js").then(() => {
     $('a.page-scroll').bind('click', function(event) {
         var $anchor = $(this);
