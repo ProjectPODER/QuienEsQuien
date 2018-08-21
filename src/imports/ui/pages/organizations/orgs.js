@@ -128,6 +128,20 @@ Template.orgView.helpers({
     console.log("ds",summary);
     return summary;
   },
+  supplierSummary() {
+    var oc =Session.get("orgContracts");
+    let summary = []
+
+    for (c in oc) {
+      let cc = oc[c];
+      // console.log(cc);
+      let year = new Date(cc.contracts[0].period.startDate).getFullYear();
+      summary.push({name: cc.parties[1].name})
+    }
+    summary = uniqBy(summary,"name")
+    console.log("ss",summary);
+    return summary;
+  },
   isWebsite: function(value) {
     if (value === 'website') {
       return true

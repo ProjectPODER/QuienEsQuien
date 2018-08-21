@@ -129,14 +129,7 @@
           <hr>
         </div>
 
-        {{#if ocds_contract_count }}
-
         {{#if contracts.length }}
-        {{else}}
-        <div class="" style="text-align: center">
-          Cargando información
-        </div>
-        {{/if}}
         <div  class="{{#if contracts.length }}col-m-12 col-12 mt-2{{else}}hidden{{/if}}">
 
 
@@ -165,14 +158,25 @@
           <p>Los gráficos están limitados a 200 contratos (400 nodos y 1000 relaciones en total) por razones de performance. </p>
           <hr>
         </div>
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">{{#if isPublic}}PROVEEDORES PRINCIPALES{{else}}COMPRADORAS PRINCIPALES{{/if}}</h4>
-          {{# each dependency in dependencySummary }}
-          <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">
-            {{dependency.name}}
-          </a></p>
-          {{/each}}
-        </div>
+        {{#if isPublic}}
+          <div class="col-m-12 col-12 mt-2">
+            <h4 class="description-data-subtitle">PROVEEDORES PRINCIPALES</h4>
+            {{# each supplier in supplierSummary }}
+            <p class="principal-suppliers"><a href="/orgs/{{simpleName supplier.name}}"><img src="../images/icons/empresa-gray.svg" alt="organización" class="icon-lf icon-lf-organization">
+              {{supplier.name}}
+            </a></p>
+            {{/each}}
+          </div>
+        {{else}}
+          <div class="col-m-12 col-12 mt-2">
+            <h4 class="description-data-subtitle">COMPRADORAS PRINCIPALES</h4>
+            {{# each dependency in dependencySummary }}
+            <p class="principal-suppliers"><a href="/orgs/{{simpleName dependency.name}}"><img src="../images/icons/dependencia-blue.svg" alt="organización" class="icon-lf icon-lf-organization">
+              {{dependency.name}}
+            </a></p>
+            {{/each}}
+          </div>
+        {{/if}}
         <!-- <div class="col-m-7 col-7 mt-2">
         <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
       </div> -->

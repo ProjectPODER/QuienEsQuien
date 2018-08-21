@@ -24,7 +24,7 @@
                   </div>
                   <img src="images/button-yes.png" alt="agregar" class="form-control add-field-control">
                 </fieldset>
-                
+
                 <fieldset name="dependencias">
                   <p class="search-title">FILTRAR DEPENDENCIAS <a data-toggle="tooltip" data-placement="right" title="Nombre de la Dependencia, Entidad Federativa o Municipio que realiza la contratación."><i class="fa fa-question"></i></a></p>
                   <div class="multiple-controls-group">
@@ -66,9 +66,9 @@
                   <p class="search-title">Procedimiento de contratación <a data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
 
 a) Licitación Pública.
-- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios. 
-b) Invitación a cuando menos tres proveedores o contratistas. 
-c) Adjudicación Directa. 
+- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
+b) Invitación a cuando menos tres proveedores o contratistas.
+c) Adjudicación Directa.
 - La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
                   <select id="tipo-adquisicion" class="search-select">
                     <option value="">Todos</option>
@@ -123,7 +123,7 @@ c) Adjudicación Directa.
 </template>
 <template name="dependency_cell">
   <ul class="dependency-cell list-unstyled">
-      <li><a href="/orgs/{{simpleName buyer.name}}">{{buyer.name}}</a></li>
+      <li><a href="/orgs/{{simpleName parties.[0].memberOf.name}}">{{parties.[0].memberOf.name}}</a></li>
   </ul>
 </template>
 

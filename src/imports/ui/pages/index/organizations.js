@@ -23,6 +23,9 @@ Template.Orgs.events({
     const dataTable = $(event.target).closest('table').DataTable();
     const rowData = dataTable.row(event.currentTarget).data();
     FlowRouter.go('/orgs/'+rowData.simple+"#view");
+  },
+  'scroll': function(event) {
+    console.log(event);
   }
 });
 

@@ -331,7 +331,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
       },
 
       {
-        data: "buyer.name",
+        data: "parties.0.memberOf.name",
         titleFn() {
           return i18n.__('Dependency');
         },
