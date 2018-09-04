@@ -176,21 +176,31 @@ function addLink (relationSummary,link) {
 
   var source = _.findWhere(relationSummary.nodes,{"label": link.source});
   var target = _.findWhere(relationSummary.nodes,{"label": link.target});
-  // console.log("addLink",link,sourceId,target.id);
-  if (!source.fixedWeight){
-    source.weight++;
+
+  if (source&&target) {
+
+    // console.log("addLink",link,sourceId,target.id);
+    if (!source.fixedWeight){
+      source.weight++;
+    }
+    if (!_.findWhere(relationSummary.links,{source: source.id,target: target.id})) {
+      // console.log("addLink",link);
+      relationSummary.links.push({id:relationSummary.links.length,source:source.id,target:target.id})
+    }
   }
-  if (!_.findWhere(relationSummary.links,{source: source.id,target: target.id})) {
-    relationSummary.links.push({id:relationSummary.links.length,source:source.id,target:target.id})
+  else {
+    console.error("Faltó agregar algún nodo",link);
   }
 }
 function addNode(relationSummary,node) {
   if (relationSummary.nodes.length > 400) return false;
 
   if (!_.findWhere(relationSummary.nodes,{label: node.label})) {
+    // console.log("addNode",node);
     node.id = relationSummary.nodes.length;
     relationSummary.nodes.push(node);
   }
+  return true;
 }
 
 
@@ -206,8 +216,14 @@ Template.orgView.onRendered(function() {
 
     var oc = Session.get("orgContracts");
 
-    if (oc) {
-      console.log("orgContracts",oc);
+    //Esto es para que corra una sola vez
+    let firstRun = true;
+
+    if (oc && firstRun == true) {
+      console.log("orgContracts",oc,firstRun);
+
+      //Esto es para que corra una sola vez
+      firstRun = false;
 
       //Generar los objetos para cada gráfico
       let summary = {}
@@ -257,7 +273,7 @@ Template.orgView.onRendered(function() {
         //adjudicación 2
         addNode(relationSummary,{"label":cc.tender.procurementMethodMxCnet,"weight":20,"color":"#282ffb","cluster":1})
         addLink(relationSummary,{source:orgName,target:cc.tender.procurementMethodMxCnet});
-        //contartos 3
+        //contratos 3
         addNode(relationSummary,{"label":cc.contracts[0].title,"weight":cc.contracts[0].value.amount/200000,fixedWeight: true, "color":"#282f6b","cluster":2})
         addLink(relationSummary,{source:cc.tender.procurementMethodMxCnet,target:cc.contracts[0].title});
         //departamento 4
@@ -266,14 +282,24 @@ Template.orgView.onRendered(function() {
 
         if (org.isPublic()) {
           // proveedor 5
-          addNode(relationSummary,{"label":cc.parties[1].name,"weight":15,"color":"#ff7f0e","cluster":4})
-          addLink(relationSummary,{source:cc.parties[1].name,target:cc.buyer.name});
+          let added = addNode(relationSummary,{"label":cc.parties[1].name,"weight":15,"color":"#ff7f0e","cluster":4})
+          if (added) {
+            addLink(relationSummary,{source:cc.parties[1].name,target:cc.buyer.name});
+          }
 
         }
         else {
           // dependencia 5
-          addNode(relationSummary,{"label":cc.parties[0].memberOf.name,"weight":15,"color":"#ff7f0e","cluster":4})
-          addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
+          // console.log(1,cc.parties[0].memberOf.name);
+          let added = addNode(relationSummary,{"label":cc.parties[0].memberOf.name,"weight":15,"color":"#ff7f0e","cluster":4})
+          // console.log(2,added,cc.buyer.name);
+          if (added == true) {
+            addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
+            // console.log(3);
+          }
+          else {
+            // console.log("4")
+          }
         }
 
       }
@@ -281,6 +307,7 @@ Template.orgView.onRendered(function() {
 
 
       //Evolución de contratos chart
+      console.log("Evolución de contratos chart")
       nv.addGraph(function() {
         var chart = nv.models.linePlusBarChart()
         .margin({top: 30, right: 60, bottom: 50, left: 70})
@@ -361,6 +388,7 @@ Template.orgView.onRendered(function() {
       });
 
       //Piechart
+      console.log("Piechart")
       nv.addGraph(function() {
         var piechart = nv.models.pieChart()
         .x(function(d) { return d.label })
@@ -387,6 +415,7 @@ Template.orgView.onRendered(function() {
       });
 
       //Treemap
+      console.log("Treemap",1)
       var data = []
       for (ramo in ramoSummary) {
         for (dependency in ramoSummary[ramo]) {
@@ -403,8 +432,9 @@ Template.orgView.onRendered(function() {
         console.log(data);
       }
 
+      // console.log("Treemap",2)
       // console.log("data",data);
-      new d3plus.Treemap()
+      let treemap = new d3plus.Treemap()
         .data(data)
         .select('#treemap')
         .groupBy(["parent", "id"])
@@ -416,11 +446,14 @@ Template.orgView.onRendered(function() {
             return table;
           },
         })
-        .sum("value")
-        .render();
+        .sum("value");
+
+      // console.log("Treemap",3)
+      treemap.render();
 
 
       //Force-directed Graph
+      console.log("Force-directed Graph",1)
 
       var chartDiv = document.getElementById("graph-container");
       // $(chartDiv).height(500);
@@ -529,6 +562,8 @@ Template.orgView.onRendered(function() {
         .translateExtent([[0, 0], [width, height]])
         .extent([[0, 0], [width, height]])
         .on("zoom", zoomed);
+
+      // console.log("Force-directed Graph",2)
 
       var svg = d4.select("#graph-container")
         .append('svg')
