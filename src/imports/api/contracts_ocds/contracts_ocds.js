@@ -16,8 +16,8 @@ ContractsOCDS.helpers({
   },
   suppliers() {
     let suppliers = [];
-    for (contract in this.contracts) {
-      suppliers.push(this.contracts[contract].suppliers);
+    for (award in this.awards) {
+        suppliers = suppliers.concat(this.awards[award].suppliers);
     }
     return suppliers;
   },

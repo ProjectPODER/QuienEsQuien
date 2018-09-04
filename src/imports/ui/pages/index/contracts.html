@@ -118,7 +118,9 @@ c) Adjudicación Directa.
 </template>
 <template name="suppliers_cell">
   <ul class="suppliers-cell list-unstyled">
-      <li><a href="/orgs/{{simpleName item.suppliers.[0]}}">{{item.suppliers.[0]}}</a></li>
+    {{#each supplier in item.suppliers}}
+      <li><a href="/orgs/{{supplier.id}}">{{supplier.name}}</a></li>
+    {{/each}}
   </ul>
 </template>
 <template name="dependency_cell">

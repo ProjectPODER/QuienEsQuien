@@ -13,27 +13,27 @@ Meteor.publish("contract_ocds", function(_id) {
 Meteor.publish("contracts-by-supplier-ocds", function(supplier_id) {
   check(supplier_id, String);
   return ContractsOCDS.find(
-      { "contracts.0.suppliers": {$regex: supplier_id, $options: "i"} }
+      { "awards.0.suppliers.0.id": supplier_id }
   , {
     sort: {
       amount: -1
     },
-    limit: 200
+    "contracts.0.value.amount": 200
   });
 });
 
-Meteor.publish("contracts-by-buyer-ocds", function(party_name) {
-  check(party_name, String);
+Meteor.publish("contracts-by-buyer-ocds", function(buyer_id) {
+  check(buyer_id, String);
   return ContractsOCDS.find(
     {$or:
       [
-        { "buyer": {$regex: party_name, $options: "i"} },
-        { "parties.0.memberOf.name": {$regex: party_name, $options: "i"} }
+        { "buyer.id": buyer_id },
+        { "parties.0.memberOf.id": buyer_id }
       ]
     }
   , {
     sort: {
-      amount: -1
+      "contracts.0.value.amount": -1
     },
     limit: 200
   });

@@ -361,7 +361,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         // tmpl: Meteor.isClient && Template.dependency_cell,
       },
     ],
-    extraFields: ['endDate()',"contracts"],
+    extraFields: ['endDate()',"contracts","awards"],
     order: [
       [1, 'desc'],
     ],

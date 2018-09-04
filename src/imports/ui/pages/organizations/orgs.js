@@ -16,7 +16,7 @@ import '../../components/detail/detail.js';
 import '../../components/image/image.js';
 import '../../components/subscribe/subscribe.js';
 import { prepareSubArray } from '../../components/visualizations/relations.js';
-import { isEmpty, uniqBy, slice, find } from 'lodash';
+import { isEmpty, uniqBy, slice, find, countBy, sortBy, reverse } from 'lodash';
 import jquery from 'jquery'
 import './orgs.html';
 import nvd3 from 'nvd3';
@@ -61,7 +61,7 @@ Template.showOrgWrapper.onCreated(function() {
         }
 
         suscriptionName = org.isPublic() ? "contracts-by-buyer-ocds" : "contracts-by-supplier-ocds"
-        self.subscribe(suscriptionName,org.name, {
+        self.subscribe(suscriptionName,id, {
           onReady() {
             Session.set("orgContracts", org.contractsSupplied().fetch());
           }
@@ -121,12 +121,18 @@ Template.orgView.helpers({
     for (c in oc) {
       let cc = oc[c];
       // console.log(cc);
-      let year = new Date(cc.contracts[0].period.startDate).getFullYear();
-      summary.push({name: cc.parties[0].memberOf.name})
+      let partyName = cc.parties[0].memberOf.name;
+      if (summary[partyName]) {
+        summary[partyName]++;
+      }
+      else {
+        summary[partyName] = 1;
+      }
     }
-    summary = uniqBy(summary,"name")
-    console.log("ds",summary);
-    return summary;
+    orderedSummary = Object.keys(summary).sort(function(a,b){return summary[a]-summary[b]})
+    orderedSummary = slice(reverse(orderedSummary),0,5);
+    console.log("ds",orderedSummary);
+    return orderedSummary;
   },
   supplierSummary() {
     var oc =Session.get("orgContracts");
@@ -136,11 +142,18 @@ Template.orgView.helpers({
       let cc = oc[c];
       // console.log(cc);
       let year = new Date(cc.contracts[0].period.startDate).getFullYear();
-      summary.push({name: cc.parties[1].name})
+      let partyName = cc.parties[1].name;
+      if (summary[partyName]) {
+        summary[partyName]++;
+      }
+      else {
+        summary[partyName] = 1;
+      }
     }
-    summary = uniqBy(summary,"name")
-    console.log("ss",summary);
-    return summary;
+    orderedSummary = Object.keys(summary).sort(function(a,b){return summary[a]-summary[b]})
+    orderedSummary = slice(reverse(orderedSummary),0,5);
+    console.log("ss",orderedSummary);
+    return orderedSummary;
   },
   isWebsite: function(value) {
     if (value === 'website') {
@@ -205,7 +218,8 @@ Template.orgView.onRendered(function() {
       let nodeNumber = 1;
       let linkNumber = 1;
 
-      var orgName = Template.instance().data.document.names[0];
+      var org = Template.instance().data.document;
+      var orgName = org.names[0];
       //organización 1
       addNode(relationSummary,{"label":orgName,"weight":32.88,"color":"#b22200","cluster":1},nodeNumber);
 
@@ -249,9 +263,18 @@ Template.orgView.onRendered(function() {
         //departamento 4
         addNode(relationSummary,{"label":cc.buyer.name,"weight":12,"color":"#aec7e8","cluster":3})
         addLink(relationSummary,{source:cc.contracts[0].title,target:cc.buyer.name});
-        // dependencia 5
-        addNode(relationSummary,{"label":cc.parties[0].memberOf.name,"weight":15,"color":"#ff7f0e","cluster":4})
-        addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
+
+        if (org.isPublic()) {
+          // proveedor 5
+          addNode(relationSummary,{"label":cc.parties[1].name,"weight":15,"color":"#ff7f0e","cluster":4})
+          addLink(relationSummary,{source:cc.parties[1].name,target:cc.buyer.name});
+
+        }
+        else {
+          // dependencia 5
+          addNode(relationSummary,{"label":cc.parties[0].memberOf.name,"weight":15,"color":"#ff7f0e","cluster":4})
+          addLink(relationSummary,{source:cc.parties[0].memberOf.name,target:cc.buyer.name});
+        }
 
       }
       // console.log("relationSummary",relationSummary);

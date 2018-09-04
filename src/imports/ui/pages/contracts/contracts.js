@@ -49,10 +49,13 @@ Template.showContractWrapper.onCreated(function() {
       })
 
       function selectContract(contract,supplier) {
-        console.log("selectContract",contract.contracts[0].suppliers,supplier)
-        if (contract.contracts[0].suppliers == supplier) {
+        console.log("selectContract",contract.awards[0].suppliers,supplier)
+        if (contract.awards[0].suppliers[0].id == supplier) {
           self.contract.set('document', contract)
           self.ready.set(true);
+        }
+        else {
+          console.log("Contract not found");
         }
       }
 

@@ -69,8 +69,8 @@ Template.Contracts.onCreated(function() {
 });
 
 var filterElements = [
-  {selector: "input.supplier_name_filter", field: "contracts.0.suppliers", field_name: "Proveedor", mode:"filter" }
-  ,{selector: "input.dependency_name_filter", field: "buyer.name", field_name: "Dependencia", mode:"filter" }
+  {selector: "input.supplier_name_filter", field: "awards.0.suppliers.0.name", field_name: "Proveedor", mode:"filter" }
+  ,{selector: "input.dependency_name_filter", field: "buyer.name", more_fields: ["parties.0.memberOf.name"], field_name: "Dependencia", mode:"filter" }
   ,{selector: "select#tipo-adquisicion", field: "tender.procurementMethodMxCnet", field_name: "Procedimiento", type: "string", mode:"filter" }
   ,{selector: "input#from_date_contracts_index", field: "min_date",field_name: "Fecha de inicio",type: "date", mode:"search" }
   ,{selector: "input#to_date_contracts_index", field: "max_date",field_name: "Fecha de fin",type: "date", mode:"search" }
@@ -156,6 +156,16 @@ function generateFilters(event,instance,values) {
             string: value,
             hidden: filterElements[filter].hidden
           });
+          if (filterElements[filter].more_fields) {
+            for (f in filterElements[filter].more_fields) {
+              filters.push({
+                field: filterElements[filter].more_fields[f],
+                string: value,
+                hidden: filterElements[filter].hidden
+              });
+
+            }
+          }
         } else if (filterElements[filter].mode == "search") {
           switch (filterElements[filter].type) {
             case "date":
@@ -265,8 +275,10 @@ Template.Contracts.helpers({
     if (filters) {
       for (f in filters) {
         let filterDef = _.findWhere(filterElements,{field:filters[f].field});
-        filters[f].field_name = filterDef.field_name;
-        filtersInView.push(filters[f]);
+        if (filterDef) {          
+          filters[f].field_name = filterDef.field_name;
+          filtersInView.push(filters[f]);
+        }
       }
     }
 
