@@ -129,36 +129,37 @@
           <hr>
         </div>
 
-        {{#if contracts.length }}
-        <div  class="{{#if contracts.length }}col-m-12 col-12 mt-2{{else}}hidden{{/if}}">
+        <div class="{{#if contracts.length }}{{else}}hidden{{/if}}">
+
+          <div  class="col-m-12 col-12 mt-2">
 
 
-          <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
-          <div id="chart">
-            <svg></svg>
+            <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
+            <div id="chart">
+              <svg></svg>
+            </div>
           </div>
-        </div>
-        <div class="col-m-12 col-6 mt-2">
-          <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
-          <div id="piechart">
-            <svg></svg>
+          <div class="col-m-12 col-6 mt-2">
+            <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
+            <div id="piechart">
+              <svg></svg>
+            </div>
           </div>
-        </div>
-        <div class="col-m-12 col-6 mt-2">
-          <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
-          <div id="treemap">
+          <div class="col-m-12 col-6 mt-2">
+            <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
+            <div id="treemap">
+            </div>
           </div>
-        </div>
-        <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
-          <div id="graph-container">
+          <div class="col-m-12 col-12 mt-2">
+            <h4 class="description-data-subtitle">FLUJOS DE DINERO A PROVEEDORES</h4>
+            <div id="graph-container">
+            </div>
           </div>
-        </div>
-        <div class="col-m-8 col-8">
-          <p>Los gráficos están limitados a 200 contratos (400 nodos y 1000 relaciones en total) por razones de performance. </p>
-          <hr>
-        </div>
-        {{#if isPublic}}
+          <div class="col-m-8 col-8">
+            <p>Los gráficos están limitados a 200 contratos (400 nodos y 1000 relaciones en total) por razones de performance. </p>
+            <hr>
+          </div>
+          {{#if isPublic}}
           <div class="col-m-12 col-12 mt-2">
             <h4 class="description-data-subtitle">PROVEEDORES PRINCIPALES</h4>
             {{# each supplier in supplierSummary }}
@@ -169,7 +170,7 @@
             </p>
             {{/each}}
           </div>
-        {{else}}
+          {{else}}
           <div class="col-m-12 col-12 mt-2">
             <h4 class="description-data-subtitle">COMPRADORAS PRINCIPALES</h4>
             {{# each dependency in dependencySummary }}
@@ -178,55 +179,55 @@
             </a></p>
             {{/each}}
           </div>
-        {{/if}}
-        <!-- <div class="col-m-7 col-7 mt-2">
-        <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
-      </div> -->
-      <div class="col-m-8 col-8">
-        <hr>
-      </div>
-          <div class="col-m-12 col-12 mt-2">
-            <h4 class="description-data-subtitle">CONTRATOS</h4>
-            <table class="table table-responsive">
-              <thead>
-                <tr>
-                  <th class="description-data-subname">Nombre</th>
-                  <th class="description-data-subname">Importe</th>
-                  <th class="description-data-subname">Periodo</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{# each contract in contracts }}
-                <tr>
-                    <td class="description-data-contract">
-                      <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
-                      <a href="/contracts/{{contract.ocid}}?supplier={{contract.awards.[0].suppliers.[0].id}}">{{contract.contracts.[0].title}}</a>
-                    </td>
-                    <td class="description-data-amount">{{ format_amount contract.contracts.[0].value.amount}} {{format_currency contract.contracts.[0].value.currency}}</td>
-                    <td class="description-data-date">{{get_year contract.contracts.[0].period.startDate}}</td>
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-          <div class="col-m-9 mb-3">
-          <p>Viendo 3 de <strong>{{ocds_contract_count}} contrato(s) en total</strong>. </p>
+          {{/if}}
+          <!-- <div class="col-m-7 col-7 mt-2">
+          <h4 class="description-data-subtitle">MAPA DE UNIDADES COMPRADORAS</h4>
+        </div> -->
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+
+        <div class="col-m-12 col-12 mt-2">
+          <h4 class="description-data-subtitle">CONTRATOS</h4>
+          <table class="table table-responsive">
+            <thead>
+              <tr>
+                <th class="description-data-subname">Nombre</th>
+                <th class="description-data-subname">Importe</th>
+                <th class="description-data-subname">Periodo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{# each contract in contracts }}
+              <tr>
+                <td class="description-data-contract">
+                  <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
+                  <a href="/contracts/{{contract.ocid}}?supplier={{contract.awards.[0].suppliers.[0].id}}">{{contract.contracts.[0].title}}</a>
+                </td>
+                <td class="description-data-amount">{{ format_amount contract.contracts.[0].value.amount}} {{format_currency contract.contracts.[0].value.currency}}</td>
+                <td class="description-data-date">{{get_year contract.contracts.[0].period.startDate}}</td>
+              </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+        <div class="col-m-9 mb-3">
+          <p>Viendo hasta 3 de <strong>{{ocds_contract_count}} contrato(s) en total</strong>. </p>
           <div class="col-m-3 centered contract-button">
             <a href="/contracts?{{# if public }}filter_buyer.name={{name}}{{else}}filter_contracts.0.suppliers={{simple}}{{/if}}" class="button-link">Ver todos los contratos</a>
           </div>
         </div>
 
-
-        {{/if}}
         <!-- <div class="col-m-12 col-12 mt-2">
-          <h4 class="description-data-subtitle">OTRAS DEPENDENCIAS DEL MISMO RAMO</h4>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banamex SAB DE CV</a></p>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banorte SA DE CV</a></p>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco Santander Serfín</a></p>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Manco Mercantil del Norte</a></p>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco del Bajío SAB</a></p>
-          <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">BanRegio SA de CV</a></p>
-        </div> -->
+        <h4 class="description-data-subtitle">OTRAS DEPENDENCIAS DEL MISMO RAMO</h4>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banamex SAB DE CV</a></p>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banorte SA DE CV</a></p>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco Santander Serfín</a></p>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Manco Mercantil del Norte</a></p>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">Banco del Bajío SAB</a></p>
+        <p class="other-dependency"><a><img src="../images/icons/organizacion-blue.svg" alt="organización" class="icon-lf icon-lf-organization">BanRegio SA de CV</a></p>
+      </div> -->
+        </div>
       </div>
 
       </div>
