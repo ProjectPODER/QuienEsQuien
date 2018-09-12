@@ -128,10 +128,81 @@
         <div class="col-m-12 col-12">
           <hr>
         </div>
+        <div class="{{#if flags }}hidden{{else}}{{#if isPublic }}{{else}}hidden{{/if}}{{/if}}">
+          Cargando banderas...
+        </div>
 
+        <div class="{{#if flags and isPublic }}{{else}}hidden{{/if}}">
+          <div  class="col-m-12 col-6 mt-2 party_flags">
+            <h4 class="description-data-subtitle">CALIDAD DE CONTRATACIONES</h4>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Competitividad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.competitividad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Temporalidad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.temporalidad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Transparencia
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.transparencia}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Trazabilidad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.trazabilidad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score party_flag_total_score">
+              <div class="party_flag_title">
+                Total
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.total_score}}<span class="d100">/100</span>
+              </div>
+            </div>
+
+            <div id="flags-graph">
+            <svg>
+
+            </svg>
+
+          </div>
+          </div>
+          <div  class="col-m-12 col-6 mt-2 party_flags_recommendations">
+            <h4 class="description-data-subtitle">RECOMENDACIONES</h4>
+            <ul class="party_flags_recommendations_list">
+              {{# each recomendation in recomendations}}
+              <li class="party_flags_recommendations_item">{{{recomendation.text}}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-m-12 col-12">
+          <hr>
+        </div>
+
+        <div class="{{#if contracts.length }}hidden{{else}}{{#if ocds_contract_count }}{{else}}hidden{{/if}}{{/if}}">
+          Cargando contratos...
+        </div>
         <div class="{{#if contracts.length }}{{else}}hidden{{/if}}">
 
-          <div  class="col-m-12 col-12 mt-2">
+          <div  class="col-m-12 col-4 mt-2">
 
 
             <h4 class="description-data-subtitle">EVOLUCIÓN DE CONTRATOS</h4>
@@ -139,13 +210,13 @@
               <svg></svg>
             </div>
           </div>
-          <div class="col-m-12 col-6 mt-2">
+          <div class="col-m-12 col-4 mt-2">
             <h4 class="description-data-subtitle">TIPO DE CONTRATOS</h4>
             <div id="piechart">
               <svg></svg>
             </div>
           </div>
-          <div class="col-m-12 col-6 mt-2">
+          <div class="col-m-12 col-4 mt-2">
             <h4 class="description-data-subtitle">PRESUPUESTO POR RAMO</h4>
             <div id="treemap">
             </div>

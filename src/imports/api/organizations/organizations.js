@@ -18,6 +18,9 @@ import {
 import {
   Revisions
 } from '../revisions/revisions';
+import {
+  PartyFlags
+} from '../party_flags/party_flags';
 import OrganizationSchema from './schema';
 import {
   getShareHolders,
@@ -55,6 +58,9 @@ Orgs.helpers({
   },
   revisions() {
     return Revisions.find({documentId: this._id})
+  },
+  flags() {
+    return PartyFlags.find({})
   },
   shareholders(graph = false) {
     if (!graph) {

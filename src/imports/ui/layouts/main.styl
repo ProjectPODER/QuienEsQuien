@@ -992,6 +992,39 @@ button.reset-filters
 .description-data-contract
   text-transform uppercase
 
+.party_flag_score
+  float left
+  width 20%
+  border 1px solid #ccc
+  border-right none
+  border-collapse collapse
+  text-align center
+  height 50px
+  overflow hidden
+  background #f7f7f7
+
+.party_flag_title
+  font-size 0.65em
+  padding-top 5px
+  color #666
+  text-transform uppercase
+  font-weight bold
+
+.party_flag_value
+  font-size 1.2em
+
+.d100
+  font-size 0.5em
+
+
+.party_flag_total_score
+  border 1px solid black
+  background #ffc
+
+  .party_flag_value
+    font-weight bold
+
+
 .amount-data
   color #2900f5
   font-size 2rem
@@ -1291,9 +1324,9 @@ hr
 
 #chart
     svg
-        height 500px
+        height 300px
         width 100%
-  
+
 .nvd3
     .nv-axis
         line
@@ -1327,17 +1360,26 @@ hr
 
 #piechart
     svg
-        height 500px
+        height 300px
         width 100%
 
 #treemap
-  height 500px
+  height 300px
   width 100%
   margin auto
 
 #graph-container
     width 100%
-    height 700px
+    height 600px
+
+#flags-graph
+  svg
+    width 100%
+    height 200px
+
+    .nv-background rect
+      fill white
+
 
 .links
     line
@@ -1637,7 +1679,7 @@ hr
       margin-bottom 10px
   #right-menu-contracts
     display none
-  .investigaciones.row 
+  .investigaciones.row
     height 400px
   .addinfo-box
     margin 3rem 0 0 0
@@ -1649,8 +1691,8 @@ hr
         position inherit
         display block
         width 100%
-  footer 
-    a 
+  footer
+    a
       .logofooter-ml
       .logofooter-pl
         margin-bottom 1rem

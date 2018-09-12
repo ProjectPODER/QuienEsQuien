@@ -54,24 +54,40 @@ Template.showOrgWrapper.onCreated(function() {
           ],
         });
         if (org) {
+          // console.log("org",org);
+
+          self.org.set(org);
+          org.collection = 'orgs';
           Session.set("currentDocumentId", org._id);
         }
         else {
-          window.location = "/persons/"+id;
+          // window.location = "/persons/"+id;
           return false;
         }
+        if (org.ocds_contract_count > 0 ) {
 
-        suscriptionName = org.isPublic() ? "contracts-by-buyer-ocds" : "contracts-by-supplier-ocds"
-        self.subscribe(suscriptionName,id, {
-          onReady() {
-            Session.set("orgContracts", org.contractsSupplied().fetch());
+          suscriptionName = org.isPublic() ? "contracts-by-buyer-ocds" : "contracts-by-supplier-ocds"
+          self.subscribe(suscriptionName,id, {
+            onReady() {
+              Session.set("orgContracts", org.contractsSupplied().fetch());
+            }
+          });
+
+          //Cargar datos de banderas sólo para dependencias y paraestatales
+          if (org.isPublic()) {
+            self.subscribe("party_flags",id, {
+              onReady() {
+                Session.set("orgFlags", org.flags().fetch());
+                console.log("orgFlags",Session.get("orgFlags"))
+              }
+            });
           }
-        });
-        org.collection = 'orgs';
+
+        }
+
 
         // console.log("flags",org.flags());
 
-        self.org.set(org);
       }
     })
     self.ready.set(handle.ready());
@@ -117,6 +133,31 @@ AutoForm.hooks({
 Template.orgView.helpers({
   contracts() {
     return slice(Session.get("orgContracts"),0,3)
+  },
+  flags() {
+    if (Session.get("orgFlags")) {
+      return Session.get("orgFlags")[0].criteria_score;
+    }
+  },
+  recomendations() {
+    if (Session.get("orgFlags")) {
+      flags = Session.get("orgFlags")[0].criteria_score;
+      delete flags.total_score;
+      let flagsArray = [], recommendations = [];
+      for (f in flags) {
+        flagsArray.push({"flag": f, "value": Number(flags[f]).toFixed(4)*100});
+      }
+      console.log(flagsArray);
+      flagsArray = sortBy(flagsArray,"value").slice(0,3);
+      for (f in flagsArray) {
+        recommendations.push({"flag": flagsArray[f].flag, "text":
+        "Las contrataciones de esta organización tienen un puntaje bajo en "+flagsArray[f].flag+" ("+flagsArray[f].value+"). Recomendamos mejorar las publicaciones y el proceso de contrataciones. Para más detalles lea la <a href='http://www.todosloscontratos.mx/metodologia'>metodología</a>."});
+      }
+      return recommendations;
+    }
+  },
+  format_score(score) {
+    return Number(score).toFixed(4)*100;
   },
   dependencySummary() {
     var oc =Session.get("orgContracts");
@@ -181,7 +222,7 @@ function evolucionDeContratos(summary) {
   console.log("Evolución de contratos chart")
   nv.addGraph(function() {
     var chart = nv.models.linePlusBarChart()
-    .margin({top: 30, right: 60, bottom: 50, left: 70})
+    .margin({top: 50, right: 50, bottom: 30, left: 75})
     .x(function(d, i) { return i })
     .y(function(d) { return d[1] })
     .color(d3.scale.category20().range().slice(1))
@@ -249,11 +290,60 @@ function evolucionDeContratos(summary) {
 
     nv.utils.windowResize(chart.update);
 
-    //Si son solo dos años, la grafica tiene que ser de la mitad de ancho
-    if (importeValues.length == 2) {
-      console.log("importeValues.length",importeValues.length,$("#chart").width()/2);
-      console.log(chart.width($("#chart").width()/2))
+    return chart;
+  });
+}
+
+//Evolución de contratos chart
+function flagsGraph(summary) {
+  console.log("Gráficos de banderas")
+  nv.addGraph(function() {
+    var chart = nv.models.lineChart()
+    .margin({top: 30, right: 15, bottom: 30, left: 30})
+    .x(function(d, i) { return i })
+    .y(function(d) { return d[1] })
+    .color(d3.scale.category20().range().slice(1))
+    // .showLabels(true)
+    // .showLegend(true)
+    .focusEnable(false)
+    .useInteractiveGuideline(true)
+    ;
+
+    let puntajeValues = []
+
+    for (year in summary[0].years) {
+      let unixYear = new Date((parseInt(summary[0].years[year].year)+1).toString()).getTime();
+      let yearDisplay = new Date(unixYear).getFullYear();
+      let valueDisplay = Number(summary[0].years[year].criteria_score.total_score).toFixed(4)*100;
+      puntajeValues.push([yearDisplay,valueDisplay])
     }
+    puntajeValues = reverse(puntajeValues);
+
+    var data = [{
+      "key": "Puntaje",
+      values: puntajeValues
+    }];
+    console.log("calidad graph",data)
+
+    chart.xAxis
+    .showMaxMin(true)
+    .tickFormat(function(d) {
+      return data[0].values[d] && data[0].values[d][0] || d
+    });
+
+    chart.yAxis
+    .tickFormat(d3.format(',f'));
+
+
+    chart.lines.forceY([0,100]);
+
+    d3.select('#flags-graph svg')
+    .datum(data)
+    .transition().duration(500)
+    .call(chart)
+    ;
+
+    nv.utils.windowResize(chart.update);
 
     return chart;
   });
@@ -303,8 +393,8 @@ function presupuestoPorRamo(ramoSummary) {
         value: Math.round(ramoSummary[ramo][dependency]),
       })
     }
-    console.log(dependency);
-    console.log(data);
+    // console.log(dependency);
+    // console.log(data);
   }
 
   // console.log("Treemap",2)
@@ -705,6 +795,21 @@ Template.orgView.onRendered(function() {
     $('[data-toggle="tooltip"]').tooltip()
   });
 
+  this.autorun(() => {
+
+    var flags = Session.get("orgFlags");
+    //Esto es para que corra una sola vez
+    let firstRun = true;
+
+    if (flags && flags[0].years.length > 0 && firstRun == true) {
+      console.log("flags",firstRun);
+
+      //Esto es para que corra una sola vez
+      firstRun = false;
+
+      flagsGraph(flags);
+    }
+  });
   //Esto corre cada vez que se actualiza la variable de sesión de los contratos
   //TODO: A veces se duplican los gráficos
   this.autorun(() => {
@@ -714,7 +819,7 @@ Template.orgView.onRendered(function() {
     //Esto es para que corra una sola vez
     let firstRun = true;
 
-    if (oc && firstRun == true) {
+    if (oc && oc.length > 0 && firstRun == true) {
       console.log("orgContracts",oc,firstRun);
 
       //Esto es para que corra una sola vez

@@ -59,29 +59,35 @@ Template.showPersonWrapper.onCreated(function () {
       const person = Persons.findOne({
         $or: [{ _id: id }, { simple: id }, { name: id }, { names: id }],
       });
-      Session.set('currentDocumentId', person._id);
-      self.person.set(person);
-    },
-  });
-  const handlec = self.subscribe('contracts-by-supplier-ocds', id, {
-    onReady() {
-      console.log("onready");
-      const contracts = ContractsOCDS.find({}, {limit: 3});
-      self.contracts.set(contracts.fetch());
-      console.log(self.contracts.get())
+      if (person) {
+        Session.set('currentDocumentId', person._id);
+        self.person.set(person);
+      }
+      else {
+        console.error("Persona no encontrada",id);
+        return false;
+      }
+      const handlec = self.subscribe('contracts-by-supplier-ocds', id, {
+        onReady() {
+          console.log("onready");
+          const contracts = ContractsOCDS.find({}, {limit: 3});
+          self.contracts.set(contracts.fetch());
+          console.log(self.contracts.get())
 
-      self.ready.set(handlec.ready());
-    },
-  });
-
-  const handlem = self.subscribe('memberships', id, {
-    onReady() {
-      const memberships = Memberships.find({
-        $or: [{ sob_org: id }, { person_id: id }],
+          self.ready.set(handlec.ready());
+        },
       });
 
-      self.memberships.set(memberships.fetch());
-      self.ready.set(handlem.ready());
+      const handlem = self.subscribe('memberships', id, {
+        onReady() {
+          const memberships = Memberships.find({
+            $or: [{ sob_org: id }, { person_id: id }],
+          });
+
+          self.memberships.set(memberships.fetch());
+          self.ready.set(handlem.ready());
+        },
+      });
     },
   });
 });
