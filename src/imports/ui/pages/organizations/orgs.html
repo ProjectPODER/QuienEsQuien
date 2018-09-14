@@ -125,10 +125,10 @@
             </div>
         </div>
         {{/if}}
-        <div class="col-m-12 col-12">
+        <div class="col-m-12 col-12" style="clear:both">
           <hr>
         </div>
-        <div class="{{#if flags }}hidden{{else}}{{#if isPublic }}{{else}}hidden{{/if}}{{/if}}">
+        <div class="col-m-12 col-12 {{#if flags }}hidden{{else}}{{#if isPublic }}{{else}}hidden{{/if}}{{/if}}">
           Cargando banderas...
         </div>
 
@@ -197,7 +197,7 @@
           <hr>
         </div>
 
-        <div class="{{#if contracts.length }}hidden{{else}}{{#if ocds_contract_count }}{{else}}hidden{{/if}}{{/if}}">
+        <div class="col-m-12 col-12 {{#if contracts.length }}hidden{{else}}{{#if ocds_contract_count }}{{else}}hidden{{/if}}{{/if}}">
           Cargando contratos...
         </div>
         <div class="{{#if contracts.length }}{{else}}hidden{{/if}}">
