@@ -561,15 +561,15 @@ function flujosProveedores(relationSummary) {
   links = data.links;
 
   var simulation = d4.forceSimulation(nodes)
-    .force("charge", d4.forceManyBody().strength(-2000).distanceMax(200))
+    .force("charge", d4.forceManyBody().strength(10).distanceMax(180))
     .force("center", d4.forceCenter(centerCoor[0], centerCoor[1]))
-    .force("link", d4.forceLink().id(function(d) { return d.id; }).distance(linkDistance).strength(20))
+    .force("link", d4.forceLink().id(function(d) { return d.id; }).distance(linkDistance).strength(3))
     // .force("x", d4.forceX().x(centerCoor[0]).strength(0.9))
     // .force("y", d4.forceY().y(centerCoor[1]).strength(0.9))
     // .alphaTarget(0.02)
-    .force("collide", d4.forceCollide(function (d) { return Math.sqrt(d.weight) + nodeDistance; })
-    .strength(0.5))
-    .force("radial", d4.forceRadial(200,centerCoor[0],centerCoor[1]))
+    .force("collide", d4.forceCollide(function (d) { return d.weight+15; })
+    .strength(0.7))
+    // .force("radial", d4.forceRadial(200,centerCoor[0],centerCoor[1]))
     .on("tick", ticked);
 
   var link = chart.append("g")
