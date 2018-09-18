@@ -1,6 +1,9 @@
 import {
   Mongo,
 } from 'meteor/mongo';
+import {
+  ContractFlags
+} from '../contract_flags/contract_flags';
 
 export const ContractsOCDS = new Mongo.Collection('contracts_ocds');
 
@@ -10,6 +13,10 @@ ContractsOCDS.helpers({
   },
   startDate() {
     return new Date(this.contracts[0].period.startDate);
+  },
+  flags(ocid) {
+    c = ContractFlags.find({"ocid": ocid})
+    return c;
   },
   endDate() {
     return new Date(this.contracts[0].period.endDate);

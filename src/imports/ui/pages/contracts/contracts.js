@@ -12,6 +12,7 @@ import '../../components/upload/upload.js';
 import './contracts.html';
 import '../../helpers';
 import '../../components/subscribe/subscribe.js';
+import { isEmpty, uniqBy, slice, find, countBy, sortBy, reverse } from 'lodash';
 
 
 const LIMIT = 1000;
@@ -53,6 +54,15 @@ Template.showContractWrapper.onCreated(function() {
         if (contract.awards[0].suppliers[0].id == supplier) {
           self.contract.set('document', contract)
           self.ready.set(true);
+
+          self.subscribe("contract_flags",id,supplier, {
+            onReady() {
+              // console.log(contract.flags(id));
+              // console.log(contract.flags(id).fetch())
+              Session.set("contractFlags", contract.flags(id).fetch());
+              // console.log("contractFlags",Session.get("contractFlags"))
+            }
+          })
         }
         else {
           console.log("Contract not found");
@@ -145,6 +155,32 @@ Template.contractView.helpers({
   simpleName: function(params) {
     return simpleName(params)
   },
+  flags() {
+    if (Session.get("contractFlags")) {
+      return Session.get("contractFlags")[0].criteria_score;
+    }
+  },
+  rules() {
+    if (Session.get("contractFlags")) {
+      let rules = [];
+      let rules_score = Session.get("contractFlags")[0].rules_score;
+      for (category in rules_score) {
+        for (rule in rules_score[category]) {
+          let score = rules_score[category][rule];
+          rule = rule.replace(/-/g," ");
+          if (score<1) {
+            let text = "La validación <strong>"+rule+"</strong> de "+category+" falló. Para más detalles revise la <a href='https://todosloscontratos.mx/metodologia'>metodología</a>."
+            rules.push({category: category, name: rule, score: score, text: text})
+          }
+        }
+      }
+      rules = sortBy(rules,"score").slice(0,3);
+      return rules;
+    }
+  },
+  format_score(score) {
+    return (Number(score)*100).toFixed(2);
+  },
   getField: function(params) {
     if (params.hash.object && params.hash.object[0] && params.hash.field)
     {
@@ -152,11 +188,11 @@ Template.contractView.helpers({
 
         if (params.hash.object[0][params.hash.field]) {
 
-          console.log(params.hash.field,params.hash.object[0][params.hash.field]);
+          // console.log(params.hash.field,params.hash.object[0][params.hash.field]);
           return params.hash.object[0][params.hash.field];
         }
         else {
-          console.log(params.hash.field,"---");
+          // console.log(params.hash.field,"---");
           return "---"
         }
       }

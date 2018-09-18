@@ -112,6 +112,9 @@
                         <a class="page-scroll" href="#datosgenerales">Datos generales</a>
                     </li>
                     <li>
+                        <a class="page-scroll" href="#calidad">Calidad</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#planeacion">Planeación</a>
                     </li>
                     <li>
@@ -132,9 +135,76 @@
                 </ul>
             </div>
         </div>
+
+
         <div class="col-m-8 col-8">
           <hr>
         </div>
+
+        <div class="col-m-8 col-8 {{#if flags }}hidden{{else}}{{#if isPublic }}{{else}}hidden{{/if}}{{/if}}">
+          Cargando banderas...
+        </div>
+
+        <div class="{{#if flags and isPublic }}{{else}}hidden{{/if}}">
+          <div  class="col-m-12 col-6 mt-2 party_flags" id="calidad">
+            <h4 class="description-data-subtitle">CALIDAD DE CONTRATO</h4>
+            <p>Evaluado por QuienEsQuien.wiki y TodosLosContratos.mx</p>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Competitividad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.competitividad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Temporalidad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.temporalidad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Transparencia
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.transparencia}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score">
+              <div class="party_flag_title">
+                Trazabilidad
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.trazabilidad}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <div class="party_flag_score party_flag_total_score">
+              <div class="party_flag_title">
+                Total
+              </div>
+              <div class="party_flag_value">
+                {{format_score flags.total_score}}<span class="d100">/100</span>
+              </div>
+            </div>
+            <h4 class="description-data-subtitle" id="contract_problemas_destacados">PROBLEMAS DESTACADOS</h4>
+            <ul class="party_flags_recommendations_list">
+              {{# each rule in rules}}
+                  <li class="party_flags_recommendations_item">{{{ rule.text }}}</li>
+              {{/each}}
+            </ul>
+
+          </div>
+        </div>
+
+        <div class="col-m-8 col-8">
+          <hr>
+        </div>
+
+
+
         <div class="col-m-9 col-9 flex mt-2" id="planeacion">
           <div class="col-m-12 col-12">
             <h4 class="description-data-subtitle">PLANEACIÓN</h4>

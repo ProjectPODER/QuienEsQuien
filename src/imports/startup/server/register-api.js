@@ -20,5 +20,6 @@ import '../../api/users/methods.js';
 import '../../api/collectionHooks.js';
 import '../../api/memberships/server/publications.js';
 import '../../api/party_flags/server/publications.js';
+import '../../api/contract_flags/server/publications.js';
 // FIXME enable following further testing of membership updates
 // import '../../api/memberships/methods.js';
