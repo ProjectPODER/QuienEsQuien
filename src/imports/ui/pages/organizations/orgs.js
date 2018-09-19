@@ -140,6 +140,14 @@ Template.orgView.helpers({
       return Session.get("orgFlags")[0].criteria_score;
     }
   },
+  showLoadingFlags() {
+    var org = Template.instance().data.document;
+
+    console.log("showLoadingFlags",Session.get("orgFlags"), org.isPublic(), org.ocds_contract_count)
+    if (!Session.get("orgFlags") && org.isPublic() && org.ocds_contract_count > 0) {
+      return true;
+    }
+  },
   recomendations() {
     if (Session.get("orgFlags")) {
       flags = Session.get("orgFlags")[0].criteria_score;
