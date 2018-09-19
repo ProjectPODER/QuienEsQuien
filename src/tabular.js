@@ -231,36 +231,36 @@ TabularTables.Persons = new Tabular.Table(extend({},
   }),
 );
 
-TabularTables.Contracts = new Tabular.Table(extend({},
-  tableDefaults, {
-    name: 'Contracts',
-    collection: Contracts,
-    order: [
-      [5, 'desc'],
-    ],
-    columns: union(
-      contractFields,
-      [{
-
-        data: 'dependency',
-        titleFn() {
-          return i18n.__('Dependency');
-        },
-        class: 'js-dependency col-4 col-m-4',
-        tmpl: Meteor.isClient && Template.dependency_cell,
-      },
-      {
-        data: 'suppliers_org',
-        titleFn() {
-          return i18n.__('Suppliers');
-        },
-        class: 'js-suppliers col-4 col-m-4',
-        tmpl: Meteor.isClient && Template.suppliers_cell,
-      },
-      ]),
-    extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
-  }),
-);
+// TabularTables.Contracts = new Tabular.Table(extend({},
+//   tableDefaults, {
+//     name: 'Contracts',
+//     collection: Contracts,
+//     order: [
+//       [5, 'desc'],
+//     ],
+//     columns: union(
+//       contractFields,
+//       [{
+//
+//         data: 'dependency',
+//         titleFn() {
+//           return i18n.__('Dependency');
+//         },
+//         class: 'js-dependency col-4 col-m-4',
+//         tmpl: Meteor.isClient && Template.dependency_cell,
+//       },
+//       {
+//         data: 'suppliers_org',
+//         titleFn() {
+//           return i18n.__('Suppliers');
+//         },
+//         class: 'js-suppliers col-4 col-m-4',
+//         tmpl: Meteor.isClient && Template.suppliers_cell,
+//       },
+//       ]),
+//     extraFields: ['suppliers_person', 'suppliers', 'end_date', 'currency'],
+//   }),
+// );
 
 
 TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
@@ -320,7 +320,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
       {
         data: 'ocid',
         title: 'OCID',
-        class: 'js-ocid no-title col-2 col-m-2',
+        class: 'js-ocid no-title col-1 col-m-1',
         tmpl: Meteor.isClient && Template.view_contract,
         tmplContext(rowData) {
           return {
@@ -359,6 +359,20 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         },
         class: 'js-procedure col-2 col-m-2',
         // tmpl: Meteor.isClient && Template.dependency_cell,
+      },
+      {
+        data: "total_score",
+        titleFn() {
+          return i18n.__('Puntaje');
+        },
+        class: 'js-score col-1 col-m-1',
+        tmpl: Meteor.isClient && Template.score_cell,
+        tmplContext(rowData) {
+          return {
+            item: rowData,
+            column: 'title'
+          };
+        }
       },
     ],
     extraFields: ['endDate()',"contracts","awards"],

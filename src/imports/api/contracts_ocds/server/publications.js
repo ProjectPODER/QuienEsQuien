@@ -1,4 +1,8 @@
 import { ContractsOCDS } from '../contracts_ocds.js';
+import {
+  ContractFlags
+} from '../../contract_flags/contract_flags';
+
 
 Meteor.publish("contract_ocds", function(_id) {
   check(_id, String);

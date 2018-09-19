@@ -14,8 +14,8 @@ ContractsOCDS.helpers({
   startDate() {
     return new Date(this.contracts[0].period.startDate);
   },
-  flags(ocid) {
-    c = ContractFlags.find({"ocid": ocid})
+  flags() {
+    c = ContractFlags.find({"ocid": this.ocid})
     return c;
   },
   endDate() {

@@ -65,11 +65,11 @@
                 <fieldset name="tipo-adquisicion">
                   <p class="search-title">Procedimiento de contratación <a data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
 
-a) Licitación Pública.
-- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
-b) Invitación a cuando menos tres proveedores o contratistas.
-c) Adjudicación Directa.
-- La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
+                  a) Licitación Pública.
+                  - Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
+                  b) Invitación a cuando menos tres proveedores o contratistas.
+                  c) Adjudicación Directa.
+                  - La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
                   <select id="tipo-adquisicion" class="search-select">
                     <option value="">Todos</option>
                     <option value="Adjudicación Directa Federal">Adjudicación directa</option>
@@ -105,6 +105,15 @@ c) Adjudicación Directa.
                 {{/each}}
               </p>
             {{/if}}
+            <div class="search-order-form">
+              <form class="form-inline">
+                <label for="search-order">Ordenar por</label>
+                <select class="form-control input-sm" name="search-order" id="search-order">
+                  <option value="precio">Precio (de mayor a menor)</option>
+                  <option value="puntaje">Puntaje (de mayor a menor)</option>
+                </select>
+              </form>
+            </div>
             {{> tabular table=TabularTables.Contracts_OCDS
             id="contract-index"  selector=selector
             class="" }}
@@ -130,11 +139,15 @@ c) Adjudicación Directa.
 </template>
 
 <template name="view_contract">
-  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers.[0]}}" class="button-link">Ver contrato{{ver_contrato}}</a>
+  <a href="/contracts/{{item.ocid}}?supplier={{item.suppliers.[0].id}}" class="button-link">Ver contrato{{ver_contrato}}</a>
 </template>
 
 <template name="contract_dates">
   Vigente desde {{ format_date item.startDate}} hasta {{ format_date item.endDate}}
+</template>
+
+<template name="score_cell">
+  {{ format_score item.total_score}}<span class="d100">/100</span>
 </template>
 
 <template name="contract_amount">

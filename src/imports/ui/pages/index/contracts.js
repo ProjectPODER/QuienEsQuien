@@ -127,19 +127,33 @@ Template.Contracts.events({
     $("#importe-minimo").val(bucket[0]);
     $("#importe-maximo").val(bucket[1]);
 
+  },
+  'change #search-order': function(event,instance) {
+    console.log("change #search-order",event,instance);
+    let column;
+    let direction = "desc";
+    switch ($(event.target).val()) {
+      case "precio":
+        column = 1;
+        break;
+      case "puntaje":
+        column = 7;
+        break;
+    }
+    $("#contract-index").DataTable().order([[column,direction],[1,"desc"]]).draw();
   }
 });
 
 function generateFilters(event,instance,values) {
   const filters = [];
-  console.log("generateFilters",event,instance,values);
+  // console.log("generateFilters",event,instance,values);
   for  (var filter in filterElements) {
     $(filterElements[filter].selector).each(function(index,filterElement) {
 
       var value = $(filterElement).val();
       //Permitir setear valores por URL
       if (values) {
-        console.log(filterElements[filter].field,values["filter_"+filterElements[filter].field])
+        // console.log(filterElements[filter].field,values["filter_"+filterElements[filter].field])
         if (values["filter_"+filterElements[filter].field]) {
           if (!isEmpty(values["filter_"+filterElements[filter].field])) {
             value = values["filter_"+filterElements[filter].field].replace(/['"]+/g, '');
@@ -184,7 +198,7 @@ function generateFilters(event,instance,values) {
         }
 
         if (filterElements[filter].mode == "search") {
-          console.log("search",filterElements[filter].field, value);
+          // console.log("search",filterElements[filter].field, value);
           instance.search.set(filterElements[filter].field, value);
         }
       }
@@ -195,7 +209,7 @@ function generateFilters(event,instance,values) {
       }
     })
   }
-  console.log("filters",filters);
+  // console.log("filters",filters);
   instance.filters.set(filters);
 }
 
@@ -212,7 +226,7 @@ function contractSearchApplyFilters(op, filters) {
     };
     query.push(o);
   });
-  console.log("query",query);
+  // console.log("query",query);
   return { $and: query }
 
 }
@@ -275,7 +289,7 @@ Template.Contracts.helpers({
     if (filters) {
       for (f in filters) {
         let filterDef = _.findWhere(filterElements,{field:filters[f].field});
-        if (filterDef) {          
+        if (filterDef) {
           filters[f].field_name = filterDef.field_name;
           filtersInView.push(filters[f]);
         }
@@ -329,6 +343,13 @@ Template.contract_dates.helpers({
     return 'N/A';
   }
 });
+
+Template.score_cell.helpers({
+  format_score(score) {
+    return (Number(score)*100).toFixed(2);
+  }
+});
+
 Template.contract_amount.helpers({
   format_amount: function(value) {
     if (value) {

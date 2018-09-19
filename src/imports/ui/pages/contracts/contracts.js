@@ -59,7 +59,7 @@ Template.showContractWrapper.onCreated(function() {
             onReady() {
               // console.log(contract.flags(id));
               // console.log(contract.flags(id).fetch())
-              Session.set("contractFlags", contract.flags(id).fetch());
+              Session.set("contractFlags", contract.flags().fetch());
               // console.log("contractFlags",Session.get("contractFlags"))
             }
           })
