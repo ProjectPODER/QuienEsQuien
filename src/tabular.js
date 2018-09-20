@@ -130,7 +130,7 @@ TabularTables.Orgs = new Tabular.Table(extend({},
     name: 'Orgs',
     collection: Orgs,
     order: [
-      [4, 'desc'],
+      [5, 'desc'],
     ],
     extraFields: [ 'foundation_date', 'company.tickers', 'type', 'company.classification'],
     columns: [{
@@ -160,6 +160,20 @@ TabularTables.Orgs = new Tabular.Table(extend({},
           tmplContext(rowData) {
             return {
               item: rowData
+            };
+          }
+        },
+        {
+          data: "total_score",
+          titleFn() {
+            return i18n.__('Puntaje');
+          },
+          class: 'js-score col-2 col-m-2',
+          tmpl: Meteor.isClient && Template.score_cell_orgs,
+          tmplContext(rowData) {
+            return {
+              item: rowData,
+              column: 'title'
             };
           }
         },

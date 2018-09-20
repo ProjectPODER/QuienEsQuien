@@ -26,6 +26,20 @@ Template.Orgs.events({
   },
   'scroll': function(event) {
     console.log(event);
+  },
+  'change #search-order': function(event,instance) {
+    console.log("change #search-order",event,instance);
+    let column;
+    let direction = "desc";
+    switch ($(event.target).val()) {
+      case "cantidad":
+        column = 5;
+        break;
+      case "puntaje":
+        column = 3;
+        break;
+    }
+    $("#organization-index").DataTable().order([[column,direction],[5,"desc"]]).draw();
   }
 });
 
@@ -36,6 +50,13 @@ Template.Orgs.helpers({
   }
 
 });
+
+Template.score_cell_orgs.helpers({
+  format_score(score) {
+    return (Number(score)*100).toFixed(2);
+  }
+});
+
 
 Template.contracts_fundation.helpers({
   contracts_fundation: function(item) {

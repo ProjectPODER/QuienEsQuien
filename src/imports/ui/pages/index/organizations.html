@@ -124,6 +124,15 @@
                 {{/each}}
               </p>
             {{/if}}
+            <div class="search-order-form">
+              <form class="form-inline">
+                <label for="search-order">Ordenar por</label>
+                <select class="form-control input-sm" name="search-order" id="search-order">
+                  <option value="cantidad">Cantidad de contratos (de mayor a menor)</option>
+                  <option value="puntaje">Puntaje (de mayor a menor)</option>
+                </select>
+              </form>
+            </div>
             {{> tabular table=TabularTables.Orgs
             id="organization-index"
             class=""}}
@@ -180,4 +189,8 @@
                 {{item.company.classification}} </p>
         </div>
     {{/if}}
+</template>
+
+<template name="score_cell_orgs">
+  {{ format_score item.total_score}}<span class="d100">/100</span>
 </template>
