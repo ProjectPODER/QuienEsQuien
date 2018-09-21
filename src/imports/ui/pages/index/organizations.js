@@ -27,21 +27,43 @@ Template.Orgs.events({
   'scroll': function(event) {
     console.log(event);
   },
-  'change #search-order': function(event,instance) {
-    console.log("change #search-order",event,instance);
-    let column;
-    let direction = "desc";
-    switch ($(event.target).val()) {
+  'change #search-order': function (event,instance) {
+    sort_order($(event.target).val(),instance);
+  }
+});
+
+
+function sort_order(order,instance) {
+  console.log("change #search-order",order,instance);
+  let column;
+  let direction = "desc";
+  switch (order) {
       case "cantidad":
+        $("#search-order").val("cantidad");
+
         column = 5;
         break;
       case "puntaje":
+        $("#search-order").val("puntaje");
+
         column = 3;
         break;
+  }
+  $("#organization-index").DataTable().order([[column,direction],[5,"desc"]]).draw();
+}
+
+Template.Orgs.onRendered(function () {
+  //Default order
+  if (window.queryParams) {
+    if (window.queryParams.sort) {
+      if (window.queryParams.sort.replace(/['"]+/g,"")=="score") {
+        sort_order("puntaje",this);
+      }
     }
-    $("#organization-index").DataTable().order([[column,direction],[5,"desc"]]).draw();
   }
 });
+
+
 
 Template.Orgs.helpers({
 

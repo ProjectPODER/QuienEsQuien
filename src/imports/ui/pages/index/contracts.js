@@ -128,21 +128,28 @@ Template.Contracts.events({
     $("#importe-maximo").val(bucket[1]);
 
   },
-  'change #search-order': function(event,instance) {
-    console.log("change #search-order",event,instance);
-    let column;
-    let direction = "desc";
-    switch ($(event.target).val()) {
-      case "precio":
-        column = 1;
-        break;
-      case "puntaje":
-        column = 7;
-        break;
-    }
-    $("#contract-index").DataTable().order([[column,direction],[1,"desc"]]).draw();
+  'change #search-order': function (event,instance) {
+    sort_order($(event.target).val(),instance);
   }
 });
+
+
+function sort_order(order,instance) {
+  console.log("change #search-order",order,instance);
+  let column;
+  let direction = "desc";
+  switch (order) {
+    case "precio":
+      $("#search-order").val("precio");
+      column = 1;
+      break;
+    case "puntaje":
+      $("#search-order").val("puntaje");
+      column = 7;
+      break;
+  }
+  $("#contract-index").DataTable().order([[column,direction],[1,"desc"]]).draw();
+}
 
 function generateFilters(event,instance,values) {
   const filters = [];
@@ -332,6 +339,15 @@ Template.Contracts.onRendered(function () {
   });
 
   $('[data-toggle="tooltip"]').tooltip({placement: 'top'});
+
+  //Default order
+  if (window.queryParams) {
+    if (window.queryParams.sort) {
+      if (window.queryParams.sort.replace(/['"]+/g,"")=="score") {
+        sort_order("puntaje",this);
+      }
+    }
+  }
 
 });
 

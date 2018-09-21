@@ -78,6 +78,11 @@ FlowRouter.route('/orgs', {
   },
   action: function () {
     //GARecordPage('/orgs');
+
+    //Enviar parámetros del query via window
+    //TODO: Buscar un método mejor
+    //GARecordPage('/contracts');
+    window.queryParams = this._queryParams.keys;
     this.render('ApplicationLayout', 'Orgs');
   },
   name: 'orgs',
