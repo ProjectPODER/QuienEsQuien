@@ -123,7 +123,7 @@
 </template>
 
 <template name="link_title">
-  <a href="/contracts/{{item.ocid}}?supplier={{ item.suppliers.[0]}}">{{item.tender.title}}</a>
+  <a href="/contracts/{{item.ocid}}?supplier={{ item.suppliers.[0].id}}">{{item.tender.title}}</a>
 </template>
 <template name="suppliers_cell">
   <ul class="suppliers-cell list-unstyled">

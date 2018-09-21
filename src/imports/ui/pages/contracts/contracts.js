@@ -46,6 +46,9 @@ Template.showContractWrapper.onCreated(function() {
             console.log("ERROR: No existe el contrato",id);
           }
           contract.forEach((contract) => { selectContract(contract,supplier)})
+          if (!self.contract.get('document')) {
+            self.contract.set('document', contract[0]);
+          }
         }
       })
 
@@ -157,25 +160,29 @@ Template.contractView.helpers({
   },
   flags() {
     if (Session.get("contractFlags")) {
-      return Session.get("contractFlags")[0].criteria_score;
+      if (Session.get("contractFlags")[0]) {
+        return Session.get("contractFlags")[0].criteria_score;
+      }
     }
   },
   rules() {
     if (Session.get("contractFlags")) {
-      let rules = [];
-      let rules_score = Session.get("contractFlags")[0].rules_score;
-      for (category in rules_score) {
-        for (rule in rules_score[category]) {
-          let score = rules_score[category][rule];
-          rule = rule.replace(/-/g," ");
-          if (score<1) {
-            let text = "La validación <strong>"+rule+"</strong> de "+category+" falló. Para más detalles revise la <a href='https://todosloscontratos.mx/metodologia'>metodología</a>."
-            rules.push({category: category, name: rule, score: score, text: text})
+      if (Session.get("contractFlags")[0]) {
+        let rules = [];
+        let rules_score = Session.get("contractFlags")[0].rules_score;
+        for (category in rules_score) {
+          for (rule in rules_score[category]) {
+            let score = rules_score[category][rule];
+            rule = rule.replace(/-/g," ");
+            if (score<1) {
+              let text = "La validación <strong>"+rule+"</strong> de "+category+" falló. Para más detalles revise la <a href='https://todosloscontratos.mx/metodologia'>metodología</a>."
+              rules.push({category: category, name: rule, score: score, text: text})
+            }
           }
         }
+        rules = sortBy(rules,"score").slice(0,3);
+        return rules;
       }
-      rules = sortBy(rules,"score").slice(0,3);
-      return rules;
     }
   },
   format_score(score) {

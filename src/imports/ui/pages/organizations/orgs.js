@@ -136,7 +136,7 @@ Template.orgView.helpers({
     return slice(Session.get("orgContracts"),0,3)
   },
   flags() {
-    if (Session.get("orgFlags")) {
+    if (Session.get("orgFlags") && Session.get("orgFlags")[0]) {
       return Session.get("orgFlags")[0].criteria_score;
     }
   },
@@ -149,7 +149,7 @@ Template.orgView.helpers({
     }
   },
   recomendations() {
-    if (Session.get("orgFlags")) {
+    if (Session.get("orgFlags") && Session.get("orgFlags")[0]) {
       flags = Session.get("orgFlags")[0].criteria_score;
       delete flags.total_score;
       let flagsArray = [], recommendations = [];
