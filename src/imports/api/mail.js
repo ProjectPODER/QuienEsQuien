@@ -17,10 +17,13 @@ Meteor.startup(function () {
 Meteor.methods({
   sendEmail: function(doc) {
     // Important server-side check for security and data integrity
-    check(doc, contactFormSchema);
+    console.log("email",doc);
+    console.log("schema",contactFormSchema);
+    contactFormSchema.validate(doc);
+    check(doc,Match.Any);
 
     // Build the e-mail text
-    var text = "Name: " + doc.name + "\n\n"
+    var text = "Name: " + doc.contact_name + "\n\n"
             + "Email: " + doc.email + "\n\n\n\n"
             + doc.message;
 

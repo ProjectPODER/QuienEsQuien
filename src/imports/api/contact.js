@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
 
 export default new SimpleSchema({
-  name: {
+  contact_name: {
     type: String,
     label: "Nombre",
     max: 50
@@ -20,9 +20,5 @@ export default new SimpleSchema({
     type: String,
     label: "Mensaje",
     max: 1000
-  },
-  antispam: {
-    type: String,
-    optional: true,
-  },
-});
+  }
+}, { tracker: Tracker });

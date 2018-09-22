@@ -3,7 +3,7 @@
   "version": "0.8.0",
   "private": true,
   "scripts": {
-    "start": "MONGO_URL=mongodb://localhost:27017/meteor meteor run",
+    "start": "MAIL_URL=localhost,MONGO_URL=mongodb://localhost:27017/meteor meteor run",
     "test": "MONGO_URL=mongodb://localhost:27017/testing meteor test --driver-package meteortesting:mocha --port 3100",
     "testci": "./node_modules/.bin/xvfb-maybe meteor test --once --driver-package meteortesting:mocha",
     "testappci": "meteor test --full-app --once --driver-package meteortesting:mocha",
