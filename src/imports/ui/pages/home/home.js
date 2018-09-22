@@ -1,7 +1,7 @@
 import '../../components/search/search.js';
 import './home.html';
 import '../../helpers';
-import counter from '../../../api/stats/methods.js';
+import { counter, currentDate } from '../../../api/stats/methods.js';
 import { Feeds, FeedEntries } from '../../../api/feeds.js';
 
 Template.Home.onCreated(function() {
@@ -23,6 +23,32 @@ Template.Home.onCreated(function() {
       }
     });
   });
+
+  var self = this;
+
+  self.currentDate = new ReactiveVar();
+
+  // self.autorun(() => {
+    currentDate.call((error, result) => {
+      if (error) {
+        console.log(error.reason);
+      }
+      if (result) {
+        var currentDate = {
+          orgsDate: result[0][0].lastModified,
+          contractsDate: result[1][0].date
+        };
+        self.currentDate.set(currentDate);
+      }
+      
+    });
+  // })
+});
+
+Template.Home.helpers({
+  currentDate: function() {
+    return Template.instance().currentDate.get();
+  }
 });
 
 Template.counters.onCreated(function() {
