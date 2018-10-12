@@ -5,6 +5,7 @@ import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { DocHead } from 'meteor/kadira:dochead';
 import { Orgs, OrgsContractSummary } from '../../../api/organizations/organizations.js';
+import { partyFlagsAverage } from '../../../api/contract_flags/methods.js';
 import { simpleName } from '../../../api/lib';
 import '../../../api/organizations/relations.js';
 import '../../helpers.js';
@@ -82,6 +83,9 @@ Template.showOrgWrapper.onCreated(function() {
                 console.log("orgFlags",Session.get("orgFlags"))
               }
             });
+
+            let party_flags_average = partyFlagsAverage(id);
+            console.log(party_flags_average);
           }
 
         }
