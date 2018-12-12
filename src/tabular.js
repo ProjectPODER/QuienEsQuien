@@ -168,7 +168,7 @@ TabularTables.Orgs = new Tabular.Table(extend({},
           titleFn() {
             return i18n.__('Puntaje');
           },
-          class: 'js-score col-2 col-m-2',
+          class: 'js-score col-2 col-m-2 hidden',
           tmpl: Meteor.isClient && Template.score_cell_orgs,
           tmplContext(rowData) {
             return {
@@ -379,7 +379,7 @@ TabularTables.Contracts_OCDS = new Tabular.Table(extend({},
         titleFn() {
           return i18n.__('Puntaje');
         },
-        class: 'js-score col-1 col-m-1',
+        class: 'js-score col-1 col-m-1 hidden',
         tmpl: Meteor.isClient && Template.score_cell,
         tmplContext(rowData) {
           return {

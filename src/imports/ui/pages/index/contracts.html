@@ -105,6 +105,9 @@
                 {{/each}}
               </p>
             {{/if}}
+
+            {{!--
+              //Comentado para ocultar puntaje
             <div class="search-order-form">
               <form class="form-inline">
                 <label for="search-order">Ordenar por</label>
@@ -114,6 +117,8 @@
                 </select>
               </form>
             </div>
+            --}}
+
             {{> tabular table=TabularTables.Contracts_OCDS
             id="contract-index"  selector=selector
             class="" }}
