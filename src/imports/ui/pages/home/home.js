@@ -28,7 +28,6 @@ Template.Home.onCreated(function() {
 
   self.currentDate = new ReactiveVar();
 
-  // self.autorun(() => {
     currentDate.call((error, result) => {
       if (error) {
         console.log(error.reason);
@@ -42,7 +41,6 @@ Template.Home.onCreated(function() {
       }
       
     });
-  // })
 });
 
 Template.Home.helpers({
