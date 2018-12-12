@@ -82,7 +82,7 @@ function feedReader() {
       _id: "Rindecuentas",
       category: "RSS",
       link: "https://www.rindecuentas.org/feed/",
-      refresh_interval: 70000
+      refresh_interval: 20000
   });
 
 

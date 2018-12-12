@@ -111,9 +111,13 @@
                     <li>
                         <a class="page-scroll" href="#datosgenerales">Datos generales</a>
                     </li>
+                    {{!--
+                      //Comentado para ocultar puntaje
+
                     <li>
                         <a class="page-scroll" href="#calidad">Calidad</a>
                     </li>
+                    --}}
                     <li>
                         <a class="page-scroll" href="#planeacion">Planeación</a>
                     </li>
@@ -140,6 +144,9 @@
         <div class="col-m-8 col-8">
           <hr>
         </div>
+
+        {{!--
+          //Comentado para ocultar puntaje
 
         <div class="col-m-8 col-8 {{#if flags }}hidden{{else}}{{#if isPublic }}{{else}}hidden{{/if}}{{/if}}">
           Cargando banderas...
@@ -202,7 +209,7 @@
         <div class="col-m-8 col-8">
           <hr>
         </div>
-
+        --}}
 
 
         <div class="col-m-9 col-9 flex mt-2" id="planeacion">
@@ -259,19 +266,18 @@
           </div>
           <div class="col-m-12 col-12">
               <p class="js-title-data">Tipo de procedimiento <a data-toggle="tooltip" data-placement="right" title="Refiere al tipo de procedimiento:
-
-a) Licitación Pública.
-- Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
-b) Invitación a cuando menos tres proveedores o contratistas.
-c) Adjudicación Directa.
-- La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
+              a) Licitación Pública.
+              - Procedimiento por regla general que debiera utilizarse para la adquisición de bienes y servicios.
+              b) Invitación a cuando menos tres proveedores o contratistas.
+              c) Adjudicación Directa.
+              - La ley contempla estas excepciones a la Licitación Pública para utilizarse a reserva y responsabilidad de la depencia."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{tender.procurementMethodMxCnet}}</p>
           </div>
           <div class="col-m-6 col-4">
               <p class="js-title-data">Tipo de contratación <a data-toggle="tooltip" data-placement="right" title="Muestra el tipo de contratación:
 
-a) Adquisiciones incluye: adquisiciones, arrendamientos y servicios.
-b) Obra Pública incluye: obras públicas y los servicios relacionados con las mismas."><i class="fa fa-question"></i></a></p>
+              a) Adquisiciones incluye: adquisiciones, arrendamientos y servicios.
+              b) Obra Pública incluye: obras públicas y los servicios relacionados con las mismas."><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{tender.additionalProcurmentCategory}}</p>
           </div>
           <div class="col-m-12 col-12">
@@ -292,10 +298,10 @@ b) Obra Pública incluye: obras públicas y los servicios relacionados con las m
           <div class="col-m-6 col-8 mt-2">
               <p class="js-title-data">Carácter <a data-toggle="tooltip" data-placement="right" title="Indica si el procedimiento es I) Nacional, II) Internacional o III) Internacional bajo TLC
 
-- Nacional: sólo pueden participar personas de nacionalidad mexicana y los bienes a adquirir sean productos del país y cuenten, por lo menos, con un 50% de contenido nacional.
-- Internacional abiertas: podrán participar licitantes mexicanos y extranjeros, cualquiera que sea el origen de los bienes a adquirir.
-- Internacional bajo cobertura de tratados (TLC): sólo podrán participar licitantes mexicanos y extranjeros de países con los que nuestro país tenga celebrado un tratado de libre comercio con capítulo de compras gubernamentales.
-Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público"><i class="fa fa-question"></i></a></p>
+              - Nacional: sólo pueden participar personas de nacionalidad mexicana y los bienes a adquirir sean productos del país y cuenten, por lo menos, con un 50% de contenido nacional.
+              - Internacional abiertas: podrán participar licitantes mexicanos y extranjeros, cualquiera que sea el origen de los bienes a adquirir.
+              - Internacional bajo cobertura de tratados (TLC): sólo podrán participar licitantes mexicanos y extranjeros de países con los que nuestro país tenga celebrado un tratado de libre comercio con capítulo de compras gubernamentales.
+              Para más información revisar la Ley de Adquisiciones, Arrendamientos y Servicios del Sector Público"><i class="fa fa-question"></i></a></p>
               <p class="js-data">{{tender.procurementMethodCharacterMxCnet}}</p>
           </div>
         </div>

@@ -5,6 +5,7 @@ import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { DocHead } from 'meteor/kadira:dochead';
 import { Orgs, OrgsContractSummary } from '../../../api/organizations/organizations.js';
+import { partyFlagsAverage } from '../../../api/contract_flags/methods.js';
 import { simpleName } from '../../../api/lib';
 import '../../../api/organizations/relations.js';
 import '../../helpers.js';
@@ -82,6 +83,9 @@ Template.showOrgWrapper.onCreated(function() {
                 console.log("orgFlags",Session.get("orgFlags"))
               }
             });
+
+            let party_flags_average = partyFlagsAverage(id);
+            console.log(party_flags_average);
           }
 
         }
@@ -136,7 +140,7 @@ Template.orgView.helpers({
     return slice(Session.get("orgContracts"),0,3)
   },
   flags() {
-    if (Session.get("orgFlags")) {
+    if (Session.get("orgFlags") && Session.get("orgFlags")[0]) {
       return Session.get("orgFlags")[0].criteria_score;
     }
   },
@@ -149,7 +153,7 @@ Template.orgView.helpers({
     }
   },
   recomendations() {
-    if (Session.get("orgFlags")) {
+    if (Session.get("orgFlags") && Session.get("orgFlags")[0]) {
       flags = Session.get("orgFlags")[0].criteria_score;
       delete flags.total_score;
       let flagsArray = [], recommendations = [];

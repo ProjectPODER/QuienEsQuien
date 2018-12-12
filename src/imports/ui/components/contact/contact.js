@@ -11,8 +11,18 @@ Template.contactForm.helpers({
 
 AutoForm.hooks({
   contactForm: {
+    before: {
+      method: function(doc) {
+        console.log("doc",doc);
+        this.result(doc);
+      }
+    },
     onSuccess: function() {
       FlowRouter.go('/contact/success');
+    },
+    onError: function(formType,error) {
+      alert("No se envió: " + formType + " - " + error.message);
+      console.error(error);
     }
   }
 });

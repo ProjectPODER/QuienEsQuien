@@ -39,7 +39,7 @@ Template.Home.onCreated(function() {
         };
         self.currentDate.set(currentDate);
       }
-      
+
     });
 });
 
