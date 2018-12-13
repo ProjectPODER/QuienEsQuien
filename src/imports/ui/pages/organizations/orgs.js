@@ -79,17 +79,17 @@ Template.showOrgWrapper.onCreated(function() {
           });
 
           //Cargar datos de banderas sólo para dependencias y paraestatales
-          if (org.isPublic()) {
-            self.subscribe("party_flags",id, {
-              onReady() {
-                Session.set("orgFlags", org.flags().fetch());
-                console.log("orgFlags",Session.get("orgFlags"))
-              }
-            });
+          // if (org.isPublic()) {
+          //   self.subscribe("party_flags",id, {
+          //     onReady() {
+          //       Session.set("orgFlags", org.flags().fetch());
+          //       console.log("orgFlags",Session.get("orgFlags"))
+          //     }
+          //   });
 
-            let party_flags_average = partyFlagsAverage(id);
-            console.log(party_flags_average);
-          }
+          //   let party_flags_average = partyFlagsAverage(id);
+          //   console.log(party_flags_average);
+          // }
 
         }
 
