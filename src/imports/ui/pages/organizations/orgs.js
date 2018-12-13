@@ -5,7 +5,7 @@ import i18n from 'meteor/universe:i18n';
 import { Notifications } from 'meteor/gfk:notifications';
 import { DocHead } from 'meteor/kadira:dochead';
 import { Orgs, OrgsContractSummary } from '../../../api/organizations/organizations.js';
-import { partyFlagsAverage } from '../../../api/contract_flags/methods.js';
+// import { partyFlagsAverage } from '../../../api/contract_flags/methods.js';
 import { simpleName } from '../../../api/lib';
 import '../../../api/organizations/relations.js';
 import '../../helpers.js';
@@ -25,6 +25,8 @@ import nvd3 from 'nvd3';
 import d3plus from './d3plus.full.js';
 import d4 from 'd4';
 
+console.log("orgs",1);
+
 const LIMIT = 1000;
 
 orgCompetitorsSub = new SubsManager({
@@ -32,6 +34,7 @@ orgCompetitorsSub = new SubsManager({
 });
 
 Template.showOrgWrapper.onCreated(function() {
+  console.log("orgs",2);
   const self = this;
 
   self.org = new ReactiveVar(false)
@@ -102,6 +105,8 @@ Template.showOrgWrapper.onCreated(function() {
 Template.showOrgWrapper.helpers({
 
   ready() {
+    console.log("orgs",3);
+
     return Template.instance().ready.get();
   },
 
