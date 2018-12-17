@@ -6,22 +6,20 @@ import { Feeds, FeedEntries } from '../../../api/feeds.js';
 
 Template.Home.onCreated(function() {
 
-  import("./jquery.scrollme.js").then(() => {
-    $(window).scroll(function() {
-      if ($(document).scrollTop() > 500) {
-        $('#navbar').addClass('shrink');
-      } else {
-        $('#navbar').removeClass('shrink');
-      }
-    });
+  $(window).scroll(function() {
+    if ($(document).scrollTop() > 500) {
+      $('#navbar').addClass('shrink');
+    } else {
+      $('#navbar').removeClass('shrink');
+    }
+  });
 
-    $(window).scroll(function() {
-      if ($(document).scrollTop() > 10) {
-        $('logo').addClass('shrink');
-      } else {
-        $('logo').removeClass('shrink');
-      }
-    });
+  $(window).scroll(function() {
+    if ($(document).scrollTop() > 10) {
+      $('logo').addClass('shrink');
+    } else {
+      $('logo').removeClass('shrink');
+    }
   });
 
   var self = this;
@@ -87,12 +85,10 @@ Template.investigaciones.helpers({
 });
 
 Template.Home.onRendered(function() {
-  $(document).ready(function () {
     // if (Template.Home){
       $('nav').removeClass("shrink");
       $('nav').removeClass("fixed-nav");
     // }
-  });
 });
 
 Template.Home.events({
