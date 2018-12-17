@@ -62,31 +62,12 @@ Template.counters.onCreated(function() {
       var counter = {
         orgs: result[0],
         persons: result[1],
-        contracts: result[3]
+        contracts_ocds: result[2]
       };
       self.counter.set(counter);
     }
 
   });
-  //poor mans reactivity
-  setInterval(function () {
-    counter.call((error, result) => {
-      if (error) {
-        console.log(error.reason);
-      }
-      if (result) {
-        var counter = {
-          orgs: result[0],
-          persons: result[1],
-          contracts: result[3]
-        };
-        self.counter.set(counter);
-      }
-
-    });
-
-  }, 1000 * 10);
-
 });
 
 Template.counters.helpers({

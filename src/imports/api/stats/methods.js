@@ -8,7 +8,7 @@ export const counter = new ValidatedMethod({
   name: 'Stats.methods.counter',
   validate: null,
   run() {
-    return [ Orgs.find().count(), Persons.find().count(), Contracts.find().count(), ContractsOCDS.find().count() ];
+    return [ Orgs.find().count(), Persons.find().count(), ContractsOCDS.find({}).count() ];
   }
 });
 
