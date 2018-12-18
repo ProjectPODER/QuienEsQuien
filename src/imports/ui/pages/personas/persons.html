@@ -51,6 +51,10 @@
             </table>
           </div>
         {{/if}}
+
+        <div class="col-m-12 col-12 {{#if contracts.length }}hidden{{else}}{{#if ocds_contract_count }}{{else}}hidden{{/if}}{{/if}}">
+          Cargando contratos...
+        </div>
         {{#if contracts.length }}
           <div class="col-m-12">
             <h4 class="description-data-subtitle">CONTRATOS</h4>
@@ -69,7 +73,7 @@
                 <tr>
                   <td class="description-data-contract">
                     <img src="../images/icons/contrato-blue.svg" alt="Ícono contrato" class="icon-lf icon-lf-contract">
-                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.contracts.[0].supplier}}">{{contract.contracts.[0].title}}</a>
+                    <a href="/contracts/{{contract.ocid}}?supplier={{contract.awards.[0].suppliers.[0].id}}">{{contract.contracts.[0].title}}</a>
                   </td>
                   <td class="description-data-amount">{{format_amount contract.contracts.[0].value.amount }} {{contract.contracts.[0].value.currency}}</td>
                   <td class="description-data-date">{{get_year contract.start_date}}</td>
