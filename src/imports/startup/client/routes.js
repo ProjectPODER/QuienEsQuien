@@ -212,3 +212,13 @@ FlowRouter.route('/about/', {
   },
   name: 'acerca_de',
 });
+
+FlowRouter.route('/apis/', {
+  waitOn() {
+    return import('../../ui/pages/apis/apis.js');
+  },
+  action: function () {
+    this.render('ApplicationLayout', 'apis');
+  },
+  name: 'apis',
+});
