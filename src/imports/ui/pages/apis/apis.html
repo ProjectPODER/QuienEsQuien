@@ -1,66 +1,103 @@
 <template name="apis">
     <div class="container apis-template">
         <div class="col-m-12 col-12">
-            <h1>Código, APIs y servicios</h1>
+            <h1>APIs y librerías</h1>
+            <p class="subtitle-apis">QuiénEsQuién.wiki pone a disposición todos los datos y software de forma abierta para su reutilización.</p>
         </div>
         <div class="col-12 col-m-12 card">
-            <div class="col-m-6 col-6 button-link-apifirst">
-                <h3>API de datos de QuienEsQuien.wiki</h3>
-                <p>A través de nuestra API REST abierta podrá consultar de forma automatizada todos los datos disponibles en nuestro sitio web.</p>
-                <a href="https://api.quienesquien.wiki/v1/docs/" class="button-link">VER DOCUMENTACIÓN</a>
-            </div>
-            <div class="col-m-6 col-6">
-                <h3>Cliente de API en Node.js</h3>
-                <p>node-qqw es una librería para consultas asincrónicas a nuestra API REST.</p>
-                <a href="https://github.com/ProjectPODER/node-qqw" class="button-link">VER NODE-QQW</a>
-                <a href="" class="link">Ver código de QuienEsQuienAPI</a>
-            </div>
-        </div>
-        <div class="col-12 col-m-12 flex">
-            <div class="col-m-6 col-6 flex-item">
-                <div class="card mr-card">
-                    <h3>Todos los contratos</h3>
-                    <p>Sitio web para mostrar rankings basados en evaluaciones de contratos, buscar y consultar los contratos públicos, evaluar la transparencia de cada dependencia y ver cómo puede mejorar la contratación en México.</p>
-                    <a href="https://todosloscontratos.mx/" class="button-link">VER SITIO</a>
-                    <a href="https://github.com/ProjectPODER/todos-los-contratos" class="link">Ver código</a>
+            <div class="apis-bg"></div>
+            <div class="card-content">
+                <div class="col-m-6 col-6 button-link-apifirst">
+                    <h3>API de datos de QuienEsQuien.wiki</h3>
+                    <p>A través de nuestra API REST abierta podrá consultar de forma automatizada todos los datos disponibles en nuestro sitio web.</p>
+                    <a href="https://api.quienesquien.wiki/v1/docs/" class="button-link">VER DOCUMENTACIÓN</a>
+                </div>
+                <div class="col-m-6 col-6">
+                    <h3>Cliente de API en Node.js</h3>
+                    <p>node-qqw es una librería para consultas asincrónicas a nuestra API REST.</p>
+                    <a href="https://github.com/ProjectPODER/node-qqw" class="button-link">VER NODE-QQW</a>
+                    <a href="" class="link">Ver código de QuienEsQuienAPI</a>
                 </div>
             </div>
-            <div class="col-m-6 col-6 flex-item">
-                <div class="card ml-card">
+        </div>
+        <div class="col-12 col-m-12">
+            <h2>Software reutilizable</h2>
+        </div>
+        <div class="col-12 col-m-12 card mb-5">
+            <div class="col-12 col-m-12 card-list">
+                <div class="col-m-3 col-3">
+                    <img src="images/apis-tlc.png" alt="">
+                </div>
+                <div class="col-m-7 col-7">
+                    <h3>Todos los contratos</h3>
+                    <p>Sitio web para mostrar rankings basados en evaluaciones de contratos, buscar y consultar los contratos públicos, evaluar la transparencia de cada dependencia y ver cómo puede mejorar la contratación en México.</p>
+                </div>
+                <div class="col-m-2 col-2 text-right">
+                    <a href="https://github.com/ProjectPODER/todos-los-contratos" class="button-link button-link-apilist">Ver código</a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <hr class="hr-apis">
+            </div>
+            <div class="col-12 col-m-12 card-list">
+                <div class="col-m-3 col-3">
+                    <img src="images/apis-kibana.png" alt="">
+                </div>
+                <div class="col-m-7 col-7">
                     <h3>Kibana</h3>
                     <p>Herramienta de análisis de datos que permite cruces, visualizaciones y gráficos de contrataciones públicas, relaciones entre personas y organizaciones. Analizar la captura del estado y la calidad de las contrataciones públicas.</p>
-                    <a href="https://kibana.quienesquien.wiki/" class="button-link">ACCEDE A KIBANA</a>
-                    <a href="https://github.com/ProjectPODER/ManualKibanaOCDS" class="link">Ver manual</a>
-               </div>
+                </div>
+                <div class="col-m-2 col-2 text-right">
+                    <a href="https://github.com/ProjectPODER/ManualKibanaOCDS" class="button-link button-link-apilist">Ver manual</a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <hr class="hr-apis">
+            </div>
+            <div class="col-12 col-m-12 card-list">
+                <div class="col-m-3 col-3">
+                    <img src="images/apis-qqw.png" alt="">
+                </div>
+                <div class="col-m-7 col-7">
+                    <h3>QuienEsQuien</h3>
+                    <p>QuienEsQuien.Wiki es una aplicación para acumular datos sobre personas organizaciones y contratos en América y sus alrededores.</p>
+                </div>
+                <div class="col-m-2 col-2 text-right">
+                    <a href="https://github.com/ProjectPODER/QuienEsQuien" class="button-link button-link-apilist">VER QQW</a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <hr class="hr-apis">
+            </div>
+            <div class="col-12 col-m-12 card-list">
+                <div class="col-m-3 col-3">
+                    <img src="images/apis-tlc.png" alt="">
+                </div>
+                <div class="col-m-7 col-7">
+                    <h3>cnet2ocds</h3>
+                    <p>Convertir documentos COMPRANET a OCDS.</p>
+                </div>
+                <div class="col-m-2 col-2 text-right">
+                    <a href="https://github.com/ProjectPODER/cnet2ocds" class="button-link button-link-apilist">VER CNET2OCDS</a>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <hr class="hr-apis">
+            </div>
+            <div class="col-12 col-m-12 card-list">
+                <div class="col-m-3 col-3">
+                    <img src="images/apis-tlc.png" alt="">
+                </div>
+                <div class="col-m-7 col-7">
+                    <h3>Torre de Control</h3>
+                    <p>Monitoreo de la construcción, financiamiento y viabilidad del Nuevo Aeropuerto Internacional de la Ciudad de México.</p>
+                </div>
+                <div class="col-m-2 col-2 text-right">
+                    <a href="https://github.com/ProjectPODER/torreDeControl" class="button-link button-link-apilist">VER TDC</a>
+                </div>
             </div>
         </div>
-        <div class="col-12 col-m-12 card card-list">
-            <div class="col-m-9 col-9">
-                <h3>QuienEsQuien</h3>
-                <p>QuienEsQuien.Wiki es una aplicación para acumular datos sobre personas organizaciones y contratos en América y sus alrededores.</p>
-            </div>
-            <div class="col-m-3 col-3 text-right" style="margin-top: 3.3rem;">
-                <a href="https://github.com/ProjectPODER/QuienEsQuien" class="button-link button-link-apilist">VER QQW</a>
-            </div>
-        </div>
-        <div class="col-12 col-m-12 card card-list">
-            <div class="col-m-9 col-9">
-                <h3>cnet2ocds</h3>
-                <p>Convertir documentos COMPRANET a OCDS.</p>
-            </div>
-            <div class="col-m-3 col-3 text-right" style="margin-top: 2.6rem;">
-                <a href="https://github.com/ProjectPODER/cnet2ocds" class="button-link button-link-apilist">VER CNET2OCDS</a>
-            </div>
-        </div>
-        <div class="col-12 col-m-12 card card-list mb-5">
-            <div class="col-m-9 col-9">
-                <h3>Torre de Control</h3>
-                <p>Monitoreo de la construcción, financiamiento y viabilidad del Nuevo Aeropuerto Internacional de la Ciudad de México.</p>
-            </div>
-            <div class="col-m-3 col-3 text-right" style="margin-top: 3.3rem;">
-                <a href="https://github.com/ProjectPODER/torreDeControl" class="button-link button-link-apilist">VER TDC</a>
-            </div>
-        </div>
+    
         <div class="col-m-12 col-12 mb-3">
             <h1>Últimas entradas al blog</h1>
             <ul>
