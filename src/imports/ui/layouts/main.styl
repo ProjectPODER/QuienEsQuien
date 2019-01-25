@@ -984,6 +984,10 @@ button.reset-filters
   -webkit-flex-flow row wrap
   flex-flow row wrap
 
+.flex-item
+  display -webkit-grid
+  display grid
+     
 .description-data-subtitle
   font-size 1.3rem
   margin-bottom 2rem
@@ -1516,17 +1520,6 @@ hr
 .personas-content
   margin-left 25%
 
-.flex
-  overflow hidden
-  display -webkit-flex
-  display flex
-  -webkit-flex-flow row wrap
-  flex-flow row wrap
-  
-  .flex-item
-     display -webkit-flex
-     display flex
-
 .apis-template
   h2
     color: #150b58;
@@ -1574,6 +1567,7 @@ hr
     height 460px
     background-size cover
     background-repeat no-repeat
+    background-position center top
   .hr-apis
     background-color #bec8ff
   .apis-kibana
@@ -1590,7 +1584,27 @@ hr
     bottom 0
   .card-software
     padding-bottom 0
-
+  .card-post-blog
+    padding 0.5rem
+  .content-post-blog
+    text-align center !important
+    background-color #f7f7f7
+    border solid 1px rgba(222, 222, 222, 0.3)
+    padding 1rem
+    h4
+      margin 0
+  .button-link-status-container
+    text-align right
+    margin-top 40px
+    margin-bottom 40px
+    .button-link-status
+      font-weight: normal;
+      border solid 1px #2B00F7
+      color #2B00F7
+      background-color transparent
+      &:hover
+        color #ffffff
+        background-color #2B00F7
 .row
   &::after
     content ""
@@ -1822,6 +1836,9 @@ hr
     position relative !important
     margin-top 1rem
   .apis-template
+    .button-link-status-container
+      text-align center
+      margin-top 0
     h1
       font-size 2rem
     .card 
