@@ -1,6 +1,6 @@
 {
   "name": "quienesquien.wiki",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "private": true,
   "scripts": {
     "start": "MAIL_URL=localhost,MONGO_URL=mongodb://localhost:27017/meteor meteor run",
